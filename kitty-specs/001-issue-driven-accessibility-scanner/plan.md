@@ -1,102 +1,77 @@
-# Implementation Plan: [FEATURE]
-*Path: [templates/plan-template.md](templates/plan-template.md)*
+# Implementation Plan: Issue-Driven Accessibility Scanner
 
-
-**Branch**: `[###-feature-name]` | **Date**: [DATE] | **Spec**: [link]
-**Input**: Feature specification from `/kitty-specs/[###-feature-name]/spec.md`
-
-**Note**: This template is filled in by the `/spec-kitty.plan` command. See `src/specify_cli/missions/software-dev/command-templates/plan.md` for the execution workflow.
-
-The planner will not begin until all planning questions have been answered—capture those answers in this document before progressing to later phases.
+**Branch**: `001-issue-driven-accessibility-scanner` | **Date**: 2026-02-20 | **Spec**: `kitty-specs/001-issue-driven-accessibility-scanner/spec.md`
+**Input**: Feature specification from `/kitty-specs/001-issue-driven-accessibility-scanner/spec.md`
 
 ## Summary
 
-[Extract from feature spec: primary requirement + technical approach from research]
+Build a GitHub-native PoC that accepts up to 100 public URLs from a GitHub Pages form, creates a scan request issue, runs both ALFA and axe in GitHub Actions, and publishes public comparison reports to GitHub Pages. The implementation is Node.js-first to maximize scanner compatibility and simplify side-by-side output normalization.
 
 ## Technical Context
 
-<!--
-  ACTION REQUIRED: Replace the content in this section with the technical details
-  for the project. The structure here is presented in advisory capacity to guide
-  the iteration process.
--->
-
-**Language/Version**: [e.g., Python 3.11, Swift 5.9, Rust 1.75 or NEEDS CLARIFICATION]  
-**Primary Dependencies**: [e.g., FastAPI, UIKit, LLVM or NEEDS CLARIFICATION]  
-**Storage**: [if applicable, e.g., PostgreSQL, CoreData, files or N/A]  
-**Testing**: [e.g., pytest, XCTest, cargo test or NEEDS CLARIFICATION]  
-**Target Platform**: [e.g., Linux server, iOS 15+, WASM or NEEDS CLARIFICATION]
-**Project Type**: [single/web/mobile - determines source structure]  
-**Performance Goals**: [domain-specific, e.g., 1000 req/s, 10k lines/sec, 60 fps or NEEDS CLARIFICATION]  
-**Constraints**: [domain-specific, e.g., <200ms p95, <100MB memory, offline-capable or NEEDS CLARIFICATION]  
-**Scale/Scope**: [domain-specific, e.g., 10k users, 1M LOC, 50 screens or NEEDS CLARIFICATION]
+**Language/Version**: Node.js 20.x (GitHub Actions runner)  
+**Primary Dependencies**: GitHub Actions workflows, ALFA scanner packages, axe scanner tooling, lightweight Node report-normalization utilities  
+**Storage**: Repository artifacts + generated static report files published via GitHub Pages  
+**Testing**: Node test runner + workflow-level validation scenarios in Actions  
+**Target Platform**: GitHub Actions (Ubuntu runners) and GitHub Pages (static hosting)
+**Project Type**: Web automation + static report publishing  
+**Performance Goals**: Process up to 100 URLs per request; complete most dual-tool scans within 30 minutes  
+**Constraints**: Public reports only; authenticated GitHub submitters; block private/internal URLs; preserve redirect trails in outputs  
+**Scale/Scope**: PoC-quality single-repo implementation focused on reliable automation and report comparability
 
 ## Constitution Check
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+- No constitution file found at `.kittify/memory/constitution.md`; constitution gate is skipped for this feature.
+- Re-check after Phase 1 design: still skipped unless constitution is added before implementation.
 
 ## Project Structure
 
 ### Documentation (this feature)
 
 ```
-kitty-specs/[###-feature]/
-├── plan.md              # This file (/spec-kitty.plan command output)
-├── research.md          # Phase 0 output (/spec-kitty.plan command)
-├── data-model.md        # Phase 1 output (/spec-kitty.plan command)
-├── quickstart.md        # Phase 1 output (/spec-kitty.plan command)
-├── contracts/           # Phase 1 output (/spec-kitty.plan command)
-└── tasks.md             # Phase 2 output (/spec-kitty.tasks command - NOT created by /spec-kitty.plan)
+kitty-specs/001-issue-driven-accessibility-scanner/
+├── plan.md
+├── research.md
+├── data-model.md
+├── quickstart.md
+├── contracts/
+│   └── openapi.yaml
+└── tasks.md
 ```
 
 ### Source Code (repository root)
-<!--
-  ACTION REQUIRED: Replace the placeholder tree below with the concrete layout
-  for this feature. Delete unused options and expand the chosen structure with
-  real paths (e.g., apps/admin, packages/something). The delivered plan must
-  not include Option labels.
--->
 
 ```
-# [REMOVE IF UNUSED] Option 1: Single project (DEFAULT)
-src/
-├── models/
-├── services/
-├── cli/
-└── lib/
+.github/
+└── workflows/
+    ├── scan-request.yml
+    └── publish-pages.yml
+
+pages/
+├── index.html
+├── submit.js
+└── assets/
+
+scanner/
+├── run-scan.mjs
+├── parse-issue.mjs
+├── validate-targets.mjs
+├── compare-results.mjs
+└── schemas/
+
+reports/
+├── index.json
+└── runs/
 
 tests/
-├── contract/
+├── unit/
 ├── integration/
-└── unit/
-
-# [REMOVE IF UNUSED] Option 2: Web application (when "frontend" + "backend" detected)
-backend/
-├── src/
-│   ├── models/
-│   ├── services/
-│   └── api/
-└── tests/
-
-frontend/
-├── src/
-│   ├── components/
-│   ├── pages/
-│   └── services/
-└── tests/
-
-# [REMOVE IF UNUSED] Option 3: Mobile + API (when "iOS/Android" detected)
-api/
-└── [same as backend above]
-
-ios/ or android/
-└── [platform-specific structure: feature modules, UI flows, platform tests]
+└── fixtures/
 ```
 
-**Structure Decision**: [Document the selected structure and reference the real
-directories captured above]
+**Structure Decision**: Single-repo Node automation plus static Pages assets. Workflow logic lives in `.github/workflows/`, scanner orchestration in `scanner/`, and published artifacts in `reports/` and `pages/`.
 
 ## Complexity Tracking
 
@@ -104,5 +79,4 @@ directories captured above]
 
 | Violation | Why Needed | Simpler Alternative Rejected Because |
 |-----------|------------|-------------------------------------|
-| [e.g., 4th project] | [current need] | [why 3 projects insufficient] |
-| [e.g., Repository pattern] | [specific problem] | [why direct DB access insufficient] |
+| None | N/A | N/A |

@@ -1,0 +1,10 @@
+{
+  "feature_number": "001",
+  "slug": "001-issue-driven-accessibility-scanner",
+  "friendly_name": "Issue-Driven Accessibility Scanner",
+  "mission": "software-dev",
+  "source_description": "I want to explore using https://github.com/Siteimprove/alfa with GitHub Pages and GitHub Actions. It is similar to axe, but I would like to have a comparison. Possibly it could build on approaches like https://github.com/mgifford/o-hat-scanner. I would be interested in seeing if there are other ways to run scans using alfa too. Could GitHub Pages run a scan of a list of URLs and provide a list of results? a working proof-of-concept GitHub Actions + Pages scanner for a URL list. Looking to see what types of report alfa provides which might be different than axe results. Could they be generated from a list put into a GitHub Pages web form? Scan these this list of 100 CSV URLs (one per line or comma separated). I like this approach of tying it into opening a GitHub Issue that Actions watches.",
+  "created_at": "2026-02-20T19:51:15Z",
+  "target_branch": "main",
+  "vcs": "git"
+}

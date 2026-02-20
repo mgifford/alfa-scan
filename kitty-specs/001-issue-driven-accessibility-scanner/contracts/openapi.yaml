@@ -1,0 +1,212 @@
+openapi: 3.0.3
+info:
+  title: Issue-Driven Accessibility Scanner Contract
+  version: 0.1.0
+  description: Logical API contract for request intake, scan execution callback, and report retrieval.
+servers:
+  - url: https://example.github.io
+paths:
+  /scan-requests:
+    post:
+      summary: Submit a scan request (modeled form submission)
+      operationId: submitScanRequest
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScanRequestPayload'
+      responses:
+        '202':
+          description: Request accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScanRequestAccepted'
+        '400':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /scan-runs/{runId}:
+    get:
+      summary: Get normalized run summary
+      operationId: getScanRun
+      parameters:
+        - in: path
+          name: runId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Run summary
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScanRunSummary'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /scan-runs/{runId}/report:
+    get:
+      summary: Get public comparison report metadata
+      operationId: getComparisonReport
+      parameters:
+        - in: path
+          name: runId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Comparison report
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComparisonReport'
+components:
+  schemas:
+    ScanRequestPayload:
+      type: object
+      required:
+        - requester
+        - urls
+      properties:
+        requester:
+          type: string
+          description: Authenticated GitHub login
+        sourceIssueNumber:
+          type: integer
+        sourceIssueUrl:
+          type: string
+          format: uri
+        urls:
+          type: array
+          minItems: 1
+          maxItems: 100
+          items:
+            type: string
+            format: uri
+        inputMode:
+          type: string
+          enum: [line, csv, mixed]
+    ScanRequestAccepted:
+      type: object
+      required:
+        - requestId
+        - status
+      properties:
+        requestId:
+          type: string
+        status:
+          type: string
+          enum: [accepted]
+        message:
+          type: string
+    ScanRunSummary:
+      type: object
+      required:
+        - runId
+        - requestId
+        - status
+      properties:
+        runId:
+          type: string
+        requestId:
+          type: string
+        status:
+          type: string
+          enum: [running, completed, partial, failed]
+        startedAt:
+          type: string
+          format: date-time
+        completedAt:
+          type: string
+          format: date-time
+          nullable: true
+        totals:
+          type: object
+          additionalProperties:
+            type: integer
+    ComparisonReport:
+      type: object
+      required:
+        - reportId
+        - runId
+        - publishedAt
+        - publicUrl
+      properties:
+        reportId:
+          type: string
+        runId:
+          type: string
+        publishedAt:
+          type: string
+          format: date-time
+        publicUrl:
+          type: string
+          format: uri
+        issueReference:
+          type: object
+          properties:
+            issueNumber:
+              type: integer
+            issueUrl:
+              type: string
+              format: uri
+        perUrlComparisons:
+          type: array
+          items:
+            $ref: '#/components/schemas/PerUrlComparison'
+    PerUrlComparison:
+      type: object
+      required:
+        - submittedUrl
+        - finalUrl
+        - alfa
+        - axe
+      properties:
+        submittedUrl:
+          type: string
+          format: uri
+        finalUrl:
+          type: string
+          format: uri
+        redirected:
+          type: boolean
+        alfa:
+          $ref: '#/components/schemas/ToolSummary'
+        axe:
+          $ref: '#/components/schemas/ToolSummary'
+    ToolSummary:
+      type: object
+      required:
+        - status
+      properties:
+        status:
+          type: string
+          enum: [success, failed, skipped]
+        violations:
+          type: integer
+        warnings:
+          type: integer
+        inapplicable:
+          type: integer
+        rawOutputPath:
+          type: string
+    ErrorResponse:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+        details:
+          type: array
+          items:
+            type: string
