@@ -17,6 +17,21 @@ function extractSection(body, sectionName) {
   return match ? match[1].trim() : "";
 }
 
+function extractScanTitle(issueTitle) {
+  const title = issueTitle ?? "";
+  const match = title.match(/^\s*SCAN:\s*(.+?)\s*$/i);
+  if (!match) {
+    return {
+      isScanIssue: false,
+      scanTitle: ""
+    };
+  }
+  return {
+    isScanIssue: true,
+    scanTitle: match[1].trim()
+  };
+}
+
 export function parseScanIssue(issueEvent) {
   if (!issueEvent?.issue) {
     return {
@@ -28,6 +43,8 @@ export function parseScanIssue(issueEvent) {
 
   const issue = issueEvent.issue;
   const body = issue.body ?? "";
+  const issueTitle = issue.title ?? "";
+  const titleInfo = extractScanTitle(issueTitle);
   const urlsSection = extractSection(body, "URLs");
   const fallbackUrls = splitUrls(body).filter((value) => value.startsWith("http://") || value.startsWith("https://"));
   const requestedUrls = splitUrls(urlsSection).length > 0 ? splitUrls(urlsSection) : fallbackUrls;
@@ -40,6 +57,8 @@ export function parseScanIssue(issueEvent) {
     submittedBy: issue.user?.login ?? "unknown",
     submittedAt: issue.created_at ?? new Date().toISOString(),
     requestLabel: extractSection(body, "Request Label") || "scan-request",
+    issueTitle,
+    scanTitle: titleInfo.scanTitle,
     requestedUrls
   };
 
@@ -47,7 +66,8 @@ export function parseScanIssue(issueEvent) {
   return {
     ok: validation.ok,
     errors: validation.errors,
-    value: validation.ok ? request : null
+    value: validation.ok ? request : null,
+    isScanIssue: titleInfo.isScanIssue
   };
 }
 

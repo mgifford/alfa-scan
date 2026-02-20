@@ -5,21 +5,23 @@ on:
     types: [opened, edited, reopened]
 
 permissions:
-  contents: read
+  contents: write
   issues: write
 
 concurrency:
   group: scan-request-${{ github.event.issue.number }}
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
-  parse-and-validate-request:
-    if: contains(github.event.issue.title, '[scan-request]') || contains(github.event.issue.body, '# URLs')
+  run-scan-request:
+    if: startsWith(github.event.issue.title, 'SCAN:')
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -31,29 +33,101 @@ jobs:
           mkdir -p .tmp
           printf '%s' '${{ toJson(github.event) }}' > .tmp/issue-event.json
 
-      - name: Parse issue payload
-        run: node scanner/parse-issue.mjs .tmp/issue-event.json > .tmp/parsed-request.json
-
-      - name: Validate target URL policy
+      - name: Run issue scan
         run: |
-          node -e "
-          import { readFileSync } from 'node:fs';
-          import { validateTargets } from './scanner/validate-targets.mjs';
+          mkdir -p .scan-output
+          node scanner/run-scan.mjs .tmp/issue-event.json .scan-output > .scan-output/meta.json
 
-          const parsed = JSON.parse(readFileSync('.tmp/parsed-request.json', 'utf8'));
-          if (!parsed.ok) {
-            console.error(JSON.stringify(parsed, null, 2));
-            process.exit(1);
-          }
+      - name: Read scan metadata
+        id: meta
+        run: |
+          node --input-type=module <<'NODE'
+          import { appendFileSync, readFileSync } from 'node:fs';
 
-          const validation = validateTargets(parsed.value.requestedUrls);
-          console.log(JSON.stringify(validation, null, 2));
+          const meta = JSON.parse(readFileSync('.scan-output/meta.json', 'utf8'));
+          const issueNumber = Number(process.env.ISSUE_NUMBER);
+          const stamp = new Date().toISOString().replace(/[:.]/g, '-');
+          const reportDir = `reports/issues/issue-${issueNumber}/${stamp}`;
+          const summaryPath = `${reportDir}/report.json`;
+          const markdownPath = `${reportDir}/report.md`;
 
-          if (validation.accepted.length === 0) {
-            console.error('No valid public URLs available after policy validation.');
-            process.exit(1);
-          }
-          "
+          const output = process.env.GITHUB_OUTPUT;
+          const lines = [
+            `accepted_count=${meta.acceptedCount ?? 0}`,
+            `rejected_count=${meta.rejectedCount ?? 0}`,
+            `scan_title=${(meta.scanTitle ?? '').replace(/\n/g, ' ')}`,
+            `report_dir=${reportDir}`,
+            `summary_path=${summaryPath}`,
+            `markdown_path=${markdownPath}`,
+            `stamp=${stamp}`
+          ].join('\n') + '\n';
 
-      - name: Workflow shell complete
-        run: echo "WP01 workflow shell parsed and validated scan request successfully."
+          appendFileSync(output, lines, 'utf8');
+          NODE
+        env:
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+
+      - name: Persist reports into repository
+        run: |
+          mkdir -p "${{ steps.meta.outputs.report_dir }}"
+          cp .scan-output/report.json "${{ steps.meta.outputs.summary_path }}"
+          cp .scan-output/report.md "${{ steps.meta.outputs.markdown_path }}"
+
+      - name: Commit and push report artifacts
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "${{ steps.meta.outputs.report_dir }}"
+          if git diff --cached --quiet; then
+            echo "No report changes to commit."
+          else
+            git commit -m "chore(scan): issue #${{ github.event.issue.number }} ${{ steps.meta.outputs.scan_title }}"
+            git push origin HEAD:main
+          fi
+
+      - name: Comment report link
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issueNumber = context.payload.issue.number;
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const markdownPath = process.env.MARKDOWN_PATH;
+            const acceptedCount = process.env.ACCEPTED_COUNT;
+            const rejectedCount = process.env.REJECTED_COUNT;
+            const pagesUrl = `https://${owner}.github.io/${repo}/${markdownPath}`;
+            const blobUrl = `https://github.com/${owner}/${repo}/blob/main/${markdownPath}`;
+
+            const body = [
+              `Scan complete for **${process.env.SCAN_TITLE || context.payload.issue.title}**.`,
+              "",
+              `- Accepted URLs scanned: ${acceptedCount}`,
+              `- Rejected URLs: ${rejectedCount}`,
+              "",
+              `Report (Pages): ${pagesUrl}`,
+              `Fallback (GitHub): ${blobUrl}`
+            ].join("\n");
+
+            await github.rest.issues.createComment({
+              owner,
+              repo,
+              issue_number: issueNumber,
+              body
+            });
+        env:
+          MARKDOWN_PATH: ${{ steps.meta.outputs.markdown_path }}
+          ACCEPTED_COUNT: ${{ steps.meta.outputs.accepted_count }}
+          REJECTED_COUNT: ${{ steps.meta.outputs.rejected_count }}
+          SCAN_TITLE: ${{ steps.meta.outputs.scan_title }}
+
+      - name: Close issue after scan
+        if: ${{ steps.meta.outputs.accepted_count != '0' }}
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.issue.number,
+              state: 'closed'
+            });

@@ -5,9 +5,10 @@
   "type": "module",
   "scripts": {
     "test": "node --test tests/unit/*.test.mjs",
-    "lint": "node --check scanner/parse-issue.mjs && node --check scanner/validate-targets.mjs",
+    "lint": "node --check scanner/parse-issue.mjs && node --check scanner/validate-targets.mjs && node --check scanner/run-scan.mjs",
     "run:parse": "node scanner/parse-issue.mjs",
-    "run:validate": "node scanner/validate-targets.mjs"
+    "run:validate": "node scanner/validate-targets.mjs",
+    "run:scan": "node scanner/run-scan.mjs"
   },
   "engines": {
     "node": ">=20"

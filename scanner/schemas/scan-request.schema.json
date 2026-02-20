@@ -35,6 +35,12 @@
     "requestLabel": {
       "type": "string"
     },
+    "issueTitle": {
+      "type": "string"
+    },
+    "scanTitle": {
+      "type": "string"
+    },
     "requestedUrls": {
       "type": "array",
       "minItems": 1,
