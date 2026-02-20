@@ -30,11 +30,11 @@
 
 ### Included Subtasks
 
-- [ ] T001 Initialize scanner project structure and package scripts in `scanner/` and `tests/`.
-- [ ] T002 Define canonical scan request schema and parser contract for issue body extraction.
-- [ ] T003 Implement reusable URL validation and private/internal address blocking utility.
-- [ ] T004 Create baseline GitHub Actions workflow skeleton with required permissions and concurrency settings.
-- [ ] T005 Add unit tests for schema parsing and URL validation guardrails.
+- [x] T001 Initialize scanner project structure and package scripts in `scanner/` and `tests/`.
+- [x] T002 Define canonical scan request schema and parser contract for issue body extraction.
+- [x] T003 Implement reusable URL validation and private/internal address blocking utility.
+- [x] T004 Create baseline GitHub Actions workflow skeleton with required permissions and concurrency settings.
+- [x] T005 Add unit tests for schema parsing and URL validation guardrails.
 
 ### Implementation Notes
 
