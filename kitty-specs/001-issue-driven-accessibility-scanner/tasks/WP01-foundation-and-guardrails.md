@@ -1,7 +1,7 @@
 ---
 work_package_id: WP01
 title: Foundation and Guardrails
-lane: "doing"
+lane: "for_review"
 dependencies: []
 base_branch: main
 base_commit: ffedb3ab4ad2eeaacfcf74bc2e67b8dd1afbf0fe
@@ -129,3 +129,4 @@ history:
 
 - 2026-02-20T20:28:38Z - system - lane=planned - Prompt created.
 - 2026-02-20T20:40:46Z – copilot – shell_pid=12579 – lane=doing – Assigned agent via workflow command
+- 2026-02-20T21:03:07Z – copilot – shell_pid=12579 – lane=for_review – Ready for review: parser, URL guardrails, workflow shell, and tests implemented
