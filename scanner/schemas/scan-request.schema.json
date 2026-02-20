@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.github.io/schemas/scan-request.schema.json",
+  "title": "ScanRequest",
+  "type": "object",
+  "required": [
+    "requestId",
+    "issueNumber",
+    "issueUrl",
+    "submittedBy",
+    "submittedAt",
+    "requestedUrls"
+  ],
+  "properties": {
+    "requestId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "issueNumber": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "issueUrl": {
+      "type": "string",
+      "format": "uri"
+    },
+    "submittedBy": {
+      "type": "string",
+      "minLength": 1
+    },
+    "submittedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "requestLabel": {
+      "type": "string"
+    },
+    "requestedUrls": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 100,
+      "items": {
+        "type": "string",
+        "format": "uri",
+        "pattern": "^https?://"
+      }
+    }
+  },
+  "additionalProperties": false
+}

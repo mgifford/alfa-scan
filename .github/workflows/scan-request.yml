@@ -1,0 +1,59 @@
+name: Scan Request
+
+on:
+  issues:
+    types: [opened, edited, reopened]
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: scan-request-${{ github.event.issue.number }}
+  cancel-in-progress: false
+
+jobs:
+  parse-and-validate-request:
+    if: contains(github.event.issue.title, '[scan-request]') || contains(github.event.issue.body, '# URLs')
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Persist event payload
+        run: |
+          mkdir -p .tmp
+          printf '%s' '${{ toJson(github.event) }}' > .tmp/issue-event.json
+
+      - name: Parse issue payload
+        run: node scanner/parse-issue.mjs .tmp/issue-event.json > .tmp/parsed-request.json
+
+      - name: Validate target URL policy
+        run: |
+          node -e "
+          import { readFileSync } from 'node:fs';
+          import { validateTargets } from './scanner/validate-targets.mjs';
+
+          const parsed = JSON.parse(readFileSync('.tmp/parsed-request.json', 'utf8'));
+          if (!parsed.ok) {
+            console.error(JSON.stringify(parsed, null, 2));
+            process.exit(1);
+          }
+
+          const validation = validateTargets(parsed.value.requestedUrls);
+          console.log(JSON.stringify(validation, null, 2));
+
+          if (validation.accepted.length === 0) {
+            console.error('No valid public URLs available after policy validation.');
+            process.exit(1);
+          }
+          "
+
+      - name: Workflow shell complete
+        run: echo "WP01 workflow shell parsed and validated scan request successfully."

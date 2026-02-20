@@ -1,0 +1,11 @@
+{
+  "issue": {
+    "number": 42,
+    "html_url": "https://github.com/example/repo/issues/42",
+    "created_at": "2026-02-20T20:00:00Z",
+    "user": {
+      "login": "octocat"
+    },
+    "body": "# Request Label\nweekly-check\n\n# URLs\nhttps://example.com\nhttps://www.w3.org/WAI/\nhttps://github.com"
+  }
+}
