@@ -7,6 +7,9 @@ import { validateTargets } from "./validate-targets.mjs";
 
 const alfaCliPath = fileURLToPath(new URL("../node_modules/@siteimprove/alfa-cli/bin/alfa.js", import.meta.url));
 
+// Maximum number of failures to show per rule in detailed report
+const MAX_FAILURES_PER_RULE = 5;
+
 function runCommand(command, args, timeoutMs = 120000) {
   return new Promise((resolve) => {
     const child = spawn(command, args, {
@@ -62,6 +65,65 @@ function normalizeRuleReference(rule) {
   );
 }
 
+function extractXPath(element) {
+  if (!element || element.type !== "element") {
+    return null;
+  }
+  
+  // Note: This is a simplified XPath implementation that provides basic element identification.
+  // A more robust implementation would include parent hierarchy and element position for unique identification.
+  const name = element.name || "unknown";
+  return `//${name}`;
+}
+
+function extractHtmlSnippet(target) {
+  if (!target || target.type !== "element") {
+    return null;
+  }
+  
+  const attrs = [];
+  if (Array.isArray(target.attributes)) {
+    for (const attr of target.attributes) {
+      if (attr && attr.name && attr.value !== undefined) {
+        attrs.push(`${attr.name}="${attr.value}"`);
+      }
+    }
+  }
+  
+  const attrStr = attrs.length > 0 ? " " + attrs.join(" ") : "";
+  const hasChildren = Array.isArray(target.children) && target.children.length > 0;
+  
+  if (!hasChildren) {
+    return `<${target.name}${attrStr} />`;
+  }
+  
+  // For elements with text content, show it
+  if (target.children.length === 1 && target.children[0].type === "text") {
+    const text = target.children[0].data || "";
+    const truncated = text.length > 50 ? text.substring(0, 50) + "..." : text;
+    return `<${target.name}${attrStr}>${truncated}</${target.name}>`;
+  }
+  
+  return `<${target.name}${attrStr}>...</${target.name}>`;
+}
+
+function extractFailureMessage(expectations) {
+  if (!Array.isArray(expectations) || expectations.length === 0) {
+    return null;
+  }
+  
+  for (const expectation of expectations) {
+    if (Array.isArray(expectation) && expectation.length >= 2) {
+      const result = expectation[1];
+      if (result && result.type === "err" && result.error && result.error.message) {
+        return result.error.message;
+      }
+    }
+  }
+  
+  return null;
+}
+
 async function runAlfaAudit(url) {
   const args = [
     alfaCliPath,
@@ -85,6 +147,7 @@ async function runAlfaAudit(url) {
     },
     failedRules: [],
     passedRules: [],
+    failures: [],
     outcomeCount: 0
   };
 
@@ -121,6 +184,7 @@ async function runAlfaAudit(url) {
     cantTell: 0,
     inapplicable: 0
   };
+  const failures = [];
 
   for (const outcome of outcomes) {
     const value = outcome?.outcome;
@@ -132,7 +196,16 @@ async function runAlfaAudit(url) {
 
     if (value === "failed") {
       counts.failed += 1;
-      failedRules.add(normalizeRuleReference(outcome.rule));
+      const ruleUri = normalizeRuleReference(outcome.rule);
+      failedRules.add(ruleUri);
+      
+      // Capture detailed failure information
+      failures.push({
+        rule: ruleUri,
+        xpath: extractXPath(outcome.target),
+        html: extractHtmlSnippet(outcome.target),
+        message: extractFailureMessage(outcome.expectations)
+      });
       continue;
     }
 
@@ -152,6 +225,7 @@ async function runAlfaAudit(url) {
     counts,
     failedRules: [...failedRules].sort(),
     passedRules: [...passedRules].sort(),
+    failures,
     outcomeCount: outcomes.length
   };
 }
@@ -217,6 +291,7 @@ async function scanOneUrl(target) {
         },
         failedRules: [],
         passedRules: [],
+        failures: [],
         outcomeCount: 0
       }
     };
@@ -245,7 +320,6 @@ function toCsv(summary) {
     "alfa_cant_tell",
     "alfa_inapplicable",
     "alfa_failed_rules",
-    "alfa_passed_rules",
     "alfa_error",
     "fetch_error",
     "page_title"
@@ -276,7 +350,6 @@ function toCsv(summary) {
       alfa.counts.cantTell,
       alfa.counts.inapplicable,
       alfa.failedRules.join(";"),
-      alfa.passedRules.join(";"),
       alfa.error ?? "",
       result.error ?? "",
       result.pageTitle ?? ""
@@ -322,6 +395,54 @@ function toMarkdownReport(summary) {
 
     if (result.alfa.failedRules.length > 0) {
       lines.push(`|  |  |  |  |  |  |  |  | Failed rules: ${escapeMarkdown(result.alfa.failedRules.join(", "))} |`);
+    }
+  }
+  lines.push("");
+
+  // Add detailed failure information section
+  lines.push("## Detailed Failure Information");
+  lines.push("");
+  
+  for (const result of summary.results) {
+    if (!result.alfa.failures || result.alfa.failures.length === 0) {
+      continue;
+    }
+    
+    lines.push(`### ${escapeMarkdown(result.submittedUrl)}`);
+    lines.push("");
+    
+    // Group failures by rule
+    const failuresByRule = new Map();
+    for (const failure of result.alfa.failures) {
+      if (!failuresByRule.has(failure.rule)) {
+        failuresByRule.set(failure.rule, []);
+      }
+      failuresByRule.get(failure.rule).push(failure);
+    }
+    
+    for (const [rule, failures] of failuresByRule) {
+      lines.push(`#### Rule: [${rule}](${rule})`);
+      lines.push("");
+      
+      for (let i = 0; i < failures.length && i < MAX_FAILURES_PER_RULE; i++) {
+        const failure = failures[i];
+        lines.push(`**Failure ${i + 1}:**`);
+        if (failure.message) {
+          lines.push(`- Message: ${escapeMarkdown(failure.message)}`);
+        }
+        if (failure.html) {
+          lines.push(`- HTML: \`${escapeMarkdown(failure.html)}\``);
+        }
+        if (failure.xpath) {
+          lines.push(`- XPath: \`${escapeMarkdown(failure.xpath)}\``);
+        }
+        lines.push("");
+      }
+      
+      if (failures.length > MAX_FAILURES_PER_RULE) {
+        lines.push(`*... and ${failures.length - MAX_FAILURES_PER_RULE} more failures for this rule*`);
+        lines.push("");
+      }
     }
   }
 
