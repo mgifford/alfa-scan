@@ -223,7 +223,7 @@ async function scanOneUrl(target) {
   }
 }
 
-function escapeMarkdown(value) {
+export function escapeMarkdown(value) {
   return String(value ?? "")
     .replace(/\|/g, "\\|")
     .replace(/\n/g, " ");
@@ -286,12 +286,12 @@ function toCsv(summary) {
   return [header.join(","), ...rows].join("\n") + "\n";
 }
 
-function extractRuleId(ruleUrl) {
+export function extractRuleId(ruleUrl) {
   const match = ruleUrl.match(/sia-r(\d+)$/);
   return match ? match[1] : null;
 }
 
-function toMarkdownReport(summary) {
+export function toMarkdownReport(summary) {
   const lines = [];
   lines.push(`# Scan Report: ${summary.scanTitle || `Issue #${summary.issueNumber}`}`);
   lines.push("");
@@ -476,7 +476,10 @@ async function main() {
   }, null, 2));
 }
 
-main().catch((error) => {
-  console.error(error);
-  process.exit(1);
-});
+// Only run main if this file is executed directly, not when imported
+if (import.meta.url === `file://${process.argv[1]}`) {
+  main().catch((error) => {
+    console.error(error);
+    process.exit(1);
+  });
+}
