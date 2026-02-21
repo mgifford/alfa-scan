@@ -190,7 +190,7 @@ jobs:
                     }
                     
                     if (attempt < 3) {
-                      const delay = attempt * 2000; // 2s, 4s
+                      const delay = attempt * 2000; // Wait 2s before 2nd attempt, 4s before 3rd attempt
                       console.log(`Waiting ${delay}ms before retry...`);
                       await new Promise(resolve => setTimeout(resolve, delay));
                     }
