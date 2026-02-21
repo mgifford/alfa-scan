@@ -54,7 +54,7 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const { execSync } = require('child_process');
+            const { execSync, spawnSync } = require('child_process');
             const fs = require('fs');
             const path = require('path');
 
@@ -67,8 +67,20 @@ jobs:
 
             console.log(`Processing ${issueNumbers.length} issues: ${issueNumbers.join(', ')}`);
 
+            const defaultBranch = context.payload.repository.default_branch || 'main';
+            console.log(`Using default branch: ${defaultBranch}`);
+
             for (const issueNumber of issueNumbers) {
               console.log(`\n=== Processing issue #${issueNumber} ===`);
+
+              // Validate issue number is a positive integer
+              if (!Number.isInteger(issueNumber) || issueNumber <= 0) {
+                console.error(`Invalid issue number: ${issueNumber}`);
+                continue;
+              }
+
+              const eventPath = `.tmp/issue-${issueNumber}-event.json`;
+              const scanOutputDir = `.scan-output-${issueNumber}`;
 
               try {
                 // Fetch the issue details
@@ -86,25 +98,32 @@ jobs:
 
                 // Create temp directory and event file
                 fs.mkdirSync('.tmp', { recursive: true });
-                const eventPath = `.tmp/issue-${issueNumber}-event.json`;
                 fs.writeFileSync(eventPath, JSON.stringify(eventPayload, null, 2));
 
                 // Create scan output directory
-                const scanOutputDir = `.scan-output-${issueNumber}`;
                 fs.mkdirSync(scanOutputDir, { recursive: true });
 
-                // Run the scan
+                // Run the scan using spawn for better security
                 console.log(`Running scan for issue #${issueNumber}...`);
-                const scanResult = execSync(
-                  `node scanner/run-scan.mjs ${eventPath} ${scanOutputDir}`,
+                const scanProcess = spawnSync(
+                  process.execPath,
+                  ['scanner/run-scan.mjs', eventPath, scanOutputDir],
                   { encoding: 'utf8', maxBuffer: 10 * 1024 * 1024 }
                 );
 
+                if (scanProcess.error) {
+                  throw new Error(`Failed to run scan: ${scanProcess.error.message}`);
+                }
+
+                const scanResult = scanProcess.stdout;
                 const meta = JSON.parse(scanResult);
                 console.log(`Scan completed:`, meta);
 
                 if (meta.skipped) {
                   console.log(`Issue #${issueNumber} was skipped: ${meta.reason}`);
+                  // Clean up temporary files
+                  fs.rmSync(eventPath, { force: true });
+                  fs.rmSync(scanOutputDir, { recursive: true, force: true });
                   continue;
                 }
 
@@ -121,14 +140,19 @@ jobs:
                 fs.copyFileSync(`${scanOutputDir}/report.md`, markdownPath);
                 fs.copyFileSync(`${scanOutputDir}/report.csv`, csvPath);
 
+                // Clean up temporary files
+                fs.rmSync(eventPath, { force: true });
+                fs.rmSync(scanOutputDir, { recursive: true, force: true });
+
                 // Commit and push the report
                 execSync(`git config user.name "github-actions[bot]"`);
                 execSync(`git config user.email "41898282+github-actions[bot]@users.noreply.github.com"`);
                 execSync(`git add "${reportDir}"`);
 
                 try {
-                  execSync(`git commit -m "chore(scan): scheduled scan for issue #${issueNumber} ${meta.scanTitle}"`);
-                  execSync('git push origin HEAD:main');
+                  const commitMessage = `chore(scan): scheduled scan for issue #${issueNumber}`;
+                  execSync(`git commit -m "${commitMessage}"`);
+                  execSync(`git push origin HEAD:${defaultBranch}`);
                   console.log(`Report committed and pushed for issue #${issueNumber}`);
                 } catch (e) {
                   if (e.message.includes('nothing to commit')) {
@@ -143,8 +167,8 @@ jobs:
                 const repo = context.repo.repo;
                 const pagesUrl = `https://${owner}.github.io/${repo}/${markdownPath}`;
                 const csvPagesUrl = `https://${owner}.github.io/${repo}/${csvPath}`;
-                const blobUrl = `https://github.com/${owner}/${repo}/blob/main/${markdownPath}`;
-                const csvBlobUrl = `https://github.com/${owner}/${repo}/blob/main/${csvPath}`;
+                const blobUrl = `https://github.com/${owner}/${repo}/blob/${defaultBranch}/${markdownPath}`;
+                const csvBlobUrl = `https://github.com/${owner}/${repo}/blob/${defaultBranch}/${csvPath}`;
 
                 const body = [
                   `Scheduled scan complete for **${meta.scanTitle}**.`,
@@ -180,6 +204,14 @@ jobs:
 
               } catch (error) {
                 console.error(`Error processing issue #${issueNumber}:`, error);
+
+                // Clean up temporary files on error
+                try {
+                  fs.rmSync(eventPath, { force: true });
+                  fs.rmSync(scanOutputDir, { recursive: true, force: true });
+                } catch (cleanupError) {
+                  console.error(`Failed to clean up temporary files:`, cleanupError);
+                }
 
                 // Post error comment
                 await github.rest.issues.createComment({
