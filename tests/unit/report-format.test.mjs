@@ -141,6 +141,10 @@ test("Enhanced report format includes priority sections", () => {
   assert.ok(report.includes("SIA-R111"), "Report should include most common ALFA rule");
   assert.ok(report.includes("**3** of 3"), "Rule frequency should show 3 pages affected for sia-r111");
   
+  // Verify ALFA rule has description
+  assert.ok(report.includes("Target size (enhanced)") || report.includes("Interactive elements"), 
+    "Report should include ALFA rule description");
+  
   // Verify axe rules are present
   assert.ok(report.includes("color-contrast"), "Report should include axe rule");
   

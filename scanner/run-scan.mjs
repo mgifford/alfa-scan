@@ -4,6 +4,7 @@ import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parseScanIssue } from "./parse-issue.mjs";
 import { validateTargets } from "./validate-targets.mjs";
+import { formatAlfaRule } from "./alfa-rule-metadata.mjs";
 
 const alfaCliPath = fileURLToPath(new URL("../node_modules/@siteimprove/alfa-cli/bin/alfa.js", import.meta.url));
 
@@ -370,13 +371,11 @@ async function runAxeAudit(url) {
         timeout: 30000
       });
 
-      // Run axe scan
-      const results = await axe.analyze(page, {}, {
-        runOnly: {
-          type: "tag",
-          values: ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "best-practice"]
-        }
-      });
+      // Run axe scan using AxeBuilder
+      const { AxeBuilder } = axe;
+      const results = await new AxeBuilder({ page })
+        .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "best-practice"])
+        .analyze();
 
       // Normalize axe results to match ALFA structure
       const failedRules = new Set();
@@ -661,9 +660,11 @@ export function toMarkdownReport(summary, axeVersion = "4.11") {
     lines.push("| Rule | Pages Affected | Documentation |");
     lines.push("|---|---:|---|");
     for (const [rule, count] of topAlfaFailedRules) {
-      const ruleId = extractRuleId(rule);
-      const ruleName = ruleId ? `SIA-R${ruleId}` : "Unknown Rule";
-      lines.push(`| ${ruleName} | **${count}** of ${summary.acceptedCount} | [View Rule](${rule}) |`);
+      const ruleInfo = formatAlfaRule(rule);
+      const displayName = ruleInfo.description 
+        ? `[${ruleInfo.id}](${rule}): ${ruleInfo.description}`
+        : `[${ruleInfo.id}](${rule})`;
+      lines.push(`| ${displayName} | **${count}** of ${summary.acceptedCount} | [View Rule](${rule}) |`);
     }
     lines.push("");
     lines.push("> 💡 **Tip**: Click on the rule documentation links to learn how to fix each issue.");
@@ -734,7 +735,11 @@ export function toMarkdownReport(summary, axeVersion = "4.11") {
     lines.push(`| ${escapeMarkdown(result.submittedUrl)} | ${escapeMarkdown(result.finalUrl)} | ${status} | ${httpCode} | ${redirected} | ${result.elapsedMs} | ${alfaPass} | ${alfaFail} | ${axePass} | ${axeFail} | ${escapeMarkdown(notes)} |`);
 
     if (result.alfa.failedRules.length > 0) {
-      lines.push(`|  |  |  |  |  |  |  |  |  |  | ALFA failed rules: ${escapeMarkdown(result.alfa.failedRules.join(", "))} |`);
+      const formattedRules = result.alfa.failedRules.map(rule => {
+        const ruleInfo = formatAlfaRule(rule);
+        return ruleInfo.description ? `${ruleInfo.id} (${ruleInfo.description})` : ruleInfo.id;
+      });
+      lines.push(`|  |  |  |  |  |  |  |  |  |  | ALFA failed rules: ${escapeMarkdown(formattedRules.join(", "))} |`);
     }
     if (result.axe.failedRules.length > 0) {
       lines.push(`|  |  |  |  |  |  |  |  |  |  | axe failed rules: ${escapeMarkdown(result.axe.failedRules.join(", "))} |`);
@@ -764,7 +769,11 @@ export function toMarkdownReport(summary, axeVersion = "4.11") {
     }
     
     for (const [rule, failures] of failuresByRule) {
-      lines.push(`#### Rule: [${rule}](${rule})`);
+      const ruleInfo = formatAlfaRule(rule);
+      const ruleDisplay = ruleInfo.description 
+        ? `${ruleInfo.id}: ${ruleInfo.description}`
+        : ruleInfo.id;
+      lines.push(`#### Rule: [${ruleDisplay}](${rule})`);
       lines.push("");
       
       for (let i = 0; i < failures.length && i < MAX_FAILURES_PER_RULE; i++) {
