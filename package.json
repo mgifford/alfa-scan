@@ -14,8 +14,10 @@
     "node": ">=20"
   },
   "dependencies": {
+    "@axe-core/playwright": "^4.11.1",
     "@siteimprove/alfa-cli": "^0.81.3",
     "@siteimprove/alfa-formatter-earl": "^0.81.3",
-    "@siteimprove/alfa-formatter-json": "^0.81.3"
+    "@siteimprove/alfa-formatter-json": "^0.81.3",
+    "playwright": "^1.55.1"
   }
 }

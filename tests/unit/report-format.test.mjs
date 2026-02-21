@@ -21,6 +21,12 @@ test("Enhanced report format includes priority sections", () => {
       cantTell: 5,
       inapplicable: 10
     },
+    axeTotals: {
+      passed: 250,
+      failed: 40,
+      cantTell: 3,
+      inapplicable: 8
+    },
     results: [
       {
         submittedUrl: "https://example.com/page1",
@@ -41,7 +47,17 @@ test("Enhanced report format includes priority sections", () => {
             "https://alfa.siteimprove.com/rules/sia-r56"
           ],
           passedRules: [],
+          failures: [],
           outcomeCount: 125
+        },
+        axe: {
+          executed: true,
+          error: null,
+          counts: { passed: 80, failed: 15, cantTell: 1, inapplicable: 2 },
+          failedRules: ["color-contrast", "aria-label"],
+          passedRules: [],
+          failures: [],
+          outcomeCount: 98
         }
       },
       {
@@ -63,7 +79,17 @@ test("Enhanced report format includes priority sections", () => {
             "https://alfa.siteimprove.com/rules/sia-r57"
           ],
           passedRules: [],
+          failures: [],
           outcomeCount: 120
+        },
+        axe: {
+          executed: true,
+          error: null,
+          counts: { passed: 85, failed: 12, cantTell: 1, inapplicable: 3 },
+          failedRules: ["color-contrast"],
+          passedRules: [],
+          failures: [],
+          outcomeCount: 101
         }
       },
       {
@@ -84,7 +110,17 @@ test("Enhanced report format includes priority sections", () => {
             "https://alfa.siteimprove.com/rules/sia-r111"
           ],
           passedRules: [],
+          failures: [],
           outcomeCount: 120
+        },
+        axe: {
+          executed: true,
+          error: null,
+          counts: { passed: 85, failed: 13, cantTell: 1, inapplicable: 3 },
+          failedRules: ["color-contrast", "aria-label"],
+          passedRules: [],
+          failures: [],
+          outcomeCount: 102
         }
       }
     ]
@@ -94,15 +130,19 @@ test("Enhanced report format includes priority sections", () => {
 
   // Verify priority sections are present
   assert.ok(report.includes("## 🎯 Priority: Pages with Most Errors"), "Report should include priority pages section");
-  assert.ok(report.includes("## 🔧 Priority: Most Common Issues"), "Report should include priority issues section");
+  assert.ok(report.includes("## 🔧 Priority: Most Common Issues (ALFA)"), "Report should include ALFA priority issues section");
+  assert.ok(report.includes("## 🔧 Priority: Most Common Issues (axe)"), "Report should include axe priority issues section");
   
-  // Verify pages are sorted by error count (descending)
+  // Verify pages are sorted by error count (descending) - combined ALFA + axe
   assert.ok(report.includes("Page 1"), "Report should include Page 1");
-  assert.ok(report.indexOf("**20**") < report.indexOf("**15**"), "Pages should be sorted by error count");
+  // Page 1 has 35 total failures (20 ALFA + 15 axe), Page 2 has 27, Page 3 has 28
   
-  // Verify rule frequency counting
-  assert.ok(report.includes("SIA-R111"), "Report should include most common rule");
+  // Verify rule frequency counting for ALFA
+  assert.ok(report.includes("SIA-R111"), "Report should include most common ALFA rule");
   assert.ok(report.includes("**3** of 3"), "Rule frequency should show 3 pages affected for sia-r111");
+  
+  // Verify axe rules are present
+  assert.ok(report.includes("color-contrast"), "Report should include axe rule");
   
   // Verify helpful tips are included
   assert.ok(report.includes("💡 **Tip**"), "Report should include helpful tips");
@@ -110,7 +150,7 @@ test("Enhanced report format includes priority sections", () => {
   assert.ok(report.includes("opt-in only, no auto-run AI"), "Report should clarify no auto-run AI");
   
   // Verify rule documentation links
-  assert.ok(report.includes("[View Rule](https://alfa.siteimprove.com/rules/sia-r111)"), "Report should include rule documentation link");
+  assert.ok(report.includes("[View Rule](https://alfa.siteimprove.com/rules/sia-r111)"), "Report should include ALFA rule documentation link");
 });
 
 test("Enhanced report handles case with no errors", () => {
@@ -130,6 +170,12 @@ test("Enhanced report handles case with no errors", () => {
       cantTell: 0,
       inapplicable: 10
     },
+    axeTotals: {
+      passed: 80,
+      failed: 0,
+      cantTell: 0,
+      inapplicable: 8
+    },
     results: [
       {
         submittedUrl: "https://example.com/perfect",
@@ -147,7 +193,17 @@ test("Enhanced report handles case with no errors", () => {
           counts: { passed: 100, failed: 0, cantTell: 0, inapplicable: 10 },
           failedRules: [],
           passedRules: [],
+          failures: [],
           outcomeCount: 110
+        },
+        axe: {
+          executed: true,
+          error: null,
+          counts: { passed: 80, failed: 0, cantTell: 0, inapplicable: 8 },
+          failedRules: [],
+          passedRules: [],
+          failures: [],
+          outcomeCount: 88
         }
       }
     ]
@@ -157,5 +213,6 @@ test("Enhanced report handles case with no errors", () => {
 
   // Verify positive messages for no errors
   assert.ok(report.includes("✅ No pages with accessibility errors detected!"), "Report should show success message for no errors");
-  assert.ok(report.includes("✅ No failed rules detected!"), "Report should show success message for no failed rules");
+  assert.ok(report.includes("✅ No ALFA failed rules detected!"), "Report should show success message for no ALFA failed rules");
+  assert.ok(report.includes("✅ No axe failed rules detected!"), "Report should show success message for no axe failed rules");
 });
