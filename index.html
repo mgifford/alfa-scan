@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Alfa Scan Reports</title>
+  <title>Alfa Scan - Submit URLs for Accessibility Scanning</title>
   <style>
     * {
       margin: 0;
@@ -20,7 +20,7 @@
     }
     
     .container {
-      max-width: 1200px;
+      max-width: 900px;
       margin: 0 auto;
       background: white;
       padding: 2rem;
@@ -39,133 +39,245 @@
       margin-bottom: 2rem;
     }
     
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 1rem;
-    }
-    
-    th, td {
-      padding: 0.75rem;
-      text-align: left;
+    .nav {
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
       border-bottom: 1px solid #d0d7de;
     }
     
-    th {
-      background-color: #f6f8fa;
-      font-weight: 600;
-      color: #24292f;
-    }
-    
-    tr:hover {
-      background-color: #f6f8fa;
-    }
-    
-    a {
+    .nav a {
       color: #0969da;
       text-decoration: none;
+      margin-right: 1.5rem;
     }
     
-    a:hover {
+    .nav a:hover {
       text-decoration: underline;
     }
     
-    .badge {
-      display: inline-block;
-      padding: 0.25rem 0.5rem;
-      border-radius: 4px;
-      font-size: 0.875rem;
-      font-weight: 500;
+    .form-group {
+      margin-bottom: 1.5rem;
     }
     
-    .badge-success {
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #24292f;
+    }
+    
+    .help-text {
+      font-size: 0.875rem;
+      color: #57606a;
+      margin-bottom: 0.5rem;
+    }
+    
+    textarea, input[type="text"] {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #d0d7de;
+      border-radius: 6px;
+      font-family: ui-monospace, monospace;
+      font-size: 0.875rem;
+      line-height: 1.5;
+    }
+    
+    textarea {
+      min-height: 200px;
+      resize: vertical;
+    }
+    
+    textarea:focus, input[type="text"]:focus {
+      outline: none;
+      border-color: #0969da;
+      box-shadow: 0 0 0 3px rgba(9, 105, 218, 0.1);
+    }
+    
+    .preview {
+      margin-top: 1.5rem;
+      padding: 1rem;
+      background-color: #f6f8fa;
+      border-radius: 6px;
+      display: none;
+    }
+    
+    .preview.visible {
+      display: block;
+    }
+    
+    .preview h3 {
+      font-size: 1rem;
+      margin-bottom: 0.75rem;
+      color: #24292f;
+    }
+    
+    .url-count {
+      margin-bottom: 0.75rem;
+      font-weight: 600;
+    }
+    
+    .url-count.valid {
+      color: #1a7f37;
+    }
+    
+    .url-count.invalid {
+      color: #cf222e;
+    }
+    
+    .url-list {
+      max-height: 300px;
+      overflow-y: auto;
+      margin-top: 0.5rem;
+    }
+    
+    .url-item {
+      padding: 0.5rem;
+      margin-bottom: 0.25rem;
+      border-radius: 4px;
+      font-family: ui-monospace, monospace;
+      font-size: 0.875rem;
+    }
+    
+    .url-item.accepted {
       background-color: #dafbe1;
       color: #1a7f37;
     }
     
-    .badge-danger {
+    .url-item.rejected {
       background-color: #ffebe9;
       color: #cf222e;
     }
     
-    .badge-warning {
-      background-color: #fff8c5;
-      color: #9a6700;
+    .url-item .reason {
+      font-size: 0.75rem;
+      margin-top: 0.25rem;
+      opacity: 0.8;
     }
     
-    .no-reports {
+    button {
+      background-color: #1f883d;
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    
+    button:hover:not(:disabled) {
+      background-color: #1a7f37;
+    }
+    
+    button:disabled {
+      background-color: #94d3a2;
+      cursor: not-allowed;
+    }
+    
+    .error-message, .success-message {
+      padding: 1rem;
+      border-radius: 6px;
+      margin-top: 1rem;
+      display: none;
+    }
+    
+    .error-message.visible, .success-message.visible {
+      display: block;
+    }
+    
+    .error-message {
+      background-color: #ffebe9;
+      color: #cf222e;
+      border: 1px solid #ff8182;
+    }
+    
+    .success-message {
+      background-color: #dafbe1;
+      color: #1a7f37;
+      border: 1px solid #4ac26b;
+    }
+    
+    .success-message a {
+      color: #1a7f37;
+      font-weight: 600;
+    }
+    
+    .loading {
+      display: none;
       text-align: center;
-      padding: 3rem;
+      padding: 1rem;
       color: #57606a;
     }
     
-    .date {
-      color: #57606a;
-      font-size: 0.875rem;
+    .loading.visible {
+      display: block;
     }
     
-    .links {
-      display: flex;
-      gap: 1rem;
+    .spinner {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(0, 0, 0, 0.1);
+      border-radius: 50%;
+      border-top-color: #0969da;
+      animation: spin 1s ease-in-out infinite;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Alfa Scan Reports</h1>
-    <p class="subtitle">Accessibility scan reports generated by GitHub Actions</p>
+    <nav class="nav">
+      <a href="index.html">Submit URLs</a>
+      <a href="reports.html">View Reports</a>
+    </nav>
     
+    <h1>Submit URLs for Accessibility Scanning</h1>
+    <p class="subtitle">Enter up to 100 URLs to scan for accessibility issues</p>
     
-    <table>
-      <thead>
-        <tr>
-          <th>Issue</th>
-          <th>Scan Title</th>
-          <th>Scanned At</th>
-          <th>URLs</th>
-          <th>Results</th>
-          <th>Reports</th>
-        </tr>
-      </thead>
-      <tbody>
-        
-        <tr>
-          <td><a href="https://github.com/mgifford/alfa-scan/issues/1">#1</a></td>
-          <td>GSA.gov</td>
-          <td class="date">2/21/2026, 1:02:18 PM</td>
-          <td>13 accepted</td>
-          <td>
-            <span class="badge badge-success">23695 passed</span>
-            <span class="badge badge-danger">1698 failed</span>
-            <span class="badge badge-warning">125 can't tell</span>
-          </td>
-          <td class="links">
-            <a href="reports/issues/issue-1/2026-02-21T13-02-18-097Z/report.md">Markdown</a>
-            <a href="reports/issues/issue-1/2026-02-21T13-02-18-097Z/report.csv">CSV</a>
-            <a href="reports/issues/issue-1/2026-02-21T13-02-18-097Z/report.json">JSON</a>
-          </td>
-        </tr>
-        
-        <tr>
-          <td><a href="https://github.com/mgifford/alfa-scan/issues/1">#1</a></td>
-          <td>GSA.gov</td>
-          <td class="date">2/21/2026, 12:48:19 PM</td>
-          <td>13 accepted</td>
-          <td>
-            <span class="badge badge-success">23776 passed</span>
-            <span class="badge badge-danger">1698 failed</span>
-            <span class="badge badge-warning">125 can't tell</span>
-          </td>
-          <td class="links">
-            <a href="reports/issues/issue-1/2026-02-21T12-48-19-132Z/report.md">Markdown</a>
-            <a href="reports/issues/issue-1/2026-02-21T12-48-19-132Z/report.csv">CSV</a>
-            <a href="reports/issues/issue-1/2026-02-21T12-48-19-132Z/report.json">JSON</a>
-          </td>
-        </tr>
-        
-      </tbody>
-    </table>
-    
+    <form id="scan-form">
+      <div class="form-group">
+        <label for="scan-title">Scan Title</label>
+        <p class="help-text">A descriptive name for this scan batch (e.g., "GSA.gov Homepage and Key Pages")</p>
+        <input type="text" id="scan-title" name="scan-title" required placeholder="My Accessibility Scan">
+      </div>
+      
+      <div class="form-group">
+        <label for="urls">URLs to Scan</label>
+        <p class="help-text">
+          Enter URLs one per line or comma-separated. Maximum 100 URLs.<br>
+          Only public HTTPS/HTTP URLs are accepted. Local, private, and internal URLs will be rejected.
+        </p>
+        <textarea 
+          id="urls" 
+          name="urls" 
+          required 
+          placeholder="https://example.com&#10;https://example.com/about&#10;https://example.com/contact"
+        ></textarea>
+      </div>
+      
+      <div class="preview" id="preview">
+        <h3>URL Preview</h3>
+        <div class="url-count" id="url-count"></div>
+        <div class="url-list" id="url-list"></div>
+      </div>
+      
+      <button type="submit" id="submit-button">Create Scan Request</button>
+      
+      <div class="loading" id="loading">
+        <div class="spinner"></div>
+        <p>Creating scan request...</p>
+      </div>
+      
+      <div class="error-message" id="error-message"></div>
+      <div class="success-message" id="success-message"></div>
+    </form>
   </div>
+  
+  <script type="module" src="submit.js"></script>
 </body>
 </html>
