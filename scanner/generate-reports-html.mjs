@@ -89,6 +89,7 @@ export function generateTableRows(reports) {
             <span class="badge badge-warning">${totalCantTell} can't tell</span>
           </td>
           <td class="links">
+            <a href="${path}/report.html">HTML</a>
             <a href="${path}/report.md">Markdown</a>
             <a href="${path}/report.csv">CSV</a>
             <a href="${path}/report.json">JSON</a>
