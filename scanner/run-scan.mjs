@@ -853,6 +853,304 @@ export function toMarkdownReport(summary, axeVersion = "4.11") {
   return `${lines.join("\n")}\n`;
 }
 
+/**
+ * Convert markdown to HTML with basic styling
+ * @param {string} markdown - Markdown content
+ * @param {object} summary - Report summary for metadata
+ * @returns {string} HTML content
+ */
+export function markdownToHtml(markdown, summary) {
+  let html = markdown;
+  
+  // First, protect escaped pipes in content by temporarily replacing them
+  html = html.replace(/\\\|/g, '&#124;');
+  
+  // Escape HTML in code blocks and inline code first
+  html = html.replace(/`([^`]+)`/g, (match, code) => {
+    return `<code>${code.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</code>`;
+  });
+  
+  // Tables - Convert markdown tables to HTML (do this before other conversions)
+  const tableRegex = /^\|(.+)\|\n\|[-:\s|]+\|\n((?:\|.+\|\n?)+)/gm;
+  html = html.replace(tableRegex, (match, header, rows) => {
+    // Parse header
+    const headerCells = header.split('|')
+      .map(cell => cell.trim())
+      .filter(cell => cell.length > 0)
+      .map(cell => `<th>${cell}</th>`)
+      .join('');
+    
+    // Parse rows
+    const rowsHtml = rows.trim().split('\n').map(row => {
+      const cells = row.substring(1, row.length - 1) // Remove leading and trailing |
+        .split('|')
+        .map(cell => `<td>${cell.trim()}</td>`)
+        .join('');
+      return `<tr>${cells}</tr>`;
+    }).join('\n');
+    
+    return `<table>\n<thead>\n<tr>${headerCells}</tr>\n</thead>\n<tbody>\n${rowsHtml}\n</tbody>\n</table>`;
+  });
+  
+  // Headers
+  html = html.replace(/^#### (.*$)/gim, '<h4>$1</h4>');
+  html = html.replace(/^### (.*$)/gim, '<h3>$1</h3>');
+  html = html.replace(/^## (.*$)/gim, '<h2>$1</h2>');
+  html = html.replace(/^# (.*$)/gim, '<h1>$1</h1>');
+  
+  // Bold and italic (non-greedy matching)
+  html = html.replace(/\*\*\*(.+?)\*\*\*/g, '<strong><em>$1</em></strong>');
+  html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+  html = html.replace(/\*(.+?)\*/g, '<em>$1</em>');
+  
+  // Links - [text](url)
+  html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+  
+  // Blockquotes
+  html = html.replace(/^&gt; (.*)$/gim, '<blockquote>$1</blockquote>');
+  html = html.replace(/^> (.*)$/gim, '<blockquote>$1</blockquote>');
+  
+  // Lists
+  html = html.replace(/^\* (.*)$/gim, '<li>$1</li>');
+  html = html.replace(/^- (.*)$/gim, '<li>$1</li>');
+  
+  // Wrap consecutive list items in ul
+  html = html.replace(/(<li>.*<\/li>\n?)+/g, '<ul>$&</ul>');
+  
+  // Paragraphs - wrap non-HTML lines in <p> tags
+  const lines = html.split('\n');
+  const processedLines = [];
+  let inParagraph = false;
+  
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i].trim();
+    
+    // Skip empty lines
+    if (!line) {
+      if (inParagraph) {
+        processedLines.push('</p>');
+        inParagraph = false;
+      }
+      processedLines.push('');
+      continue;
+    }
+    
+    // Check if line is already HTML
+    if (line.startsWith('<')) {
+      if (inParagraph) {
+        processedLines.push('</p>');
+        inParagraph = false;
+      }
+      processedLines.push(line);
+    } else {
+      // Regular text line
+      if (!inParagraph) {
+        processedLines.push('<p>');
+        inParagraph = true;
+      }
+      processedLines.push(line);
+    }
+  }
+  
+  if (inParagraph) {
+    processedLines.push('</p>');
+  }
+  
+  const bodyContent = processedLines.join('\n');
+  
+  // Create full HTML document with styling
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${escapeMarkdown(summary.scanTitle || `Scan Report #${summary.issueNumber}`)}</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      color: #24292f;
+      background-color: #f6f8fa;
+      padding: 2rem;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+    }
+    
+    h1 {
+      color: #0969da;
+      margin-bottom: 1rem;
+      font-size: 2rem;
+      border-bottom: 1px solid #d0d7de;
+      padding-bottom: 0.5rem;
+    }
+    
+    h2 {
+      color: #24292f;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+      border-bottom: 1px solid #d0d7de;
+      padding-bottom: 0.5rem;
+    }
+    
+    h3 {
+      color: #24292f;
+      margin-top: 1.5rem;
+      margin-bottom: 0.75rem;
+      font-size: 1.25rem;
+    }
+    
+    h4 {
+      color: #57606a;
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+      font-size: 1rem;
+    }
+    
+    p {
+      margin-bottom: 1rem;
+    }
+    
+    a {
+      color: #0969da;
+      text-decoration: none;
+    }
+    
+    a:hover {
+      text-decoration: underline;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      overflow-x: auto;
+      display: block;
+    }
+    
+    table thead {
+      display: table;
+      width: 100%;
+      table-layout: fixed;
+    }
+    
+    table tbody {
+      display: table;
+      width: 100%;
+      table-layout: fixed;
+    }
+    
+    th, td {
+      padding: 0.75rem;
+      text-align: left;
+      border: 1px solid #d0d7de;
+      word-wrap: break-word;
+    }
+    
+    th {
+      background-color: #f6f8fa;
+      font-weight: 600;
+      color: #24292f;
+    }
+    
+    tr:nth-child(even) {
+      background-color: #f6f8fa;
+    }
+    
+    ul {
+      margin-left: 2rem;
+      margin-bottom: 1rem;
+    }
+    
+    li {
+      margin-bottom: 0.5rem;
+    }
+    
+    code {
+      background-color: #f6f8fa;
+      padding: 0.2rem 0.4rem;
+      border-radius: 3px;
+      font-family: "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Menlo, Courier, monospace;
+      font-size: 0.875em;
+    }
+    
+    blockquote {
+      border-left: 4px solid #d0d7de;
+      padding-left: 1rem;
+      margin: 1rem 0;
+      color: #57606a;
+    }
+    
+    strong {
+      font-weight: 600;
+    }
+    
+    .nav {
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #d0d7de;
+    }
+    
+    .nav a {
+      color: #0969da;
+      text-decoration: none;
+      margin-right: 1.5rem;
+    }
+    
+    .nav a:hover {
+      text-decoration: underline;
+    }
+    
+    footer {
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #d0d7de;
+      text-align: center;
+      color: #57606a;
+    }
+    
+    footer a {
+      color: #0969da;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav class="nav">
+      <a href="../../../../../../index.html">Submit URLs</a>
+      <a href="../../../../../../reports.html">View Reports</a>
+      <a href="${summary.issueUrl}" target="_blank" rel="noopener">View Issue #${summary.issueNumber}</a>
+    </nav>
+    
+    ${bodyContent}
+    
+    <footer>
+      <a href="https://github.com/mgifford/alfa-scan">Join our GitHub Community</a>
+    </footer>
+  </div>
+</body>
+</html>`;
+}
+
 async function main() {
   const issueEventPath = process.argv[2];
   const outputDir = process.argv[3] || ".scan-output";
@@ -931,9 +1229,13 @@ async function main() {
   mkdirSync(outputDir, { recursive: true });
   const summaryPath = join(outputDir, "report.json");
   const markdownPath = join(outputDir, "report.md");
+  const htmlPath = join(outputDir, "report.html");
   const csvPath = join(outputDir, "report.csv");
+  
+  const markdownContent = toMarkdownReport(summary, axeCoreVersion || "4.11");
   writeFileSync(summaryPath, JSON.stringify(summary, null, 2) + "\n", "utf8");
-  writeFileSync(markdownPath, toMarkdownReport(summary, axeCoreVersion || "4.11"), "utf8");
+  writeFileSync(markdownPath, markdownContent, "utf8");
+  writeFileSync(htmlPath, markdownToHtml(markdownContent, summary), "utf8");
   writeFileSync(csvPath, toCsv(summary), "utf8");
 
   console.log(JSON.stringify({
@@ -947,6 +1249,7 @@ async function main() {
     axeTotals,
     summaryPath,
     markdownPath,
+    htmlPath,
     csvPath
   }, null, 2));
 }
