@@ -163,11 +163,16 @@ jobs:
                   const commitMessage = `chore(scan): scheduled scan for issue #${issueNumber}`;
                   const commitResult = spawnSync('git', ['commit', '-m', commitMessage]);
                   if (commitResult.status === 0) {
-                    const pushResult = spawnSync('git', ['push', 'origin', `HEAD:${defaultBranch}`]);
-                    if (pushResult.status === 0) {
-                      console.log(`Report committed and pushed for issue #${issueNumber}`);
+                    const pullResult = spawnSync('git', ['pull', '--rebase', 'origin', defaultBranch]);
+                    if (pullResult.status === 0) {
+                      const pushResult = spawnSync('git', ['push', 'origin', `HEAD:${defaultBranch}`]);
+                      if (pushResult.status === 0) {
+                        console.log(`Report committed and pushed for issue #${issueNumber}`);
+                      } else {
+                        throw new Error(`Failed to push: ${pushResult.stderr}`);
+                      }
                     } else {
-                      throw new Error(`Failed to push: ${pushResult.stderr}`);
+                      throw new Error(`Failed to rebase: ${pullResult.stderr}`);
                     }
                   } else {
                     throw new Error(`Failed to commit: ${commitResult.stderr}`);

@@ -93,6 +93,7 @@ jobs:
             echo "No report changes to commit."
           else
             git commit -m "chore(scan): issue #${{ github.event.issue.number }} ${{ steps.meta.outputs.scan_title }}"
+            git pull --rebase origin main
             git push origin HEAD:main
           fi
 
