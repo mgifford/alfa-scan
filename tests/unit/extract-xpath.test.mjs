@@ -20,16 +20,22 @@ function extractXPath(element) {
     if (id) {
       segment += `[@id="${escapeXPathValue(id)}"]`;
     } else {
-      // Calculate position among siblings with the same name
-      const position = getElementPosition(current);
-      if (position !== null) {
-        segment += `[${position}]`;
-      }
-      
-      // Add class attribute if present and no id
+      // Use class attribute for identification if present
       const className = getAttributeValue(current, "class");
       if (className) {
         segment += `[@class="${escapeXPathValue(className)}"]`;
+        
+        // Add position within elements with same class for disambiguation
+        const position = getElementPositionWithClass(current, className);
+        if (position !== null && position > 1) {
+          segment = `${name}[@class="${escapeXPathValue(className)}"][${position}]`;
+        }
+      } else {
+        // No id or class, use position among siblings with the same name
+        const position = getElementPosition(current);
+        if (position !== null && position > 1) {
+          segment += `[${position}]`;
+        }
       }
     }
     
@@ -70,6 +76,31 @@ function getElementPosition(element) {
     }
     if (sibling && sibling.type === "element" && sibling.name === elementName) {
       position++;
+    }
+  }
+  
+  return null;
+}
+
+function getElementPositionWithClass(element, className) {
+  // Get parent to calculate position among siblings with same name and class
+  const parent = element.parent;
+  if (!parent || !Array.isArray(parent.children)) {
+    return null;
+  }
+  
+  const elementName = element.name;
+  let position = 1;
+  
+  for (const sibling of parent.children) {
+    if (sibling === element) {
+      return position;
+    }
+    if (sibling && sibling.type === "element" && sibling.name === elementName) {
+      const siblingClass = getAttributeValue(sibling, "class");
+      if (siblingClass === className) {
+        position++;
+      }
     }
   }
   
@@ -168,7 +199,9 @@ it("extractXPath includes position among siblings", () => {
   sibling2.parent = parent;
   sibling3.parent = parent;
   
-  assert.equal(extractXPath(sibling1), '/section[@id="main"]/div[1]');
+  // First element doesn't need position specifier
+  assert.equal(extractXPath(sibling1), '/section[@id="main"]/div');
+  // Second and third elements need position to distinguish from first
   assert.equal(extractXPath(sibling2), '/section[@id="main"]/div[2]');
   assert.equal(extractXPath(sibling3), '/section[@id="main"]/div[3]');
 });
@@ -193,7 +226,37 @@ it("extractXPath includes class when no id present", () => {
   
   element.parent.children[1] = element;
   
-  assert.equal(extractXPath(element), '/body/div[2][@class="header nav-bar"]');
+  // This is the first (and only) div with class="header nav-bar", so no position needed
+  assert.equal(extractXPath(element), '/body/div[@class="header nav-bar"]');
+});
+
+it("extractXPath includes position when multiple elements have same class", () => {
+  const div1 = {
+    type: "element",
+    name: "div",
+    attributes: [{ name: "class", value: "card" }]
+  };
+  
+  const div2 = {
+    type: "element",
+    name: "div",
+    attributes: [{ name: "class", value: "card" }]
+  };
+  
+  const parent = {
+    type: "element",
+    name: "section",
+    attributes: [{ name: "id", value: "cards" }],
+    children: [div1, div2]
+  };
+  
+  div1.parent = parent;
+  div2.parent = parent;
+  
+  // First div with class="card" doesn't need position
+  assert.equal(extractXPath(div1), '/section[@id="cards"]/div[@class="card"]');
+  // Second div with same class needs position for disambiguation
+  assert.equal(extractXPath(div2), '/section[@id="cards"]/div[@class="card"][2]');
 });
 
 it("extractXPath escapes double quotes in attribute values", () => {
@@ -241,7 +304,7 @@ it("extractXPath handles complex nested structure", () => {
   element.parent.children[1] = element;
   element.parent.parent.children[1] = element.parent;
   
-  assert.equal(extractXPath(element), '/form[@id="contact-form"]/div[1][@class="field-error"]/span[1][@class="error-message"]');
+  assert.equal(extractXPath(element), '/form[@id="contact-form"]/div[@class="field-error"]/span[@class="error-message"]');
 });
 
 it("extractXPath handles missing attributes array", () => {

@@ -83,16 +83,22 @@ function extractXPath(element) {
     if (id) {
       segment += `[@id="${escapeXPathValue(id)}"]`;
     } else {
-      // Calculate position among siblings with the same name
-      const position = getElementPosition(current);
-      if (position !== null) {
-        segment += `[${position}]`;
-      }
-      
-      // Add class attribute if present and no id
+      // Use class attribute for identification if present
       const className = getAttributeValue(current, "class");
       if (className) {
         segment += `[@class="${escapeXPathValue(className)}"]`;
+        
+        // Add position within elements with same class for disambiguation
+        const position = getElementPositionWithClass(current, className);
+        if (position !== null && position > 1) {
+          segment = `${name}[@class="${escapeXPathValue(className)}"][${position}]`;
+        }
+      } else {
+        // No id or class, use position among siblings with the same name
+        const position = getElementPosition(current);
+        if (position !== null && position > 1) {
+          segment += `[${position}]`;
+        }
       }
     }
     
@@ -133,6 +139,31 @@ function getElementPosition(element) {
     }
     if (sibling && sibling.type === "element" && sibling.name === elementName) {
       position++;
+    }
+  }
+  
+  return null;
+}
+
+function getElementPositionWithClass(element, className) {
+  // Get parent to calculate position among siblings with same name and class
+  const parent = element.parent;
+  if (!parent || !Array.isArray(parent.children)) {
+    return null;
+  }
+  
+  const elementName = element.name;
+  let position = 1;
+  
+  for (const sibling of parent.children) {
+    if (sibling === element) {
+      return position;
+    }
+    if (sibling && sibling.type === "element" && sibling.name === elementName) {
+      const siblingClass = getAttributeValue(sibling, "class");
+      if (siblingClass === className) {
+        position++;
+      }
     }
   }
   
