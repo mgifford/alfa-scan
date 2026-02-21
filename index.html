@@ -227,6 +227,24 @@
     @keyframes spin {
       to { transform: rotate(360deg); }
     }
+    
+    footer {
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #d0d7de;
+      text-align: center;
+      color: #57606a;
+    }
+    
+    footer a {
+      color: #0969da;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    
+    footer a:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
@@ -276,6 +294,10 @@
       <div class="error-message" id="error-message"></div>
       <div class="success-message" id="success-message"></div>
     </form>
+    
+    <footer>
+      <a href="https://github.com/mgifford/alfa-scan">Join our GitHub Community</a>
+    </footer>
   </div>
   
   <script type="module" src="submit.js"></script>
