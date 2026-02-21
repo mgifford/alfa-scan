@@ -124,17 +124,26 @@ ${urls.join("\n")}
 // Create GitHub issue via authenticated API call
 export async function createGitHubIssue(scanTitle, urls) {
   // Extract repository info from current page
-  const repoMatch = window.location.hostname.match(/^(.+)\.github\.io$/);
-  if (!repoMatch) {
-    throw new Error("Could not determine GitHub repository");
+  // For GitHub Pages URLs like username.github.io/repo-name/
+  const hostname = window.location.hostname;
+  const pathname = window.location.pathname;
+  
+  let owner, repo;
+  
+  // Check if it's a GitHub Pages URL
+  const pagesMatch = hostname.match(/^(.+)\.github\.io$/);
+  if (pagesMatch) {
+    owner = pagesMatch[1];
+    // Extract repo name from pathname (e.g., /alfa-scan/ -> alfa-scan)
+    const pathMatch = pathname.match(/^\/([^\/]+)/);
+    repo = pathMatch ? pathMatch[1] : "alfa-scan"; // fallback to alfa-scan
+  } else {
+    throw new Error("Could not determine GitHub repository from URL");
   }
   
   // For GitHub Pages, we need to handle authentication differently
   // Since we can't make authenticated API calls from client-side JavaScript,
   // we'll redirect to GitHub's issue creation URL with pre-filled data
-  
-  const owner = repoMatch[1];
-  const repo = "alfa-scan"; // This should match the repository name
   
   const issueTitle = `SCAN: ${scanTitle}`;
   const issueBody = formatIssueBody(scanTitle, urls);
