@@ -37,7 +37,9 @@ jobs:
       - name: Persist event payload
         run: |
           mkdir -p .tmp
-          printf '%s' '${{ toJson(github.event) }}' > .tmp/issue-event.json
+          cat > .tmp/issue-event.json <<'EOF'
+          ${{ toJson(github.event) }}
+          EOF
 
       - name: Run issue scan
         run: |
