@@ -162,15 +162,42 @@ jobs:
                 if (statusResult.stdout.trim()) {
                   const commitMessage = `chore(scan): scheduled scan for issue #${issueNumber}`;
                   const commitResult = spawnSync('git', ['commit', '-m', commitMessage]);
-                  if (commitResult.status === 0) {
-                    const pushResult = spawnSync('git', ['push', 'origin', `HEAD:${defaultBranch}`]);
-                    if (pushResult.status === 0) {
-                      console.log(`Report committed and pushed for issue #${issueNumber}`);
-                    } else {
-                      throw new Error(`Failed to push: ${pushResult.stderr}`);
-                    }
-                  } else {
+                  if (commitResult.status !== 0) {
                     throw new Error(`Failed to commit: ${commitResult.stderr}`);
+                  }
+                  
+                  // Retry push with rebase up to 3 times
+                  let pushSucceeded = false;
+                  for (let attempt = 1; attempt <= 3; attempt++) {
+                    console.log(`Push attempt ${attempt}...`);
+                    const pullResult = spawnSync('git', ['pull', '--rebase', 'origin', defaultBranch]);
+                    if (pullResult.status === 0) {
+                      const pushResult = spawnSync('git', ['push', 'origin', `HEAD:${defaultBranch}`]);
+                      if (pushResult.status === 0) {
+                        console.log(`Report committed and pushed for issue #${issueNumber} on attempt ${attempt}`);
+                        pushSucceeded = true;
+                        break;
+                      } else {
+                        console.warn(`Push failed on attempt ${attempt}: ${pushResult.stderr}`);
+                      }
+                    } else {
+                      console.warn(`Rebase failed on attempt ${attempt}: ${pullResult.stderr}`);
+                      // Abort rebase if it's in progress
+                      const statusCheck = spawnSync('git', ['status'], { encoding: 'utf8' });
+                      if (statusCheck.stdout.includes('rebase in progress')) {
+                        spawnSync('git', ['rebase', '--abort']);
+                      }
+                    }
+                    
+                    if (attempt < 3) {
+                      const delay = attempt * 2000; // Wait 2s before 2nd attempt, 4s before 3rd attempt
+                      console.log(`Waiting ${delay}ms before retry...`);
+                      await new Promise(resolve => setTimeout(resolve, delay));
+                    }
+                  }
+                  
+                  if (!pushSucceeded) {
+                    throw new Error(`Failed to push after 3 attempts`);
                   }
                 } else {
                   console.log(`No changes to commit for issue #${issueNumber}`);
