@@ -70,10 +70,78 @@ function extractXPath(element) {
     return null;
   }
   
-  // Note: This is a simplified XPath implementation that provides basic element identification.
-  // A more robust implementation would include parent hierarchy and element position for unique identification.
-  const name = element.name || "unknown";
-  return `//${name}`;
+  // Build XPath with parent hierarchy and element position for unique identification
+  const pathSegments = [];
+  let current = element;
+  
+  while (current && current.type === "element") {
+    const name = current.name || "unknown";
+    let segment = name;
+    
+    // Add id attribute if present for more specific identification
+    const id = getAttributeValue(current, "id");
+    if (id) {
+      segment += `[@id="${escapeXPathValue(id)}"]`;
+    } else {
+      // Calculate position among siblings with the same name
+      const position = getElementPosition(current);
+      if (position !== null) {
+        segment += `[${position}]`;
+      }
+      
+      // Add class attribute if present and no id
+      const className = getAttributeValue(current, "class");
+      if (className) {
+        segment += `[@class="${escapeXPathValue(className)}"]`;
+      }
+    }
+    
+    pathSegments.unshift(segment);
+    current = current.parent;
+  }
+  
+  return pathSegments.length > 0 ? "/" + pathSegments.join("/") : null;
+}
+
+function getAttributeValue(element, attrName) {
+  if (!element || !Array.isArray(element.attributes)) {
+    return null;
+  }
+  
+  for (const attr of element.attributes) {
+    if (attr && attr.name === attrName && attr.value !== undefined) {
+      return attr.value;
+    }
+  }
+  
+  return null;
+}
+
+function getElementPosition(element) {
+  // Get parent to calculate position among siblings
+  const parent = element.parent;
+  if (!parent || !Array.isArray(parent.children)) {
+    return null;
+  }
+  
+  const elementName = element.name;
+  let position = 1;
+  
+  for (const sibling of parent.children) {
+    if (sibling === element) {
+      return position;
+    }
+    if (sibling && sibling.type === "element" && sibling.name === elementName) {
+      position++;
+    }
+  }
+  
+  return null;
+}
+
+function escapeXPathValue(value) {
+  // Escape double quotes in XPath attribute values
+  return String(value).replace(/"/g, '&quot;');
 }
 
 function extractHtmlSnippet(target) {
