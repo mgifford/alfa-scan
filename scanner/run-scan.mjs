@@ -708,6 +708,145 @@ export function toMarkdownReport(summary, axeVersion = "4.11") {
   }
   lines.push("");
 
+  // CROSS-PAGE PATTERN ANALYSIS: Find common HTML patterns causing errors across multiple pages
+  lines.push("## 🔍 Cross-Page Patterns: Common HTML Issues");
+  lines.push("");
+  lines.push("These HTML patterns cause the same accessibility errors across multiple pages. **Fix the pattern once in your codebase to fix it everywhere!**");
+  lines.push("");
+  
+  // Collect all failures with their HTML snippets and group by (rule + html) pattern
+  const patternMap = new Map(); // Key: "rule|html", Value: { rule, html, xpath, message, pages: Set, count }
+  
+  for (const result of summary.results) {
+    // Process ALFA failures
+    if (result.alfa.failures) {
+      for (const failure of result.alfa.failures) {
+        if (failure.html && failure.rule) {
+          const patternKey = `ALFA|${failure.rule}|${failure.html}`;
+          if (!patternMap.has(patternKey)) {
+            patternMap.set(patternKey, {
+              scanner: 'ALFA',
+              rule: failure.rule,
+              html: failure.html,
+              xpath: failure.xpath,
+              message: failure.message,
+              pages: new Set(),
+              count: 0
+            });
+          }
+          const pattern = patternMap.get(patternKey);
+          pattern.pages.add(result.submittedUrl);
+          pattern.count += 1;
+        }
+      }
+    }
+    
+    // Process axe failures
+    if (result.axe.failures) {
+      for (const failure of result.axe.failures) {
+        if (failure.html && failure.rule) {
+          const patternKey = `axe|${failure.rule}|${failure.html}`;
+          if (!patternMap.has(patternKey)) {
+            patternMap.set(patternKey, {
+              scanner: 'axe',
+              rule: failure.rule,
+              ruleUrl: failure.ruleUrl,
+              impact: failure.impact,
+              html: failure.html,
+              xpath: failure.xpath,
+              message: failure.message,
+              pages: new Set(),
+              count: 0
+            });
+          }
+          const pattern = patternMap.get(patternKey);
+          pattern.pages.add(result.submittedUrl);
+          pattern.count += 1;
+        }
+      }
+    }
+  }
+  
+  // Filter to patterns that appear on multiple pages and sort by impact
+  const crossPagePatterns = [...patternMap.values()]
+    .filter(p => p.pages.size > 1)
+    .sort((a, b) => {
+      // Sort by number of pages affected, then by occurrence count
+      if (b.pages.size !== a.pages.size) {
+        return b.pages.size - a.pages.size;
+      }
+      return b.count - a.count;
+    })
+    .slice(0, 15); // Show top 15 patterns
+  
+  if (crossPagePatterns.length > 0) {
+    lines.push("### 🎯 Top Patterns to Fix (Highest Impact)");
+    lines.push("");
+    
+    for (let i = 0; i < crossPagePatterns.length; i++) {
+      const pattern = crossPagePatterns[i];
+      const ruleInfo = pattern.scanner === 'ALFA' ? formatAlfaRule(pattern.rule) : null;
+      const ruleDisplay = ruleInfo 
+        ? `${ruleInfo.id}: ${ruleInfo.description || 'No description'}`
+        : pattern.rule;
+      const ruleUrl = pattern.scanner === 'ALFA' 
+        ? pattern.rule 
+        : pattern.ruleUrl || `https://dequeuniversity.com/rules/axe/${axeVersion}/${pattern.rule}`;
+      
+      lines.push(`#### Pattern ${i + 1}: Affects ${pattern.pages.size} page(s) - ${pattern.count} occurrence(s)`);
+      lines.push("");
+      lines.push(`**Scanner**: ${pattern.scanner}`);
+      lines.push(`**Rule**: [${ruleDisplay}](${ruleUrl})`);
+      if (pattern.impact) {
+        lines.push(`**Impact**: ${pattern.impact}`);
+      }
+      if (pattern.message) {
+        lines.push(`**Issue**: ${escapeMarkdown(pattern.message)}`);
+      }
+      lines.push("");
+      lines.push("**HTML Pattern**:");
+      lines.push("```html");
+      lines.push(pattern.html);
+      lines.push("```");
+      lines.push("");
+      if (pattern.xpath) {
+        lines.push("**XPath** (use in browser DevTools):");
+        lines.push("```");
+        lines.push(pattern.xpath);
+        lines.push("```");
+        lines.push("");
+      }
+      lines.push("**How to Replicate**:");
+      lines.push("1. Open any affected page in your browser");
+      lines.push("2. Press F12 to open DevTools");
+      lines.push("3. Go to Console tab");
+      if (pattern.xpath) {
+        lines.push(`4. Run: \`$x('${pattern.xpath}')\``);
+        lines.push("5. The element will be highlighted");
+      } else {
+        lines.push("4. Search for the HTML pattern in the Elements tab");
+      }
+      lines.push("");
+      lines.push("**Affected Pages**:");
+      const pageList = [...pattern.pages].slice(0, 5);
+      for (const page of pageList) {
+        lines.push(`- ${escapeMarkdown(page)}`);
+      }
+      if (pattern.pages.size > 5) {
+        lines.push(`- *...and ${pattern.pages.size - 5} more page(s)*`);
+      }
+      lines.push("");
+      lines.push("---");
+      lines.push("");
+    }
+    
+    lines.push("> 💡 **Pro Tip**: These patterns likely come from shared components or templates in your codebase. Fix them in the component/template source, and the fix will propagate to all affected pages.");
+    lines.push("");
+  } else {
+    lines.push("✅ No recurring HTML patterns found across multiple pages. Each issue appears to be page-specific.");
+    lines.push("");
+  }
+
   if (summary.rejected.length > 0) {
     lines.push("## Rejected URLs");
     lines.push("");

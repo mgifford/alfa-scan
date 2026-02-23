@@ -220,3 +220,201 @@ test("Enhanced report handles case with no errors", () => {
   assert.ok(report.includes("✅ No ALFA failed rules detected!"), "Report should show success message for no ALFA failed rules");
   assert.ok(report.includes("✅ No axe failed rules detected!"), "Report should show success message for no axe failed rules");
 });
+
+test("Cross-page pattern analysis identifies recurring HTML issues", () => {
+  // Test data with recurring HTML patterns across multiple pages
+  const summary = {
+    issueNumber: 3,
+    issueUrl: "https://github.com/example/repo/issues/3",
+    scanTitle: "Pattern Test",
+    submittedBy: "testuser",
+    scannedAt: "2026-02-21T00:00:00.000Z",
+    totalSubmitted: 3,
+    acceptedCount: 3,
+    rejectedCount: 0,
+    rejected: [],
+    alfaTotals: {
+      passed: 200,
+      failed: 60,
+      cantTell: 0,
+      inapplicable: 0
+    },
+    axeTotals: {
+      passed: 180,
+      failed: 40,
+      cantTell: 0,
+      inapplicable: 0
+    },
+    results: [
+      {
+        submittedUrl: "https://example.com/page1",
+        finalUrl: "https://example.com/page1",
+        redirected: false,
+        statusCode: 200,
+        ok: true,
+        pageTitle: "Page 1",
+        elapsedMs: 100,
+        alfa: {
+          executed: true,
+          counts: { passed: 60, failed: 20, cantTell: 0, inapplicable: 0 },
+          failedRules: ["https://alfa.siteimprove.com/rules/sia-r111"],
+          passedRules: [],
+          failures: [
+            {
+              rule: "https://alfa.siteimprove.com/rules/sia-r111",
+              html: '<button class="small-btn">Click</button>',
+              xpath: '/html/body/div/button[1]',
+              message: "Target has insufficient size"
+            },
+            {
+              rule: "https://alfa.siteimprove.com/rules/sia-r111",
+              html: '<a href="#" class="tiny-link">Link</a>',
+              xpath: '/html/body/div/a[1]',
+              message: "Target has insufficient size"
+            }
+          ],
+          outcomeCount: 80
+        },
+        axe: {
+          executed: true,
+          counts: { passed: 60, failed: 10, cantTell: 0, inapplicable: 0 },
+          failedRules: ["color-contrast"],
+          passedRules: [],
+          failures: [
+            {
+              rule: "color-contrast",
+              ruleUrl: "https://dequeuniversity.com/rules/axe/4.11/color-contrast",
+              impact: "serious",
+              html: '<p class="gray-text">Low contrast text</p>',
+              xpath: '/html/body/p[1]',
+              message: "Element has insufficient color contrast"
+            }
+          ],
+          outcomeCount: 70
+        }
+      },
+      {
+        submittedUrl: "https://example.com/page2",
+        finalUrl: "https://example.com/page2",
+        redirected: false,
+        statusCode: 200,
+        ok: true,
+        pageTitle: "Page 2",
+        elapsedMs: 110,
+        alfa: {
+          executed: true,
+          counts: { passed: 70, failed: 20, cantTell: 0, inapplicable: 0 },
+          failedRules: ["https://alfa.siteimprove.com/rules/sia-r111"],
+          passedRules: [],
+          failures: [
+            {
+              rule: "https://alfa.siteimprove.com/rules/sia-r111",
+              html: '<button class="small-btn">Click</button>',
+              xpath: '/html/body/main/button[1]',
+              message: "Target has insufficient size"
+            }
+          ],
+          outcomeCount: 90
+        },
+        axe: {
+          executed: true,
+          counts: { passed: 60, failed: 15, cantTell: 0, inapplicable: 0 },
+          failedRules: ["color-contrast"],
+          passedRules: [],
+          failures: [
+            {
+              rule: "color-contrast",
+              ruleUrl: "https://dequeuniversity.com/rules/axe/4.11/color-contrast",
+              impact: "serious",
+              html: '<p class="gray-text">Low contrast text</p>',
+              xpath: '/html/body/main/p[1]',
+              message: "Element has insufficient color contrast"
+            }
+          ],
+          outcomeCount: 75
+        }
+      },
+      {
+        submittedUrl: "https://example.com/page3",
+        finalUrl: "https://example.com/page3",
+        redirected: false,
+        statusCode: 200,
+        ok: true,
+        pageTitle: "Page 3",
+        elapsedMs: 105,
+        alfa: {
+          executed: true,
+          counts: { passed: 70, failed: 20, cantTell: 0, inapplicable: 0 },
+          failedRules: ["https://alfa.siteimprove.com/rules/sia-r111"],
+          passedRules: [],
+          failures: [
+            {
+              rule: "https://alfa.siteimprove.com/rules/sia-r111",
+              html: '<button class="small-btn">Click</button>',
+              xpath: '/html/body/section/button[1]',
+              message: "Target has insufficient size"
+            }
+          ],
+          outcomeCount: 90
+        },
+        axe: {
+          executed: true,
+          counts: { passed: 60, failed: 15, cantTell: 0, inapplicable: 0 },
+          failedRules: ["color-contrast"],
+          passedRules: [],
+          failures: [
+            {
+              rule: "color-contrast",
+              ruleUrl: "https://dequeuniversity.com/rules/axe/4.11/color-contrast",
+              impact: "serious",
+              html: '<p class="gray-text">Low contrast text</p>',
+              xpath: '/html/body/section/p[1]',
+              message: "Element has insufficient color contrast"
+            }
+          ],
+          outcomeCount: 75
+        }
+      }
+    ]
+  };
+
+  const report = toMarkdownReport(summary);
+
+  // Verify cross-page pattern section is present
+  assert.ok(report.includes("## 🔍 Cross-Page Patterns: Common HTML Issues"), 
+    "Report should include cross-page patterns section");
+  
+  // Verify pattern section shows recurring issues
+  assert.ok(report.includes("Fix the pattern once in your codebase to fix it everywhere"), 
+    "Report should encourage fixing patterns at the source");
+  
+  // Verify recurring HTML patterns are identified
+  assert.ok(report.includes('<button class="small-btn">Click</button>'), 
+    "Report should show the recurring button pattern");
+  assert.ok(report.includes('<p class="gray-text">Low contrast text</p>'), 
+    "Report should show the recurring paragraph pattern");
+  
+  // Verify pattern affects multiple pages
+  assert.ok(report.includes("Affects 3 page(s)") || report.includes("3 occurrence(s)"), 
+    "Report should show that patterns affect multiple pages");
+  
+  // Verify replication instructions are included
+  assert.ok(report.includes("**How to Replicate**"), 
+    "Report should include replication instructions");
+  assert.ok(report.includes("Press F12 to open DevTools"), 
+    "Report should include DevTools instructions");
+  assert.ok(report.includes("$x("), 
+    "Report should include XPath search instructions");
+  
+  // Verify affected pages list
+  assert.ok(report.includes("**Affected Pages**"), 
+    "Report should list affected pages");
+  assert.ok(report.includes("https://example.com/page1"), 
+    "Report should list page1 in affected pages");
+  
+  // Verify pro tip about shared components
+  assert.ok(report.includes("💡 **Pro Tip**"), 
+    "Report should include pro tip");
+  assert.ok(report.includes("shared components or templates"), 
+    "Report should mention shared components");
+});
