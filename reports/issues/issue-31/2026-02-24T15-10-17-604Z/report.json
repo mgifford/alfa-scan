@@ -1,0 +1,2449 @@
+{
+  "issueNumber": 31,
+  "issueUrl": "https://github.com/mgifford/alfa-scan/issues/31",
+  "issueTitle": "SCAN: Logan's Nerdy Scan",
+  "scanTitle": "Logan's Nerdy Scan",
+  "submittedBy": "lhouse24",
+  "scannedAt": "2026-02-24T15:10:17.530Z",
+  "totalSubmitted": 1,
+  "acceptedCount": 1,
+  "rejectedCount": 0,
+  "rejected": [],
+  "alfaTotals": {
+    "passed": 1800,
+    "failed": 324,
+    "cantTell": 18,
+    "inapplicable": 47
+  },
+  "axeTotals": {
+    "passed": 1431,
+    "failed": 42,
+    "cantTell": 12,
+    "inapplicable": 44
+  },
+  "results": [
+    {
+      "submittedUrl": "https://kotaku.com/",
+      "finalUrl": "https://kotaku.com/",
+      "redirected": false,
+      "statusCode": 200,
+      "ok": true,
+      "contentType": "text/html",
+      "pageTitle": "Kotaku - Gaming Reviews, News, Tips and More.",
+      "elapsedMs": 214,
+      "error": null,
+      "alfa": {
+        "executed": true,
+        "error": null,
+        "counts": {
+          "passed": 1800,
+          "failed": 324,
+          "cantTell": 18,
+          "inapplicable": 47
+        },
+        "failedRules": [
+          "https://alfa.siteimprove.com/rules/sia-r111",
+          "https://alfa.siteimprove.com/rules/sia-r57",
+          "https://alfa.siteimprove.com/rules/sia-r61",
+          "https://alfa.siteimprove.com/rules/sia-r66",
+          "https://alfa.siteimprove.com/rules/sia-r69",
+          "https://alfa.siteimprove.com/rules/sia-r72",
+          "https://alfa.siteimprove.com/rules/sia-r73",
+          "https://alfa.siteimprove.com/rules/sia-r78"
+        ],
+        "passedRules": [
+          "https://alfa.siteimprove.com/rules/sia-r1",
+          "https://alfa.siteimprove.com/rules/sia-r11",
+          "https://alfa.siteimprove.com/rules/sia-r110",
+          "https://alfa.siteimprove.com/rules/sia-r111",
+          "https://alfa.siteimprove.com/rules/sia-r113",
+          "https://alfa.siteimprove.com/rules/sia-r12",
+          "https://alfa.siteimprove.com/rules/sia-r16",
+          "https://alfa.siteimprove.com/rules/sia-r17",
+          "https://alfa.siteimprove.com/rules/sia-r18",
+          "https://alfa.siteimprove.com/rules/sia-r19",
+          "https://alfa.siteimprove.com/rules/sia-r2",
+          "https://alfa.siteimprove.com/rules/sia-r20",
+          "https://alfa.siteimprove.com/rules/sia-r21",
+          "https://alfa.siteimprove.com/rules/sia-r3",
+          "https://alfa.siteimprove.com/rules/sia-r4",
+          "https://alfa.siteimprove.com/rules/sia-r41",
+          "https://alfa.siteimprove.com/rules/sia-r42",
+          "https://alfa.siteimprove.com/rules/sia-r5",
+          "https://alfa.siteimprove.com/rules/sia-r53",
+          "https://alfa.siteimprove.com/rules/sia-r57",
+          "https://alfa.siteimprove.com/rules/sia-r59",
+          "https://alfa.siteimprove.com/rules/sia-r64",
+          "https://alfa.siteimprove.com/rules/sia-r65",
+          "https://alfa.siteimprove.com/rules/sia-r66",
+          "https://alfa.siteimprove.com/rules/sia-r67",
+          "https://alfa.siteimprove.com/rules/sia-r68",
+          "https://alfa.siteimprove.com/rules/sia-r69",
+          "https://alfa.siteimprove.com/rules/sia-r70",
+          "https://alfa.siteimprove.com/rules/sia-r71",
+          "https://alfa.siteimprove.com/rules/sia-r72",
+          "https://alfa.siteimprove.com/rules/sia-r73",
+          "https://alfa.siteimprove.com/rules/sia-r74",
+          "https://alfa.siteimprove.com/rules/sia-r75",
+          "https://alfa.siteimprove.com/rules/sia-r78",
+          "https://alfa.siteimprove.com/rules/sia-r8",
+          "https://alfa.siteimprove.com/rules/sia-r80",
+          "https://alfa.siteimprove.com/rules/sia-r81",
+          "https://alfa.siteimprove.com/rules/sia-r83",
+          "https://alfa.siteimprove.com/rules/sia-r84",
+          "https://alfa.siteimprove.com/rules/sia-r85",
+          "https://alfa.siteimprove.com/rules/sia-r86",
+          "https://alfa.siteimprove.com/rules/sia-r87",
+          "https://alfa.siteimprove.com/rules/sia-r90"
+        ],
+        "failures": [
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r111",
+            "xpath": "/a",
+            "html": "<a href=\"https://kotaku.com/latest\" data-mrf-link=\"https://kotaku.com/latest\" cmp-ltrk=\"navbar\" cmp-ltrk-idx=\"1\" mrfobservableid=\"d215bbfc-5c56-451b-8b5c-4ad1ee97d78a\">Latest</a>",
+            "message": "Target has insufficient size"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r111",
+            "xpath": "/a",
+            "html": "<a href=\"https://kotaku.com/entertainment\" data-mrf-link=\"https://kotaku.com/entertainment\" cmp-ltrk=\"navbar\" cmp-ltrk-idx=\"2\" mrfobservableid=\"9e6228cc-4db3-4155-add9-99339878fdf1\">Entertainment</a>",
+            "message": "Target has insufficient size"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r111",
+            "xpath": "/a",
+            "html": "<a href=\"https://kotaku.com/reviews\" data-mrf-link=\"https://kotaku.com/reviews\" cmp-ltrk=\"navbar\" cmp-ltrk-idx=\"3\" mrfobservableid=\"aa9e92be-fa82-4332-b5fa-39bd5edc7a39\">Reviews</a>",
+            "message": "Target has insufficient size"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r111",
+            "xpath": "/a",
+            "html": "<a href=\"https://kotaku.com/culture/news\" data-mrf-link=\"https://kotaku.com/culture/news\" cmp-ltrk=\"navbar\" cmp-ltrk-idx=\"4\" mrfobservableid=\"0068e89f-7add-4896-a074-b7805b30f207\">News</a>",
+            "message": "Target has insufficient size"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r111",
+            "xpath": "/a",
+            "html": "<a href=\"https://kotaku.com/game-tips\" data-mrf-link=\"https://kotaku.com/game-tips\" cmp-ltrk=\"navbar\" cmp-ltrk-idx=\"5\" mrfobservableid=\"b9c15b74-2cca-4e73-af1d-0358d369e836\">Tips & Guides</a>",
+            "message": "Target has insufficient size"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r111",
+            "xpath": "/a",
+            "html": "<a href=\"/games\" data-mrf-link=\"https://kotaku.com/games\" cmp-ltrk=\"navbar\" cmp-ltrk-idx=\"6\" mrfobservableid=\"7429ced2-00bd-4cad-8a9a-bcf9ef6e47e7\">Games</a>",
+            "message": "Target has insufficient size"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r111",
+            "xpath": "/a",
+            "html": "<a href=\"/download/\" data-mrf-link=\"https://kotaku.com/download/\" cmp-ltrk=\"navbar\" cmp-ltrk-idx=\"7\" mrfobservableid=\"a87351b9-7b5f-44d3-b0b2-ec6cc0cc207e\">Downloads</a>",
+            "message": "Target has insufficient size"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r111",
+            "xpath": "/a",
+            "html": "<a href=\"https://kotaku.com/deals\" data-mrf-link=\"https://kotaku.com/deals\" cmp-ltrk=\"navbar\" cmp-ltrk-idx=\"8\" mrfobservableid=\"89226805-acec-4497-ac1c-d9fb21dc02ed\">Deals</a>",
+            "message": "Target has insufficient size"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r111",
+            "xpath": "/a[@class=\"hover:underline text-sm uppercase tracking-widest\"]",
+            "html": "<a href=\"https://kotaku.com/latest\" class=\"hover:underline text-sm uppercase tracking-widest\" data-mrf-link=\"https://kotaku.com/latest\" cmp-ltrk=\"home-latest\" cmp-ltrk-idx=\"8\" mrfobservableid=\"996b9c36-3bf9-4e07-b626-9fe137404f4d\">...</a>",
+            "message": "Target has insufficient size"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r111",
+            "xpath": "/a[@class=\"text-lg\"]",
+            "html": "<a href=\"https://kotaku.com/game-tips\" class=\"text-lg\" data-mrf-link=\"https://kotaku.com/game-tips\" cmp-ltrk=\"home-game-tips\" cmp-ltrk-idx=\"0\" mrfobservableid=\"c756771e-3ffe-4d1b-b100-5dd9d438180a\">...</a>",
+            "message": "Target has insufficient size"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r111",
+            "xpath": "/a[@class=\"text-lg\"]",
+            "html": "<a href=\"https://kotaku.com/games\" class=\"text-lg\" data-mrf-link=\"https://kotaku.com/games\" cmp-ltrk=\"home-top-games\" cmp-ltrk-idx=\"0\" mrfobservableid=\"8f94d5dd-ed74-43a4-9cfa-ebed4a0e8681\">...</a>",
+            "message": "Target has insufficient size"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r111",
+            "xpath": "/a[@class=\"text-lg\"]",
+            "html": "<a href=\"https://kotaku.com/entertainment\" class=\"text-lg\" data-mrf-link=\"https://kotaku.com/entertainment\" cmp-ltrk=\"home-entertainment\" cmp-ltrk-idx=\"0\" mrfobservableid=\"60ca8381-143d-4204-b1ef-9d0eeea905a8\">...</a>",
+            "message": "Target has insufficient size"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r111",
+            "xpath": "/a[@class=\"flex mb-2\"]",
+            "html": "<a class=\"flex mb-2\" href=\"https://kotaku.com/ankers-6-in-1-steam-deck-docking-station-is-already-a-budget-favorite-and-now-even-cheaper-with-a-surprise-discount-2000672883\" data-mrf-link=\"https://kotaku.com/ankers-6-in-1-steam-deck-docking-station-is-already-a-budget-favorite-and-now-even-cheaper-with-a-surprise-discount-2000672883\" cmp-ltrk=\"home-deals\" cmp-ltrk-idx=\"7\" mrfobservableid=\"749cdaea-7bd3-4a1f-b881-e16e8cd5ce00\">...</a>",
+            "message": "Target has insufficient size"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r111",
+            "xpath": "/a[@class=\"text-lg\"]",
+            "html": "<a href=\"https://kotaku.com/reviews\" class=\"text-lg\" data-mrf-link=\"https://kotaku.com/reviews\" cmp-ltrk=\"home-reviews\" cmp-ltrk-idx=\"0\" mrfobservableid=\"eee83c74-3e6a-4a4b-bddc-3e94e2a4568f\">...</a>",
+            "message": "Target has insufficient size"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r111",
+            "xpath": "/a[@class=\"text-lg\"]",
+            "html": "<a href=\"https://kotaku.com/culture/retro\" class=\"text-lg\" data-mrf-link=\"https://kotaku.com/culture/retro\" cmp-ltrk=\"home-retro\" cmp-ltrk-idx=\"0\" mrfobservableid=\"c1916596-3f55-4773-9e6f-bfffcbfa8751\">...</a>",
+            "message": "Target has insufficient size"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r111",
+            "xpath": "/a[@class=\"text-lg\"]",
+            "html": "<a href=\"https://kotaku.com/video/john-cena-wwe-six-phases-wrestling-match-break-down-1851785097\" class=\"text-lg\" data-mrf-link=\"https://kotaku.com/video/john-cena-wwe-six-phases-wrestling-match-break-down-1851785097\" cmp-ltrk=\"home-video\" cmp-ltrk-idx=\"0\" mrfobservableid=\"99c46f39-e468-49cd-94db-1eb12b902de5\">...</a>",
+            "message": "Target has insufficient size"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r111",
+            "xpath": "/a[@class=\"text-lg\"]",
+            "html": "<a href=\"https://kotaku.com/tag/playstation\" class=\"text-lg\" data-mrf-link=\"https://kotaku.com/tag/playstation\" cmp-ltrk=\"home-playstation\" cmp-ltrk-idx=\"0\" mrfobservableid=\"8b60e114-741f-4422-b4f9-002e6b288e73\">...</a>",
+            "message": "Target has insufficient size"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r111",
+            "xpath": "/a[@class=\"text-lg\"]",
+            "html": "<a href=\"https://kotaku.com/tag/xbox\" class=\"text-lg\" data-mrf-link=\"https://kotaku.com/tag/xbox\" cmp-ltrk=\"home-xbox\" cmp-ltrk-idx=\"0\" mrfobservableid=\"b565442d-5903-4ab6-8499-481266df4f1f\">...</a>",
+            "message": "Target has insufficient size"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r111",
+            "xpath": "/a[@class=\"text-lg\"]",
+            "html": "<a href=\"https://kotaku.com/tag/nintendo\" class=\"text-lg\" data-mrf-link=\"https://kotaku.com/tag/nintendo\" cmp-ltrk=\"home-nintendo\" cmp-ltrk-idx=\"0\" mrfobservableid=\"1ad11fd3-7ce7-45df-a7c7-9ca052d3ea49\">...</a>",
+            "message": "Target has insufficient size"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r111",
+            "xpath": "/a[@class=\"text-lg\"]",
+            "html": "<a href=\"https://kotaku.com/tag/windows-games\" class=\"text-lg\" data-mrf-link=\"https://kotaku.com/tag/windows-games\" cmp-ltrk=\"home-windows-games\" cmp-ltrk-idx=\"0\" mrfobservableid=\"02470bd7-9865-4f91-b54e-86be29fd3ce8\">...</a>",
+            "message": "Target has insufficient size"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r111",
+            "xpath": "/a",
+            "html": "<a title=\"X (Twitter)\" target=\"_blank\" rel=\"noopener\" href=\"https://x.com/kotaku\" data-mrf-link=\"https://x.com/kotaku\" cmp-ltrk=\"footer\" cmp-ltrk-idx=\"3\" mrfobservableid=\"aa869a0e-23f6-4422-849d-33c82864461c\">𝕏</a>",
+            "message": "Target has insufficient size"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r111",
+            "xpath": "/a",
+            "html": "<a target=\"_blank\" rel=\"noopener\" href=\"/sitemap_index.xml\" data-mrf-link=\"https://kotaku.com/sitemap_index.xml\" cmp-ltrk=\"footer\" cmp-ltrk-idx=\"6\" mrfobservableid=\"4241ec48-bc08-4863-b158-59dbe4b53361\">Sitemap</a>",
+            "message": "Target has insufficient size"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r111",
+            "xpath": "/a",
+            "html": "<a href=\"https://kotaku.com/about\" data-mrf-link=\"https://kotaku.com/about\" cmp-ltrk=\"footer\" cmp-ltrk-idx=\"7\" mrfobservableid=\"f533a973-9275-45a6-9f12-49a655d7d38a\">About</a>",
+            "message": "Target has insufficient size"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r111",
+            "xpath": "/a",
+            "html": "<a href=\"https://kotaku.com/accessibility\" data-mrf-link=\"https://kotaku.com/accessibility\" cmp-ltrk=\"footer\" cmp-ltrk-idx=\"8\" mrfobservableid=\"944595b0-40f9-4fe3-acef-ef773b374e1f\">Accessibility</a>",
+            "message": "Target has insufficient size"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r111",
+            "xpath": "/a",
+            "html": "<a rel=\"privacy-policy\" href=\"https://kotaku.com/privacy-policy\" data-mrf-link=\"https://kotaku.com/privacy-policy\" cmp-ltrk=\"footer\" cmp-ltrk-idx=\"9\" mrfobservableid=\"20ab8d54-da4b-427b-aadc-e7ad55cacbdc\">Privacy Policy</a>",
+            "message": "Target has insufficient size"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r111",
+            "xpath": "/a",
+            "html": "<a href=\"https://kotaku.com/terms-of-use\" data-mrf-link=\"https://kotaku.com/terms-of-use\" cmp-ltrk=\"footer\" cmp-ltrk-idx=\"10\" mrfobservableid=\"8e072c09-d5a0-4ed2-a92b-1200d761e875\">Terms of Use</a>",
+            "message": "Target has insufficient size"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r111",
+            "xpath": "/a",
+            "html": "<a href=\"https://www.keleops.com/en/contact.html\" data-mrf-link=\"https://www.keleops.com/en/contact.html\" cmp-ltrk=\"footer\" cmp-ltrk-idx=\"11\" mrfobservableid=\"c8074e03-1a22-4df0-ba75-d0051228fd64\">Advertising</a>",
+            "message": "Target has insufficient size"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r111",
+            "xpath": "/a",
+            "html": "<a href=\"mailto:gizmodo@wrightsmedia.com\">Reprints & Permissions</a>",
+            "message": "Target has insufficient size"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r111",
+            "xpath": "/a",
+            "html": "<a href=\"#\" data-mrf-link=\"https://kotaku.com/\" cmp-ltrk=\"footer\" cmp-ltrk-idx=\"0\" mrfobservableid=\"e64eb722-84a7-4502-8f9b-df8970b92fbe\">Your Privacy Choices</a>",
+            "message": "Target has insufficient size"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r111",
+            "xpath": "/div[@class=\"sd-cmp-bS5Na\"]",
+            "html": "<div tabindex=\"0\" role=\"button\" title=\"Close\" class=\"sd-cmp-bS5Na\">...</div>",
+            "message": "Target has insufficient size"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r61",
+            "xpath": null,
+            "html": null,
+            "message": "The document does not start with a level 1 heading"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r66",
+            "xpath": null,
+            "html": null,
+            "message": "The highest possible contrast of the text is 6.38:1 which is\n        below the required contrast of 7:1"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r66",
+            "xpath": null,
+            "html": null,
+            "message": "The highest possible contrast of the text is 6.38:1 which is\n        below the required contrast of 7:1"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r66",
+            "xpath": null,
+            "html": null,
+            "message": "The highest possible contrast of the text is 6.38:1 which is\n        below the required contrast of 7:1"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r66",
+            "xpath": null,
+            "html": null,
+            "message": "The highest possible contrast of the text is 6.38:1 which is\n        below the required contrast of 7:1"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r66",
+            "xpath": null,
+            "html": null,
+            "message": "The highest possible contrast of the text is 6.38:1 which is\n        below the required contrast of 7:1"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r66",
+            "xpath": null,
+            "html": null,
+            "message": "The highest possible contrast of the text is 6.38:1 which is\n        below the required contrast of 7:1"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r66",
+            "xpath": null,
+            "html": null,
+            "message": "The highest possible contrast of the text is 6.38:1 which is\n        below the required contrast of 7:1"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r66",
+            "xpath": null,
+            "html": null,
+            "message": "The highest possible contrast of the text is 6.38:1 which is\n        below the required contrast of 7:1"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r66",
+            "xpath": null,
+            "html": null,
+            "message": "The highest possible contrast of the text is 6.38:1 which is\n        below the required contrast of 7:1"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r66",
+            "xpath": null,
+            "html": null,
+            "message": "The highest possible contrast of the text is 6.38:1 which is\n        below the required contrast of 7:1"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r66",
+            "xpath": null,
+            "html": null,
+            "message": "The highest possible contrast of the text is 6.38:1 which is\n        below the required contrast of 7:1"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r66",
+            "xpath": null,
+            "html": null,
+            "message": "The highest possible contrast of the text is 6.38:1 which is\n        below the required contrast of 7:1"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r66",
+            "xpath": null,
+            "html": null,
+            "message": "The highest possible contrast of the text is 1.66:1 which is\n        below the required contrast of 7:1"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r66",
+            "xpath": null,
+            "html": null,
+            "message": "The highest possible contrast of the text is 1.66:1 which is\n        below the required contrast of 7:1"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r66",
+            "xpath": null,
+            "html": null,
+            "message": "The highest possible contrast of the text is 1.66:1 which is\n        below the required contrast of 7:1"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r66",
+            "xpath": null,
+            "html": null,
+            "message": "The highest possible contrast of the text is 1.66:1 which is\n        below the required contrast of 7:1"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r66",
+            "xpath": null,
+            "html": null,
+            "message": "The highest possible contrast of the text is 1.66:1 which is\n        below the required contrast of 7:1"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r66",
+            "xpath": null,
+            "html": null,
+            "message": "The highest possible contrast of the text is 1.66:1 which is\n        below the required contrast of 7:1"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r66",
+            "xpath": null,
+            "html": null,
+            "message": "The highest possible contrast of the text is 1.66:1 which is\n        below the required contrast of 7:1"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r66",
+            "xpath": null,
+            "html": null,
+            "message": "The highest possible contrast of the text is 1.66:1 which is\n        below the required contrast of 7:1"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r66",
+            "xpath": null,
+            "html": null,
+            "message": "The highest possible contrast of the text is 1.66:1 which is\n        below the required contrast of 7:1"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r66",
+            "xpath": null,
+            "html": null,
+            "message": "The highest possible contrast of the text is 6.38:1 which is\n        below the required contrast of 7:1"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r66",
+            "xpath": null,
+            "html": null,
+            "message": "The highest possible contrast of the text is 6.38:1 which is\n        below the required contrast of 7:1"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r66",
+            "xpath": null,
+            "html": null,
+            "message": "The highest possible contrast of the text is 6.38:1 which is\n        below the required contrast of 7:1"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r66",
+            "xpath": null,
+            "html": null,
+            "message": "The highest possible contrast of the text is 6.38:1 which is\n        below the required contrast of 7:1"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r66",
+            "xpath": null,
+            "html": null,
+            "message": "The highest possible contrast of the text is 6.38:1 which is\n        below the required contrast of 7:1"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r66",
+            "xpath": null,
+            "html": null,
+            "message": "The highest possible contrast of the text is 1.66:1 which is\n        below the required contrast of 7:1"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r69",
+            "xpath": null,
+            "html": null,
+            "message": "The highest possible contrast of the text is 1.66:1 which is\n        below the required contrast of 4.5:1"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r69",
+            "xpath": null,
+            "html": null,
+            "message": "The highest possible contrast of the text is 1.66:1 which is\n        below the required contrast of 4.5:1"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r69",
+            "xpath": null,
+            "html": null,
+            "message": "The highest possible contrast of the text is 1.66:1 which is\n        below the required contrast of 4.5:1"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r69",
+            "xpath": null,
+            "html": null,
+            "message": "The highest possible contrast of the text is 1.66:1 which is\n        below the required contrast of 4.5:1"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r69",
+            "xpath": null,
+            "html": null,
+            "message": "The highest possible contrast of the text is 1.66:1 which is\n        below the required contrast of 4.5:1"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r69",
+            "xpath": null,
+            "html": null,
+            "message": "The highest possible contrast of the text is 1.66:1 which is\n        below the required contrast of 4.5:1"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r69",
+            "xpath": null,
+            "html": null,
+            "message": "The highest possible contrast of the text is 1.66:1 which is\n        below the required contrast of 4.5:1"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r69",
+            "xpath": null,
+            "html": null,
+            "message": "The highest possible contrast of the text is 1.66:1 which is\n        below the required contrast of 4.5:1"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r69",
+            "xpath": null,
+            "html": null,
+            "message": "The highest possible contrast of the text is 1.66:1 which is\n        below the required contrast of 4.5:1"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r69",
+            "xpath": null,
+            "html": null,
+            "message": "The highest possible contrast of the text is 1.66:1 which is\n        below the required contrast of 4.5:1"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r72",
+            "xpath": "/p[@class=\"text-accent dark:text-accent-500 text-xs font-bold uppercase\"]",
+            "html": "<p class=\"text-accent dark:text-accent-500 text-xs font-bold uppercase\">\n                    Justin Clark\n                ...</p>",
+            "message": "The text of the paragraph is uppercased"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r72",
+            "xpath": "/p[@class=\"text-accent dark:text-accent-500 text-xs font-bold uppercase\"]",
+            "html": "<p class=\"text-accent dark:text-accent-500 text-xs font-bold uppercase\">\n                    Kenneth Shepard\n             ...</p>",
+            "message": "The text of the paragraph is uppercased"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r72",
+            "xpath": "/p[@class=\"text-accent dark:text-accent-500 text-xs font-bold uppercase\"]",
+            "html": "<p class=\"text-accent dark:text-accent-500 text-xs font-bold uppercase\">\n                    Kenneth Shepard\n             ...</p>",
+            "message": "The text of the paragraph is uppercased"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r72",
+            "xpath": "/p[@class=\"text-accent dark:text-accent-500 text-xs font-bold uppercase\"]",
+            "html": "<p class=\"text-accent dark:text-accent-500 text-xs font-bold uppercase\">\n                    Ethan Gach\n                  </p>",
+            "message": "The text of the paragraph is uppercased"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r72",
+            "xpath": "/p[@class=\"text-accent dark:text-accent-500 text-xs font-bold uppercase\"]",
+            "html": "<p class=\"text-accent dark:text-accent-500 text-xs font-bold uppercase\">\n                    Ethan Gach\n                  </p>",
+            "message": "The text of the paragraph is uppercased"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r72",
+            "xpath": "/p[@class=\"text-accent dark:text-accent-500 text-xs font-bold uppercase\"]",
+            "html": "<p class=\"text-accent dark:text-accent-500 text-xs font-bold uppercase\">\n                    Zack Zwiezen\n                ...</p>",
+            "message": "The text of the paragraph is uppercased"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r72",
+            "xpath": "/p[@class=\"text-accent dark:text-accent-500 text-xs font-bold uppercase\"]",
+            "html": "<p class=\"text-accent dark:text-accent-500 text-xs font-bold uppercase\">\n                    Zack Kotzer\n                 ...</p>",
+            "message": "The text of the paragraph is uppercased"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r72",
+            "xpath": "/p[@class=\"text-accent dark:text-accent-500 text-xs font-bold uppercase\"]",
+            "html": "<p class=\"text-accent dark:text-accent-500 text-xs font-bold uppercase\">\n                    John Walker\n                 ...</p>",
+            "message": "The text of the paragraph is uppercased"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r73",
+            "xpath": "/p[@class=\"mt-2 text-lg leading-6\"]",
+            "html": "<p class=\"mt-2 text-lg leading-6\">\n              I have so many more questions than ...</p>",
+            "message": "The line height of the paragraph is less than 1.5"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r73",
+            "xpath": "/p[@class=\"mt-3 leading-4\"]",
+            "html": "<p class=\"mt-3 leading-4\">...</p>",
+            "message": "The line height of the paragraph is less than 1.5"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r73",
+            "xpath": "/p[@class=\"text-accent dark:text-accent-500 text-xs font-bold uppercase\"]",
+            "html": "<p class=\"text-accent dark:text-accent-500 text-xs font-bold uppercase\">\n                    Justin Clark\n                ...</p>",
+            "message": "The line height of the paragraph is less than 1.5"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r73",
+            "xpath": "/p[@class=\"text-accent dark:text-accent-500 text-xs font-bold uppercase\"]",
+            "html": "<p class=\"text-accent dark:text-accent-500 text-xs font-bold uppercase\">\n                    Kenneth Shepard\n             ...</p>",
+            "message": "The line height of the paragraph is less than 1.5"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r73",
+            "xpath": "/p[@class=\"text-accent dark:text-accent-500 text-xs font-bold uppercase\"]",
+            "html": "<p class=\"text-accent dark:text-accent-500 text-xs font-bold uppercase\">\n                    Kenneth Shepard\n             ...</p>",
+            "message": "The line height of the paragraph is less than 1.5"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r73",
+            "xpath": "/p[@class=\"text-accent dark:text-accent-500 text-xs font-bold uppercase\"]",
+            "html": "<p class=\"text-accent dark:text-accent-500 text-xs font-bold uppercase\">\n                    Ethan Gach\n                  </p>",
+            "message": "The line height of the paragraph is less than 1.5"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r73",
+            "xpath": "/p[@class=\"text-accent dark:text-accent-500 text-xs font-bold uppercase\"]",
+            "html": "<p class=\"text-accent dark:text-accent-500 text-xs font-bold uppercase\">\n                    Ethan Gach\n                  </p>",
+            "message": "The line height of the paragraph is less than 1.5"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r73",
+            "xpath": "/p[@class=\"text-accent dark:text-accent-500 text-xs font-bold uppercase\"]",
+            "html": "<p class=\"text-accent dark:text-accent-500 text-xs font-bold uppercase\">\n                    Zack Zwiezen\n                ...</p>",
+            "message": "The line height of the paragraph is less than 1.5"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r73",
+            "xpath": "/p[@class=\"text-accent dark:text-accent-500 text-xs font-bold uppercase\"]",
+            "html": "<p class=\"text-accent dark:text-accent-500 text-xs font-bold uppercase\">\n                    Zack Kotzer\n                 ...</p>",
+            "message": "The line height of the paragraph is less than 1.5"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r73",
+            "xpath": "/p[@class=\"text-accent dark:text-accent-500 text-xs font-bold uppercase\"]",
+            "html": "<p class=\"text-accent dark:text-accent-500 text-xs font-bold uppercase\">\n                    John Walker\n                 ...</p>",
+            "message": "The line height of the paragraph is less than 1.5"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r73",
+            "xpath": "/p[@class=\"text-xl mb-6 tracking-tight\"]",
+            "html": "<p class=\"text-xl mb-6 tracking-tight\">Don’t miss the latest reviews, news and tips. Sign...</p>",
+            "message": "The line height of the paragraph is less than 1.5"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r73",
+            "xpath": "/p",
+            "html": "<p>...</p>",
+            "message": "The line height of the paragraph is less than 1.5"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r78",
+            "xpath": "/h3[@class=\"mt-2 text-lg leading-6 font-bold lg:line-clamp-3 text-neutral-800 group-hover:text-neutral-500 dark:text-neutral-200 dark:group-hover:text-neutral-300\"]",
+            "html": "<h3 class=\"mt-2 text-lg leading-6 font-bold lg:line-clamp-3 text-neutral-800 group-hover:text-neutral-500 dark:text-neutral-200 dark:group-hover:text-neutral-300\">...</h3>",
+            "message": "There is no content between this heading and the next"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r78",
+            "xpath": "/h3[@class=\"mt-2 text-lg leading-6 font-bold lg:line-clamp-3 text-neutral-800 group-hover:text-neutral-500 dark:text-neutral-200 dark:group-hover:text-neutral-300\"]",
+            "html": "<h3 class=\"mt-2 text-lg leading-6 font-bold lg:line-clamp-3 text-neutral-800 group-hover:text-neutral-500 dark:text-neutral-200 dark:group-hover:text-neutral-300\">\n    Nioh 3\n  </h3>",
+            "message": "There is no content between this heading and the next"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r78",
+            "xpath": "/h3[@class=\"mt-2 text-lg leading-6 font-bold lg:line-clamp-3 text-neutral-800 group-hover:text-neutral-500 dark:text-neutral-200 dark:group-hover:text-neutral-300\"]",
+            "html": "<h3 class=\"mt-2 text-lg leading-6 font-bold lg:line-clamp-3 text-neutral-800 group-hover:text-neutral-500 dark:text-neutral-200 dark:group-hover:text-neutral-300\">...</h3>",
+            "message": "There is no content between this heading and the next"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r78",
+            "xpath": "/h3[@class=\"flex-1 line-clamp-3\"]",
+            "html": "<h3 class=\"flex-1 line-clamp-3\">\n                    LG 32″ UltraGear Curved Gamin...</h3>",
+            "message": "There is no content between this heading and the next"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r78",
+            "xpath": "/h3[@class=\"mt-2 text-lg leading-6 font-bold lg:line-clamp-3 text-neutral-800 group-hover:text-neutral-500 dark:text-neutral-200 dark:group-hover:text-neutral-300\"]",
+            "html": "<h3 class=\"mt-2 text-lg leading-6 font-bold lg:line-clamp-3 text-neutral-800 group-hover:text-neutral-500 dark:text-neutral-200 dark:group-hover:text-neutral-300\">...</h3>",
+            "message": "There is no content between this heading and the next"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r78",
+            "xpath": "/h3[@class=\"mt-2 text-lg leading-6 font-bold lg:line-clamp-3 text-neutral-800 group-hover:text-neutral-500 dark:text-neutral-200 dark:group-hover:text-neutral-300\"]",
+            "html": "<h3 class=\"mt-2 text-lg leading-6 font-bold lg:line-clamp-3 text-neutral-800 group-hover:text-neutral-500 dark:text-neutral-200 dark:group-hover:text-neutral-300\">...</h3>",
+            "message": "There is no content between this heading and the next"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r78",
+            "xpath": "/h3[@class=\"mt-2 text-lg leading-6 font-bold lg:line-clamp-3 text-neutral-800 group-hover:text-neutral-500 dark:text-neutral-200 dark:group-hover:text-neutral-300\"]",
+            "html": "<h3 class=\"mt-2 text-lg leading-6 font-bold lg:line-clamp-3 text-neutral-800 group-hover:text-neutral-500 dark:text-neutral-200 dark:group-hover:text-neutral-300\">\n    The Battle Of The Translucent N64s Has Arrive...</h3>",
+            "message": "There is no content between this heading and the next"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r78",
+            "xpath": "/h3[@class=\"mt-2 text-xl xs:text-2xl lg:text-3xl font-bold hover:underline\"]",
+            "html": "<h3 class=\"mt-2 text-xl xs:text-2xl lg:text-3xl font-bold hover:underline\">\n        Ring Psychology: Understanding The 6 Phas...</h3>",
+            "message": "There is no content between this heading and the next"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r78",
+            "xpath": "/h3[@class=\"mt-2 text-lg leading-6 font-bold lg:line-clamp-3 text-neutral-800 group-hover:text-neutral-500 dark:text-neutral-200 dark:group-hover:text-neutral-300\"]",
+            "html": "<h3 class=\"mt-2 text-lg leading-6 font-bold lg:line-clamp-3 text-neutral-800 group-hover:text-neutral-500 dark:text-neutral-200 dark:group-hover:text-neutral-300\">\n    Sony’s PS5-Era Studio Acquisition Spree Has B...</h3>",
+            "message": "There is no content between this heading and the next"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r78",
+            "xpath": "/h3[@class=\"mt-2 text-lg leading-6 font-bold lg:line-clamp-3 text-neutral-800 group-hover:text-neutral-500 dark:text-neutral-200 dark:group-hover:text-neutral-300\"]",
+            "html": "<h3 class=\"mt-2 text-lg leading-6 font-bold lg:line-clamp-3 text-neutral-800 group-hover:text-neutral-500 dark:text-neutral-200 dark:group-hover:text-neutral-300\">\n    New Xbox Boss Says ‘Hear You’ When Asked To B...</h3>",
+            "message": "There is no content between this heading and the next"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r78",
+            "xpath": "/h3[@class=\"mt-2 text-lg leading-6 font-bold lg:line-clamp-3 text-neutral-800 group-hover:text-neutral-500 dark:text-neutral-200 dark:group-hover:text-neutral-300\"]",
+            "html": "<h3 class=\"mt-2 text-lg leading-6 font-bold lg:line-clamp-3 text-neutral-800 group-hover:text-neutral-500 dark:text-neutral-200 dark:group-hover:text-neutral-300\">\n    That’s It, I’m Calling It, Xbox Is Dead, Time...</h3>",
+            "message": "There is no content between this heading and the next"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r78",
+            "xpath": "/h3[@class=\"mt-2 text-lg leading-6 font-bold lg:line-clamp-3 text-neutral-800 group-hover:text-neutral-500 dark:text-neutral-200 dark:group-hover:text-neutral-300\"]",
+            "html": "<h3 class=\"mt-2 text-lg leading-6 font-bold lg:line-clamp-3 text-neutral-800 group-hover:text-neutral-500 dark:text-neutral-200 dark:group-hover:text-neutral-300\">...</h3>",
+            "message": "There is no content between this heading and the next"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r78",
+            "xpath": "/h3[@class=\"mt-2 text-lg leading-6 font-bold lg:line-clamp-3 text-neutral-800 group-hover:text-neutral-500 dark:text-neutral-200 dark:group-hover:text-neutral-300\"]",
+            "html": "<h3 class=\"mt-2 text-lg leading-6 font-bold lg:line-clamp-3 text-neutral-800 group-hover:text-neutral-500 dark:text-neutral-200 dark:group-hover:text-neutral-300\">...</h3>",
+            "message": "There is no content between this heading and the next"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r78",
+            "xpath": "/h3[@class=\"mt-2 text-lg leading-6 font-bold lg:line-clamp-3 text-neutral-800 group-hover:text-neutral-500 dark:text-neutral-200 dark:group-hover:text-neutral-300\"]",
+            "html": "<h3 class=\"mt-2 text-lg leading-6 font-bold lg:line-clamp-3 text-neutral-800 group-hover:text-neutral-500 dark:text-neutral-200 dark:group-hover:text-neutral-300\">\n    The Best Games Of 2025 (So Far)\n  </h3>",
+            "message": "There is no content between this heading and the next"
+          }
+        ],
+        "outcomeCount": 2189
+      },
+      "axe": {
+        "executed": true,
+        "error": null,
+        "counts": {
+          "passed": 1431,
+          "failed": 42,
+          "cantTell": 12,
+          "inapplicable": 44
+        },
+        "failedRules": [
+          "color-contrast",
+          "region"
+        ],
+        "passedRules": [
+          "aria-allowed-attr",
+          "aria-allowed-role",
+          "aria-command-name",
+          "aria-conditional-attr",
+          "aria-deprecated-role",
+          "aria-hidden-body",
+          "aria-hidden-focus",
+          "aria-prohibited-attr",
+          "aria-required-attr",
+          "aria-roles",
+          "aria-valid-attr",
+          "aria-valid-attr-value",
+          "avoid-inline-spacing",
+          "button-name",
+          "bypass",
+          "color-contrast",
+          "document-title",
+          "empty-heading",
+          "form-field-multiple-labels",
+          "heading-order",
+          "html-has-lang",
+          "html-lang-valid",
+          "image-alt",
+          "image-redundant-alt",
+          "label",
+          "label-title-only",
+          "landmark-complementary-is-top-level",
+          "landmark-contentinfo-is-top-level",
+          "landmark-main-is-top-level",
+          "landmark-no-duplicate-contentinfo",
+          "landmark-no-duplicate-main",
+          "landmark-one-main",
+          "landmark-unique",
+          "link-name",
+          "list",
+          "listitem",
+          "meta-viewport",
+          "meta-viewport-large",
+          "nested-interactive",
+          "page-has-heading-one",
+          "presentation-role-conflict",
+          "region",
+          "scrollable-region-focusable",
+          "skip-link",
+          "tabindex"
+        ],
+        "failures": [
+          {
+            "rule": "color-contrast",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/color-contrast?application=playwright",
+            "impact": "serious",
+            "xpath": ".mb-2.flex:nth-child(1) > .w-16.mr-1.z-10 > .py-3.dark\\:text-main-300.tracking-tight",
+            "html": "<span class=\"py-3 text-main dark:text-main-300 bg-white dark:bg-neutral-900 tracking-tight\">\n                      8:35 AM\n                    </span>",
+            "message": "Elements must meet minimum color contrast ratio thresholds"
+          },
+          {
+            "rule": "color-contrast",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/color-contrast?application=playwright",
+            "impact": "serious",
+            "xpath": ".mb-2.flex:nth-child(2) > .w-16.mr-1.z-10 > .py-3.dark\\:text-main-300.tracking-tight",
+            "html": "<span class=\"py-3 text-main dark:text-main-300 bg-white dark:bg-neutral-900 tracking-tight\">\n                      8:05 AM\n                    </span>",
+            "message": "Elements must meet minimum color contrast ratio thresholds"
+          },
+          {
+            "rule": "color-contrast",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/color-contrast?application=playwright",
+            "impact": "serious",
+            "xpath": ".mb-2.flex:nth-child(3) > .w-16.mr-1.z-10 > .py-3.dark\\:text-main-300.tracking-tight",
+            "html": "<span class=\"py-3 text-main dark:text-main-300 bg-white dark:bg-neutral-900 tracking-tight\">\n                      7:35 AM\n                    </span>",
+            "message": "Elements must meet minimum color contrast ratio thresholds"
+          },
+          {
+            "rule": "color-contrast",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/color-contrast?application=playwright",
+            "impact": "serious",
+            "xpath": ".mb-2.flex:nth-child(4) > .w-16.mr-1.z-10 > .py-3.dark\\:text-main-300.tracking-tight",
+            "html": "<span class=\"py-3 text-main dark:text-main-300 bg-white dark:bg-neutral-900 tracking-tight\">\n                      7:05 AM\n                    </span>",
+            "message": "Elements must meet minimum color contrast ratio thresholds"
+          },
+          {
+            "rule": "color-contrast",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/color-contrast?application=playwright",
+            "impact": "serious",
+            "xpath": ".mb-2.flex:nth-child(5) > .w-16.mr-1.z-10 > .py-3.dark\\:text-main-300.tracking-tight",
+            "html": "<span class=\"py-3 text-main dark:text-main-300 bg-white dark:bg-neutral-900 tracking-tight\">\n                      Feb 23\n                    </span>",
+            "message": "Elements must meet minimum color contrast ratio thresholds"
+          },
+          {
+            "rule": "color-contrast",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/color-contrast?application=playwright",
+            "impact": "serious",
+            "xpath": ".mb-2.flex:nth-child(6) > .w-16.mr-1.z-10 > .py-3.dark\\:text-main-300.tracking-tight",
+            "html": "<span class=\"py-3 text-main dark:text-main-300 bg-white dark:bg-neutral-900 tracking-tight\">\n                      Feb 23\n                    </span>",
+            "message": "Elements must meet minimum color contrast ratio thresholds"
+          },
+          {
+            "rule": "color-contrast",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/color-contrast?application=playwright",
+            "impact": "serious",
+            "xpath": ".mb-2.flex:nth-child(7) > .w-16.mr-1.z-10 > .py-3.dark\\:text-main-300.tracking-tight",
+            "html": "<span class=\"py-3 text-main dark:text-main-300 bg-white dark:bg-neutral-900 tracking-tight\">\n                      Feb 23\n                    </span>",
+            "message": "Elements must meet minimum color contrast ratio thresholds"
+          },
+          {
+            "rule": "color-contrast",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/color-contrast?application=playwright",
+            "impact": "serious",
+            "xpath": ".mb-2.flex:nth-child(8) > .w-16.mr-1.z-10 > .py-3.dark\\:text-main-300.tracking-tight",
+            "html": "<span class=\"py-3 text-main dark:text-main-300 bg-white dark:bg-neutral-900 tracking-tight\">\n                      Feb 23\n                    </span>",
+            "message": "Elements must meet minimum color contrast ratio thresholds"
+          },
+          {
+            "rule": "color-contrast",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/color-contrast?application=playwright",
+            "impact": "serious",
+            "xpath": ".mb-2.flex:nth-child(9) > .w-16.mr-1.z-10 > .py-3.dark\\:text-main-300.tracking-tight",
+            "html": "<span class=\"py-3 text-main dark:text-main-300 bg-white dark:bg-neutral-900 tracking-tight\">\n                      Feb 23\n                    </span>",
+            "message": "Elements must meet minimum color contrast ratio thresholds"
+          },
+          {
+            "rule": "color-contrast",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/color-contrast?application=playwright",
+            "impact": "serious",
+            "xpath": ".sd-cmp-AmRQ2 > span",
+            "html": "<span>About Cookies on this Site</span>",
+            "message": "Elements must meet minimum color contrast ratio thresholds"
+          },
+          {
+            "rule": "color-contrast",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/color-contrast?application=playwright",
+            "impact": "serious",
+            "xpath": "strong",
+            "html": "<strong class=\"policy\" title=\"Privacy policy\" tabindex=\"0\">privacy policy</strong>",
+            "message": "Elements must meet minimum color contrast ratio thresholds"
+          },
+          {
+            "rule": "region",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/region?application=playwright",
+            "impact": "moderate",
+            "xpath": ".md\\:flex",
+            "html": "<div class=\"md:flex flex-col\" data-mrf-recirculation=\"home-latest\">",
+            "message": "All page content should be contained by landmarks"
+          },
+          {
+            "rule": "region",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/region?application=playwright",
+            "impact": "moderate",
+            "xpath": ".lg\\:gap-8.lg\\:grid-cols-4[data-mrf-recirculation=\"home-featured\"]",
+            "html": "<div class=\"grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8\" data-mrf-recirculation=\"home-featured\">",
+            "message": "All page content should be contained by landmarks"
+          },
+          {
+            "rule": "region",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/region?application=playwright",
+            "impact": "moderate",
+            "xpath": "div[data-mrf-recirculation=\"home-game-tips\"]",
+            "html": "<div class=\"mt-12 lg:mt-16\" data-mrf-recirculation=\"home-game-tips\">",
+            "message": "All page content should be contained by landmarks"
+          },
+          {
+            "rule": "region",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/region?application=playwright",
+            "impact": "moderate",
+            "xpath": "div[data-mrf-recirculation=\"home-top-games\"]",
+            "html": "<div class=\"mt-12 lg:mt-16\" data-mrf-recirculation=\"home-top-games\">",
+            "message": "All page content should be contained by landmarks"
+          },
+          {
+            "rule": "region",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/region?application=playwright",
+            "impact": "moderate",
+            "xpath": "div[data-mrf-recirculation=\"home-entertainment\"]",
+            "html": "<div class=\"mt-12 lg:mt-16\" data-mrf-recirculation=\"home-entertainment\">",
+            "message": "All page content should be contained by landmarks"
+          },
+          {
+            "rule": "region",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/region?application=playwright",
+            "impact": "moderate",
+            "xpath": "div[data-mrf-recirculation=\"home-deals\"]",
+            "html": "<div class=\"mt-12 lg:mt-16\" data-mrf-recirculation=\"home-deals\">",
+            "message": "All page content should be contained by landmarks"
+          },
+          {
+            "rule": "region",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/region?application=playwright",
+            "impact": "moderate",
+            "xpath": ".md\\:grid-cols-2.md\\:gap-6.xl\\:gap-8:nth-child(11)",
+            "html": "<div class=\"grid grid-cols-1 md:grid-cols-2 md:gap-6 xl:gap-8\">",
+            "message": "All page content should be contained by landmarks"
+          },
+          {
+            "rule": "region",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/region?application=playwright",
+            "impact": "moderate",
+            "xpath": "div[data-mrf-recirculation=\"home-video\"] > .text-lg",
+            "html": "<a href=\"https://kotaku.com/video/john-cena-wwe-six-phases-wrestling-match-break-down-1851785097\" class=\"text-lg\">\n  <h2 class=\"mb-5 inline-block text-3xl font-bold text-accent dark:text-accent-600\">\n    Kotaku Video\n  </h2>\n  <span class=\"mx-1\">•</span>\n  View all\n</a>",
+            "message": "All page content should be contained by landmarks"
+          },
+          {
+            "rule": "region",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/region?application=playwright",
+            "impact": "moderate",
+            "xpath": ".flex-1.block > .block",
+            "html": "<a href=\"https://kotaku.com/video/john-cena-wwe-six-phases-wrestling-match-break-down-1851785097\" class=\"block\">",
+            "message": "All page content should be contained by landmarks"
+          },
+          {
+            "rule": "region",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/region?application=playwright",
+            "impact": "moderate",
+            "xpath": ".flex-col-reverse.xs\\:flex-row.xs\\:bg-black\\/\\[\\.15\\]:nth-child(1) > .xs\\:pr-2.lg\\:px-2.self-center",
+            "html": "<div class=\"flex-1 xs:pr-2 lg:px-2 self-center\">\n          <h3 class=\"text-lg font-bold group-hover:underline break-words\">\n            Disney+ Pulls <i>The Abyss</i> Over Controversial Rat Scene — Again\n          </h3>\n        </div>",
+            "message": "All page content should be contained by landmarks"
+          },
+          {
+            "rule": "region",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/region?application=playwright",
+            "impact": "moderate",
+            "xpath": ".flex-col-reverse.xs\\:flex-row.xs\\:bg-black\\/\\[\\.15\\]:nth-child(1) > .xs\\:flex-none.xs\\:w-36.flex-1 > .right-1.bottom-1.bg-black\\/70",
+            "html": "<div class=\"absolute right-1 bottom-1 bg-black/70 px-1 text-sm\">\n            02:08\n          </div>",
+            "message": "All page content should be contained by landmarks"
+          },
+          {
+            "rule": "region",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/region?application=playwright",
+            "impact": "moderate",
+            "xpath": ".flex-col-reverse.xs\\:flex-row.xs\\:bg-black\\/\\[\\.15\\]:nth-child(2) > .xs\\:pr-2.lg\\:px-2.self-center",
+            "html": "<div class=\"flex-1 xs:pr-2 lg:px-2 self-center\">\n          <h3 class=\"text-lg font-bold group-hover:underline break-words\">\n            A Hot-Fix Is On The Way For MindsEye’s Frustrating CPR Mini-Game\n          </h3>\n        </div>",
+            "message": "All page content should be contained by landmarks"
+          },
+          {
+            "rule": "region",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/region?application=playwright",
+            "impact": "moderate",
+            "xpath": ".flex-col-reverse.xs\\:flex-row.xs\\:bg-black\\/\\[\\.15\\]:nth-child(2) > .xs\\:flex-none.xs\\:w-36.flex-1 > .right-1.bottom-1.bg-black\\/70",
+            "html": "<div class=\"absolute right-1 bottom-1 bg-black/70 px-1 text-sm\">\n            02:00\n          </div>",
+            "message": "All page content should be contained by landmarks"
+          },
+          {
+            "rule": "region",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/region?application=playwright",
+            "impact": "moderate",
+            "xpath": ".flex-col-reverse.xs\\:flex-row.xs\\:bg-black\\/\\[\\.15\\]:nth-child(3) > .xs\\:pr-2.lg\\:px-2.self-center",
+            "html": "<div class=\"flex-1 xs:pr-2 lg:px-2 self-center\">\n          <h3 class=\"text-lg font-bold group-hover:underline break-words\">\n            <i>Ironheart</i>‘s New Trailer Delivers A Couple Cool Surprises\n          </h3>\n        </div>",
+            "message": "All page content should be contained by landmarks"
+          },
+          {
+            "rule": "region",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/region?application=playwright",
+            "impact": "moderate",
+            "xpath": ".flex-col-reverse.xs\\:flex-row.xs\\:bg-black\\/\\[\\.15\\]:nth-child(3) > .xs\\:flex-none.xs\\:w-36.flex-1 > .right-1.bottom-1.bg-black\\/70",
+            "html": "<div class=\"absolute right-1 bottom-1 bg-black/70 px-1 text-sm\">\n            02:16\n          </div>",
+            "message": "All page content should be contained by landmarks"
+          },
+          {
+            "rule": "region",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/region?application=playwright",
+            "impact": "moderate",
+            "xpath": ".flex-col-reverse.xs\\:flex-row.xs\\:bg-black\\/\\[\\.15\\]:nth-child(4) > .xs\\:pr-2.lg\\:px-2.self-center",
+            "html": "<div class=\"flex-1 xs:pr-2 lg:px-2 self-center\">\n          <h3 class=\"text-lg font-bold group-hover:underline break-words\">\n            Black Ops 7, Invincible Vs &amp; More — Here Are The 5 Games That Stole Microsoft’s Show\n          </h3>\n        </div>",
+            "message": "All page content should be contained by landmarks"
+          },
+          {
+            "rule": "region",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/region?application=playwright",
+            "impact": "moderate",
+            "xpath": ".flex-col-reverse.xs\\:flex-row.xs\\:bg-black\\/\\[\\.15\\]:nth-child(4) > .xs\\:flex-none.xs\\:w-36.flex-1 > .right-1.bottom-1.bg-black\\/70",
+            "html": "<div class=\"absolute right-1 bottom-1 bg-black/70 px-1 text-sm\">\n            02:36\n          </div>",
+            "message": "All page content should be contained by landmarks"
+          },
+          {
+            "rule": "region",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/region?application=playwright",
+            "impact": "moderate",
+            "xpath": ".md\\:grid-cols-2.md\\:gap-6.xl\\:gap-8:nth-child(13)",
+            "html": "<div class=\"grid grid-cols-1 md:grid-cols-2 md:gap-6 xl:gap-8\">",
+            "message": "All page content should be contained by landmarks"
+          },
+          {
+            "rule": "region",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/region?application=playwright",
+            "impact": "moderate",
+            "xpath": ".col-span-2",
+            "html": "<ul class=\"col-span-2\">",
+            "message": "All page content should be contained by landmarks"
+          },
+          {
+            "rule": "region",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/region?application=playwright",
+            "impact": "moderate",
+            "xpath": "div[data-mrf-recirculation=\"home-newsletter\"] > .text-3xl",
+            "html": "<h2 class=\"text-3xl font-bold\">🕹️ Level up your inbox</h2>",
+            "message": "All page content should be contained by landmarks"
+          },
+          {
+            "rule": "region",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/region?application=playwright",
+            "impact": "moderate",
+            "xpath": ".mb-6.tracking-tight.text-xl",
+            "html": "<p class=\"text-xl mb-6 tracking-tight\">Don’t miss the latest reviews, news and tips. Sign up for our free newsletter.</p>",
+            "message": "All page content should be contained by landmarks"
+          },
+          {
+            "rule": "region",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/region?application=playwright",
+            "impact": "moderate",
+            "xpath": ".border-none",
+            "html": "<input type=\"email\" name=\"EMAIL\" placeholder=\"Enter email here\" required=\"\" class=\"mb-4 px-4 py-2 w-full rounded-lg border-none dark:text-black\">",
+            "message": "All page content should be contained by landmarks"
+          },
+          {
+            "rule": "region",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/region?application=playwright",
+            "impact": "moderate",
+            "xpath": ".max-w-\\[370px\\] > .fly-overflow.flex-col.h-full",
+            "html": "<div class=\"fly-overflow h-full flex flex-col\">",
+            "message": "All page content should be contained by landmarks"
+          },
+          {
+            "rule": "region",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/region?application=playwright",
+            "impact": "moderate",
+            "xpath": "#menu-main-menu-1",
+            "html": "<ul id=\"menu-main-menu-1\" class=\"nav-primary-mobile mt-4 uppercase text-xl leading-8 select-none\">",
+            "message": "All page content should be contained by landmarks"
+          },
+          {
+            "rule": "region",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/region?application=playwright",
+            "impact": "moderate",
+            "xpath": "#menu-mobile-menu",
+            "html": "<ul id=\"menu-mobile-menu\" class=\"nav-primary-mobile mt-4 uppercase text-xl leading-8 select-none\">",
+            "message": "All page content should be contained by landmarks"
+          },
+          {
+            "rule": "region",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/region?application=playwright",
+            "impact": "moderate",
+            "xpath": "a[aria-label=\"Voir plus\"]",
+            "html": "<a href=\"#\" aria-label=\"Voir plus\"><i class=\"fa fa-rocket\"></i></a>",
+            "message": "All page content should be contained by landmarks"
+          },
+          {
+            "rule": "region",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/region?application=playwright",
+            "impact": "moderate",
+            "xpath": ".mode-switcher.mt-4.text-center",
+            "html": "<div class=\"mode-switcher flex-1 mt-4 text-center\">",
+            "message": "All page content should be contained by landmarks"
+          },
+          {
+            "rule": "region",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/region?application=playwright",
+            "impact": "moderate",
+            "xpath": ".max-w-xs > .fly-overflow.flex-col.h-full > .mt-8.text-center.flex-none",
+            "html": "<div class=\"flex-none mt-8 text-center\">",
+            "message": "All page content should be contained by landmarks"
+          },
+          {
+            "rule": "region",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/region?application=playwright",
+            "impact": "moderate",
+            "xpath": "#fly-search",
+            "html": "<div class=\"fixed inset-0 z-max bg-black overflow-hidden transition-fly delay-75 duration-300 ease-in-out max-h-0 opacity-0 fly-search-off\" id=\"fly-search\" data-mrf-recirculation=\"menu-search\">",
+            "message": "All page content should be contained by landmarks"
+          },
+          {
+            "rule": "region",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/region?application=playwright",
+            "impact": "moderate",
+            "xpath": ".sd-cmp-AmRQ2",
+            "html": "<div tabindex=\"-1\" class=\"sd-cmp-AmRQ2\"><span>About Cookies on this Site</span></div>",
+            "message": "All page content should be contained by landmarks"
+          },
+          {
+            "rule": "region",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/region?application=playwright",
+            "impact": "moderate",
+            "xpath": ".sd-cmp-J-Y-d",
+            "html": "<div class=\"sd-cmp-J-Y-d\">",
+            "message": "All page content should be contained by landmarks"
+          }
+        ],
+        "outcomeCount": 1529
+      }
+    }
+  ]
+}
