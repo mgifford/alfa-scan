@@ -65,6 +65,12 @@ Scans can be triggered in three ways:
 - **scanner/validate-targets.mjs**: Server-side URL validation
 - **scanner/run-scan.mjs**: Executes Alfa scans and generates reports
 
+## Documentation
+
+- **[ACCESSIBILITY.md](./ACCESSIBILITY.md)** - Accessibility standards, WCAG 2.2 AA requirements, and development best practices
+- **[AGENTS.md](./AGENTS.md)** - AI agent instructions for Copilot, Cursor, Claude, and other coding assistants
+- **[.kittify/AGENTS.md](.kittify/AGENTS.md)** - Spec Kitty project management rules
+
 ## Next workflow steps
 
 1. ✅ ~~Review WP01~~
