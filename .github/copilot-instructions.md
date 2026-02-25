@@ -56,6 +56,31 @@ This is an issue-driven accessibility scanning prototype that uses GitHub Pages 
 - Never commit secrets or credentials
 - Validate all user inputs before processing
 
+### Stdout/Stderr Convention
+
+**CRITICAL**: Scanner modules must output structured data (JSON) to stdout and progress/diagnostic messages to stderr.
+
+- **stdout**: Reserved ONLY for structured data (JSON) that workflows will parse
+- **stderr**: Use for all progress messages, warnings, errors, and diagnostic output
+- **Rationale**: Workflows redirect stdout to files or parse it as JSON. Any non-JSON output breaks parsing.
+
+**Example (run-scan.mjs)**:
+```javascript
+// ✅ CORRECT: Progress to stderr
+console.error(`[1/100] Scanned ${url} in ${ms}ms`);
+
+// ✅ CORRECT: Warnings to stderr  
+console.warn(`WARNING: Scan incomplete`);
+
+// ✅ CORRECT: Final JSON to stdout
+console.log(JSON.stringify({ results: [...] }));
+
+// ❌ WRONG: Progress to stdout corrupts JSON
+console.log(`[1/100] Scanned ${url}`); // Breaks workflow parsing!
+```
+
+**Testing**: See `tests/unit/run-scan-output.test.mjs` for examples of validating stdout/stderr separation.
+
 ### Git Practices
 
 - Keep `node_modules/` in .gitignore (never commit dependencies)

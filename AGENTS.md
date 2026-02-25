@@ -22,6 +22,7 @@ This repository welcomes multiple AI coding agents and tools. This document prov
    ```
 3. **Security**: Use `spawnSync` with argument arrays, never `execSync` with template strings
 4. **Node Version**: >= 20 (see package.json engines)
+5. **Stdout/Stderr**: Scanner modules MUST output structured data (JSON) to stdout and progress/diagnostic messages to stderr. Workflows parse stdout as JSON - any non-JSON output breaks parsing. See `.github/copilot-instructions.md` for detailed examples.
 
 ### Testing & Quality
 
