@@ -36,7 +36,7 @@ jobs:
 
       # Timeout configuration (optional, defaults shown):
       # - FETCH_TIMEOUT_MS: Maximum time for initial HTTP fetch (default: 30000ms = 30s)
-      # - PER_URL_TIMEOUT_MS: Maximum time per URL including fetch and both audits (default: 120000ms = 2min)
+      # - PER_URL_TIMEOUT_MS: Maximum time per URL including fetch and all audits (default: 60000ms = 60s)
       # - TOTAL_SCAN_TIMEOUT_MS: Maximum total scan time (default: 3000000ms = 50min)
       # - ALFA_PAGE_TIMEOUT_MS: ALFA CLI page load timeout (default: 30000ms = 30s)
       # - ALFA_COMMAND_TIMEOUT_MS: ALFA command execution timeout (default: 180000ms = 3min)
@@ -59,7 +59,7 @@ jobs:
         # Uncomment and adjust these environment variables to customize timeouts:
         # env:
         #   FETCH_TIMEOUT_MS: "30000"           # 30s for initial HTTP fetch
-        #   PER_URL_TIMEOUT_MS: "120000"        # 2min per URL total
+        #   PER_URL_TIMEOUT_MS: "60000"         # 60s per URL total
         #   TOTAL_SCAN_TIMEOUT_MS: "3000000"    # 50min total scan time
         #   ALFA_PAGE_TIMEOUT_MS: "30000"       # 30s ALFA page load
         #   ALFA_COMMAND_TIMEOUT_MS: "180000"   # 3min ALFA command execution

@@ -34,7 +34,7 @@ jobs:
 
       # Timeout configuration (optional, defaults shown):
       # - FETCH_TIMEOUT_MS: Maximum time for initial HTTP fetch (default: 30000ms = 30s)
-      # - PER_URL_TIMEOUT_MS: Maximum time per URL including fetch and both audits (default: 120000ms = 2min)
+      # - PER_URL_TIMEOUT_MS: Maximum time per URL including fetch and all audits (default: 60000ms = 60s)
       # - TOTAL_SCAN_TIMEOUT_MS: Maximum total scan time (default: 3000000ms = 50min)
       # - ALFA_PAGE_TIMEOUT_MS: ALFA CLI page load timeout (default: 30000ms = 30s)
       # - ALFA_COMMAND_TIMEOUT_MS: ALFA command execution timeout (default: 180000ms = 3min)
@@ -120,22 +120,10 @@ jobs:
                 // Run the scan using spawn for better security
                 console.log(`Running scan for issue #${issueNumber}...`);
                 const scanProcess = await new Promise((resolve, reject) => {
-                  const scanStartedAt = Date.now();
-                  const heartbeatMs = 30000;
-                  const heartbeat = setInterval(() => {
-                    const elapsedSec = Math.floor((Date.now() - scanStartedAt) / 1000);
-                    console.log(`[issue #${issueNumber}] heartbeat: scan still running (${elapsedSec}s elapsed)`);
-                  }, heartbeatMs);
-
                   const child = spawn(
                     process.execPath,
                     ['scanner/run-scan.mjs', eventPath, scanOutputDir],
-                    {
-                      env: {
-                        ...process.env,
-                        PER_URL_TIMEOUT_MS: '60000'
-                      }
-                    }
+                    { env: process.env }
                   );
 
                   let stdout = '';
@@ -157,12 +145,10 @@ jobs:
                   });
 
                   child.on('error', (error) => {
-                    clearInterval(heartbeat);
                     reject(new Error(`Failed to run scan: ${error.message}`));
                   });
 
                   child.on('close', (code) => {
-                    clearInterval(heartbeat);
                     if (code !== 0) {
                       reject(new Error(`Scan process exited with code ${code}\n${stderr.slice(-5000)}`));
                       return;

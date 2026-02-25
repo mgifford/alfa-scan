@@ -16,8 +16,8 @@ const TIMEOUTS = {
   // Maximum time for initial HTTP fetch (default: 30s)
   FETCH_TIMEOUT: parseInt(process.env.FETCH_TIMEOUT_MS || "30000", 10),
   
-  // Maximum time for a single URL scan including fetch and both audits (default: 2 minutes)
-  PER_URL_TIMEOUT: parseInt(process.env.PER_URL_TIMEOUT_MS || "120000", 10),
+  // Maximum time for a single URL scan including fetch and all audits (default: 60s)
+  PER_URL_TIMEOUT: parseInt(process.env.PER_URL_TIMEOUT_MS || "60000", 10),
   
   // Maximum total time for the entire scan (default: 50 minutes to stay under 1 hour)
   TOTAL_SCAN_TIMEOUT: parseInt(process.env.TOTAL_SCAN_TIMEOUT_MS || "3000000", 10),
@@ -727,6 +727,10 @@ function extractHtmlTitle(html) {
 
 async function scanOneUrl(target) {
   const started = Date.now();
+  const heartbeat = setInterval(() => {
+    const elapsedSec = Math.floor((Date.now() - started) / 1000);
+    console.error(`[heartbeat] Scanning ${target.submittedUrl} (${elapsedSec}s elapsed)`);
+  }, 30000);
   
   // Create a promise that rejects on per-URL timeout
   const timeoutPromise = new Promise((_, reject) => {
@@ -826,6 +830,8 @@ async function scanOneUrl(target) {
       accesslint: baseErrorResult,
       duplicateFindingCount: 0
     };
+  } finally {
+    clearInterval(heartbeat);
   }
 }
 
