@@ -68,7 +68,7 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const { execSync, spawnSync } = require('child_process');
+            const { execSync, spawnSync, spawn } = require('child_process');
             const fs = require('fs');
             const path = require('path');
 
@@ -119,15 +119,43 @@ jobs:
 
                 // Run the scan using spawn for better security
                 console.log(`Running scan for issue #${issueNumber}...`);
-                const scanProcess = spawnSync(
-                  process.execPath,
-                  ['scanner/run-scan.mjs', eventPath, scanOutputDir],
-                  { encoding: 'utf8', maxBuffer: 10 * 1024 * 1024 }
-                );
+                const scanProcess = await new Promise((resolve, reject) => {
+                  const child = spawn(
+                    process.execPath,
+                    ['scanner/run-scan.mjs', eventPath, scanOutputDir],
+                    { env: process.env }
+                  );
 
-                if (scanProcess.error) {
-                  throw new Error(`Failed to run scan: ${scanProcess.error.message}`);
-                }
+                  let stdout = '';
+                  let stderr = '';
+
+                  child.stdout.on('data', (chunk) => {
+                    stdout += chunk.toString();
+                  });
+
+                  child.stderr.on('data', (chunk) => {
+                    const text = chunk.toString();
+                    stderr += text;
+                    for (const line of text.split('\n')) {
+                      const trimmed = line.trim();
+                      if (trimmed) {
+                        console.log(`[issue #${issueNumber}] ${trimmed}`);
+                      }
+                    }
+                  });
+
+                  child.on('error', (error) => {
+                    reject(new Error(`Failed to run scan: ${error.message}`));
+                  });
+
+                  child.on('close', (code) => {
+                    if (code !== 0) {
+                      reject(new Error(`Scan process exited with code ${code}\n${stderr.slice(-5000)}`));
+                      return;
+                    }
+                    resolve({ stdout, stderr });
+                  });
+                });
 
                 const scanResult = scanProcess.stdout;
                 let meta;
@@ -137,6 +165,12 @@ jobs:
                   throw new Error(`Failed to parse scan output as JSON: ${parseError.message}`);
                 }
                 console.log(`Scan completed:`, meta);
+
+                const lastScannedMatch = [...scanProcess.stderr.matchAll(/\[(\d+)\/(\d+)\]\s+Scanned\s+(.+?)\s+in\s+(\d+)ms/g)].pop();
+                if (lastScannedMatch) {
+                  const [, current, total, url, elapsedMs] = lastScannedMatch;
+                  console.log(`Last scanned URL for issue #${issueNumber}: ${url} (${elapsedMs}ms, ${current}/${total})`);
+                }
 
                 if (meta.skipped) {
                   console.log(`Issue #${issueNumber} was skipped: ${meta.reason}`);
