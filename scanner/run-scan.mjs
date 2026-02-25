@@ -1435,12 +1435,12 @@ async function main() {
     const result = await scanOneUrl(target);
     results.push(result);
     
-    // Log progress to help with debugging
+    // Log progress to help with debugging (stderr to not interfere with JSON output)
     const progress = `[${results.length}/${acceptedTargets.length}]`;
     if (result.error) {
       console.error(`${progress} Error scanning ${target.submittedUrl}: ${result.error}`);
     } else {
-      console.log(`${progress} Scanned ${target.submittedUrl} in ${result.elapsedMs}ms`);
+      console.error(`${progress} Scanned ${target.submittedUrl} in ${result.elapsedMs}ms`);
     }
   }
 
@@ -1496,8 +1496,8 @@ async function main() {
     console.warn(`WARNING: Scan incomplete. ${skippedDueToTimeout} URLs were skipped due to timeout.`);
   }
   
-  console.log(`Total scan time: ${(totalElapsedTime / 1000).toFixed(1)}s`);
-  console.log(`Successfully scanned: ${results.length}/${acceptedTargets.length} URLs`);
+  console.error(`Total scan time: ${(totalElapsedTime / 1000).toFixed(1)}s`);
+  console.error(`Successfully scanned: ${results.length}/${acceptedTargets.length} URLs`);
 
   mkdirSync(outputDir, { recursive: true });
   const summaryPath = join(outputDir, "report.json");
