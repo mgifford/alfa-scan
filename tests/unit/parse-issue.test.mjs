@@ -38,3 +38,24 @@ test("parseScanIssue returns explicit error for missing issue payload", () => {
   assert.ok(result.errors.includes("Missing issue payload."));
   assert.equal(result.value, null);
 });
+
+test("parseScanIssue recognizes scheduled queue prefixes", () => {
+  const payload = {
+    issue: {
+      number: 73,
+      html_url: "https://github.com/example/repo/issues/73",
+      title: "WEEKLY: Government homepage scan",
+      created_at: "2026-02-20T20:00:00Z",
+      user: { login: "octocat" },
+      body: "# URLs\nhttps://example.com"
+    }
+  };
+
+  const result = parseScanIssue(payload);
+  assert.equal(result.ok, true);
+  assert.equal(result.isScanIssue, false);
+  assert.equal(result.isTimedIssue, true);
+  assert.equal(result.isRunnableIssue, true);
+  assert.equal(result.triggerType, "WEEKLY");
+  assert.equal(result.value.scanTitle, "Government homepage scan");
+});

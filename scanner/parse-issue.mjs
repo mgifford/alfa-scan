@@ -19,16 +19,26 @@ function extractSection(body, sectionName) {
 
 function extractScanTitle(issueTitle) {
   const title = issueTitle ?? "";
-  const match = title.match(/^\s*SCAN:\s*(.+?)\s*$/i);
-  if (!match) {
+  const match = title.match(/^\s*(SCAN|WEEKLY|MONTHLY|QUARTERLY|MONDAYS?|TUESDAYS?|WEDNESDAYS?|THURSDAYS?|FRIDAYS?|SATURDAYS?|SUNDAYS?):\s*(.+?)\s*$/i);
+  if (!match || !match[2]) {
     return {
       isScanIssue: false,
+      isTimedIssue: false,
+      isRunnableIssue: false,
+      triggerType: "none",
       scanTitle: ""
     };
   }
+
+  const normalizedPrefix = match[1].toUpperCase();
+  const isScanIssue = normalizedPrefix === "SCAN";
+
   return {
-    isScanIssue: true,
-    scanTitle: match[1].trim()
+    isScanIssue,
+    isTimedIssue: !isScanIssue,
+    isRunnableIssue: true,
+    triggerType: normalizedPrefix,
+    scanTitle: match[2].trim()
   };
 }
 
@@ -67,7 +77,10 @@ export function parseScanIssue(issueEvent) {
     ok: validation.ok,
     errors: validation.errors,
     value: validation.ok ? request : null,
-    isScanIssue: titleInfo.isScanIssue
+    isScanIssue: titleInfo.isScanIssue,
+    isTimedIssue: titleInfo.isTimedIssue,
+    isRunnableIssue: titleInfo.isRunnableIssue,
+    triggerType: titleInfo.triggerType
   };
 }
 

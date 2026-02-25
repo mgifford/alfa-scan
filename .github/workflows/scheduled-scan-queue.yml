@@ -1,0 +1,278 @@
+name: Scheduled Scan Queue
+
+on:
+  schedule:
+    - cron: "15 0 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: scheduled-scan-queue
+  cancel-in-progress: false
+
+jobs:
+  run-scheduled-queue:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Load open issues
+        run: |
+          mkdir -p .tmp
+          gh issue list --state open --limit 500 --json number,title,body,url,createdAt,author > .tmp/open-issues.json
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      - name: Select due timed issues
+        id: due
+        run: |
+          node --input-type=module <<'NODE'
+          import { appendFileSync, readFileSync, writeFileSync } from 'node:fs';
+
+          const now = new Date();
+          const day = now.getUTCDay();
+          const date = now.getUTCDate();
+          const month = now.getUTCMonth();
+
+          const weekdayMatches = {
+            MONDAY: day === 1,
+            MONDAYS: day === 1,
+            TUESDAY: day === 2,
+            TUESDAYS: day === 2,
+            WEDNESDAY: day === 3,
+            WEDNESDAYS: day === 3,
+            THURSDAY: day === 4,
+            THURSDAYS: day === 4,
+            FRIDAY: day === 5,
+            FRIDAYS: day === 5,
+            SATURDAY: day === 6,
+            SATURDAYS: day === 6,
+            SUNDAY: day === 0,
+            SUNDAYS: day === 0
+          };
+
+          const isQuarterStartMonth = month === 0 || month === 3 || month === 6 || month === 9;
+
+          const isDueToday = (prefix) => {
+            if (prefix === 'WEEKLY') {
+              return day === 1;
+            }
+            if (prefix === 'MONTHLY') {
+              return date === 1;
+            }
+            if (prefix === 'QUARTERLY') {
+              return date === 1 && isQuarterStartMonth;
+            }
+            if (prefix in weekdayMatches) {
+              return weekdayMatches[prefix];
+            }
+            return false;
+          };
+
+          const parsePrefix = (title) => {
+            const match = String(title || '').match(/^\s*(WEEKLY|MONTHLY|QUARTERLY|MONDAYS?|TUESDAYS?|WEDNESDAYS?|THURSDAYS?|FRIDAYS?|SATURDAYS?|SUNDAYS?):/i);
+            return match ? match[1].toUpperCase() : null;
+          };
+
+          const openIssues = JSON.parse(readFileSync('.tmp/open-issues.json', 'utf8'));
+          const due = [];
+
+          for (const issue of openIssues) {
+            const prefix = parsePrefix(issue.title);
+            if (!prefix) {
+              continue;
+            }
+            if (!isDueToday(prefix)) {
+              continue;
+            }
+            due.push({
+              number: issue.number,
+              title: issue.title,
+              body: issue.body || '',
+              url: issue.url,
+              createdAt: issue.createdAt,
+              author: issue.author,
+              triggerType: prefix
+            });
+          }
+
+          writeFileSync('.tmp/due-issues.json', JSON.stringify(due, null, 2) + '\n', 'utf8');
+          writeFileSync('.tmp/due-issues.ndjson', due.map((item) => JSON.stringify(item)).join('\n') + (due.length ? '\n' : ''), 'utf8');
+
+          appendFileSync(process.env.GITHUB_OUTPUT, `due_count=${due.length}\n`, 'utf8');
+          NODE
+
+      - name: Process due issue scans
+        if: ${{ steps.due.outputs.due_count != '0' }}
+        run: |
+          set -euo pipefail
+          : > .tmp/scheduled-results.ndjson
+
+          while IFS= read -r issue_json; do
+            [ -z "$issue_json" ] && continue
+            printf '%s\n' "$issue_json" > .tmp/issue-row.json
+
+            node --input-type=module <<'NODE'
+            import { readFileSync, writeFileSync } from 'node:fs';
+
+            const issue = JSON.parse(readFileSync('.tmp/issue-row.json', 'utf8'));
+            const event = {
+              issue: {
+                number: issue.number,
+                html_url: issue.url,
+                title: issue.title,
+                created_at: issue.createdAt,
+                user: {
+                  login: issue.author?.login ?? 'unknown'
+                },
+                body: issue.body ?? ''
+              }
+            };
+
+            writeFileSync('.tmp/issue-event.json', JSON.stringify(event), 'utf8');
+            NODE
+
+            rm -rf .scan-output
+            mkdir -p .scan-output
+            node scanner/run-scan.mjs .tmp/issue-event.json .scan-output > .scan-output/meta.json
+
+            node --input-type=module <<'NODE'
+            import { appendFileSync, copyFileSync, mkdirSync, readFileSync } from 'node:fs';
+
+            const issue = JSON.parse(readFileSync('.tmp/issue-row.json', 'utf8'));
+            const meta = JSON.parse(readFileSync('.scan-output/meta.json', 'utf8'));
+            if (meta.skipped) {
+              process.exit(0);
+            }
+
+            const stamp = new Date().toISOString().replace(/[:.]/g, '-');
+            const reportDir = `reports/issues/issue-${issue.number}/${stamp}`;
+            const jsonPath = `${reportDir}/report.json`;
+            const markdownPath = `${reportDir}/report.md`;
+            const htmlPath = `${reportDir}/report.html`;
+            const csvPath = `${reportDir}/report.csv`;
+
+            mkdirSync(reportDir, { recursive: true });
+            copyFileSync('.scan-output/report.json', jsonPath);
+            copyFileSync('.scan-output/report.md', markdownPath);
+            copyFileSync('.scan-output/report.html', htmlPath);
+            copyFileSync('.scan-output/report.csv', csvPath);
+
+            appendFileSync('.tmp/scheduled-results.ndjson', JSON.stringify({
+              issueNumber: issue.number,
+              issueTitle: issue.title,
+              triggerType: issue.triggerType,
+              scanTitle: meta.scanTitle || issue.title,
+              acceptedCount: meta.acceptedCount ?? 0,
+              rejectedCount: meta.rejectedCount ?? 0,
+              scannedCount: meta.scannedCount ?? 0,
+              markdownPath,
+              htmlPath,
+              csvPath,
+              scannedAt: meta.scannedAt || new Date().toISOString()
+            }) + '\n', 'utf8');
+            NODE
+          done < .tmp/due-issues.ndjson
+
+      - name: Regenerate reports.html
+        if: ${{ steps.due.outputs.due_count != '0' }}
+        run: node scanner/generate-reports-html.mjs
+
+      - name: Commit and push report artifacts
+        if: ${{ steps.due.outputs.due_count != '0' }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add reports/issues reports.html
+          if git diff --cached --quiet; then
+            echo "No report changes to commit."
+          else
+            git commit -m "chore(scan): process scheduled issue queue"
+
+            PUSH_SUCCESS=false
+            for attempt in 1 2 3; do
+              echo "Push attempt $attempt..."
+              if git pull --rebase origin main && git push origin HEAD:main; then
+                echo "Successfully pushed on attempt $attempt"
+                PUSH_SUCCESS=true
+                break
+              fi
+
+              if git status | grep -q "rebase in progress"; then
+                git rebase --abort
+              fi
+
+              if [ $attempt -lt 3 ]; then
+                sleep $((attempt * 2))
+              fi
+            done
+
+            if [ "$PUSH_SUCCESS" = false ]; then
+              echo "Failed to push after 3 attempts" >&2
+              exit 1
+            fi
+          fi
+
+      - name: Comment latest run on each timed issue
+        if: ${{ steps.due.outputs.due_count != '0' }}
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const path = '.tmp/scheduled-results.ndjson';
+            if (!fs.existsSync(path)) {
+              core.info('No scheduled results to comment.');
+              return;
+            }
+
+            const lines = fs.readFileSync(path, 'utf8').trim().split('\n').filter(Boolean);
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+
+            for (const line of lines) {
+              const item = JSON.parse(line);
+              const pagesMdUrl = `https://${owner}.github.io/${repo}/${item.markdownPath}`;
+              const pagesHtmlUrl = `https://${owner}.github.io/${repo}/${item.htmlPath}`;
+              const pagesCsvUrl = `https://${owner}.github.io/${repo}/${item.csvPath}`;
+              const ghMdUrl = `https://github.com/${owner}/${repo}/blob/main/${item.markdownPath}`;
+
+              const body = [
+                `Scheduled scan complete for **${item.scanTitle}** (${item.triggerType}).`,
+                '',
+                `- Accepted URLs scanned: ${item.acceptedCount}`,
+                `- URLs scanned this run: ${item.scannedCount}`,
+                `- Rejected URLs: ${item.rejectedCount}`,
+                '',
+                `Latest report (Pages, HTML): ${pagesHtmlUrl}`,
+                `Latest report (Pages, Markdown): ${pagesMdUrl}`,
+                `Latest CSV (Pages): ${pagesCsvUrl}`,
+                `Fallback (GitHub): ${ghMdUrl}`,
+                '',
+                '_Issue remains open for future scheduled scans._'
+              ].join('\n');
+
+              await github.rest.issues.createComment({
+                owner,
+                repo,
+                issue_number: item.issueNumber,
+                body
+              });
+            }

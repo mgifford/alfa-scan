@@ -1406,10 +1406,10 @@ async function main() {
     process.exit(1);
   }
 
-  if (!parsed.isScanIssue) {
+  if (!parsed.isRunnableIssue) {
     console.log(JSON.stringify({
       skipped: true,
-      reason: "Issue title must start with 'SCAN:'"
+      reason: "Issue title must start with 'SCAN:', 'WEEKLY:', 'MONTHLY:', 'QUARTERLY:', or a weekday prefix"
     }, null, 2));
     process.exit(0);
   }

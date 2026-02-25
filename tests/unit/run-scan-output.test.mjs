@@ -3,6 +3,9 @@ import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
 import { writeFileSync, mkdirSync, rmSync } from "node:fs";
 import { join } from "node:path";
+import { fileURLToPath } from "node:url";
+
+const repoRoot = fileURLToPath(new URL("../../", import.meta.url));
 
 /**
  * Test suite to verify that run-scan.mjs outputs JSON to stdout
@@ -40,7 +43,7 @@ test("run-scan.mjs outputs valid JSON to stdout", () => {
       process.execPath,
       ["scanner/run-scan.mjs", eventPath, outputDir],
       {
-        cwd: "/home/runner/work/alfa-scan/alfa-scan",
+        cwd: repoRoot,
         encoding: "utf8",
         maxBuffer: 10 * 1024 * 1024
       }
@@ -125,7 +128,7 @@ test("run-scan.mjs skipped scan outputs valid JSON to stdout", () => {
       process.execPath,
       ["scanner/run-scan.mjs", eventPath, outputDir],
       {
-        cwd: "/home/runner/work/alfa-scan/alfa-scan",
+        cwd: repoRoot,
         encoding: "utf8",
         maxBuffer: 10 * 1024 * 1024
       }
