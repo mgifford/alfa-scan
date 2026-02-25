@@ -32,6 +32,17 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install --with-deps chromium
 
+      # Timeout configuration (optional, defaults shown):
+      # - FETCH_TIMEOUT_MS: Maximum time for initial HTTP fetch (default: 30000ms = 30s)
+      # - PER_URL_TIMEOUT_MS: Maximum time per URL including fetch and both audits (default: 120000ms = 2min)
+      # - TOTAL_SCAN_TIMEOUT_MS: Maximum total scan time (default: 3000000ms = 50min)
+      # - ALFA_PAGE_TIMEOUT_MS: ALFA CLI page load timeout (default: 30000ms = 30s)
+      # - ALFA_COMMAND_TIMEOUT_MS: ALFA command execution timeout (default: 180000ms = 3min)
+      # - PLAYWRIGHT_NAV_TIMEOUT_MS: Playwright page navigation timeout (default: 30000ms = 30s)
+      # - PLAYWRIGHT_LAUNCH_TIMEOUT_MS: Playwright browser launch timeout (default: 30000ms = 30s)
+      #
+      # To customize timeouts, add environment variables to the spawnSync call in the "Scan each issue" step
+
       - name: Fetch open SCAN issues
         id: fetch-issues
         uses: actions/github-script@v7
@@ -224,14 +235,25 @@ jobs:
                 const body = [
                   `Scheduled scan complete for **${meta.scanTitle}**.`,
                   "",
-                  `- Accepted URLs scanned: ${meta.acceptedCount}`,
+                  `- Accepted URLs: ${meta.acceptedCount}`,
+                  `- Scanned URLs: ${meta.scannedCount ?? meta.acceptedCount}`
+                ];
+                
+                // Add warning if some URLs were skipped
+                if (meta.skippedDueToTimeout && meta.skippedDueToTimeout > 0) {
+                  body.push(`- ⚠️ **${meta.skippedDueToTimeout} URLs skipped due to timeout** (scan exceeded time limit)`);
+                }
+                
+                body.push(
                   `- Rejected URLs: ${meta.rejectedCount}`,
                   "",
                   `Report (Pages): ${pagesUrl}`,
                   `Fallback (GitHub): ${blobUrl}`,
                   `CSV (Pages): ${csvPagesUrl}`,
                   `CSV Fallback (GitHub): ${csvBlobUrl}`
-                ].join("\n");
+                );
+                
+                const commentBody = body.join("\n");
 
                 // Retry posting comment with exponential backoff
                 let commentPosted = false;
@@ -241,7 +263,7 @@ jobs:
                       owner,
                       repo,
                       issue_number: issueNumber,
-                      body
+                      body: commentBody
                     });
                     console.log(`Comment posted to issue #${issueNumber}`);
                     commentPosted = true;

@@ -34,6 +34,17 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install --with-deps chromium
 
+      # Timeout configuration (optional, defaults shown):
+      # - FETCH_TIMEOUT_MS: Maximum time for initial HTTP fetch (default: 30000ms = 30s)
+      # - PER_URL_TIMEOUT_MS: Maximum time per URL including fetch and both audits (default: 120000ms = 2min)
+      # - TOTAL_SCAN_TIMEOUT_MS: Maximum total scan time (default: 3000000ms = 50min)
+      # - ALFA_PAGE_TIMEOUT_MS: ALFA CLI page load timeout (default: 30000ms = 30s)
+      # - ALFA_COMMAND_TIMEOUT_MS: ALFA command execution timeout (default: 180000ms = 3min)
+      # - PLAYWRIGHT_NAV_TIMEOUT_MS: Playwright page navigation timeout (default: 30000ms = 30s)
+      # - PLAYWRIGHT_LAUNCH_TIMEOUT_MS: Playwright browser launch timeout (default: 30000ms = 30s)
+      #
+      # To customize timeouts, add them to the "Run issue scan" step's env section
+
       - name: Persist event payload
         run: |
           mkdir -p .tmp
@@ -45,6 +56,15 @@ jobs:
         run: |
           mkdir -p .scan-output
           node scanner/run-scan.mjs .tmp/issue-event.json .scan-output > .scan-output/meta.json
+        # Uncomment and adjust these environment variables to customize timeouts:
+        # env:
+        #   FETCH_TIMEOUT_MS: "30000"           # 30s for initial HTTP fetch
+        #   PER_URL_TIMEOUT_MS: "120000"        # 2min per URL total
+        #   TOTAL_SCAN_TIMEOUT_MS: "3000000"    # 50min total scan time
+        #   ALFA_PAGE_TIMEOUT_MS: "30000"       # 30s ALFA page load
+        #   ALFA_COMMAND_TIMEOUT_MS: "180000"   # 3min ALFA command execution
+        #   PLAYWRIGHT_NAV_TIMEOUT_MS: "30000"  # 30s Playwright navigation
+        #   PLAYWRIGHT_LAUNCH_TIMEOUT_MS: "30000" # 30s Playwright browser launch
 
       - name: Read scan metadata
         id: meta
@@ -63,6 +83,8 @@ jobs:
           const output = process.env.GITHUB_OUTPUT;
           const lines = [
             `accepted_count=${meta.acceptedCount ?? 0}`,
+            `scanned_count=${meta.scannedCount ?? meta.acceptedCount ?? 0}`,
+            `skipped_due_to_timeout=${meta.skippedDueToTimeout ?? 0}`,
             `rejected_count=${meta.rejectedCount ?? 0}`,
             `scan_title=${(meta.scanTitle ?? '').replace(/\n/g, ' ')}`,
             `report_dir=${reportDir}`,
@@ -143,14 +165,25 @@ jobs:
             const body = [
               `Scan complete for **${process.env.SCAN_TITLE || context.payload.issue.title}**.`,
               "",
-              `- Accepted URLs scanned: ${acceptedCount}`,
+              `- Accepted URLs: ${acceptedCount}`,
+              `- Scanned URLs: ${process.env.SCANNED_COUNT || acceptedCount}`,
+            ];
+            
+            // Add warning if some URLs were skipped
+            if (process.env.SKIPPED_DUE_TO_TIMEOUT && parseInt(process.env.SKIPPED_DUE_TO_TIMEOUT) > 0) {
+              body.push(`- ⚠️ **${process.env.SKIPPED_DUE_TO_TIMEOUT} URLs skipped due to timeout** (scan exceeded time limit)`);
+            }
+            
+            body.push(
               `- Rejected URLs: ${rejectedCount}`,
               "",
               `Report (Pages): ${pagesUrl}`,
               `Fallback (GitHub): ${blobUrl}`,
               `CSV (Pages): ${csvPagesUrl}`,
               `CSV Fallback (GitHub): ${csvBlobUrl}`
-            ].join("\n");
+            );
+            
+            const commentBody = body.join("\n");
 
             // Retry posting comment with exponential backoff
             for (let attempt = 0; attempt < 3; attempt++) {
@@ -159,7 +192,7 @@ jobs:
                   owner,
                   repo,
                   issue_number: issueNumber,
-                  body
+                  body: commentBody
                 });
                 console.log(`Comment posted successfully`);
                 break;
@@ -178,6 +211,8 @@ jobs:
           MARKDOWN_PATH: ${{ steps.meta.outputs.markdown_path }}
           CSV_PATH: ${{ steps.meta.outputs.csv_path }}
           ACCEPTED_COUNT: ${{ steps.meta.outputs.accepted_count }}
+          SCANNED_COUNT: ${{ steps.meta.outputs.scanned_count }}
+          SKIPPED_DUE_TO_TIMEOUT: ${{ steps.meta.outputs.skipped_due_to_timeout }}
           REJECTED_COUNT: ${{ steps.meta.outputs.rejected_count }}
           SCAN_TITLE: ${{ steps.meta.outputs.scan_title }}
 

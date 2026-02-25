@@ -69,6 +69,7 @@ Scans can be triggered in three ways:
 
 - **[ACCESSIBILITY.md](./ACCESSIBILITY.md)** - Accessibility standards, WCAG 2.2 AA requirements, and development best practices
 - **[AGENTS.md](./AGENTS.md)** - AI agent instructions for Copilot, Cursor, Claude, and other coding assistants
+- **[TIMEOUT-CONFIG.md](./TIMEOUT-CONFIG.md)** - Timeout configuration and tuning guide for scan optimization
 - **[.kittify/AGENTS.md](.kittify/AGENTS.md)** - Spec Kitty project management rules
 
 ## Next workflow steps

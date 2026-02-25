@@ -8,6 +8,31 @@ import { formatAlfaRule } from "./alfa-rule-metadata.mjs";
 
 const alfaCliPath = fileURLToPath(new URL("../node_modules/@siteimprove/alfa-cli/bin/alfa.js", import.meta.url));
 
+// Timeout configuration (in milliseconds)
+// These can be adjusted via environment variables for flexibility
+const TIMEOUTS = {
+  // Maximum time for initial HTTP fetch (default: 30s)
+  FETCH_TIMEOUT: parseInt(process.env.FETCH_TIMEOUT_MS || "30000", 10),
+  
+  // Maximum time for a single URL scan including fetch and both audits (default: 2 minutes)
+  PER_URL_TIMEOUT: parseInt(process.env.PER_URL_TIMEOUT_MS || "120000", 10),
+  
+  // Maximum total time for the entire scan (default: 50 minutes to stay under 1 hour)
+  TOTAL_SCAN_TIMEOUT: parseInt(process.env.TOTAL_SCAN_TIMEOUT_MS || "3000000", 10),
+  
+  // ALFA CLI page load timeout (default: 30s)
+  ALFA_PAGE_TIMEOUT: parseInt(process.env.ALFA_PAGE_TIMEOUT_MS || "30000", 10),
+  
+  // ALFA command execution timeout (default: 3 minutes)
+  ALFA_COMMAND_TIMEOUT: parseInt(process.env.ALFA_COMMAND_TIMEOUT_MS || "180000", 10),
+  
+  // Playwright page navigation timeout (default: 30s)
+  PLAYWRIGHT_NAV_TIMEOUT: parseInt(process.env.PLAYWRIGHT_NAV_TIMEOUT_MS || "30000", 10),
+  
+  // Playwright browser launch timeout (default: 30s)
+  PLAYWRIGHT_LAUNCH_TIMEOUT: parseInt(process.env.PLAYWRIGHT_LAUNCH_TIMEOUT_MS || "30000", 10)
+};
+
 // Lazy-load Playwright and axe-core to avoid errors when not installed
 let playwright = null;
 let axePlaywright = null;
@@ -40,6 +65,17 @@ async function loadAxeDependencies() {
 
 // Maximum number of failures to show per rule in detailed report
 const MAX_FAILURES_PER_RULE = 5;
+
+/**
+ * Create an AbortSignal that times out after the specified duration
+ * @param {number} timeoutMs - Timeout in milliseconds
+ * @returns {AbortSignal}
+ */
+function createTimeoutSignal(timeoutMs) {
+  const controller = new AbortController();
+  setTimeout(() => controller.abort(), timeoutMs);
+  return controller.signal;
+}
 
 function runCommand(command, args, timeoutMs = 120000) {
   return new Promise((resolve) => {
@@ -230,11 +266,11 @@ async function runAlfaAudit(url) {
     "--format",
     "@siteimprove/alfa-formatter-json",
     "--timeout",
-    "30000",
+    String(TIMEOUTS.ALFA_PAGE_TIMEOUT),
     url
   ];
 
-  const run = await runCommand(process.execPath, args, 180000);
+  const run = await runCommand(process.execPath, args, TIMEOUTS.ALFA_COMMAND_TIMEOUT);
   const base = {
     executed: false,
     error: null,
@@ -358,7 +394,7 @@ async function runAxeAudit(url) {
     // Launch browser with timeout
     const browser = await pw.chromium.launch({
       headless: true,
-      timeout: 30000
+      timeout: TIMEOUTS.PLAYWRIGHT_LAUNCH_TIMEOUT
     });
 
     try {
@@ -368,7 +404,7 @@ async function runAxeAudit(url) {
       // Navigate to URL with timeout
       await page.goto(url, {
         waitUntil: "domcontentloaded",
-        timeout: 30000
+        timeout: TIMEOUTS.PLAYWRIGHT_NAV_TIMEOUT
       });
 
       // Run axe scan using AxeBuilder
@@ -452,44 +488,92 @@ function extractHtmlTitle(html) {
 
 async function scanOneUrl(target) {
   const started = Date.now();
-  try {
-    const response = await fetch(target.normalizedUrl, {
-      redirect: "follow",
-      headers: {
-        "user-agent": "alfa-scan-bot/0.1"
+  
+  // Create a promise that rejects on per-URL timeout
+  const timeoutPromise = new Promise((_, reject) => {
+    setTimeout(() => {
+      reject(new Error(`URL scan exceeded ${TIMEOUTS.PER_URL_TIMEOUT / 1000}s timeout`));
+    }, TIMEOUTS.PER_URL_TIMEOUT);
+  });
+  
+  // Wrap the actual scan logic in a race against the timeout
+  const scanPromise = (async () => {
+    try {
+      const response = await fetch(target.normalizedUrl, {
+        redirect: "follow",
+        headers: {
+          "user-agent": "alfa-scan-bot/0.1"
+        },
+        signal: createTimeoutSignal(TIMEOUTS.FETCH_TIMEOUT)
+      });
+
+      const elapsedMs = Date.now() - started;
+      const finalUrl = response.url;
+      const contentType = response.headers.get("content-type") || "";
+      let pageTitle = null;
+
+      if (contentType.includes("text/html")) {
+        const html = await response.text();
+        pageTitle = extractHtmlTitle(html);
       }
-    });
 
-    const elapsedMs = Date.now() - started;
-    const finalUrl = response.url;
-    const contentType = response.headers.get("content-type") || "";
-    let pageTitle = null;
+      const alfa = await runAlfaAudit(finalUrl);
+      const axe = await runAxeAudit(finalUrl);
 
-    if (contentType.includes("text/html")) {
-      const html = await response.text();
-      pageTitle = extractHtmlTitle(html);
+      return {
+        submittedUrl: target.submittedUrl,
+        finalUrl,
+        redirected: finalUrl !== target.normalizedUrl,
+        statusCode: response.status,
+        ok: response.ok,
+        contentType,
+        pageTitle,
+        elapsedMs: Date.now() - started,
+        error: null,
+        alfa,
+        axe
+      };
+    } catch (error) {
+      // Handle errors from fetch or audits
+      const baseErrorResult = {
+        executed: false,
+        error: error.name === "AbortError" ? "Request timed out" : "Skipped because initial URL fetch failed",
+        counts: {
+          passed: 0,
+          failed: 0,
+          cantTell: 0,
+          inapplicable: 0
+        },
+        failedRules: [],
+        passedRules: [],
+        failures: [],
+        outcomeCount: 0
+      };
+      
+      return {
+        submittedUrl: target.submittedUrl,
+        finalUrl: target.normalizedUrl,
+        redirected: false,
+        statusCode: null,
+        ok: false,
+        contentType: null,
+        pageTitle: null,
+        elapsedMs: Date.now() - started,
+        error: error instanceof Error ? error.message : String(error),
+        alfa: baseErrorResult,
+        axe: baseErrorResult
+      };
     }
-
-    const alfa = await runAlfaAudit(finalUrl);
-    const axe = await runAxeAudit(finalUrl);
-
-    return {
-      submittedUrl: target.submittedUrl,
-      finalUrl,
-      redirected: finalUrl !== target.normalizedUrl,
-      statusCode: response.status,
-      ok: response.ok,
-      contentType,
-      pageTitle,
-      elapsedMs,
-      error: null,
-      alfa,
-      axe
-    };
-  } catch (error) {
+  })();
+  
+  // Race between the actual scan and the timeout
+  try {
+    return await Promise.race([scanPromise, timeoutPromise]);
+  } catch (timeoutError) {
+    // Handle per-URL timeout
     const baseErrorResult = {
       executed: false,
-      error: "Skipped because initial URL fetch failed",
+      error: "URL scan timeout exceeded",
       counts: {
         passed: 0,
         failed: 0,
@@ -511,7 +595,7 @@ async function scanOneUrl(target) {
       contentType: null,
       pageTitle: null,
       elapsedMs: Date.now() - started,
-      error: error instanceof Error ? error.message : String(error),
+      error: timeoutError instanceof Error ? timeoutError.message : String(timeoutError),
       alfa: baseErrorResult,
       axe: baseErrorResult
     };
@@ -606,8 +690,24 @@ export function toMarkdownReport(summary, axeVersion = "4.11") {
   lines.push(`- Issue: ${summary.issueUrl}`);
   lines.push(`- Submitted by: ${summary.submittedBy}`);
   lines.push(`- Scanned at: ${summary.scannedAt}`);
+  
+  // Add timing information
+  if (summary.totalElapsedMs !== undefined) {
+    const elapsedMinutes = (summary.totalElapsedMs / 60000).toFixed(1);
+    lines.push(`- Scan duration: ${elapsedMinutes} minutes`);
+  }
+  
   lines.push(`- Total URLs submitted: ${summary.totalSubmitted}`);
   lines.push(`- Accepted public URLs: ${summary.acceptedCount}`);
+  
+  // Add scanned count if different from accepted
+  if (summary.scannedCount !== undefined && summary.scannedCount !== summary.acceptedCount) {
+    lines.push(`- **URLs scanned: ${summary.scannedCount}**`);
+    if (summary.skippedDueToTimeout > 0) {
+      lines.push(`- ⚠️ **${summary.skippedDueToTimeout} URLs skipped due to timeout**`);
+    }
+  }
+  
   lines.push(`- Rejected URLs: ${summary.rejectedCount}`);
   lines.push(`- ALFA outcomes: ${summary.alfaTotals.passed} passed, ${summary.alfaTotals.failed} failed, ${summary.alfaTotals.cantTell} cantTell, ${summary.alfaTotals.inapplicable} inapplicable`);
   lines.push(`- axe outcomes: ${summary.axeTotals.passed} passed, ${summary.axeTotals.failed} failed, ${summary.axeTotals.cantTell} cantTell, ${summary.axeTotals.inapplicable} inapplicable`);
@@ -1291,6 +1391,7 @@ export function markdownToHtml(markdown, summary) {
 }
 
 async function main() {
+  const scanStartTime = Date.now();
   const issueEventPath = process.argv[2];
   const outputDir = process.argv[3] || ".scan-output";
   if (!issueEventPath) {
@@ -1318,8 +1419,29 @@ async function main() {
   const acceptedTargets = validation.accepted;
 
   const results = [];
+  let skippedDueToTimeout = 0;
+  
   for (const target of acceptedTargets) {
-    results.push(await scanOneUrl(target));
+    const elapsedTime = Date.now() - scanStartTime;
+    
+    // Check if we're approaching the total scan timeout
+    // Leave a buffer for report generation (5 minutes)
+    if (elapsedTime > TIMEOUTS.TOTAL_SCAN_TIMEOUT - 300000) {
+      console.error(`Approaching total scan timeout limit (${TIMEOUTS.TOTAL_SCAN_TIMEOUT / 60000} minutes). Stopping scan.`);
+      skippedDueToTimeout = acceptedTargets.length - results.length;
+      break;
+    }
+    
+    const result = await scanOneUrl(target);
+    results.push(result);
+    
+    // Log progress to help with debugging
+    const progress = `[${results.length}/${acceptedTargets.length}]`;
+    if (result.error) {
+      console.error(`${progress} Error scanning ${target.submittedUrl}: ${result.error}`);
+    } else {
+      console.log(`${progress} Scanned ${target.submittedUrl} in ${result.elapsedMs}ms`);
+    }
   }
 
   const alfaTotals = {
@@ -1349,6 +1471,7 @@ async function main() {
   }
 
   const scannedAt = new Date().toISOString();
+  const totalElapsedTime = Date.now() - scanStartTime;
   const summary = {
     issueNumber: request.issueNumber,
     issueUrl: request.issueUrl,
@@ -1356,14 +1479,25 @@ async function main() {
     scanTitle: request.scanTitle || request.issueTitle,
     submittedBy: request.submittedBy,
     scannedAt,
+    totalElapsedMs: totalElapsedTime,
     totalSubmitted: request.requestedUrls.length,
     acceptedCount: acceptedTargets.length,
+    scannedCount: results.length,
+    skippedDueToTimeout,
     rejectedCount: validation.rejected.length,
     rejected: validation.rejected,
     alfaTotals,
     axeTotals,
     results
   };
+  
+  // Log warning if scan was incomplete
+  if (skippedDueToTimeout > 0) {
+    console.warn(`WARNING: Scan incomplete. ${skippedDueToTimeout} URLs were skipped due to timeout.`);
+  }
+  
+  console.log(`Total scan time: ${(totalElapsedTime / 1000).toFixed(1)}s`);
+  console.log(`Successfully scanned: ${results.length}/${acceptedTargets.length} URLs`);
 
   mkdirSync(outputDir, { recursive: true });
   const summaryPath = join(outputDir, "report.json");
@@ -1382,8 +1516,11 @@ async function main() {
     issueNumber: summary.issueNumber,
     scanTitle: summary.scanTitle,
     acceptedCount: summary.acceptedCount,
+    scannedCount: summary.scannedCount,
+    skippedDueToTimeout: summary.skippedDueToTimeout,
     rejectedCount: summary.rejectedCount,
     scannedAt,
+    totalElapsedMs: totalElapsedTime,
     alfaTotals,
     axeTotals,
     summaryPath,
