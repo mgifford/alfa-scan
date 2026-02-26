@@ -65,6 +65,21 @@ Scans can be triggered in three ways:
 - **scanner/validate-targets.mjs**: Server-side URL validation
 - **scanner/run-scan.mjs**: Executes Alfa scans and generates reports
 
+## Configuration
+
+### Equal Access Checker (.achecker.yml)
+
+The scanner uses IBM's Equal Access Checker (accessibility-checker) alongside Alfa and axe-core. Configuration is stored in `.achecker.yml`:
+
+- **Policies**: IBM_Accessibility ruleset
+- **Fail Levels**: violation, potentialviolation
+- **Output Format**: JSON reports
+- **Puppeteer Args**: Required for GitHub Actions environment
+  - `--no-sandbox`: Bypass Chrome sandbox (required in CI/CD)
+  - `--disable-setuid-sandbox`: Additional sandbox bypass
+
+The `puppeteerArgs` configuration is critical for running in GitHub Actions where the Chrome sandbox is not available. Without these flags, the scanner will fail with "No usable sandbox" errors.
+
 ## Documentation
 
 - **[ACCESSIBILITY.md](./ACCESSIBILITY.md)** - Accessibility standards, WCAG 2.2 AA requirements, and development best practices

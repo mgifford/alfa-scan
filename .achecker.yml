@@ -1,0 +1,40 @@
+# accessibility-checker configuration
+# This configuration is required to run Equal Access Checker in GitHub Actions
+# where the browser sandbox is not available.
+
+# Use the latest rule archive
+ruleArchive: latest
+
+# Scan against IBM Accessibility policy
+policies:
+  - IBM_Accessibility
+
+# Fail on violations and potential violations
+failLevels:
+  - violation
+  - potentialviolation
+
+# Report all levels
+reportLevels:
+  - violation
+  - potentialviolation
+  - recommendation
+  - potentialrecommendation
+  - manual
+
+# Output format
+outputFormat:
+  - json
+
+# Results folder
+outputFolder: results
+
+# Baseline folder (not currently used)
+baselineFolder: test/baselines
+
+# CRITICAL: Puppeteer arguments for running in CI/CD environments
+# These flags are required for GitHub Actions where the browser sandbox is not available
+# See: https://github.com/puppeteer/puppeteer/blob/main/docs/troubleshooting.md#running-puppeteer-in-docker
+puppeteerArgs:
+  - --no-sandbox
+  - --disable-setuid-sandbox
