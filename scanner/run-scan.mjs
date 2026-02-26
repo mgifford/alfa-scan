@@ -2040,6 +2040,8 @@ async function main() {
 
   // Clean up Equal Access Checker browser pool to prevent "No usable sandbox" errors
   // This is critical when scans timeout or complete to ensure all browser instances are closed
+  // The loadEqualAccessChecker() function returns a singleton instance, so this closes
+  // the same browser pool that was used throughout the scan
   try {
     console.error("Cleaning up Equal Access Checker browser pool...");
     const checker = await loadEqualAccessChecker();
@@ -2049,7 +2051,7 @@ async function main() {
     }
   } catch (error) {
     // Log cleanup errors but don't fail the workflow
-    console.error(`Warning: Failed to clean up Equal Access Checker: ${error.message}`);
+    console.error("Warning: Failed to clean up Equal Access Checker:", error);
   }
 }
 
