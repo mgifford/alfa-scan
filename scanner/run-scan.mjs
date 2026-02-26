@@ -708,16 +708,9 @@ async function runEqualAccessAudit(url) {
       ...base,
       error: error instanceof Error ? error.message : String(error)
     };
-  } finally {
-    try {
-      const checker = await loadEqualAccessChecker();
-      if (checker?.close) {
-        await checker.close();
-      }
-    } catch {
-      // Ignore cleanup errors to avoid failing the scan pipeline.
-    }
   }
+  // NOTE: We don't close the checker here because it's a singleton that's reused across URLs.
+  // Final cleanup happens once in main() after all scans complete.
 }
 
 function extractHtmlTitle(html) {
@@ -2051,7 +2044,13 @@ async function main() {
     }
   } catch (error) {
     // Log cleanup errors but don't fail the workflow
-    console.error("Warning: Failed to clean up Equal Access Checker:", error);
+    // This is expected if pages were detached during timeouts or errors
+    const errorMsg = error instanceof Error ? error.message : String(error);
+    if (errorMsg.includes("Protocol error") || errorMsg.includes("Connection closed") || errorMsg.includes("detached")) {
+      console.error("Warning: Equal Access Checker browser was already closed or detached (expected after timeouts)");
+    } else {
+      console.error("Warning: Failed to clean up Equal Access Checker:", errorMsg);
+    }
   }
 }
 
