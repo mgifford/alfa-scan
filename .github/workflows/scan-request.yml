@@ -181,6 +181,11 @@ jobs:
             // Add warning if some URLs were skipped
             if (process.env.SKIPPED_DUE_TO_TIMEOUT && parseInt(process.env.SKIPPED_DUE_TO_TIMEOUT) > 0) {
               body.push(`- ⚠️ **${process.env.SKIPPED_DUE_TO_TIMEOUT} URLs skipped due to timeout** (scan exceeded time limit)`);
+              body.push(``);
+              body.push(`**💡 Tip for large URL lists:** Consider splitting into smaller batches:`);
+              body.push(`- Create multiple scan issues with 100-150 URLs each, OR`);
+              body.push(`- Increase the timeout by setting TOTAL_SCAN_TIMEOUT_MS in the workflow`);
+              body.push(``);
             }
             
             body.push(

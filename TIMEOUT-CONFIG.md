@@ -80,6 +80,10 @@ When the total scan time approaches `TOTAL_SCAN_TIMEOUT_MS`:
 - All scanned URLs up to that point are included in the report
 - Skipped URLs are counted and reported
 - Report includes warning: "X URLs skipped due to timeout"
+- Browser resources are cleaned up to prevent errors
+- Helpful tips are shown for splitting large URL lists
+
+**Note:** After implementing proper cleanup (v0.2+), the scanner explicitly closes all browser instances from the Equal Access Checker to prevent "No usable sandbox" errors that occurred in earlier versions.
 
 ### Component Timeout Cascade
 
@@ -167,10 +171,21 @@ Scan complete for **Your Site**.
 
 ### Scan Consistently Timing Out
 
-1. **Reduce URL count**: Split large scans into multiple smaller issues
+1. **Reduce URL count**: Split large scans into multiple smaller issues (100-150 URLs recommended)
 2. **Increase timeouts**: Adjust environment variables (but stay under 1 hour total)
 3. **Identify slow pages**: Check reports for consistently timing out URLs
 4. **Remove problematic URLs**: Exclude sites that consistently fail
+
+### Browser Launch Errors After Timeout
+
+If you see "No usable sandbox" or "Failed to launch browser" errors:
+
+1. **Root cause**: Browser instances from Equal Access Checker weren't cleaned up
+2. **Fix applied**: Scanner now explicitly closes browser pool after scan completes
+3. **When it happens**: After scan timeout or completion, before process exit
+4. **Resolution**: Upgrade to latest scanner version with cleanup logic
+
+The scanner now automatically cleans up the Equal Access Checker browser pool at the end of every scan to prevent these errors.
 
 ### Workflow Exceeds 6 Hours (GitHub Maximum)
 

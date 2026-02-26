@@ -1988,6 +1988,10 @@ async function main() {
   // Log warning if scan was incomplete
   if (skippedDueToTimeout > 0) {
     console.warn(`WARNING: Scan incomplete. ${skippedDueToTimeout} URLs were skipped due to timeout.`);
+    console.warn(`\nTip: For large URL lists (${acceptedTargets.length} URLs), consider splitting into smaller batches:`);
+    console.warn(`  - Option 1: Create multiple scan issues with 100-150 URLs each`);
+    console.warn(`  - Option 2: Increase timeout via TOTAL_SCAN_TIMEOUT_MS environment variable in workflow`);
+    console.warn(`  - Option 3: The scanned URLs (${results.length}/${acceptedTargets.length}) are included in this report`);
   }
   
   console.error(`Total scan time: ${(totalElapsedTime / 1000).toFixed(1)}s`);
@@ -2033,6 +2037,22 @@ async function main() {
     overlapJsonPath,
     overlapMarkdownPath
   }, null, 2));
+
+  // Clean up Equal Access Checker browser pool to prevent "No usable sandbox" errors
+  // This is critical when scans timeout or complete to ensure all browser instances are closed
+  // The loadEqualAccessChecker() function returns a singleton instance, so this closes
+  // the same browser pool that was used throughout the scan
+  try {
+    console.error("Cleaning up Equal Access Checker browser pool...");
+    const checker = await loadEqualAccessChecker();
+    if (checker?.close) {
+      await checker.close();
+      console.error("Successfully closed Equal Access Checker browser pool");
+    }
+  } catch (error) {
+    // Log cleanup errors but don't fail the workflow
+    console.error("Warning: Failed to clean up Equal Access Checker:", error);
+  }
 }
 
 // Only run main if this file is executed directly, not when imported
