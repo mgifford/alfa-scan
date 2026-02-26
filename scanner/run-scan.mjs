@@ -709,7 +709,9 @@ async function runEqualAccessAudit(url) {
       error: error instanceof Error ? error.message : String(error)
     };
   }
-  // NOTE: We don't close the checker here because it's a singleton that's reused across URLs.
+  // NOTE: We don't close the checker here because:
+  // 1. It's a singleton that's reused across URLs for better performance
+  // 2. Closing after timeouts causes "Protocol error: Connection closed" when pages are already detached
   // Final cleanup happens once in main() after all scans complete.
 }
 
