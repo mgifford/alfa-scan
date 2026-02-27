@@ -10,6 +10,32 @@ const alfaCliPath = fileURLToPath(new URL("../node_modules/@siteimprove/alfa-cli
 const accessLintIifePath = fileURLToPath(new URL("../node_modules/@accesslint/core/dist/index.iife.js", import.meta.url));
 const SCANNER_ORDER = ["axe", "alfa", "equalAccess", "accesslint"];
 
+/**
+ * Determine which scanners should run based on the engines specification
+ * @param {string[]} engines - Array of engine names (e.g., ["axe", "alfa"] or ["all"])
+ * @returns {Object} Object with boolean flags for each scanner
+ */
+export function determineScannersToRun(engines) {
+  // Default to all if not specified or if "all" is in the list
+  if (!engines || engines.length === 0 || engines.includes("all")) {
+    return {
+      runAxe: true,
+      runAlfa: true,
+      runEqualAccess: true,
+      runAccesslint: true
+    };
+  }
+  
+  // Map engine names to scanner flags
+  return {
+    runAxe: engines.includes("axe"),
+    runAlfa: engines.includes("alfa"),
+    runEqualAccess: engines.includes("equalaccess"),
+    runAccesslint: engines.includes("accesslint")
+  };
+}
+
+
 // Timeout configuration (in milliseconds)
 // These can be adjusted via environment variables for flexibility
 const TIMEOUTS = {
@@ -720,12 +746,15 @@ function extractHtmlTitle(html) {
   return match ? match[1].trim() : null;
 }
 
-async function scanOneUrl(target) {
+async function scanOneUrl(target, engines = ["all"]) {
   const started = Date.now();
   const heartbeat = setInterval(() => {
     const elapsedSec = Math.floor((Date.now() - started) / 1000);
     console.error(`[heartbeat] Scanning ${target.submittedUrl} (${elapsedSec}s elapsed)`);
   }, 30000);
+  
+  // Determine which scanners to run
+  const scannersToRun = determineScannersToRun(engines);
   
   // Create a promise that rejects on per-URL timeout
   const timeoutPromise = new Promise((_, reject) => {
@@ -755,10 +784,19 @@ async function scanOneUrl(target) {
         pageTitle = extractHtmlTitle(html);
       }
 
-      const axe = await runAxeAudit(finalUrl);
-      const alfa = await runAlfaAudit(finalUrl);
-      const equalAccess = await runEqualAccessAudit(finalUrl);
-      const accesslint = await runAccessLintAudit(finalUrl);
+      // Run only the selected scanners
+      const axe = scannersToRun.runAxe 
+        ? await runAxeAudit(finalUrl) 
+        : createScannerBaseError("Skipped (not requested)");
+      const alfa = scannersToRun.runAlfa 
+        ? await runAlfaAudit(finalUrl) 
+        : createScannerBaseError("Skipped (not requested)");
+      const equalAccess = scannersToRun.runEqualAccess 
+        ? await runEqualAccessAudit(finalUrl) 
+        : createScannerBaseError("Skipped (not requested)");
+      const accesslint = scannersToRun.runAccesslint 
+        ? await runAccessLintAudit(finalUrl) 
+        : createScannerBaseError("Skipped (not requested)");
 
       const result = {
         submittedUrl: target.submittedUrl,
@@ -1120,6 +1158,14 @@ export function toMarkdownReport(summary, axeVersion = "4.11") {
   lines.push(`- Issue: ${summary.issueUrl}`);
   lines.push(`- Submitted by: ${summary.submittedBy}`);
   lines.push(`- Scanned at: ${summary.scannedAt}`);
+  
+  // Add engine information
+  if (summary.engines && Array.isArray(summary.engines)) {
+    const engineDisplay = summary.engines.includes("all") 
+      ? "All engines (AXE, ALFA, Equal Access, AccessLint)" 
+      : summary.engines.map(e => e.toUpperCase()).join(", ");
+    lines.push(`- Engines used: ${engineDisplay}`);
+  }
   
   // Add timing information
   if (summary.totalElapsedMs !== undefined) {
@@ -1865,6 +1911,7 @@ async function main() {
   }
 
   const request = parsed.value;
+  const engines = request.engines || ["all"];
   const validation = validateTargets(request.requestedUrls);
   const acceptedTargets = validation.accepted;
 
@@ -1882,7 +1929,7 @@ async function main() {
       break;
     }
     
-    const result = await scanOneUrl(target);
+    const result = await scanOneUrl(target, engines);
     results.push(result);
     
     // Log progress to help with debugging (stderr to not interfere with JSON output)
@@ -1964,6 +2011,7 @@ async function main() {
     issueTitle: request.issueTitle,
     scanTitle: request.scanTitle || request.issueTitle,
     submittedBy: request.submittedBy,
+    engines,
     scannedAt,
     totalElapsedMs: totalElapsedTime,
     totalSubmitted: request.requestedUrls.length,

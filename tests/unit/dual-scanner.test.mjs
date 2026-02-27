@@ -1,5 +1,6 @@
 import { describe, it } from "node:test";
 import assert from "node:assert";
+import { determineScannersToRun } from "../../scanner/run-scan.mjs";
 
 describe("Dual-Scanner Integration Tests", () => {
   it("should have base error structure with both alfa and axe fields", () => {
@@ -188,5 +189,53 @@ describe("Dual-Scanner Integration Tests", () => {
     assert.strictEqual(axeTotals.failed, 5);
     assert.strictEqual(axeTotals.cantTell, 3);
     assert.strictEqual(axeTotals.inapplicable, 14);
+  });
+
+  it("should determine all scanners run when 'all' is specified", () => {
+    const result = determineScannersToRun(["all"]);
+    assert.strictEqual(result.runAxe, true);
+    assert.strictEqual(result.runAlfa, true);
+    assert.strictEqual(result.runEqualAccess, true);
+    assert.strictEqual(result.runAccesslint, true);
+  });
+
+  it("should determine all scanners run by default when no engines specified", () => {
+    const result = determineScannersToRun([]);
+    assert.strictEqual(result.runAxe, true);
+    assert.strictEqual(result.runAlfa, true);
+    assert.strictEqual(result.runEqualAccess, true);
+    assert.strictEqual(result.runAccesslint, true);
+  });
+
+  it("should determine only axe runs when 'axe' is specified", () => {
+    const result = determineScannersToRun(["axe"]);
+    assert.strictEqual(result.runAxe, true);
+    assert.strictEqual(result.runAlfa, false);
+    assert.strictEqual(result.runEqualAccess, false);
+    assert.strictEqual(result.runAccesslint, false);
+  });
+
+  it("should determine only alfa runs when 'alfa' is specified", () => {
+    const result = determineScannersToRun(["alfa"]);
+    assert.strictEqual(result.runAxe, false);
+    assert.strictEqual(result.runAlfa, true);
+    assert.strictEqual(result.runEqualAccess, false);
+    assert.strictEqual(result.runAccesslint, false);
+  });
+
+  it("should determine multiple scanners run when multiple engines specified", () => {
+    const result = determineScannersToRun(["axe", "alfa"]);
+    assert.strictEqual(result.runAxe, true);
+    assert.strictEqual(result.runAlfa, true);
+    assert.strictEqual(result.runEqualAccess, false);
+    assert.strictEqual(result.runAccesslint, false);
+  });
+
+  it("should determine equalaccess and accesslint run when specified", () => {
+    const result = determineScannersToRun(["equalaccess", "accesslint"]);
+    assert.strictEqual(result.runAxe, false);
+    assert.strictEqual(result.runAlfa, false);
+    assert.strictEqual(result.runEqualAccess, true);
+    assert.strictEqual(result.runAccesslint, true);
   });
 });

@@ -43,6 +43,21 @@ Scans can be triggered in multiple ways:
 
 When an issue with a title starting with "SCAN:" is created or edited, it automatically triggers a scan via the "Scan Request" workflow.
 
+**Specifying Accessibility Engines**: You can optionally specify which accessibility engines to run by including keywords in the issue title:
+- `AXE` - Run only axe-core scanner
+- `ALFA` - Run only Siteimprove ALFA scanner
+- `EQUALACCESS` - Run only IBM Equal Access Checker
+- `ACCESSLINT` - Run only AccessLint scanner
+- `ALL` - Run all available scanners (default if no engine specified)
+
+You can specify multiple engines in a single scan. The engine keywords are removed from the scan title automatically.
+
+**Examples**:
+- `SCAN: AXE Homepage accessibility check` - Runs only axe-core
+- `SCAN: ALFA EQUALACCESS Government site scan` - Runs ALFA and Equal Access Checker
+- `SCAN: Homepage check` - Runs all engines (default)
+- `SCAN: ALL Complete accessibility audit` - Runs all engines explicitly
+
 ### 2. Daily Scheduled Scans
 
 **All Open SCAN Issues** - The "Scan All Open SCAN Issues" workflow runs daily at midnight UTC and scans ALL open issues with titles starting with "SCAN:". This ensures that any pending scan requests are processed regularly.
@@ -52,6 +67,8 @@ When an issue with a title starting with "SCAN:" is created or edited, it automa
 - `MONTHLY:` - Scans on the 1st of each month
 - `QUARTERLY:` - Scans on Jan 1, Apr 1, Jul 1, Oct 1
 - `MONDAY:`, `TUESDAY:`, `WEDNESDAY:`, `THURSDAY:`, `FRIDAY:`, `SATURDAY:`, `SUNDAY:` - Scans on the corresponding day of the week
+
+**Note**: Engine selection also works with timed scans (e.g., `WEEKLY: AXE Monday scan`).
 
 ### 3. Manual Trigger
 
@@ -79,9 +96,20 @@ You can manually trigger scans by:
 - **submit.js**: Client-side URL parsing, validation, and GitHub integration
 
 ### Backend (GitHub Actions)
-- **scanner/parse-issue.mjs**: Extracts URLs from scan request issues
+- **scanner/parse-issue.mjs**: Extracts URLs and engine specifications from scan request issues
 - **scanner/validate-targets.mjs**: Server-side URL validation
-- **scanner/run-scan.mjs**: Executes Alfa scans and generates reports
+- **scanner/run-scan.mjs**: Executes accessibility scans with selected engines and generates reports
+
+### Accessibility Scanners
+
+The system supports multiple accessibility scanning engines that can be run individually or in combination:
+
+1. **axe-core** - Deque's industry-standard accessibility testing engine
+2. **Siteimprove ALFA** - Siteimprove's open-source accessibility rules engine
+3. **IBM Equal Access Checker** - IBM's comprehensive accessibility checker
+4. **AccessLint** - Automated accessibility testing tool
+
+By default, all scanners run for comprehensive coverage. You can specify which scanners to use via the issue title (see [Scanning Triggers](#scanning-triggers) above).
 
 ## Configuration
 
