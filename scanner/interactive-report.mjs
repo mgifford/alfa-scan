@@ -113,6 +113,8 @@ export function generateInteractiveHtml(summary) {
       border-bottom: 2px solid transparent;
       font-weight: 500;
     }
+    .nav-item:hover { background: #f0f0f0; }
+    .nav-item:focus { outline: 2px solid var(--primary); outline-offset: -2px; }
     .nav-item.active { border-bottom-color: var(--primary); color: var(--primary); }
 
     .dashboard { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
@@ -133,6 +135,7 @@ export function generateInteractiveHtml(summary) {
 
     .filters { margin-bottom: 1.5rem; display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
     select, input { padding: 0.5rem; border: 1px solid var(--border); border-radius: 4px; }
+    select:focus, input:focus { outline: 2px solid var(--primary); outline-offset: 2px; border-color: var(--primary); }
 
     .rule-list { display: flex; flex-direction: column; gap: 1rem; }
     details { border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
@@ -146,7 +149,9 @@ export function generateInteractiveHtml(summary) {
       align-items: center; 
     }
     summary:hover { background: #f0f0f0; }
+    summary:focus { outline: 2px solid var(--primary); outline-offset: 2px; }
     summary::-webkit-details-marker { display: none; }
+    summary::marker { content: none; }
     .rule-summary-info { display: flex; align-items: center; gap: 1rem; }
     .badge { padding: 0.2rem 0.6rem; border-radius: 12px; font-size: 0.75rem; font-weight: 600; }
     .badge-severity { background: #eee; }
@@ -168,6 +173,7 @@ export function generateInteractiveHtml(summary) {
     .example-meta { font-family: sans-serif; font-weight: 600; margin-bottom: 0.5rem; display: flex; justify-content: space-between; }
 
     .hidden { display: none !important; }
+    .visually-hidden { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
 
     @media print {
       body::before {
@@ -203,21 +209,21 @@ export function generateInteractiveHtml(summary) {
     <div class="dashboard">
       <div class="card">
         <h3>Total Issues</h3>
-        <div class="stat">${consolidatedFailures.reduce((acc, f) => acc + f.totalOccurrences, 0)}</div>
+        <div class="stat" aria-label="${consolidatedFailures.reduce((acc, f) => acc + f.totalOccurrences, 0)} total issues">${consolidatedFailures.reduce((acc, f) => acc + f.totalOccurrences, 0)}</div>
         <p>Across ${consolidatedFailures.length} unique rules</p>
       </div>
       <div class="card">
         <h3>By Severity</h3>
-        <div class="bar-chart">
+        <div class="bar-chart" role="list" aria-label="Issues by severity">
           ${severitiesList.map(s => {
             const count = severityStats[s] || 0;
             const max = Math.max(...Object.values(severityStats), 1);
             const percent = (count / max) * 100;
             return `
-              <div class="bar-item">
+              <div class="bar-item" role="listitem">
                 <span class="bar-label severity-${s}">${s}</span>
-                <div class="bar-container"><div class="bar-fill" style="width: ${percent}%; background-color: var(--${s.toLowerCase()})"></div></div>
-                <span>${count}</span>
+                <div class="bar-container" role="img" aria-label="${s}: ${count} issues, ${percent.toFixed(0)}% of maximum"><div class="bar-fill" style="width: ${percent}%; background-color: var(--${s.toLowerCase()})"></div></div>
+                <span aria-hidden="true">${count}</span>
               </div>
             `;
           }).join('')}
@@ -225,16 +231,16 @@ export function generateInteractiveHtml(summary) {
       </div>
       <div class="card">
         <h3>By Role</h3>
-        <div class="bar-chart">
+        <div class="bar-chart" role="list" aria-label="Issues by role">
           ${rolesList.map(r => {
             const count = roleStats[r] || 0;
             const max = Math.max(...Object.values(roleStats), 1);
             const percent = (count / max) * 100;
             return `
-              <div class="bar-item">
+              <div class="bar-item" role="listitem">
                 <span class="bar-label">${r}</span>
-                <div class="bar-container"><div class="bar-fill" style="width: ${percent}%"></div></div>
-                <span>${count}</span>
+                <div class="bar-container" role="img" aria-label="${r}: ${count} issues, ${percent.toFixed(0)}% of maximum"><div class="bar-fill" style="width: ${percent}%"></div></div>
+                <span aria-hidden="true">${count}</span>
               </div>
             `;
           }).join('')}
@@ -242,23 +248,28 @@ export function generateInteractiveHtml(summary) {
       </div>
     </div>
 
-    <div class="nav" id="roleTabs">
-      <div class="nav-item active" data-role="all">All Issues</div>
-      ${rolesList.map(r => `<div class="nav-item" data-role="${r}">${r}</div>`).join('')}
+    <h2 id="filters-heading" class="visually-hidden">Filter Issues</h2>
+
+    <div class="nav" role="tablist" aria-labelledby="filters-heading" id="roleTabs">
+      <button class="nav-item active" role="tab" aria-selected="true" aria-controls="ruleList" data-role="all" tabindex="0">All Issues</button>
+      ${rolesList.map((r, i) => `<button class="nav-item" role="tab" aria-selected="false" aria-controls="ruleList" data-role="${r}" tabindex="-1">${r}</button>`).join('')}
     </div>
 
     <div class="filters">
       <label for="severityFilter">Severity:</label>
-      <select id="severityFilter">
+      <select id="severityFilter" aria-label="Filter by severity">
         <option value="all">All Severities</option>
         ${severitiesList.map(s => `<option value="${s}">${s}</option>`).join('')}
       </select>
       
       <label for="search">Search:</label>
-      <input type="text" id="search" placeholder="Filter by rule or description...">
+      <input type="text" id="search" placeholder="Filter by rule or description..." aria-label="Search rules and descriptions">
     </div>
 
-    <div class="rule-list" id="ruleList">
+    <!-- Screen reader announcement for filter results -->
+    <div id="filter-announcement" role="status" aria-live="polite" aria-atomic="true" style="position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden;"></div>
+
+    <div class="rule-list" id="ruleList" role="tabpanel" aria-atomic="false">
       ${ruleCardsHtml}
     </div>
   </div>
@@ -268,6 +279,7 @@ export function generateInteractiveHtml(summary) {
     const severityFilter = document.getElementById('severityFilter');
     const searchInput = document.getElementById('search');
     const ruleCards = document.querySelectorAll('.rule-card');
+    const tabs = roleTabs.querySelectorAll('[role="tab"]');
 
     function escapeHtml(text) {
       const div = document.createElement('div');
@@ -276,10 +288,11 @@ export function generateInteractiveHtml(summary) {
     }
 
     function filterRules() {
-      const activeRole = roleTabs.querySelector('.active').dataset.role;
+      const activeRole = roleTabs.querySelector('[aria-selected="true"]').dataset.role;
       const activeSeverity = severityFilter.value;
       const searchTerm = searchInput.value.toLowerCase();
 
+      let visibleCount = 0;
       ruleCards.forEach(card => {
         const roles = JSON.parse(card.dataset.roles);
         const severity = card.dataset.severity;
@@ -291,17 +304,71 @@ export function generateInteractiveHtml(summary) {
 
         if (roleMatch && severityMatch && searchMatch) {
           card.classList.remove('hidden');
+          visibleCount++;
         } else {
           card.classList.add('hidden');
         }
       });
+      
+      // Announce result count to screen readers
+      const announcement = document.getElementById('filter-announcement');
+      if (announcement) {
+        announcement.textContent = visibleCount + ' rule' + (visibleCount !== 1 ? 's' : '') + ' shown';
+      }
+    }
+
+    function activateTab(tab) {
+      // Deactivate all tabs
+      tabs.forEach(t => {
+        t.classList.remove('active');
+        t.setAttribute('aria-selected', 'false');
+        t.setAttribute('tabindex', '-1');
+      });
+      
+      // Activate selected tab
+      tab.classList.add('active');
+      tab.setAttribute('aria-selected', 'true');
+      tab.setAttribute('tabindex', '0');
+      tab.focus();
+      
+      filterRules();
     }
 
     roleTabs.addEventListener('click', (e) => {
-      if (e.target.classList.contains('nav-item')) {
-        roleTabs.querySelectorAll('.nav-item').forEach(t => t.classList.remove('active'));
-        e.target.classList.add('active');
-        filterRules();
+      if (e.target.getAttribute('role') === 'tab') {
+        activateTab(e.target);
+      }
+    });
+
+    roleTabs.addEventListener('keydown', (e) => {
+      const currentTab = e.target;
+      if (currentTab.getAttribute('role') !== 'tab') return;
+      
+      const tabArray = Array.from(tabs);
+      const currentIndex = tabArray.indexOf(currentTab);
+      let nextIndex;
+
+      switch(e.key) {
+        case 'ArrowRight':
+        case 'ArrowDown':
+          e.preventDefault();
+          nextIndex = (currentIndex + 1) % tabArray.length;
+          activateTab(tabArray[nextIndex]);
+          break;
+        case 'ArrowLeft':
+        case 'ArrowUp':
+          e.preventDefault();
+          nextIndex = (currentIndex - 1 + tabArray.length) % tabArray.length;
+          activateTab(tabArray[nextIndex]);
+          break;
+        case 'Home':
+          e.preventDefault();
+          activateTab(tabArray[0]);
+          break;
+        case 'End':
+          e.preventDefault();
+          activateTab(tabArray[tabArray.length - 1]);
+          break;
       }
     });
 
