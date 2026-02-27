@@ -107,8 +107,9 @@ test('formatIssueBody creates proper markdown format', () => {
 });
 
 /**
- * Helper function to mock global.window for GitHub issue tests
- * @param {Function} testFn - Async test function to execute with mocked window
+ * Helper function to mock global.window.location for GitHub issue tests
+ * Sets up a GitHub Pages-style location object required by createGitHubIssue
+ * @param {Function} testFn - Async test function to execute with mocked window.location
  * @returns {Function} Async wrapper function that sets up and tears down the mock
  */
 function withMockedLocation(testFn) {

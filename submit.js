@@ -3,7 +3,8 @@
  * Parses URLs, validates them, and creates GitHub issues for scanning
  */
 
-// Regex to match any case variation of "scan:" prefix with optional whitespace
+// Regex to match any case variation of "scan:" prefix with zero or more spaces
+// Intentionally uses \s* to handle spaces, tabs, and other whitespace that users might accidentally include
 const SCAN_PREFIX_REGEX = /^scan:\s*/i;
 
 // Parse URLs from text input (supports line-by-line and CSV formats)
