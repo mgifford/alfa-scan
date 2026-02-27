@@ -3,6 +3,9 @@
  * Parses URLs, validates them, and creates GitHub issues for scanning
  */
 
+// Regex to match any case variation of "scan:" prefix with optional whitespace
+const SCAN_PREFIX_REGEX = /^scan:\s*/i;
+
 // Parse URLs from text input (supports line-by-line and CSV formats)
 export function parseUrls(rawText) {
   return rawText
@@ -147,8 +150,8 @@ export async function createGitHubIssue(scanTitle, urls) {
   
   // Prepend "SCAN: " if not already present (case-insensitive check)
   // Normalize any existing prefix to "SCAN: " for consistency
-  const issueTitle = scanTitle.match(/^scan:\s*/i)
-    ? `SCAN: ${scanTitle.replace(/^scan:\s*/i, '')}` 
+  const issueTitle = scanTitle.match(SCAN_PREFIX_REGEX)
+    ? `SCAN: ${scanTitle.replace(SCAN_PREFIX_REGEX, '')}` 
     : `SCAN: ${scanTitle}`;
   const issueBody = formatIssueBody(scanTitle, urls);
   
