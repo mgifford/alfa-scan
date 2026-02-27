@@ -279,9 +279,11 @@ function initForm() {
   });
 }
 
-// Initialize when DOM is ready
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", initForm);
-} else {
-  initForm();
+// Initialize when DOM is ready (only in browser, not during testing)
+if (typeof document !== 'undefined') {
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initForm);
+  } else {
+    initForm();
+  }
 }
