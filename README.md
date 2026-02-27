@@ -9,6 +9,29 @@ Issue-driven accessibility scanning prototype using GitHub Pages and GitHub Acti
 - Runs accessibility scans in GitHub Actions
 - Publishes comparison-ready results to GitHub Pages
 
+## Getting Started
+
+### Quick Start: Submit Your Scan in 5 Minutes
+
+1. **Prepare your URLs**: Gather a list of web pages you want to scan for accessibility issues (recommended: 100-150 URLs per scan)
+2. **Submit your scan**: Go to [https://mgifford.github.io/alfa-scan/](https://mgifford.github.io/alfa-scan/)
+   - Enter a descriptive title for your scan
+   - Paste your URLs (one per line or comma-separated)
+   - Click "Create Scan Request" - this creates a GitHub issue that triggers the scan
+3. **Wait for results**: Scans typically complete in 30-60 minutes depending on the number of URLs
+4. **View your report**: Check [https://mgifford.github.io/alfa-scan/reports.html](https://mgifford.github.io/alfa-scan/reports.html) for your completed scan results
+
+### Integration with Top Task Finder
+
+If you're using the [Top Task Finder](https://mgifford.github.io/top-task-finder/) to identify your most important pages, alfa-scan is the perfect next step:
+
+1. **Identify your top tasks**: Use the Top Task Finder to determine which pages are most critical for your users
+2. **Export your URLs**: Get the list of URLs corresponding to your top tasks
+3. **Scan for accessibility**: Paste those URLs into alfa-scan to check for accessibility issues
+4. **Prioritize fixes**: Focus on fixing accessibility issues on your most important pages first
+
+Even if you haven't completed a formal top tasks analysis, alfa-scan can help you get started by scanning your key pages (homepage, main navigation pages, common user journeys, etc.).
+
 ## How to Use
 
 ### Submit URLs for Scanning
@@ -26,6 +49,8 @@ The form validates URLs in real-time and blocks:
 - Link-local addresses (169.254.x.x)
 - Private IPv6 addresses
 
+**Note**: The form accepts up to 500 URLs, but for best results, split large scans into batches of 100-150 URLs to avoid timeout issues.
+
 ### View Scan Results
 
 Visit the [Reports page](https://mgifford.github.io/alfa-scan/reports.html) to see all completed scans with:
@@ -34,6 +59,57 @@ Visit the [Reports page](https://mgifford.github.io/alfa-scan/reports.html) to s
 - Number of URLs scanned
 - Pass/fail/can't tell statistics
 - Links to detailed reports (Markdown, CSV, JSON)
+
+### Troubleshooting
+
+**Scan not appearing after 30-60 minutes?**
+- [View workflow history in GitHub Actions](https://github.com/mgifford/alfa-scan/actions) to check for errors
+- Look for your scan issue number in the workflow runs
+- Common issues include invalid URLs or network timeouts
+
+**Need help?**
+- Review [workflow run logs in GitHub Actions](https://github.com/mgifford/alfa-scan/actions) for detailed error messages
+- Check that your URLs are publicly accessible
+- Ensure URLs don't include localhost or private IP addresses
+
+## Managing Your Scans
+
+### Converting to Recurring Scans
+
+If you find the scan results useful and want to run the same scan regularly:
+
+1. **Find your scan issue**: Go to [https://github.com/mgifford/alfa-scan/issues](https://github.com/mgifford/alfa-scan/issues)
+   - Your issue may be closed after the scan completes - use the search/filter if needed
+   - Look for your issue number (e.g., `#54`)
+
+2. **Edit the issue title**: Change the prefix from `SCAN:` to one of the following:
+   - `WEEKLY:` - Runs every Monday
+   - `SUNDAY:` - Runs every Sunday
+   - `MONDAY:`, `TUESDAY:`, `WEDNESDAY:`, `THURSDAY:`, `FRIDAY:`, `SATURDAY:` - Runs on that specific day
+   - `MONTHLY:` - Runs on the 1st of each month
+   - `QUARTERLY:` - Runs on Jan 1, Apr 1, Jul 1, Oct 1
+
+3. **Reopen the issue**: If the issue was closed, reopen it so the scheduled scans will run
+
+4. **That's it!** Your scan will now run automatically on the schedule you selected
+
+### Updating Your URL List
+
+You can edit the list of URLs in your scan issue at any time:
+
+1. Open your scan issue on GitHub
+2. Click the edit (pencil) icon on the issue description
+3. Modify the URL list in the issue body
+4. Save your changes
+5. The next scheduled scan (or manual trigger) will use the updated URL list
+
+### Cleaning Up
+
+To stop recurring scans when you no longer need them:
+
+- **Option 1**: Edit the issue title to remove the schedule prefix (`WEEKLY:`, `SUNDAY:`, etc.) - change it back to `SCAN:` or any other text
+- **Option 2**: Close the issue - closed issues are not scanned by the scheduled workflows
+- **Option 3**: Delete the issue entirely if you're certain you won't need it again
 
 ## Scanning Triggers
 
