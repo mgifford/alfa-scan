@@ -2085,27 +2085,51 @@ async function main() {
   // This is critical when scans timeout or complete to ensure all browser instances are closed
   // The loadEqualAccessChecker() function returns a singleton instance, so this closes
   // the same browser pool that was used throughout the scan
+  //
+  // Note: When pages are detached due to timeouts, the close operation may throw errors
+  // from puppeteer internals. We catch these and log warnings but don't fail the workflow.
   try {
     console.error("Cleaning up Equal Access Checker browser pool...");
     const checker = await loadEqualAccessChecker();
     if (checker?.close) {
-      await checker.close();
-      console.error("Successfully closed Equal Access Checker browser pool");
+      try {
+        await checker.close();
+        console.error("Successfully closed Equal Access Checker browser pool");
+      } catch (closeError) {
+        // Handle errors from the close() operation specifically
+        const closeMsg = closeError instanceof Error ? closeError.message : String(closeError);
+        if (closeMsg.includes("Protocol error") || closeMsg.includes("Connection closed") || closeMsg.includes("detached")) {
+          console.error("Warning: Some browser pages were already closed or detached (expected after timeouts)");
+        } else {
+          console.error("Warning: Error during browser close:", closeMsg);
+        }
+      }
     }
   } catch (error) {
     // Log cleanup errors but don't fail the workflow
-    // This is expected if pages were detached during timeouts or errors
+    // This outer catch handles errors from loadEqualAccessChecker or unexpected issues
     const errorMsg = error instanceof Error ? error.message : String(error);
-    if (errorMsg.includes("Protocol error") || errorMsg.includes("Connection closed") || errorMsg.includes("detached")) {
-      console.error("Warning: Equal Access Checker browser was already closed or detached (expected after timeouts)");
-    } else {
-      console.error("Warning: Failed to clean up Equal Access Checker:", errorMsg);
-    }
+    console.error("Warning: Failed to clean up Equal Access Checker:", errorMsg);
   }
 }
 
 // Only run main if this file is executed directly, not when imported
 if (import.meta.url === `file://${process.argv[1]}`) {
+  // Handle unhandled promise rejections that may occur during cleanup
+  // This is particularly important for accessibility-checker's browser close operations
+  // which may throw errors asynchronously when pages are detached
+  process.on('unhandledRejection', (reason, promise) => {
+    const msg = reason instanceof Error ? reason.message : String(reason);
+    // If it's a browser/page close error, log it as a warning but don't crash
+    if (msg.includes("Protocol error") || msg.includes("Connection closed") || msg.includes("detached") || msg.includes("Target closed")) {
+      console.error("Warning: Unhandled browser cleanup error (expected after timeouts):", msg);
+    } else {
+      // For other unhandled rejections, log and exit
+      console.error("Unhandled Promise Rejection:", reason);
+      process.exit(1);
+    }
+  });
+
   main().catch((error) => {
     console.error(error);
     process.exit(1);
