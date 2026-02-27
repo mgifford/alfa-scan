@@ -26,19 +26,44 @@ function extractScanTitle(issueTitle) {
       isTimedIssue: false,
       isRunnableIssue: false,
       triggerType: "none",
-      scanTitle: ""
+      scanTitle: "",
+      engines: ["all"]
     };
   }
 
   const normalizedPrefix = match[1].toUpperCase();
   const isScanIssue = normalizedPrefix === "SCAN";
+  const remainingTitle = match[2].trim();
+  
+  // Extract engine specifications from the title
+  // Look for engine keywords: AXE, ALFA, ACCESSLINT, EQUALACCESS, ALL
+  const engineKeywords = ["AXE", "ALFA", "ACCESSLINT", "EQUALACCESS", "ALL"];
+  const foundEngines = [];
+  let scanTitle = remainingTitle;
+  
+  // Check for engine keywords in the title
+  for (const keyword of engineKeywords) {
+    const regex = new RegExp(`\\b${keyword}\\b`, "i");
+    if (regex.test(scanTitle)) {
+      foundEngines.push(keyword.toLowerCase());
+      // Remove the keyword from the title
+      scanTitle = scanTitle.replace(regex, "").trim();
+    }
+  }
+  
+  // Clean up extra whitespace
+  scanTitle = scanTitle.replace(/\s+/g, " ").trim();
+  
+  // Default to "all" if no engines specified
+  const engines = foundEngines.length > 0 ? foundEngines : ["all"];
 
   return {
     isScanIssue,
     isTimedIssue: !isScanIssue,
     isRunnableIssue: true,
     triggerType: normalizedPrefix,
-    scanTitle: match[2].trim()
+    scanTitle,
+    engines
   };
 }
 
@@ -69,7 +94,8 @@ export function parseScanIssue(issueEvent) {
     requestLabel: extractSection(body, "Request Label") || "scan-request",
     issueTitle,
     scanTitle: titleInfo.scanTitle,
-    requestedUrls
+    requestedUrls,
+    engines: titleInfo.engines
   };
 
   const validation = validateScanRequest(request);
@@ -80,7 +106,8 @@ export function parseScanIssue(issueEvent) {
     isScanIssue: titleInfo.isScanIssue,
     isTimedIssue: titleInfo.isTimedIssue,
     isRunnableIssue: titleInfo.isRunnableIssue,
-    triggerType: titleInfo.triggerType
+    triggerType: titleInfo.triggerType,
+    engines: titleInfo.engines
   };
 }
 
