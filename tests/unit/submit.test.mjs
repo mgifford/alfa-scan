@@ -106,7 +106,7 @@ test('formatIssueBody creates proper markdown format', () => {
   assert.match(body, /https:\/\/example\.org/);
 });
 
-// Helper function to mock window.location for GitHub issue tests
+// Helper function to mock global.window for GitHub issue tests
 function withMockedLocation(testFn) {
   return async () => {
     const originalWindow = global.window;
