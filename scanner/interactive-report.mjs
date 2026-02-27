@@ -7,6 +7,9 @@ export function generateInteractiveHtml(summary) {
 
   const rolesList = Object.values(ROLES);
   const severitiesList = Object.values(SEVERITY);
+  
+  // Calculate total issues once
+  const totalIssues = consolidatedFailures.reduce((acc, f) => acc + f.totalOccurrences, 0);
 
   const ruleCardsHtml = consolidatedFailures.map(f => {
     const ruleInfo = f.engine === 'alfa' ? formatAlfaRule(f.rule) : { id: f.rule, description: f.metadata.description };
@@ -16,8 +19,8 @@ export function generateInteractiveHtml(summary) {
     
     return `
       <details class="rule-card" 
-               data-roles='\${rolesData}' 
-               data-severity="\${f.metadata.severity}"
+               data-roles='${rolesData}' 
+               data-severity="${f.metadata.severity}"
                data-search="${(displayId + " " + displayDesc).toLowerCase()}">
         <summary>
           <div class="rule-summary-info">
@@ -151,7 +154,6 @@ export function generateInteractiveHtml(summary) {
     summary:hover { background: #f0f0f0; }
     summary:focus { outline: 2px solid var(--primary); outline-offset: 2px; }
     summary::-webkit-details-marker { display: none; }
-    summary::marker { content: none; }
     .rule-summary-info { display: flex; align-items: center; gap: 1rem; }
     .badge { padding: 0.2rem 0.6rem; border-radius: 12px; font-size: 0.75rem; font-weight: 600; }
     .badge-severity { background: #eee; }
@@ -209,7 +211,7 @@ export function generateInteractiveHtml(summary) {
     <div class="dashboard">
       <div class="card">
         <h3>Total Issues</h3>
-        <div class="stat" aria-label="${consolidatedFailures.reduce((acc, f) => acc + f.totalOccurrences, 0)} total issues">${consolidatedFailures.reduce((acc, f) => acc + f.totalOccurrences, 0)}</div>
+        <div class="stat" aria-label="${totalIssues} total issues">${totalIssues}</div>
         <p>Across ${consolidatedFailures.length} unique rules</p>
       </div>
       <div class="card">
@@ -267,7 +269,7 @@ export function generateInteractiveHtml(summary) {
     </div>
 
     <!-- Screen reader announcement for filter results -->
-    <div id="filter-announcement" role="status" aria-live="polite" aria-atomic="true" style="position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden;"></div>
+    <div id="filter-announcement" role="status" aria-live="polite" aria-atomic="true" class="visually-hidden"></div>
 
     <div class="rule-list" id="ruleList" role="tabpanel" aria-atomic="false">
       ${ruleCardsHtml}
