@@ -148,11 +148,9 @@ export async function createGitHubIssue(scanTitle, urls) {
   // Since we can't make authenticated API calls from client-side JavaScript,
   // we'll redirect to GitHub's issue creation URL with pre-filled data
   
-  // Prepend "SCAN: " if not already present (case-insensitive check)
-  // Normalize any existing prefix to "SCAN: " for consistency
-  const issueTitle = scanTitle.match(SCAN_PREFIX_REGEX)
-    ? `SCAN: ${scanTitle.replace(SCAN_PREFIX_REGEX, '')}` 
-    : `SCAN: ${scanTitle}`;
+  // Prepend "SCAN: " and normalize any existing prefix (case-insensitive)
+  // replace() returns the original string if pattern doesn't match
+  const issueTitle = `SCAN: ${scanTitle.replace(SCAN_PREFIX_REGEX, '')}`;
   const issueBody = formatIssueBody(scanTitle, urls);
   
   // Encode the issue title and body for URL
