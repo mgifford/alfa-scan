@@ -169,7 +169,7 @@ jobs:
             };
 
             writeFileSync('.tmp/issue-event.json', JSON.stringify(event), 'utf8');
-            NODE
+NODE
 
             rm -rf .scan-output
             mkdir -p .scan-output
@@ -215,7 +215,7 @@ jobs:
               overlapMarkdownPath,
               scannedAt: meta.scannedAt || new Date().toISOString()
             }) + '\n', 'utf8');
-            NODE
+NODE
           done < .tmp/due-issues.ndjson
 
       - name: Regenerate reports.html
