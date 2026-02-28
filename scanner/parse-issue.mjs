@@ -36,8 +36,8 @@ function extractScanTitle(issueTitle) {
   const remainingTitle = match[2].trim();
   
   // Extract engine specifications from the title
-  // Look for engine keywords: AXE, ALFA, ACCESSLINT, EQUALACCESS, ALL
-  const engineKeywords = ["AXE", "ALFA", "ACCESSLINT", "EQUALACCESS", "ALL"];
+  // Look for engine keywords: AXE, ALFA, ACCESSLINT, EQUALACCESS, QUALWEB, ALL
+  const engineKeywords = ["AXE", "ALFA", "ACCESSLINT", "EQUALACCESS", "QUALWEB", "ALL"];
   const foundEngines = [];
   let scanTitle = remainingTitle;
   

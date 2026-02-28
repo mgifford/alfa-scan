@@ -124,6 +124,7 @@ When an issue with a title starting with "SCAN:" is created or edited, it automa
 - `ALFA` - Run only Siteimprove ALFA scanner
 - `EQUALACCESS` - Run only IBM Equal Access Checker
 - `ACCESSLINT` - Run only AccessLint scanner
+- `QUALWEB` - Run only QualWeb scanner
 - `ALL` - Run all available scanners (default if no engine specified)
 
 You can specify multiple engines in a single scan. The engine keywords are removed from the scan title automatically.
@@ -184,6 +185,7 @@ The system supports multiple accessibility scanning engines that can be run indi
 2. **Siteimprove ALFA** - Siteimprove's open-source accessibility rules engine
 3. **IBM Equal Access Checker** - IBM's comprehensive accessibility checker
 4. **AccessLint** - Automated accessibility testing tool
+5. **QualWeb** - University of Lisbon's WCAG and ACT Rules evaluator
 
 By default, all scanners run for comprehensive coverage. You can specify which scanners to use via the issue title (see [Scanning Triggers](#scanning-triggers) above).
 

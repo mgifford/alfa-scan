@@ -2,6 +2,7 @@ import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { spawn } from "node:child_process";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { createRequire } from "node:module";
 import { parseScanIssue } from "./parse-issue.mjs";
 import { validateTargets } from "./validate-targets.mjs";
 import { formatAlfaRule } from "./alfa-rule-metadata.mjs";
@@ -10,7 +11,7 @@ import { generateInteractiveHtml } from "./interactive-report.mjs";
 
 const alfaCliPath = fileURLToPath(new URL("../node_modules/@siteimprove/alfa-cli/bin/alfa.js", import.meta.url));
 const accessLintIifePath = fileURLToPath(new URL("../node_modules/@accesslint/core/dist/index.iife.js", import.meta.url));
-const SCANNER_ORDER = ["axe", "alfa", "equalAccess", "accesslint"];
+const SCANNER_ORDER = ["axe", "alfa", "equalAccess", "accesslint", "qualweb"];
 
 /**
  * Determine which scanners should run based on the engines specification
@@ -24,7 +25,8 @@ export function determineScannersToRun(engines) {
       runAxe: true,
       runAlfa: true,
       runEqualAccess: true,
-      runAccesslint: true
+      runAccesslint: true,
+      runQualWeb: true
     };
   }
   
@@ -33,7 +35,8 @@ export function determineScannersToRun(engines) {
     runAxe: engines.includes("axe"),
     runAlfa: engines.includes("alfa"),
     runEqualAccess: engines.includes("equalaccess"),
-    runAccesslint: engines.includes("accesslint")
+    runAccesslint: engines.includes("accesslint"),
+    runQualWeb: engines.includes("qualweb")
   };
 }
 
@@ -56,8 +59,8 @@ const TIMEOUTS = {
   // ALFA command execution timeout (default: 3 minutes)
   ALFA_COMMAND_TIMEOUT: parseInt(process.env.ALFA_COMMAND_TIMEOUT_MS || "180000", 10),
   
-  // Playwright page navigation timeout (default: 30s)
-  PLAYWRIGHT_NAV_TIMEOUT: parseInt(process.env.PLAYWRIGHT_NAV_TIMEOUT_MS || "30000", 10),
+  // Playwright/Puppeteer page navigation timeout (default: 30s)
+  BROWSER_NAV_TIMEOUT: parseInt(process.env.BROWSER_NAV_TIMEOUT_MS || process.env.PLAYWRIGHT_NAV_TIMEOUT_MS || "30000", 10),
   
   // Playwright browser launch timeout (default: 30s)
   PLAYWRIGHT_LAUNCH_TIMEOUT: parseInt(process.env.PLAYWRIGHT_LAUNCH_TIMEOUT_MS || "30000", 10)
@@ -68,6 +71,8 @@ let playwright = null;
 let axePlaywright = null;
 let axeCoreVersion = null;
 let equalAccessChecker = null;
+let qualWebCore = null;
+let qualWebActRules = null;
 
 async function loadAxeDependencies() {
   if (!playwright) {
@@ -104,6 +109,24 @@ async function loadEqualAccessChecker() {
     }
   }
   return equalAccessChecker;
+}
+
+async function loadQualWeb() {
+  if (!qualWebCore) {
+    try {
+      // QualWeb only exports CommonJS, so we need to use createRequire
+      const require = createRequire(import.meta.url);
+      const { QualWeb } = require("@qualweb/core");
+      const { ACTRules } = require("@qualweb/act-rules");
+      qualWebCore = QualWeb;
+      qualWebActRules = ACTRules;
+    } catch (error) {
+      console.error("QualWeb not available:", error.message);
+      qualWebCore = null;
+      qualWebActRules = null;
+    }
+  }
+  return { qualWebCore, qualWebActRules };
 }
 
 // Maximum number of failures to show per rule in detailed report
@@ -516,7 +539,7 @@ async function runAxeAudit(url) {
       // Navigate to URL with timeout
       await page.goto(url, {
         waitUntil: "domcontentloaded",
-        timeout: TIMEOUTS.PLAYWRIGHT_NAV_TIMEOUT
+        timeout: TIMEOUTS.BROWSER_NAV_TIMEOUT
       });
 
       // Run axe scan using AxeBuilder
@@ -617,7 +640,7 @@ async function runAccessLintAudit(url) {
       const page = await context.newPage();
       await page.goto(url, {
         waitUntil: "domcontentloaded",
-        timeout: TIMEOUTS.PLAYWRIGHT_NAV_TIMEOUT
+        timeout: TIMEOUTS.BROWSER_NAV_TIMEOUT
       });
 
       await page.addScriptTag({ path: accessLintIifePath });
@@ -743,6 +766,139 @@ async function runEqualAccessAudit(url) {
   // Final cleanup happens once in main() after all scans complete.
 }
 
+async function runQualWebAudit(url) {
+  const base = createScannerBaseError(null);
+  
+  // QualWeb requires a browser instance to be managed, so we create a new instance per URL
+  let qualweb = null;
+  
+  try {
+    const { qualWebCore: QualWeb, qualWebActRules: ACTRules } = await loadQualWeb();
+    
+    if (!QualWeb || !ACTRules) {
+      return {
+        ...base,
+        error: "QualWeb not available"
+      };
+    }
+    
+    // Initialize QualWeb instance
+    qualweb = new QualWeb({
+      adBlock: false,
+      stealth: false
+    });
+    
+    // Start QualWeb with puppeteer configuration
+    // maxConcurrency is set to 1 by default for safety as QualWeb creates isolated browser instances
+    // Can be increased via QUALWEB_MAX_CONCURRENCY env var for better performance
+    const maxConcurrency = parseInt(process.env.QUALWEB_MAX_CONCURRENCY || "1", 10);
+    await qualweb.start(
+      {
+        maxConcurrency,
+        timeout: TIMEOUTS.BROWSER_NAV_TIMEOUT,
+        monitor: false
+      },
+      {
+        headless: true,
+        args: ['--no-sandbox', '--disable-setuid-sandbox']
+      }
+    );
+    
+    // Create ACT Rules module instance
+    const actRulesModule = new ACTRules();
+    
+    // Run evaluation
+    const reports = await qualweb.evaluate({
+      url,
+      modules: [actRulesModule]
+    });
+    
+    // Stop QualWeb instance
+    await qualweb.stop();
+    
+    // Extract report for this URL
+    const report = reports?.[url];
+    
+    if (!report) {
+      return {
+        ...base,
+        error: "QualWeb evaluation returned no report"
+      };
+    }
+    
+    // Process ACT Rules results
+    const actResults = report.modules?.["act-rules"];
+    const assertions = actResults?.assertions || {};
+    
+    const failedRules = new Set();
+    const passedRules = new Set();
+    const failures = [];
+    const counts = {
+      passed: 0,
+      failed: 0,
+      cantTell: 0,
+      inapplicable: 0
+    };
+    
+    // Process each assertion
+    for (const [ruleId, assertion] of Object.entries(assertions)) {
+      const metadata = assertion.metadata || {};
+      const results = assertion.results || [];
+      
+      for (const result of results) {
+        const verdict = result.verdict;
+        
+        if (verdict === "passed") {
+          counts.passed++;
+          passedRules.add(ruleId);
+        } else if (verdict === "failed") {
+          counts.failed++;
+          failedRules.add(ruleId);
+          
+          // Capture failure details
+          failures.push({
+            rule: ruleId,
+            ruleUrl: metadata.url || null,
+            description: metadata.description || null,
+            xpath: result.location?.xpath || null,
+            selector: result.location?.selector || null,
+            html: result.htmlCode || result.pointer || null,
+            message: result.description || metadata.description || null
+          });
+        } else if (verdict === "warning" || verdict === "cantTell") {
+          counts.cantTell++;
+        } else if (verdict === "inapplicable") {
+          counts.inapplicable++;
+        }
+      }
+    }
+    
+    return {
+      executed: true,
+      error: null,
+      counts,
+      failedRules: [...failedRules].sort(),
+      passedRules: [...passedRules].sort(),
+      failures,
+      outcomeCount: counts.passed + counts.failed + counts.cantTell + counts.inapplicable
+    };
+  } catch (error) {
+    // Make sure to clean up if there's an error
+    if (qualweb) {
+      try {
+        await qualweb.stop();
+      } catch {
+        // Ignore cleanup errors
+      }
+    }
+    
+    return {
+      ...base,
+      error: error instanceof Error ? error.message : String(error)
+    };
+  }
+}
+
 function extractHtmlTitle(html) {
   const match = html.match(/<title[^>]*>([^<]+)<\/title>/i);
   return match ? match[1].trim() : null;
@@ -799,6 +955,9 @@ async function scanOneUrl(target, engines = ["all"]) {
       const accesslint = scannersToRun.runAccesslint 
         ? await runAccessLintAudit(finalUrl) 
         : createScannerBaseError("Skipped (not requested)");
+      const qualweb = scannersToRun.runQualWeb 
+        ? await runQualWebAudit(finalUrl) 
+        : createScannerBaseError("Skipped (not requested)");
 
       const result = {
         submittedUrl: target.submittedUrl,
@@ -814,6 +973,7 @@ async function scanOneUrl(target, engines = ["all"]) {
         axe,
         equalAccess,
         accesslint,
+        qualweb,
         duplicateFindingCount: 0
       };
 
@@ -837,6 +997,7 @@ async function scanOneUrl(target, engines = ["all"]) {
         axe: baseErrorResult,
         equalAccess: baseErrorResult,
         accesslint: baseErrorResult,
+        qualweb: baseErrorResult,
         duplicateFindingCount: 0
       };
     }
@@ -863,6 +1024,7 @@ async function scanOneUrl(target, engines = ["all"]) {
       axe: baseErrorResult,
       equalAccess: baseErrorResult,
       accesslint: baseErrorResult,
+      qualweb: baseErrorResult,
       duplicateFindingCount: 0
     };
   } finally {
@@ -918,6 +1080,13 @@ function toCsv(summary) {
     "accesslint_inapplicable",
     "accesslint_failed_rules",
     "accesslint_error",
+    "qualweb_executed",
+    "qualweb_passed",
+    "qualweb_failed",
+    "qualweb_cant_tell",
+    "qualweb_inapplicable",
+    "qualweb_failed_rules",
+    "qualweb_error",
     "duplicate_findings",
     "fetch_error",
     "page_title"
@@ -936,6 +1105,7 @@ function toCsv(summary) {
     const axe = result.axe;
     const equalAccess = result.equalAccess;
     const accesslint = result.accesslint;
+    const qualweb = result.qualweb;
     return [
       summary.issueNumber,
       summary.scanTitle,
@@ -977,6 +1147,13 @@ function toCsv(summary) {
       accesslint.counts.inapplicable,
       accesslint.failedRules.join(";"),
       accesslint.error ?? "",
+      qualweb.executed,
+      qualweb.counts.passed,
+      qualweb.counts.failed,
+      qualweb.counts.cantTell,
+      qualweb.counts.inapplicable,
+      qualweb.failedRules.join(";"),
+      qualweb.error ?? "",
       result.duplicateFindingCount ?? 0,
       result.error ?? "",
       result.pageTitle ?? ""
@@ -996,7 +1173,8 @@ function buildOverlapReport(summary) {
     axe: "axe",
     alfa: "ALFA",
     equalAccess: "Equal Access",
-    accesslint: "AccessLint"
+    accesslint: "AccessLint",
+    qualweb: "QualWeb"
   };
 
   const dedupeMap = new Map();

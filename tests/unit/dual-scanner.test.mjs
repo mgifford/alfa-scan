@@ -197,6 +197,7 @@ describe("Dual-Scanner Integration Tests", () => {
     assert.strictEqual(result.runAlfa, true);
     assert.strictEqual(result.runEqualAccess, true);
     assert.strictEqual(result.runAccesslint, true);
+    assert.strictEqual(result.runQualWeb, true);
   });
 
   it("should determine all scanners run by default when no engines specified", () => {
@@ -205,6 +206,7 @@ describe("Dual-Scanner Integration Tests", () => {
     assert.strictEqual(result.runAlfa, true);
     assert.strictEqual(result.runEqualAccess, true);
     assert.strictEqual(result.runAccesslint, true);
+    assert.strictEqual(result.runQualWeb, true);
   });
 
   it("should determine only axe runs when 'axe' is specified", () => {
@@ -213,6 +215,7 @@ describe("Dual-Scanner Integration Tests", () => {
     assert.strictEqual(result.runAlfa, false);
     assert.strictEqual(result.runEqualAccess, false);
     assert.strictEqual(result.runAccesslint, false);
+    assert.strictEqual(result.runQualWeb, false);
   });
 
   it("should determine only alfa runs when 'alfa' is specified", () => {
@@ -221,6 +224,7 @@ describe("Dual-Scanner Integration Tests", () => {
     assert.strictEqual(result.runAlfa, true);
     assert.strictEqual(result.runEqualAccess, false);
     assert.strictEqual(result.runAccesslint, false);
+    assert.strictEqual(result.runQualWeb, false);
   });
 
   it("should determine multiple scanners run when multiple engines specified", () => {
@@ -229,6 +233,7 @@ describe("Dual-Scanner Integration Tests", () => {
     assert.strictEqual(result.runAlfa, true);
     assert.strictEqual(result.runEqualAccess, false);
     assert.strictEqual(result.runAccesslint, false);
+    assert.strictEqual(result.runQualWeb, false);
   });
 
   it("should determine equalaccess and accesslint run when specified", () => {
@@ -237,5 +242,15 @@ describe("Dual-Scanner Integration Tests", () => {
     assert.strictEqual(result.runAlfa, false);
     assert.strictEqual(result.runEqualAccess, true);
     assert.strictEqual(result.runAccesslint, true);
+    assert.strictEqual(result.runQualWeb, false);
+  });
+
+  it("should determine only qualweb runs when 'qualweb' is specified", () => {
+    const result = determineScannersToRun(["qualweb"]);
+    assert.strictEqual(result.runAxe, false);
+    assert.strictEqual(result.runAlfa, false);
+    assert.strictEqual(result.runEqualAccess, false);
+    assert.strictEqual(result.runAccesslint, false);
+    assert.strictEqual(result.runQualWeb, true);
   });
 });

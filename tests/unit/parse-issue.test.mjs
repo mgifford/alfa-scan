@@ -151,6 +151,24 @@ test("parseScanIssue extracts ACCESSLINT engine from title", () => {
   assert.equal(result.value.scanTitle, "Validation");
 });
 
+test("parseScanIssue extracts QUALWEB engine from title", () => {
+  const payload = {
+    issue: {
+      number: 105,
+      html_url: "https://github.com/example/repo/issues/105",
+      title: "SCAN: QUALWEB ACT Rules scan",
+      created_at: "2026-02-20T20:00:00Z",
+      user: { login: "octocat" },
+      body: "# URLs\nhttps://example.com"
+    }
+  };
+
+  const result = parseScanIssue(payload);
+  assert.equal(result.ok, true);
+  assert.deepEqual(result.engines, ["qualweb"]);
+  assert.equal(result.value.scanTitle, "ACT Rules scan");
+});
+
 test("parseScanIssue defaults to all engines when none specified", () => {
   const payload = {
     issue: {

@@ -17,6 +17,8 @@
   "dependencies": {
     "@accesslint/core": "^0.8.7",
     "@axe-core/playwright": "^4.11.1",
+    "@qualweb/act-rules": "^0.7.6",
+    "@qualweb/core": "^0.8.7",
     "@siteimprove/alfa-cli": "^0.81.3",
     "@siteimprove/alfa-formatter-earl": "^0.81.3",
     "@siteimprove/alfa-formatter-json": "^0.81.3",
