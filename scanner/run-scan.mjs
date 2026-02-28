@@ -2268,10 +2268,10 @@ async function main() {
     accesslintTotals.cantTell += result.accesslint.counts.cantTell;
     accesslintTotals.inapplicable += result.accesslint.counts.inapplicable;
 
-    qualwebTotals.passed += result.qualweb.counts.passed;
-    qualwebTotals.failed += result.qualweb.counts.failed;
-    qualwebTotals.cantTell += result.qualweb.counts.cantTell;
-    qualwebTotals.inapplicable += result.qualweb.counts.inapplicable;
+    qualwebTotals.passed += result.qualweb?.counts?.passed ?? 0;
+    qualwebTotals.failed += result.qualweb?.counts?.failed ?? 0;
+    qualwebTotals.cantTell += result.qualweb?.counts?.cantTell ?? 0;
+    qualwebTotals.inapplicable += result.qualweb?.counts?.inapplicable ?? 0;
 
     duplicateFindingTotals += result.duplicateFindingCount ?? 0;
   }
