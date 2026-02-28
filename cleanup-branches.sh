@@ -2,6 +2,12 @@
 # Script to delete merged branches from the remote repository
 # Run this script after verifying that all branches have been merged into main
 
+# Verify we're running with bash
+if [ -z "$BASH_VERSION" ]; then
+  echo "Error: This script requires bash. Please run with: bash cleanup-branches.sh"
+  exit 1
+fi
+
 set -e
 
 # Colors for output
@@ -53,13 +59,19 @@ failed_branches=()
 
 for branch in "${branches[@]}"; do
   echo -n "Deleting $branch... "
-  if git push origin --delete "$branch" 2>/dev/null; then
+  # Capture both stdout and stderr to show errors if deletion fails
+  error_output=$(git push origin --delete "$branch" 2>&1)
+  exit_code=$?
+  
+  if [ $exit_code -eq 0 ]; then
     echo -e "${GREEN}✓${NC}"
     ((deleted_count++))
   else
     echo -e "${RED}✗${NC}"
     ((failed_count++))
     failed_branches+=("$branch")
+    # Show the error message for troubleshooting
+    echo "  Error: $error_output"
   fi
 done
 

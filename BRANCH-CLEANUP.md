@@ -65,9 +65,17 @@ git push origin --delete copilot/update-readme-instructions
 A convenience script is provided in `cleanup-branches.sh`:
 
 ```bash
+# Make the script executable (if not already)
 chmod +x cleanup-branches.sh
+
+# Run the script with bash
+bash cleanup-branches.sh
+
+# Or if executable, run directly
 ./cleanup-branches.sh
 ```
+
+**Note:** The script requires bash. If you encounter errors, ensure you're running it with `bash cleanup-branches.sh`.
 
 ## Local Branch Cleanup
 
