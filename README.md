@@ -119,6 +119,8 @@ Scans can be triggered in multiple ways:
 
 When an issue with a title starting with "SCAN:" is created or edited, it automatically triggers a scan via the "Scan Request" workflow.
 
+**Multiple Scans Processing**: If you create multiple SCAN issues at once, they will be processed sequentially (one after another) rather than simultaneously. This ensures stable operation and prevents conflicts when committing scan results. Each scan will wait for the previous one to complete before starting.
+
 **Specifying Accessibility Engines**: You can optionally specify which accessibility engines to run by including keywords in the issue title:
 - `AXE` - Run only axe-core scanner
 - `ALFA` - Run only Siteimprove ALFA scanner
