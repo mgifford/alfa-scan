@@ -9,8 +9,8 @@ permissions:
   issues: write
 
 concurrency:
-  group: scan-request-${{ github.event.issue.number }}
-  cancel-in-progress: true
+  group: scan-repository
+  cancel-in-progress: false
 
 jobs:
   run-scan-request:

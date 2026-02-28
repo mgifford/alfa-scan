@@ -14,7 +14,7 @@ permissions:
   issues: write
 
 concurrency:
-  group: scheduled-scan-queue
+  group: scan-repository
   cancel-in-progress: false
 
 jobs:
