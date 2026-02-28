@@ -1,0 +1,84 @@
+{
+  "generatedAt": "2026-02-28T18:32:08.027Z",
+  "issueNumber": 54,
+  "scanTitle": "Nova Scotia",
+  "scannersInUse": [
+    "axe",
+    "alfa",
+    "equalAccess",
+    "accesslint",
+    "qualweb"
+  ],
+  "scannerStats": {
+    "axe": {
+      "label": "axe",
+      "failed": 5,
+      "uniqueFailed": 5,
+      "duplicates": 0
+    },
+    "alfa": {
+      "label": "ALFA",
+      "failed": 217,
+      "uniqueFailed": 217,
+      "duplicates": 0
+    },
+    "equalAccess": {
+      "label": "Equal Access",
+      "failed": 58,
+      "uniqueFailed": 53,
+      "duplicates": 5
+    },
+    "accesslint": {
+      "label": "AccessLint",
+      "failed": 3,
+      "uniqueFailed": 3,
+      "duplicates": 0
+    },
+    "qualweb": {
+      "label": "QualWeb",
+      "failed": 24,
+      "uniqueFailed": 24,
+      "duplicates": 0
+    }
+  },
+  "matrix": {
+    "axe": {
+      "axe": 5,
+      "alfa": 0,
+      "equalAccess": 0,
+      "accesslint": 0,
+      "qualweb": 0
+    },
+    "alfa": {
+      "axe": 0,
+      "alfa": 22,
+      "equalAccess": 0,
+      "accesslint": 0,
+      "qualweb": 0
+    },
+    "equalAccess": {
+      "axe": 0,
+      "alfa": 0,
+      "equalAccess": 53,
+      "accesslint": 0,
+      "qualweb": 0
+    },
+    "accesslint": {
+      "axe": 0,
+      "alfa": 0,
+      "equalAccess": 0,
+      "accesslint": 3,
+      "qualweb": 0
+    },
+    "qualweb": {
+      "axe": 0,
+      "alfa": 0,
+      "equalAccess": 0,
+      "accesslint": 0,
+      "qualweb": 6
+    }
+  },
+  "duplicateFindingTotals": 218,
+  "overlapEntryCount": 0,
+  "overlapEntries": []
+}
