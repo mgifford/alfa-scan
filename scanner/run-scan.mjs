@@ -59,8 +59,8 @@ const TIMEOUTS = {
   // ALFA command execution timeout (default: 3 minutes)
   ALFA_COMMAND_TIMEOUT: parseInt(process.env.ALFA_COMMAND_TIMEOUT_MS || "180000", 10),
   
-  // Playwright page navigation timeout (default: 30s)
-  PLAYWRIGHT_NAV_TIMEOUT: parseInt(process.env.PLAYWRIGHT_NAV_TIMEOUT_MS || "30000", 10),
+  // Playwright/Puppeteer page navigation timeout (default: 30s)
+  BROWSER_NAV_TIMEOUT: parseInt(process.env.BROWSER_NAV_TIMEOUT_MS || process.env.PLAYWRIGHT_NAV_TIMEOUT_MS || "30000", 10),
   
   // Playwright browser launch timeout (default: 30s)
   PLAYWRIGHT_LAUNCH_TIMEOUT: parseInt(process.env.PLAYWRIGHT_LAUNCH_TIMEOUT_MS || "30000", 10)
@@ -539,7 +539,7 @@ async function runAxeAudit(url) {
       // Navigate to URL with timeout
       await page.goto(url, {
         waitUntil: "domcontentloaded",
-        timeout: TIMEOUTS.PLAYWRIGHT_NAV_TIMEOUT
+        timeout: TIMEOUTS.BROWSER_NAV_TIMEOUT
       });
 
       // Run axe scan using AxeBuilder
@@ -640,7 +640,7 @@ async function runAccessLintAudit(url) {
       const page = await context.newPage();
       await page.goto(url, {
         waitUntil: "domcontentloaded",
-        timeout: TIMEOUTS.PLAYWRIGHT_NAV_TIMEOUT
+        timeout: TIMEOUTS.BROWSER_NAV_TIMEOUT
       });
 
       await page.addScriptTag({ path: accessLintIifePath });
@@ -789,10 +789,13 @@ async function runQualWebAudit(url) {
     });
     
     // Start QualWeb with puppeteer configuration
+    // maxConcurrency is set to 1 by default for safety as QualWeb creates isolated browser instances
+    // Can be increased via QUALWEB_MAX_CONCURRENCY env var for better performance
+    const maxConcurrency = parseInt(process.env.QUALWEB_MAX_CONCURRENCY || "1", 10);
     await qualweb.start(
       {
-        maxConcurrency: 1,
-        timeout: TIMEOUTS.PLAYWRIGHT_NAV_TIMEOUT,
+        maxConcurrency,
+        timeout: TIMEOUTS.BROWSER_NAV_TIMEOUT,
         monitor: false
       },
       {
