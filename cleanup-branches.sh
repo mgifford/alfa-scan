@@ -18,13 +18,18 @@ NC='\033[0m' # No Color
 
 # List of branches to delete
 branches=(
+  "copilot/add-qualweb-scanner-support"
   "copilot/allow-engine-specification"
+  "copilot/consolidate-branches-into-main"
   "copilot/fix-browser-launch-error"
   "copilot/fix-browser-launch-error-again"
   "copilot/fix-frame-detached-error"
+  "copilot/fix-issue-from-actions-run"
   "copilot/fix-protocol-error-connection-closed"
   "copilot/fix-puppeteer-connection-error"
+  "copilot/fix-syntax-error-in-script"
   "copilot/investigate-scan-issue-41"
+  "copilot/merge-and-cleanup-branches"
   "copilot/prepend-scan-title"
   "copilot/review-report-analysis-changes"
   "copilot/update-readme-instructions"

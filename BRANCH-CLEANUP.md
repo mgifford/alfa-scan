@@ -8,13 +8,18 @@ All work from the following branches has been successfully merged into the `main
 
 | Branch Name | PR # | Status | Notes |
 |-------------|------|--------|-------|
+| `copilot/add-qualweb-scanner-support` | #71 | ✅ Merged | QualWeb scanner integration |
 | `copilot/allow-engine-specification` | #46 | ✅ Merged | Engine selection feature |
+| `copilot/consolidate-branches-into-main` | #56 | ✅ Merged | Branch consolidation documentation |
 | `copilot/fix-browser-launch-error` | #40 | ✅ Merged | Browser cleanup improvements |
 | `copilot/fix-browser-launch-error-again` | #42 | ✅ Merged | .achecker.yml config |
 | `copilot/fix-frame-detached-error` | #49 | ✅ Merged | Detached page error handling |
+| `copilot/fix-issue-from-actions-run` | #59 | ✅ Merged | Heredoc delimiter fixes |
 | `copilot/fix-protocol-error-connection-closed` | #45 | ✅ Merged | Timeout protocol error fix |
 | `copilot/fix-puppeteer-connection-error` | N/A | ⚠️ No work | Only contains empty "Initial plan" commit |
+| `copilot/fix-syntax-error-in-script` | #57 | ✅ Merged | Bash heredoc syntax fixes |
 | `copilot/investigate-scan-issue-41` | #43 | ✅ Merged | Workflow documentation and ASCII |
+| `copilot/merge-and-cleanup-branches` | N/A | ⚠️ No work | Only contains empty "Initial plan" commit |
 | `copilot/prepend-scan-title` | #53 | ✅ Merged | Prefix logic improvements |
 | `copilot/review-report-analysis-changes` | #50 | ✅ Merged | Accessibility improvements |
 | `copilot/update-readme-instructions` | #55 | ✅ Merged | README improvements |
@@ -26,13 +31,13 @@ You can verify that these branches have been merged by running:
 ```bash
 # Check for unique commits in each branch that aren't in main
 git fetch --all
-for branch in copilot/allow-engine-specification copilot/fix-browser-launch-error copilot/fix-browser-launch-error-again copilot/fix-frame-detached-error copilot/fix-protocol-error-connection-closed copilot/fix-puppeteer-connection-error copilot/investigate-scan-issue-41 copilot/prepend-scan-title copilot/review-report-analysis-changes copilot/update-readme-instructions; do
+for branch in copilot/add-qualweb-scanner-support copilot/allow-engine-specification copilot/consolidate-branches-into-main copilot/fix-browser-launch-error copilot/fix-browser-launch-error-again copilot/fix-frame-detached-error copilot/fix-issue-from-actions-run copilot/fix-protocol-error-connection-closed copilot/fix-puppeteer-connection-error copilot/fix-syntax-error-in-script copilot/investigate-scan-issue-41 copilot/merge-and-cleanup-branches copilot/prepend-scan-title copilot/review-report-analysis-changes copilot/update-readme-instructions; do
   commits=$(git log origin/$branch --not origin/main --oneline 2>/dev/null | wc -l)
   echo "$branch: $commits unique commits"
 done
 ```
 
-Expected output: All branches should show "0 unique commits" (except `copilot/fix-puppeteer-connection-error` which has 1 empty commit).
+Expected output: All branches should show "0 unique commits" (except `copilot/fix-puppeteer-connection-error` and `copilot/merge-and-cleanup-branches` which have 1 empty commit each).
 
 ## Manual Cleanup Instructions
 
@@ -48,13 +53,18 @@ Run the provided cleanup script (see `cleanup-branches.sh`) or execute these com
 
 ```bash
 # Delete remote branches
+git push origin --delete copilot/add-qualweb-scanner-support
 git push origin --delete copilot/allow-engine-specification
+git push origin --delete copilot/consolidate-branches-into-main
 git push origin --delete copilot/fix-browser-launch-error
 git push origin --delete copilot/fix-browser-launch-error-again
 git push origin --delete copilot/fix-frame-detached-error
+git push origin --delete copilot/fix-issue-from-actions-run
 git push origin --delete copilot/fix-protocol-error-connection-closed
 git push origin --delete copilot/fix-puppeteer-connection-error
+git push origin --delete copilot/fix-syntax-error-in-script
 git push origin --delete copilot/investigate-scan-issue-41
+git push origin --delete copilot/merge-and-cleanup-branches
 git push origin --delete copilot/prepend-scan-title
 git push origin --delete copilot/review-report-analysis-changes
 git push origin --delete copilot/update-readme-instructions
@@ -86,13 +96,18 @@ After deleting the remote branches, clean up your local repository:
 git fetch --prune
 
 # Delete local branches (if they exist)
+git branch -D copilot/add-qualweb-scanner-support 2>/dev/null || true
 git branch -D copilot/allow-engine-specification 2>/dev/null || true
+git branch -D copilot/consolidate-branches-into-main 2>/dev/null || true
 git branch -D copilot/fix-browser-launch-error 2>/dev/null || true
 git branch -D copilot/fix-browser-launch-error-again 2>/dev/null || true
 git branch -D copilot/fix-frame-detached-error 2>/dev/null || true
+git branch -D copilot/fix-issue-from-actions-run 2>/dev/null || true
 git branch -D copilot/fix-protocol-error-connection-closed 2>/dev/null || true
 git branch -D copilot/fix-puppeteer-connection-error 2>/dev/null || true
+git branch -D copilot/fix-syntax-error-in-script 2>/dev/null || true
 git branch -D copilot/investigate-scan-issue-41 2>/dev/null || true
+git branch -D copilot/merge-and-cleanup-branches 2>/dev/null || true
 git branch -D copilot/prepend-scan-title 2>/dev/null || true
 git branch -D copilot/review-report-analysis-changes 2>/dev/null || true
 git branch -D copilot/update-readme-instructions 2>/dev/null || true
