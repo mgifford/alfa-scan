@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Open Scans - Automated Accessibility Scanning">
+  <title>Open Scans - Automated Accessibility Scanning</title>
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#0969da"/>
+  <!-- White card area -->
+  <rect x="60" y="60" width="1080" height="510" rx="16" ry="16" fill="white" opacity="0.97"/>
+  <!-- Top accent bar -->
+  <rect x="60" y="60" width="1080" height="8" rx="4" ry="4" fill="#1a7f37"/>
+
+  <!-- Accessibility icon / magnifying glass -->
+  <g transform="translate(80, 100)">
+    <!-- Circle -->
+    <circle cx="60" cy="60" r="50" fill="none" stroke="#0969da" stroke-width="10"/>
+    <!-- Person/accessibility symbol inside -->
+    <circle cx="60" cy="32" r="12" fill="#0969da"/>
+    <path d="M30 85 Q60 55 90 85" fill="none" stroke="#0969da" stroke-width="8" stroke-linecap="round"/>
+    <line x1="60" y1="44" x2="60" y2="70" stroke="#0969da" stroke-width="8" stroke-linecap="round"/>
+    <line x1="35" y1="60" x2="85" y2="60" stroke="#0969da" stroke-width="8" stroke-linecap="round"/>
+    <!-- Magnifying glass handle -->
+    <line x1="98" y1="98" x2="130" y2="130" stroke="#0969da" stroke-width="12" stroke-linecap="round"/>
+  </g>
+
+  <!-- Main title -->
+  <text x="240" y="170" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="72" font-weight="700" fill="#0969da">Open Scans</text>
+
+  <!-- Tagline -->
+  <text x="240" y="230" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="34" font-weight="400" fill="#57606a">Automated Accessibility Scanning</text>
+
+  <!-- Divider line -->
+  <line x1="80" y1="270" x2="1120" y2="270" stroke="#d0d7de" stroke-width="2"/>
+
+  <!-- Feature bullets -->
+  <g font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="28" fill="#24292f">
+    <!-- Row 1 -->
+    <text x="110" y="335">
+      <tspan fill="#1a7f37" font-size="32">✓</tspan>
+      <tspan dx="12">WCAG 2.2 compliance checks</tspan>
+    </text>
+    <text x="640" y="335">
+      <tspan fill="#1a7f37" font-size="32">✓</tspan>
+      <tspan dx="12">Multiple scanning engines</tspan>
+    </text>
+    <!-- Row 2 -->
+    <text x="110" y="395">
+      <tspan fill="#1a7f37" font-size="32">✓</tspan>
+      <tspan dx="12">Free &amp; open source</tspan>
+    </text>
+    <text x="640" y="395">
+      <tspan fill="#1a7f37" font-size="32">✓</tspan>
+      <tspan dx="12">Batch scan up to 500 URLs</tspan>
+    </text>
+    <!-- Row 3 -->
+    <text x="110" y="455">
+      <tspan fill="#1a7f37" font-size="32">✓</tspan>
+      <tspan dx="12">Powered by GitHub Actions</tspan>
+    </text>
+    <text x="640" y="455">
+      <tspan fill="#1a7f37" font-size="32">✓</tspan>
+      <tspan dx="12">Shareable HTML reports</tspan>
+    </text>
+  </g>
+
+  <!-- Footer URL -->
+  <rect x="60" y="518" width="1080" height="52" rx="8" ry="8" fill="#f6f8fa"/>
+  <text x="600" y="552" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="26" font-weight="600" fill="#0969da">mgifford.github.io/open-scans</text>
+</svg>
