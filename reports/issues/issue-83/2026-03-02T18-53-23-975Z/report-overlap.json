@@ -1,0 +1,72 @@
+{
+  "generatedAt": "2026-03-02T18:52:59.579Z",
+  "issueNumber": 83,
+  "scanTitle": "Github",
+  "scannersInUse": [
+    "axe",
+    "alfa",
+    "equalAccess",
+    "qualweb"
+  ],
+  "scannerStats": {
+    "axe": {
+      "label": "axe",
+      "failed": 11,
+      "uniqueFailed": 11,
+      "duplicates": 0
+    },
+    "alfa": {
+      "label": "ALFA",
+      "failed": 7393,
+      "uniqueFailed": 7393,
+      "duplicates": 0
+    },
+    "equalAccess": {
+      "label": "Equal Access",
+      "failed": 3903,
+      "uniqueFailed": 2826,
+      "duplicates": 1077
+    },
+    "accesslint": {
+      "label": "AccessLint",
+      "failed": 0,
+      "uniqueFailed": 0,
+      "duplicates": 0
+    },
+    "qualweb": {
+      "label": "QualWeb",
+      "failed": 5073,
+      "uniqueFailed": 5073,
+      "duplicates": 0
+    }
+  },
+  "matrix": {
+    "axe": {
+      "axe": 11,
+      "alfa": 0,
+      "equalAccess": 0,
+      "qualweb": 0
+    },
+    "alfa": {
+      "axe": 0,
+      "alfa": 1503,
+      "equalAccess": 0,
+      "qualweb": 0
+    },
+    "equalAccess": {
+      "axe": 0,
+      "alfa": 0,
+      "equalAccess": 2763,
+      "qualweb": 0
+    },
+    "qualweb": {
+      "axe": 0,
+      "alfa": 0,
+      "equalAccess": 0,
+      "qualweb": 104
+    }
+  },
+  "duplicateFindingTotals": 11892,
+  "overlapEntryCount": 0,
+  "overlapEntries": []
+}
