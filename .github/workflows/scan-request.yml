@@ -129,15 +129,29 @@ jobs:
             PUSH_SUCCESS=false
             for attempt in 1 2 3; do
               echo "Push attempt $attempt..."
-              if git pull --rebase origin main && git push origin HEAD:main; then
-                echo "Successfully pushed on attempt $attempt"
-                PUSH_SUCCESS=true
-                break
-              fi
-              
-              # Abort rebase if it's in progress
-              if git status | grep -q "rebase in progress"; then
-                git rebase --abort
+              if git pull --rebase origin main; then
+                if git push origin HEAD:main; then
+                  echo "Successfully pushed on attempt $attempt"
+                  PUSH_SUCCESS=true
+                  break
+                fi
+              else
+                # reports.html is a generated file — resolve conflicts by regenerating it
+                if git status | grep -q "rebase in progress"; then
+                  if git diff --name-only --diff-filter=U 2>/dev/null | grep -q "^reports\.html$"; then
+                    echo "Conflict in generated reports.html — resolving by regenerating..."
+                    node scanner/generate-reports-html.mjs
+                    git add reports.html
+                    if GIT_EDITOR=true git rebase --continue; then
+                      if git push origin HEAD:main; then
+                        echo "Successfully pushed on attempt $attempt (after resolving reports.html conflict)"
+                        PUSH_SUCCESS=true
+                        break
+                      fi
+                    fi
+                  fi
+                  git rebase --abort 2>/dev/null || true
+                fi
               fi
               
               if [ $attempt -lt 3 ]; then

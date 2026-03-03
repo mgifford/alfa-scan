@@ -231,9 +231,9 @@ jobs:
                   let pushSucceeded = false;
                   for (let attempt = 1; attempt <= 3; attempt++) {
                     console.log(`Push attempt ${attempt}...`);
-                    const pullResult = spawnSync('git', ['pull', '--rebase', 'origin', defaultBranch]);
+                    const pullResult = spawnSync('git', ['pull', '--rebase', 'origin', defaultBranch], { encoding: 'utf8' });
                     if (pullResult.status === 0) {
-                      const pushResult = spawnSync('git', ['push', 'origin', `HEAD:${defaultBranch}`]);
+                      const pushResult = spawnSync('git', ['push', 'origin', `HEAD:${defaultBranch}`], { encoding: 'utf8' });
                       if (pushResult.status === 0) {
                         console.log(`Report committed and pushed for issue #${issueNumber} on attempt ${attempt}`);
                         pushSucceeded = true;
@@ -243,9 +243,24 @@ jobs:
                       }
                     } else {
                       console.warn(`Rebase failed on attempt ${attempt}: ${pullResult.stderr}`);
-                      // Abort rebase if it's in progress
+                      // reports.html is a generated file — resolve conflicts by regenerating it
                       const statusCheck = spawnSync('git', ['status'], { encoding: 'utf8' });
                       if (statusCheck.stdout.includes('rebase in progress')) {
+                        const conflictCheck = spawnSync('git', ['diff', '--name-only', '--diff-filter=U'], { encoding: 'utf8' });
+                        if (conflictCheck.stdout.trim().split('\n').includes('reports.html')) {
+                          console.log('Conflict in generated reports.html — resolving by regenerating...');
+                          spawnSync(process.execPath, ['scanner/generate-reports-html.mjs']);
+                          spawnSync('git', ['add', 'reports.html']);
+                          const continueResult = spawnSync('git', ['rebase', '--continue'], { encoding: 'utf8', env: { ...process.env, GIT_EDITOR: 'true' } });
+                          if (continueResult.status === 0) {
+                            const pushResult = spawnSync('git', ['push', 'origin', `HEAD:${defaultBranch}`], { encoding: 'utf8' });
+                            if (pushResult.status === 0) {
+                              console.log(`Report committed and pushed for issue #${issueNumber} on attempt ${attempt} (after resolving reports.html conflict)`);
+                              pushSucceeded = true;
+                              break;
+                            }
+                          }
+                        }
                         spawnSync('git', ['rebase', '--abort']);
                       }
                     }
