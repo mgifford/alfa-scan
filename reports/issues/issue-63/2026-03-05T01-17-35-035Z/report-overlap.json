@@ -1,0 +1,84 @@
+{
+  "generatedAt": "2026-03-05T01:16:47.017Z",
+  "issueNumber": 63,
+  "scanTitle": "WA.gov Washington State",
+  "scannersInUse": [
+    "axe",
+    "alfa",
+    "equalAccess",
+    "accesslint",
+    "qualweb"
+  ],
+  "scannerStats": {
+    "axe": {
+      "label": "axe",
+      "failed": 1565,
+      "uniqueFailed": 1565,
+      "duplicates": 0
+    },
+    "alfa": {
+      "label": "ALFA",
+      "failed": 6527,
+      "uniqueFailed": 6527,
+      "duplicates": 0
+    },
+    "equalAccess": {
+      "label": "Equal Access",
+      "failed": 2667,
+      "uniqueFailed": 2518,
+      "duplicates": 149
+    },
+    "accesslint": {
+      "label": "AccessLint",
+      "failed": 1884,
+      "uniqueFailed": 1879,
+      "duplicates": 5
+    },
+    "qualweb": {
+      "label": "QualWeb",
+      "failed": 3718,
+      "uniqueFailed": 3718,
+      "duplicates": 0
+    }
+  },
+  "matrix": {
+    "axe": {
+      "axe": 1548,
+      "alfa": 0,
+      "equalAccess": 0,
+      "accesslint": 0,
+      "qualweb": 0
+    },
+    "alfa": {
+      "axe": 0,
+      "alfa": 713,
+      "equalAccess": 0,
+      "accesslint": 0,
+      "qualweb": 0
+    },
+    "equalAccess": {
+      "axe": 0,
+      "alfa": 0,
+      "equalAccess": 2471,
+      "accesslint": 0,
+      "qualweb": 0
+    },
+    "accesslint": {
+      "axe": 0,
+      "alfa": 0,
+      "equalAccess": 0,
+      "accesslint": 1854,
+      "qualweb": 0
+    },
+    "qualweb": {
+      "axe": 0,
+      "alfa": 0,
+      "equalAccess": 0,
+      "accesslint": 0,
+      "qualweb": 310
+    }
+  },
+  "duplicateFindingTotals": 9348,
+  "overlapEntryCount": 0,
+  "overlapEntries": []
+}
