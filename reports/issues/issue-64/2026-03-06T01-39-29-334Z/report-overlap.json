@@ -1,0 +1,84 @@
+{
+  "generatedAt": "2026-03-06T01:38:48.907Z",
+  "issueNumber": 64,
+  "scanTitle": "France.fr",
+  "scannersInUse": [
+    "axe",
+    "alfa",
+    "equalAccess",
+    "accesslint",
+    "qualweb"
+  ],
+  "scannerStats": {
+    "axe": {
+      "label": "axe",
+      "failed": 417,
+      "uniqueFailed": 417,
+      "duplicates": 0
+    },
+    "alfa": {
+      "label": "ALFA",
+      "failed": 10634,
+      "uniqueFailed": 10634,
+      "duplicates": 0
+    },
+    "equalAccess": {
+      "label": "Equal Access",
+      "failed": 30391,
+      "uniqueFailed": 25345,
+      "duplicates": 5046
+    },
+    "accesslint": {
+      "label": "AccessLint",
+      "failed": 4242,
+      "uniqueFailed": 2839,
+      "duplicates": 1403
+    },
+    "qualweb": {
+      "label": "QualWeb",
+      "failed": 2106,
+      "uniqueFailed": 2106,
+      "duplicates": 0
+    }
+  },
+  "matrix": {
+    "axe": {
+      "axe": 388,
+      "alfa": 0,
+      "equalAccess": 0,
+      "accesslint": 0,
+      "qualweb": 0
+    },
+    "alfa": {
+      "axe": 0,
+      "alfa": 4048,
+      "equalAccess": 0,
+      "accesslint": 0,
+      "qualweb": 0
+    },
+    "equalAccess": {
+      "axe": 0,
+      "alfa": 0,
+      "equalAccess": 25001,
+      "accesslint": 0,
+      "qualweb": 0
+    },
+    "accesslint": {
+      "axe": 0,
+      "alfa": 0,
+      "equalAccess": 0,
+      "accesslint": 2795,
+      "qualweb": 0
+    },
+    "qualweb": {
+      "axe": 0,
+      "alfa": 0,
+      "equalAccess": 0,
+      "accesslint": 0,
+      "qualweb": 246
+    }
+  },
+  "duplicateFindingTotals": 14867,
+  "overlapEntryCount": 0,
+  "overlapEntries": []
+}
