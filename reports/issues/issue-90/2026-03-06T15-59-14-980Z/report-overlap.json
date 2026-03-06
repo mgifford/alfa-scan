@@ -1,0 +1,84 @@
+{
+  "generatedAt": "2026-03-06T15:58:47.142Z",
+  "issueNumber": 90,
+  "scanTitle": "Bayern.de",
+  "scannersInUse": [
+    "axe",
+    "alfa",
+    "equalAccess",
+    "accesslint",
+    "qualweb"
+  ],
+  "scannerStats": {
+    "axe": {
+      "label": "axe",
+      "failed": 129,
+      "uniqueFailed": 129,
+      "duplicates": 0
+    },
+    "alfa": {
+      "label": "ALFA",
+      "failed": 316,
+      "uniqueFailed": 316,
+      "duplicates": 0
+    },
+    "equalAccess": {
+      "label": "Equal Access",
+      "failed": 467,
+      "uniqueFailed": 268,
+      "duplicates": 199
+    },
+    "accesslint": {
+      "label": "AccessLint",
+      "failed": 195,
+      "uniqueFailed": 195,
+      "duplicates": 0
+    },
+    "qualweb": {
+      "label": "QualWeb",
+      "failed": 141,
+      "uniqueFailed": 141,
+      "duplicates": 0
+    }
+  },
+  "matrix": {
+    "axe": {
+      "axe": 129,
+      "alfa": 0,
+      "equalAccess": 0,
+      "accesslint": 0,
+      "qualweb": 0
+    },
+    "alfa": {
+      "axe": 0,
+      "alfa": 117,
+      "equalAccess": 0,
+      "accesslint": 0,
+      "qualweb": 0
+    },
+    "equalAccess": {
+      "axe": 0,
+      "alfa": 0,
+      "equalAccess": 268,
+      "accesslint": 0,
+      "qualweb": 0
+    },
+    "accesslint": {
+      "axe": 0,
+      "alfa": 0,
+      "equalAccess": 0,
+      "accesslint": 195,
+      "qualweb": 0
+    },
+    "qualweb": {
+      "axe": 0,
+      "alfa": 0,
+      "equalAccess": 0,
+      "accesslint": 0,
+      "qualweb": 24
+    }
+  },
+  "duplicateFindingTotals": 515,
+  "overlapEntryCount": 0,
+  "overlapEntries": []
+}
