@@ -1,0 +1,2306 @@
+{
+  "issueNumber": 93,
+  "issueUrl": "https://github.com/mgifford/open-scans/issues/93",
+  "issueTitle": "SCAN: Fel website",
+  "scanTitle": "Fel website",
+  "submittedBy": "JayNiker",
+  "engines": [
+    "all"
+  ],
+  "scannedAt": "2026-03-06T20:02:13.220Z",
+  "totalElapsedMs": 16845,
+  "totalSubmitted": 1,
+  "acceptedCount": 1,
+  "scannedCount": 1,
+  "skippedDueToTimeout": 0,
+  "rejectedCount": 0,
+  "rejected": [],
+  "alfaTotals": {
+    "passed": 1157,
+    "failed": 55,
+    "cantTell": 25,
+    "inapplicable": 46
+  },
+  "axeTotals": {
+    "passed": 866,
+    "failed": 1,
+    "cantTell": 77,
+    "inapplicable": 38
+  },
+  "equalAccessTotals": {
+    "passed": 2564,
+    "failed": 78,
+    "uniqueFailed": 66,
+    "duplicates": 12,
+    "cantTell": 54,
+    "inapplicable": 0
+  },
+  "accesslintTotals": {
+    "passed": 86,
+    "failed": 6,
+    "uniqueFailed": 6,
+    "duplicates": 0,
+    "cantTell": 0,
+    "inapplicable": 0
+  },
+  "qualwebTotals": {
+    "passed": 432,
+    "failed": 2,
+    "cantTell": 152,
+    "inapplicable": 1
+  },
+  "duplicateFindingTotals": 44,
+  "darkModeUrlCount": 0,
+  "results": [
+    {
+      "submittedUrl": "https://flightemissions.eu",
+      "finalUrl": "https://www.flightemissions.eu/en",
+      "redirected": true,
+      "statusCode": 200,
+      "ok": true,
+      "contentType": "text/html; charset=UTF-8",
+      "pageTitle": "EU Flight Emissions Label (FEL) | EU Flight Emissions Label (FEL)",
+      "elapsedMs": 16837,
+      "error": null,
+      "alfa": {
+        "executed": true,
+        "error": null,
+        "counts": {
+          "passed": 1157,
+          "failed": 55,
+          "cantTell": 25,
+          "inapplicable": 46
+        },
+        "failedRules": [
+          "https://alfa.siteimprove.com/rules/sia-r3",
+          "https://alfa.siteimprove.com/rules/sia-r53",
+          "https://alfa.siteimprove.com/rules/sia-r61",
+          "https://alfa.siteimprove.com/rules/sia-r66",
+          "https://alfa.siteimprove.com/rules/sia-r69",
+          "https://alfa.siteimprove.com/rules/sia-r78"
+        ],
+        "passedRules": [
+          "https://alfa.siteimprove.com/rules/sia-r1",
+          "https://alfa.siteimprove.com/rules/sia-r10",
+          "https://alfa.siteimprove.com/rules/sia-r11",
+          "https://alfa.siteimprove.com/rules/sia-r110",
+          "https://alfa.siteimprove.com/rules/sia-r111",
+          "https://alfa.siteimprove.com/rules/sia-r113",
+          "https://alfa.siteimprove.com/rules/sia-r12",
+          "https://alfa.siteimprove.com/rules/sia-r16",
+          "https://alfa.siteimprove.com/rules/sia-r17",
+          "https://alfa.siteimprove.com/rules/sia-r18",
+          "https://alfa.siteimprove.com/rules/sia-r19",
+          "https://alfa.siteimprove.com/rules/sia-r2",
+          "https://alfa.siteimprove.com/rules/sia-r20",
+          "https://alfa.siteimprove.com/rules/sia-r21",
+          "https://alfa.siteimprove.com/rules/sia-r3",
+          "https://alfa.siteimprove.com/rules/sia-r4",
+          "https://alfa.siteimprove.com/rules/sia-r41",
+          "https://alfa.siteimprove.com/rules/sia-r42",
+          "https://alfa.siteimprove.com/rules/sia-r43",
+          "https://alfa.siteimprove.com/rules/sia-r5",
+          "https://alfa.siteimprove.com/rules/sia-r53",
+          "https://alfa.siteimprove.com/rules/sia-r57",
+          "https://alfa.siteimprove.com/rules/sia-r59",
+          "https://alfa.siteimprove.com/rules/sia-r64",
+          "https://alfa.siteimprove.com/rules/sia-r65",
+          "https://alfa.siteimprove.com/rules/sia-r66",
+          "https://alfa.siteimprove.com/rules/sia-r67",
+          "https://alfa.siteimprove.com/rules/sia-r68",
+          "https://alfa.siteimprove.com/rules/sia-r69",
+          "https://alfa.siteimprove.com/rules/sia-r7",
+          "https://alfa.siteimprove.com/rules/sia-r70",
+          "https://alfa.siteimprove.com/rules/sia-r71",
+          "https://alfa.siteimprove.com/rules/sia-r72",
+          "https://alfa.siteimprove.com/rules/sia-r73",
+          "https://alfa.siteimprove.com/rules/sia-r75",
+          "https://alfa.siteimprove.com/rules/sia-r78",
+          "https://alfa.siteimprove.com/rules/sia-r8",
+          "https://alfa.siteimprove.com/rules/sia-r81",
+          "https://alfa.siteimprove.com/rules/sia-r83",
+          "https://alfa.siteimprove.com/rules/sia-r84",
+          "https://alfa.siteimprove.com/rules/sia-r85",
+          "https://alfa.siteimprove.com/rules/sia-r86",
+          "https://alfa.siteimprove.com/rules/sia-r87",
+          "https://alfa.siteimprove.com/rules/sia-r90"
+        ],
+        "failures": [
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/title[@id=\"website-logo-title\"]",
+            "html": "<title id=\"website-logo-title\">EASA (European Union Aviation Safety Agency)</title>",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/title[@id=\"website-logo-title\"]",
+            "html": "<title id=\"website-logo-title\">EASA (European Union Aviation Safety Agency)</title>",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/g[@id=\"EASA_Logo\"]",
+            "html": "<g id=\"EASA_Logo\" clip-path=\"url(#clip0_2148_7664)\">...</g>",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/g[@id=\"Group 3\"]",
+            "html": "<g id=\"Group 3\">...</g>",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/path[@id=\"blue square\"]",
+            "html": "<path id=\"blue square\" d=\"M3.58272 34.5166H3.58239C1.8966 34.5178 0.5 33.1012 0.5 31.3254V3.88981C0.5 2.1126 1.89672 0.695923 3.58272 0.695923H30.1926C31.8797 0.695923 33.2741 2.11236 33.2741 3.88849V31.3241C33.2741 33.1013 31.8786 34.5166 30.1926 34.5166H3.58272Z\" fill=\"#222F64\" stroke=\"white\" />",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/g[@id=\"EU stars\"]",
+            "html": "<g id=\"EU stars\">...</g>",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/path[@id=\"Vector\"]",
+            "html": "<path id=\"Vector\" d=\"M9.11998 28.748L8.09342 28.195L6.62782 28.7467L7.4355 27.8083L6.49982 27.2105L7.99742 27.1828L8.86526 26.2616L8.9971 27.1841L10.4729 27.2118L9.0611 27.8083L9.11998 28.748Z\" fill=\"white\" />",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/path[@id=\"Vector_2\"]",
+            "html": "<path id=\"Vector_2\" d=\"M14.8492 29.7457L13.7792 29.194L12.334 29.7457L13.0905 28.8074L12.11 28.2109L13.6204 28.1831L14.4396 27.2633L14.6291 28.1831L16.1216 28.2122L14.7328 28.8087L14.8492 29.7457Z\" fill=\"white\" />",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/path[@id=\"Vector_3\"]",
+            "html": "<path id=\"Vector_3\" d=\"M21.2121 28.7203L20.1229 28.1686L18.7213 28.719L19.4201 27.782L18.4166 27.1868L19.9117 27.159L20.6733 26.2405L20.9101 27.159L22.3885 27.1881L21.0457 27.7833L21.2121 28.7203Z\" fill=\"white\" />",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/path[@id=\"Vector_4\"]",
+            "html": "<path id=\"Vector_4\" d=\"M26.2848 25.9607L25.207 25.4091L23.8605 25.9594L24.5081 25.0237L23.5123 24.4272L24.9664 24.4008L25.6755 23.4823L25.9379 24.4008L27.3779 24.4312L26.0915 25.0251L26.2848 25.9607Z\" fill=\"white\" />",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/path[@id=\"Vector_5\"]",
+            "html": "<path id=\"Vector_5\" d=\"M28.6554 22.2523L27.6122 21.7007L26.3181 22.2497L26.9363 21.314L25.9725 20.7175L27.3728 20.6911L28.0499 19.7739L28.3098 20.6938L29.6973 20.7241L28.4621 21.3167L28.6554 22.2523Z\" fill=\"white\" />",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/path[@id=\"Vector_6\"]",
+            "html": "<path id=\"Vector_6\" d=\"M27.8809 18.5096L26.8915 17.9567L25.632 18.5043L26.2515 17.57L25.3401 16.9708L26.688 16.9471L27.3625 16.0299L27.5878 16.9497L28.9216 16.9814L27.7184 17.5739L27.8809 18.5096Z\" fill=\"white\" />",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/path[@id=\"EASA bird\"]",
+            "html": "<path id=\"EASA bird\" d=\"M1.79199 5.46819C1.79199 5.46819 8.30847 6.33524 14.967 7.46228C18.8928 8.12741 19.9053 9.63189 20.7501 11.9348C20.928 12.4205 21.7318 12.3663 22.5242 11.5798C23.5046 10.6045 24.3776 9.61341 25.143 9.10004C27.3446 7.62592 29.2595 8.07726 31.3638 7.94265C31.7683 7.91758 31.9833 7.88327 31.9833 7.9321C31.9833 7.9994 31.7862 8.06011 31.3638 8.23563C30.2835 8.68565 28.7795 9.42865 28.0115 10.3379C26.7085 11.8886 26.1542 15.9177 20.6656 19.7264C15.9552 22.994 13.1494 23.0033 9.85599 24.3309C5.27743 26.1772 2.80575 28.7797 2.80575 28.7797C2.80575 28.7797 4.32255 24.6793 6.85951 22.3381C9.53343 19.8716 11.6736 18.4845 12.0538 16.2278C12.6797 12.5089 1.79199 5.46819 1.79199 5.46819Z\" fill=\"#FBBC39\" />",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/g[@id=\"EASA\"]",
+            "html": "<g id=\"EASA\">...</g>",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/path[@id=\"Vector_7\"]",
+            "html": "<path id=\"Vector_7\" d=\"M37.3005 33.1505V2.06464H53.1968V6.47381H42.6573V14.8474H51.7286V19.2117H42.6573V28.7427H53.3274V33.1519H37.3018L37.3005 33.1505Z\" fill=\"white\" />",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/path[@id=\"Vector_8\"]",
+            "html": "<path id=\"Vector_8\" d=\"M75.2666 33.1506C74.7482 30.8345 74.144 28.162 73.4963 25.7126H63.2589C62.6112 28.2069 62.0058 30.7896 61.4451 33.1506H56.0461C58.7238 22.3724 61.7907 12.2621 65.3325 2.06332H71.8989C75.5712 12.4851 78.7238 22.9953 81.2301 33.1506H75.2678H75.2666ZM72.5018 21.3483C71.5085 17.7402 70.3846 13.9553 69.2621 10.2139C68.96 9.32308 68.6566 8.25411 68.3981 7.31843H68.3546C68.0525 8.25411 67.7504 9.32308 67.4906 10.2139C66.368 13.8655 65.2442 17.7402 64.2509 21.3483H72.5018Z\" fill=\"white\" />",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/path[@id=\"Vector_9\"]",
+            "html": "<path id=\"Vector_9\" d=\"M90.2976 33.7299C87.9219 33.7299 85.8918 33.3736 83.689 32.7058L84.3366 28.0736C86.1517 28.6978 88.1382 29.1426 90.2118 29.1426C93.5808 29.1426 95.136 27.4494 95.136 24.8667C95.136 22.284 93.495 21.0804 90.039 19.1655C85.8496 16.8494 83.776 14.5782 83.776 10.3023C83.776 4.69087 87.9232 1.48396 93.3222 1.48396C95.3946 1.48396 97.5552 1.84029 99.1962 2.46451L98.4179 6.87368C96.8627 6.25078 95.1347 5.93801 93.4515 5.93801C90.8595 5.93801 89.4771 7.49659 89.4771 9.58966C89.4771 12.1723 91.2051 13.3759 94.1427 15.0678C98.3334 17.4288 100.882 19.5667 100.882 24.0194C100.882 30.4781 96.4762 33.7286 90.2989 33.7286L90.2976 33.7299Z\" fill=\"white\" />",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/path[@id=\"Vector_10\"]",
+            "html": "<path id=\"Vector_10\" d=\"M122.039 33.1506C121.521 30.8345 120.916 28.162 120.269 25.7126H110.031C109.384 28.2069 108.778 30.7896 108.218 33.1506H102.817C105.495 22.3724 108.562 12.2621 112.105 2.06332H118.67C122.342 12.4851 125.495 22.9953 128 33.1506H122.039ZM119.274 21.3483C118.281 17.7402 117.157 13.9553 116.035 10.2139C115.731 9.32308 115.429 8.25411 115.171 7.31843H115.127C114.825 8.25411 114.523 9.32308 114.263 10.2139C113.14 13.8655 112.017 17.7402 111.023 21.3483H119.274Z\" fill=\"white\" />",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/clipPath[@id=\"clip0_2148_7664\"]",
+            "html": "<clipPath id=\"clip0_2148_7664\">...</clipPath>",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/h3[@id=\"field-media-image_label\"]",
+            "html": "<h3 class=\"h h3 visually-hidden\" id=\"field-media-image_label\"> Image</h3>",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/h3[@id=\"field-media-image_label\"]",
+            "html": "<h3 class=\"h h3 visually-hidden\" id=\"field-media-image_label\"> Image</h3>",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/h3[@id=\"field-media-image_label\"]",
+            "html": "<h3 class=\"h h3 visually-hidden\" id=\"field-media-image_label\"> Image</h3>",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/title[@id=\"website-logo-title\"]",
+            "html": "<title id=\"website-logo-title\">EASA (European Union Aviation Safety Agency)</title>",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/g[@id=\"EASA_Logo\"]",
+            "html": "<g id=\"EASA_Logo\" clip-path=\"url(#clip0_2148_7664)\">...</g>",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/g[@id=\"Group 3\"]",
+            "html": "<g id=\"Group 3\">...</g>",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/path[@id=\"blue square\"]",
+            "html": "<path id=\"blue square\" d=\"M3.58272 34.5166H3.58239C1.8966 34.5178 0.5 33.1012 0.5 31.3254V3.88981C0.5 2.1126 1.89672 0.695923 3.58272 0.695923H30.1926C31.8797 0.695923 33.2741 2.11236 33.2741 3.88849V31.3241C33.2741 33.1013 31.8786 34.5166 30.1926 34.5166H3.58272Z\" fill=\"#222F64\" stroke=\"white\" />",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/g[@id=\"EU stars\"]",
+            "html": "<g id=\"EU stars\">...</g>",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/path[@id=\"Vector\"]",
+            "html": "<path id=\"Vector\" d=\"M9.11998 28.748L8.09342 28.195L6.62782 28.7467L7.4355 27.8083L6.49982 27.2105L7.99742 27.1828L8.86526 26.2616L8.9971 27.1841L10.4729 27.2118L9.0611 27.8083L9.11998 28.748Z\" fill=\"white\" />",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/path[@id=\"Vector_2\"]",
+            "html": "<path id=\"Vector_2\" d=\"M14.8492 29.7457L13.7792 29.194L12.334 29.7457L13.0905 28.8074L12.11 28.2109L13.6204 28.1831L14.4396 27.2633L14.6291 28.1831L16.1216 28.2122L14.7328 28.8087L14.8492 29.7457Z\" fill=\"white\" />",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/path[@id=\"Vector_3\"]",
+            "html": "<path id=\"Vector_3\" d=\"M21.2121 28.7203L20.1229 28.1686L18.7213 28.719L19.4201 27.782L18.4166 27.1868L19.9117 27.159L20.6733 26.2405L20.9101 27.159L22.3885 27.1881L21.0457 27.7833L21.2121 28.7203Z\" fill=\"white\" />",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/path[@id=\"Vector_4\"]",
+            "html": "<path id=\"Vector_4\" d=\"M26.2848 25.9607L25.207 25.4091L23.8605 25.9594L24.5081 25.0237L23.5123 24.4272L24.9664 24.4008L25.6755 23.4823L25.9379 24.4008L27.3779 24.4312L26.0915 25.0251L26.2848 25.9607Z\" fill=\"white\" />",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/path[@id=\"Vector_5\"]",
+            "html": "<path id=\"Vector_5\" d=\"M28.6554 22.2523L27.6122 21.7007L26.3181 22.2497L26.9363 21.314L25.9725 20.7175L27.3728 20.6911L28.0499 19.7739L28.3098 20.6938L29.6973 20.7241L28.4621 21.3167L28.6554 22.2523Z\" fill=\"white\" />",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/path[@id=\"Vector_6\"]",
+            "html": "<path id=\"Vector_6\" d=\"M27.8809 18.5096L26.8915 17.9567L25.632 18.5043L26.2515 17.57L25.3401 16.9708L26.688 16.9471L27.3625 16.0299L27.5878 16.9497L28.9216 16.9814L27.7184 17.5739L27.8809 18.5096Z\" fill=\"white\" />",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/path[@id=\"EASA bird\"]",
+            "html": "<path id=\"EASA bird\" d=\"M1.79199 5.46819C1.79199 5.46819 8.30847 6.33524 14.967 7.46228C18.8928 8.12741 19.9053 9.63189 20.7501 11.9348C20.928 12.4205 21.7318 12.3663 22.5242 11.5798C23.5046 10.6045 24.3776 9.61341 25.143 9.10004C27.3446 7.62592 29.2595 8.07726 31.3638 7.94265C31.7683 7.91758 31.9833 7.88327 31.9833 7.9321C31.9833 7.9994 31.7862 8.06011 31.3638 8.23563C30.2835 8.68565 28.7795 9.42865 28.0115 10.3379C26.7085 11.8886 26.1542 15.9177 20.6656 19.7264C15.9552 22.994 13.1494 23.0033 9.85599 24.3309C5.27743 26.1772 2.80575 28.7797 2.80575 28.7797C2.80575 28.7797 4.32255 24.6793 6.85951 22.3381C9.53343 19.8716 11.6736 18.4845 12.0538 16.2278C12.6797 12.5089 1.79199 5.46819 1.79199 5.46819Z\" fill=\"#FBBC39\" />",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/g[@id=\"EASA\"]",
+            "html": "<g id=\"EASA\">...</g>",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/path[@id=\"Vector_7\"]",
+            "html": "<path id=\"Vector_7\" d=\"M37.3005 33.1505V2.06464H53.1968V6.47381H42.6573V14.8474H51.7286V19.2117H42.6573V28.7427H53.3274V33.1519H37.3018L37.3005 33.1505Z\" fill=\"white\" />",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/path[@id=\"Vector_8\"]",
+            "html": "<path id=\"Vector_8\" d=\"M75.2666 33.1506C74.7482 30.8345 74.144 28.162 73.4963 25.7126H63.2589C62.6112 28.2069 62.0058 30.7896 61.4451 33.1506H56.0461C58.7238 22.3724 61.7907 12.2621 65.3325 2.06332H71.8989C75.5712 12.4851 78.7238 22.9953 81.2301 33.1506H75.2678H75.2666ZM72.5018 21.3483C71.5085 17.7402 70.3846 13.9553 69.2621 10.2139C68.96 9.32308 68.6566 8.25411 68.3981 7.31843H68.3546C68.0525 8.25411 67.7504 9.32308 67.4906 10.2139C66.368 13.8655 65.2442 17.7402 64.2509 21.3483H72.5018Z\" fill=\"white\" />",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/path[@id=\"Vector_9\"]",
+            "html": "<path id=\"Vector_9\" d=\"M90.2976 33.7299C87.9219 33.7299 85.8918 33.3736 83.689 32.7058L84.3366 28.0736C86.1517 28.6978 88.1382 29.1426 90.2118 29.1426C93.5808 29.1426 95.136 27.4494 95.136 24.8667C95.136 22.284 93.495 21.0804 90.039 19.1655C85.8496 16.8494 83.776 14.5782 83.776 10.3023C83.776 4.69087 87.9232 1.48396 93.3222 1.48396C95.3946 1.48396 97.5552 1.84029 99.1962 2.46451L98.4179 6.87368C96.8627 6.25078 95.1347 5.93801 93.4515 5.93801C90.8595 5.93801 89.4771 7.49659 89.4771 9.58966C89.4771 12.1723 91.2051 13.3759 94.1427 15.0678C98.3334 17.4288 100.882 19.5667 100.882 24.0194C100.882 30.4781 96.4762 33.7286 90.2989 33.7286L90.2976 33.7299Z\" fill=\"white\" />",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/path[@id=\"Vector_10\"]",
+            "html": "<path id=\"Vector_10\" d=\"M122.039 33.1506C121.521 30.8345 120.916 28.162 120.269 25.7126H110.031C109.384 28.2069 108.778 30.7896 108.218 33.1506H102.817C105.495 22.3724 108.562 12.2621 112.105 2.06332H118.67C122.342 12.4851 125.495 22.9953 128 33.1506H122.039ZM119.274 21.3483C118.281 17.7402 117.157 13.9553 116.035 10.2139C115.731 9.32308 115.429 8.25411 115.171 7.31843H115.127C114.825 8.25411 114.523 9.32308 114.263 10.2139C113.14 13.8655 112.017 17.7402 111.023 21.3483H119.274Z\" fill=\"white\" />",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/clipPath[@id=\"clip0_2148_7664\"]",
+            "html": "<clipPath id=\"clip0_2148_7664\">...</clipPath>",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r53",
+            "xpath": "/h5[@class=\"menu__link menu__link--footer menu__link--with-sub menu__link--empty\"]",
+            "html": "<h5 class=\"menu__link menu__link--footer menu__link--with-sub menu__link--empty\"> Sitemap</h5>",
+            "message": "The heading skips one or more levels",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r61",
+            "xpath": null,
+            "html": null,
+            "message": "The document does not start with a level 1 heading",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r66",
+            "xpath": null,
+            "html": null,
+            "message": "The highest possible contrast of the text is 1:1 which is\n        below the required contrast of 7:1",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r66",
+            "xpath": null,
+            "html": null,
+            "message": "The highest possible contrast of the text is 1:1 which is\n        below the required contrast of 7:1",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r66",
+            "xpath": null,
+            "html": null,
+            "message": "The highest possible contrast of the text is 1:1 which is\n        below the required contrast of 7:1",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r66",
+            "xpath": null,
+            "html": null,
+            "message": "The highest possible contrast of the text is 1:1 which is\n        below the required contrast of 7:1",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r66",
+            "xpath": null,
+            "html": null,
+            "message": "The highest possible contrast of the text is 1:1 which is\n        below the required contrast of 7:1",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r66",
+            "xpath": null,
+            "html": null,
+            "message": "The highest possible contrast of the text is 1:1 which is\n        below the required contrast of 7:1",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r69",
+            "xpath": null,
+            "html": null,
+            "message": "The highest possible contrast of the text is 1:1 which is\n        below the required contrast of 4.5:1",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r69",
+            "xpath": null,
+            "html": null,
+            "message": "The highest possible contrast of the text is 1:1 which is\n        below the required contrast of 4.5:1",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r69",
+            "xpath": null,
+            "html": null,
+            "message": "The highest possible contrast of the text is 1:1 which is\n        below the required contrast of 4.5:1",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r69",
+            "xpath": null,
+            "html": null,
+            "message": "The highest possible contrast of the text is 1:1 which is\n        below the required contrast of 4.5:1",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r69",
+            "xpath": null,
+            "html": null,
+            "message": "The highest possible contrast of the text is 1:1 which is\n        below the required contrast of 4.5:1",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r69",
+            "xpath": null,
+            "html": null,
+            "message": "The highest possible contrast of the text is 1:1 which is\n        below the required contrast of 4.5:1",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r78",
+            "xpath": "/h3[@class=\"heading\"]",
+            "html": "<h3 class=\"heading\">European Commission endorses Air France-KLM’s coop...</h3>",
+            "message": "There is no content between this heading and the next",
+            "isDuplicate": false,
+            "duplicateOf": null
+          }
+        ],
+        "outcomeCount": 1283,
+        "duplicateFailedCount": 31,
+        "uniqueFailedCount": 24
+      },
+      "axe": {
+        "executed": true,
+        "error": null,
+        "counts": {
+          "passed": 866,
+          "failed": 1,
+          "cantTell": 77,
+          "inapplicable": 38
+        },
+        "failedRules": [
+          "heading-order"
+        ],
+        "passedRules": [
+          "aria-allowed-attr",
+          "aria-allowed-role",
+          "aria-conditional-attr",
+          "aria-deprecated-role",
+          "aria-dialog-name",
+          "aria-hidden-body",
+          "aria-hidden-focus",
+          "aria-prohibited-attr",
+          "aria-required-attr",
+          "aria-roles",
+          "aria-valid-attr",
+          "aria-valid-attr-value",
+          "autocomplete-valid",
+          "avoid-inline-spacing",
+          "button-name",
+          "bypass",
+          "color-contrast",
+          "document-title",
+          "duplicate-id-aria",
+          "empty-heading",
+          "form-field-multiple-labels",
+          "heading-order",
+          "html-has-lang",
+          "html-lang-valid",
+          "image-alt",
+          "image-redundant-alt",
+          "label",
+          "label-title-only",
+          "landmark-banner-is-top-level",
+          "landmark-complementary-is-top-level",
+          "landmark-contentinfo-is-top-level",
+          "landmark-main-is-top-level",
+          "landmark-no-duplicate-banner",
+          "landmark-no-duplicate-contentinfo",
+          "landmark-no-duplicate-main",
+          "landmark-one-main",
+          "landmark-unique",
+          "link-in-text-block",
+          "link-name",
+          "list",
+          "listitem",
+          "meta-viewport",
+          "meta-viewport-large",
+          "nested-interactive",
+          "page-has-heading-one",
+          "presentation-role-conflict",
+          "region",
+          "scrollable-region-focusable",
+          "svg-img-alt",
+          "tabindex",
+          "valid-lang"
+        ],
+        "failures": [
+          {
+            "rule": "heading-order",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/heading-order?application=playwright",
+            "impact": "moderate",
+            "wcagSc": [],
+            "xpath": ".menu__item--with-sub.has-sub.menu__item--footer:nth-child(1) > .menu__link--with-sub",
+            "html": "<h5 class=\"menu__link menu__link--footer menu__link--with-sub menu__link--empty\"> Sitemap</h5>",
+            "message": "Heading levels should only increase by one",
+            "colorScheme": "light",
+            "isDuplicate": false,
+            "duplicateOf": null
+          }
+        ],
+        "outcomeCount": 982,
+        "darkModeScanned": false,
+        "duplicateFailedCount": 0,
+        "uniqueFailedCount": 1
+      },
+      "equalAccess": {
+        "executed": true,
+        "error": null,
+        "counts": {
+          "passed": 2564,
+          "failed": 78,
+          "cantTell": 54,
+          "inapplicable": 0
+        },
+        "failedRules": [
+          "aria_complementary_labelled",
+          "aria_content_in_landmark",
+          "aria_descendant_valid",
+          "aria_role_redundant",
+          "element_attribute_deprecated",
+          "element_id_unique",
+          "element_tabbable_role_valid",
+          "element_tabbable_unobscured",
+          "element_tabbable_visible",
+          "input_checkboxes_grouped",
+          "label_ref_valid",
+          "style_color_misuse",
+          "style_focus_visible",
+          "style_highcontrast_visible",
+          "svg_graphics_labelled",
+          "text_block_heading",
+          "text_sensory_misuse"
+        ],
+        "passedRules": [],
+        "failures": [
+          {
+            "rule": "element_attribute_deprecated",
+            "xpath": null,
+            "html": "<meta content=\"IE=edge\" http-equiv=\"X-UA-Compatible\">",
+            "message": "The HTML attribute(s) \"http-equiv\" is deprecated for the <meta> element in HTML 5",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "style_color_misuse",
+            "xpath": null,
+            "html": "<style>",
+            "message": "Verify color is not used as the only visual means of conveying information",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "style_highcontrast_visible",
+            "xpath": null,
+            "html": "<style>",
+            "message": "Confirm Windows high contrast mode is supported when using CSS to include, position or alter non-decorative content",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "aria_content_in_landmark",
+            "xpath": null,
+            "html": "<a data-once=\"scrollable-anchors scrollable-anchor-click skip-link\" class=\"visually-hidden focusable skip-link\" href=\"#main-content\">",
+            "message": "Content is not within a landmark element",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "element_tabbable_unobscured",
+            "xpath": null,
+            "html": "<a data-once=\"scrollable-anchors scrollable-anchor-click skip-link\" class=\"visually-hidden focusable skip-link\" href=\"#main-content\">",
+            "message": "Confirm that when the element receives focus, it is not covered or, if covered by user action, can be uncovered without moving focus",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "aria_role_redundant",
+            "xpath": null,
+            "html": "<header class=\"wrapper--headers\" role=\"banner\">",
+            "message": "The explicitly-assigned ARIA role \"banner\" is redundant with the implicit role of the element <header>",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "element_tabbable_unobscured",
+            "xpath": null,
+            "html": "<a rel=\"home\" title=\"Logo EASA\" href=\"/en\" class=\"block__branding__image block__branding__image--header block__branding__image--provider-system block__branding__image--system-branding-block block__branding__image--region-header\">",
+            "message": "Confirm that when the element receives focus, it is not covered or, if covered by user action, can be uncovered without moving focus",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "element_tabbable_visible",
+            "xpath": null,
+            "html": "<a rel=\"home\" title=\"Logo Flight emissions calculator\" href=\"/en\">",
+            "message": "Confirm the element should be tabbable and if so, it becomes visible when it has keyboard focus",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "element_tabbable_unobscured",
+            "xpath": null,
+            "html": "<button data-once=\"mobileMenu\" aria-controls=\"navigation\" class=\"navigation__toggle-expand\" id=\"toggle-expand\">",
+            "message": "Confirm that when the element receives focus, it is not covered or, if covered by user action, can be uncovered without moving focus",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "aria_descendant_valid",
+            "xpath": null,
+            "html": "<button data-once=\"mobileMenu\" aria-controls=\"navigation\" class=\"navigation__toggle-expand\" id=\"toggle-expand\">",
+            "message": "The element with role \"button\" contains descendants with implicit roles \"generic\" which are ignored by browsers",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "aria_role_redundant",
+            "xpath": null,
+            "html": "<main class=\"main no-sidebars\" role=\"main\">",
+            "message": "The explicitly-assigned ARIA role \"main\" is redundant with the implicit role of the element <main>",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "element_tabbable_unobscured",
+            "xpath": null,
+            "html": "<a href=\"https://transport.ec.europa.eu/news-events/news/eu-introduces-flight-emissions-label-more-informed-and-sustainable-travelling-2024-12-18_en\">",
+            "message": "Confirm that when the element receives focus, it is not covered or, if covered by user action, can be uncovered without moving focus",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "element_tabbable_unobscured",
+            "xpath": null,
+            "html": "<a href=\"https://www.easa.europa.eu/en/the-agency/the-agency\">",
+            "message": "Confirm that when the element receives focus, it is not covered or, if covered by user action, can be uncovered without moving focus",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "svg_graphics_labelled",
+            "xpath": null,
+            "html": "<svg viewBox=\"0 0 1 1\" height=\"1\" width=\"1\" xmlns=\"http://www.w3.org/2000/svg\">",
+            "message": "The SVG element has no accessible name",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "svg_graphics_labelled",
+            "xpath": null,
+            "html": "<svg viewBox=\"0 0 4 1\" height=\"1\" width=\"4\" xmlns=\"http://www.w3.org/2000/svg\">",
+            "message": "The SVG element has no accessible name",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "text_block_heading",
+            "xpath": null,
+            "html": "<div class=\"block block--view-mode-full block--provider-layout-builder block--inline-blockcb-text block-- block--type-cb-text block-layout_builder cb--view-mode--centered cb-text--view-mode--centered content-block\" data-bem=\"cb_text\" id=\"cb--317\">",
+            "message": "Confirm this text 'July 11, 2025' is used as a heading and if so, modify to use a heading element or role",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "text_block_heading",
+            "xpath": null,
+            "html": "<div class=\"field field--name-field-cb-label field--type-string field--label-hidden field-cb-label\">",
+            "message": "Confirm this text 'July 11, 2025' is used as a heading and if so, modify to use a heading element or role",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "svg_graphics_labelled",
+            "xpath": null,
+            "html": "<svg viewBox=\"0 0 473 81\" height=\"81\" width=\"473\" xmlns=\"http://www.w3.org/2000/svg\">",
+            "message": "The SVG element has no accessible name",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "text_sensory_misuse",
+            "xpath": null,
+            "html": "<p>",
+            "message": "Confirm the word(s) 'lower' of the user instruction is used to indicate a logical rather than visual position",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "element_id_unique",
+            "xpath": null,
+            "html": "<h3 id=\"field-media-image_label\" class=\"h h3 visually-hidden\">",
+            "message": "The <h3> element has the id \"field-media-image_label\" that is already in use",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "svg_graphics_labelled",
+            "xpath": null,
+            "html": "<svg viewBox=\"0 0 264 68\" height=\"68\" width=\"264\" xmlns=\"http://www.w3.org/2000/svg\">",
+            "message": "The SVG element has no accessible name",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "element_id_unique",
+            "xpath": null,
+            "html": "<h3 id=\"field-media-image_label\" class=\"h h3 visually-hidden\">",
+            "message": "The <h3> element has the id \"field-media-image_label\" that is already in use",
+            "isDuplicate": true,
+            "duplicateOf": "equalAccess"
+          },
+          {
+            "rule": "svg_graphics_labelled",
+            "xpath": null,
+            "html": "<svg viewBox=\"0 0 150 52\" height=\"52\" width=\"150\" xmlns=\"http://www.w3.org/2000/svg\">",
+            "message": "The SVG element has no accessible name",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "svg_graphics_labelled",
+            "xpath": null,
+            "html": "<svg viewBox=\"0 0 1920 1920\" height=\"1920\" width=\"1920\" xmlns=\"http://www.w3.org/2000/svg\">",
+            "message": "The SVG element has no accessible name",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "text_block_heading",
+            "xpath": null,
+            "html": "<div class=\"field-cb-label__wrapper\">",
+            "message": "Confirm this text 'EU Flight Emissions Label (FEL)' is used as a heading and if so, modify to use a heading element or role",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "text_block_heading",
+            "xpath": null,
+            "html": "<div class=\"field field--name-field-cb-label field--type-string field--label-hidden field-cb-label\">",
+            "message": "Confirm this text 'EU Flight Emissions Label (FEL)' is used as a heading and if so, modify to use a heading element or role",
+            "isDuplicate": true,
+            "duplicateOf": "equalAccess"
+          },
+          {
+            "rule": "text_block_heading",
+            "xpath": null,
+            "html": "<div class=\"block block--view-mode-full block--provider-layout-builder block--inline-blockcb-text block-- block--type-cb-text block-layout_builder cb--view-mode--left cb-text--view-mode--left content-block\" data-bem=\"cb_text\" id=\"cb--287\">",
+            "message": "Confirm this text 'Differentiation' is used as a heading and if so, modify to use a heading element or role",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "text_block_heading",
+            "xpath": null,
+            "html": "<div class=\"field field--name-field-cb-label field--type-string field--label-hidden field-cb-label\">",
+            "message": "Confirm this text 'Differentiation' is used as a heading and if so, modify to use a heading element or role",
+            "isDuplicate": true,
+            "duplicateOf": "equalAccess"
+          },
+          {
+            "rule": "text_sensory_misuse",
+            "xpath": null,
+            "html": "<p>",
+            "message": "Confirm the word(s) 'lower' of the user instruction is used to indicate a logical rather than visual position",
+            "isDuplicate": true,
+            "duplicateOf": "equalAccess"
+          },
+          {
+            "rule": "text_sensory_misuse",
+            "xpath": null,
+            "html": "<p>",
+            "message": "Confirm the user instruction is still understandable without the word(s) 'small'",
+            "isDuplicate": true,
+            "duplicateOf": "equalAccess"
+          },
+          {
+            "rule": "svg_graphics_labelled",
+            "xpath": null,
+            "html": "<svg viewBox=\"0 0 1 1\" height=\"1\" width=\"1\" xmlns=\"http://www.w3.org/2000/svg\">",
+            "message": "The SVG element has no accessible name",
+            "isDuplicate": true,
+            "duplicateOf": "equalAccess"
+          },
+          {
+            "rule": "svg_graphics_labelled",
+            "xpath": null,
+            "html": "<svg viewBox=\"0 0 1 1\" height=\"1\" width=\"1\" xmlns=\"http://www.w3.org/2000/svg\">",
+            "message": "The SVG element has no accessible name",
+            "isDuplicate": true,
+            "duplicateOf": "equalAccess"
+          },
+          {
+            "rule": "text_block_heading",
+            "xpath": null,
+            "html": "<div class=\"field field--name-field-cb-label field--type-string field--label-hidden field-cb-label\">",
+            "message": "Confirm this text 'Insights' is used as a heading and if so, modify to use a heading element or role",
+            "isDuplicate": true,
+            "duplicateOf": "equalAccess"
+          },
+          {
+            "rule": "svg_graphics_labelled",
+            "xpath": null,
+            "html": "<svg viewBox=\"0 0 1200 700\" height=\"700\" width=\"1200\" xmlns=\"http://www.w3.org/2000/svg\">",
+            "message": "The SVG element has no accessible name",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "svg_graphics_labelled",
+            "xpath": null,
+            "html": "<svg viewBox=\"0 0 894 577\" height=\"577\" width=\"894\" xmlns=\"http://www.w3.org/2000/svg\">",
+            "message": "The SVG element has no accessible name",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "svg_graphics_labelled",
+            "xpath": null,
+            "html": "<svg viewBox=\"0 0 2000 1334\" height=\"1334\" width=\"2000\" xmlns=\"http://www.w3.org/2000/svg\">",
+            "message": "The SVG element has no accessible name",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "text_block_heading",
+            "xpath": null,
+            "html": "<div class=\"field-cb-label__wrapper\">",
+            "message": "Confirm this text 'Display' is used as a heading and if so, modify to use a heading element or role",
+            "isDuplicate": true,
+            "duplicateOf": "equalAccess"
+          },
+          {
+            "rule": "text_block_heading",
+            "xpath": null,
+            "html": "<div class=\"field field--name-field-cb-label field--type-string field--label-hidden field-cb-label\">",
+            "message": "Confirm this text 'Display' is used as a heading and if so, modify to use a heading element or role",
+            "isDuplicate": true,
+            "duplicateOf": "equalAccess"
+          },
+          {
+            "rule": "text_sensory_misuse",
+            "xpath": null,
+            "html": "<p>",
+            "message": "Confirm the word(s) 'above' of the user instruction is used to indicate a logical rather than visual position",
+            "isDuplicate": true,
+            "duplicateOf": "equalAccess"
+          },
+          {
+            "rule": "text_sensory_misuse",
+            "xpath": null,
+            "html": "<p>",
+            "message": "Confirm the word(s) 'lower' of the user instruction is used to indicate a logical rather than visual position",
+            "isDuplicate": true,
+            "duplicateOf": "equalAccess"
+          },
+          {
+            "rule": "svg_graphics_labelled",
+            "xpath": null,
+            "html": "<svg viewBox=\"0 0 1000 730\" height=\"730\" width=\"1000\" xmlns=\"http://www.w3.org/2000/svg\">",
+            "message": "The SVG element has no accessible name",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "text_block_heading",
+            "xpath": null,
+            "html": "<div class=\"mautic-block-subtitle-wrapper\">",
+            "message": "Confirm this text 'Stay up to date' is used as a heading and if so, modify to use a heading element or role",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "text_block_heading",
+            "xpath": null,
+            "html": "<div class=\"field field--name-field-cb-subtitle field--type-string field--label-hidden field-cb-subtitle\">",
+            "message": "Confirm this text 'Stay up to date' is used as a heading and if so, modify to use a heading element or role",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "aria_role_redundant",
+            "xpath": null,
+            "html": "<form target=\"mauticiframe_flightemissionslabelnewslettersignup\" enctype=\"multipart/form-data\" data-mautic-form=\"flightemissionslabelnewslettersignup\" id=\"mauticform_flightemissionslabelnewslettersignup\" action=\"https://www.easa.europa.eu/go/form/submit?formId=2\" method=\"post\" role=\"form\" autocomplete=\"false\">",
+            "message": "The explicitly-assigned ARIA role \"form\" is redundant with the implicit role of the element <form>",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "text_block_heading",
+            "xpath": null,
+            "html": "<div data-validation-type=\"checkboxgrp\" data-validate=\"im_interested_in_updates1\" class=\"mauticform-row mauticform-checkboxgrp mauticform-field-1 mauticform-required\" id=\"mauticform_flightemissionslabelnewslettersignup_im_interested_in_updates1\">",
+            "message": "Confirm this text 'I'm interested in updates for' is used as a heading and if so, modify to use a heading element or role",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "label_ref_valid",
+            "xpath": null,
+            "html": "<label for=\"mauticform_checkboxgrp_checkbox_im_interested_in_updates1_Citizens1\" class=\"mauticform-label\">",
+            "message": "The value \"mauticform_checkboxgrp_checkbox_im_interested_in_updates1_Citizens1\" of the 'for' attribute is not the 'id' of a valid element",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "input_checkboxes_grouped",
+            "xpath": null,
+            "html": "<input data-once=\"input\" value=\"Citizens\" type=\"checkbox\" id=\"mauticform_checkboxgrp_checkbox_im_interested_in_updates1_Citizens0\" name=\"mauticform[im_interested_in_updates1][]\" aria-errormessage=\"mauticform_errormsg_flightemissionslabelnewslettersignup_im_interested_in_updates1\" aria-required=\"true\" class=\"mauticform-checkboxgrp-checkbox\">",
+            "message": "Checkbox input and others with the name \"mauticform[im_interested_in_updates1][]\" are not grouped together",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "input_checkboxes_grouped",
+            "xpath": null,
+            "html": "<input data-once=\"input\" value=\"Airlines\" type=\"checkbox\" id=\"mauticform_checkboxgrp_checkbox_im_interested_in_updates1_Airlines1\" name=\"mauticform[im_interested_in_updates1][]\" aria-errormessage=\"mauticform_errormsg_flightemissionslabelnewslettersignup_im_interested_in_updates1\" aria-required=\"true\" class=\"mauticform-checkboxgrp-checkbox\">",
+            "message": "Checkbox input and others with the name \"mauticform[im_interested_in_updates1][]\" are not grouped together",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "input_checkboxes_grouped",
+            "xpath": null,
+            "html": "<input data-once=\"input\" value=\"Open data integrators\" type=\"checkbox\" id=\"mauticform_checkboxgrp_checkbox_im_interested_in_updates1_Opendataintegrators2\" name=\"mauticform[im_interested_in_updates1][]\" aria-errormessage=\"mauticform_errormsg_flightemissionslabelnewslettersignup_im_interested_in_updates1\" aria-required=\"true\" class=\"mauticform-checkboxgrp-checkbox\">",
+            "message": "Checkbox input and others with the name \"mauticform[im_interested_in_updates1][]\" are not grouped together",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "style_focus_visible",
+            "xpath": null,
+            "html": "<input data-once=\"input\" aria-errormessage=\"mauticform_errormsg_flightemissionslabelnewslettersignup_email_address\" aria-required=\"true\" class=\"mauticform-input\" id=\"mauticform_input_flightemissionslabelnewslettersignup_email_address\" value=\"\" name=\"mauticform[email_address]\" autocomplete=\"email\" type=\"email\">",
+            "message": "Check the keyboard focus indicator is visible when using CSS declaration for 'border' or 'outline'",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "input_checkboxes_grouped",
+            "xpath": null,
+            "html": "<input data-once=\"input\" value=\"yes\" type=\"checkbox\" id=\"mauticform_checkboxgrp_checkbox_data_protection_notice_yes0\" name=\"mauticform[data_protection_notice][]\" aria-errormessage=\"mauticform_errormsg_flightemissionslabelnewslettersignup_data_protection_notice\" aria-required=\"true\" class=\"mauticform-checkboxgrp-checkbox\">",
+            "message": "Verify that this ungrouped checkbox input is not related to other checkboxes",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "element_tabbable_unobscured",
+            "xpath": null,
+            "html": "<input data-once=\"input\" value=\"yes\" type=\"checkbox\" id=\"mauticform_checkboxgrp_checkbox_data_protection_notice_yes0\" name=\"mauticform[data_protection_notice][]\" aria-errormessage=\"mauticform_errormsg_flightemissionslabelnewslettersignup_data_protection_notice\" aria-required=\"true\" class=\"mauticform-checkboxgrp-checkbox\">",
+            "message": "Confirm that when the element receives focus, it is not covered or, if covered by user action, can be uncovered without moving focus",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "aria_role_redundant",
+            "xpath": null,
+            "html": "<aside role=\"complementary\" class=\"doormat\">",
+            "message": "The explicitly-assigned ARIA role \"complementary\" is redundant with the implicit role of the element <aside>",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "aria_complementary_labelled",
+            "xpath": null,
+            "html": "<aside role=\"complementary\" class=\"doormat\">",
+            "message": "Element with \"complementary\" role does not have a label",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "element_id_unique",
+            "xpath": null,
+            "html": "<title id=\"website-logo-title\">",
+            "message": "The <title> element has the id \"website-logo-title\" that is already in use",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "element_id_unique",
+            "xpath": null,
+            "html": "<g clip-path=\"url(#clip0_2148_7664)\" id=\"EASA_Logo\">",
+            "message": "The <g> element has the id \"EASA_Logo\" that is already in use",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "element_id_unique",
+            "xpath": null,
+            "html": "<g id=\"Group 3\">",
+            "message": "The <g> element has the id \"Group 3\" that is already in use",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "element_id_unique",
+            "xpath": null,
+            "html": "<path stroke=\"white\" fill=\"#222F64\" d=\"M3.58272 34.5166H3.58239C1.8966 34.5178 0.5 33.1012 0.5 31.3254V3.88981C0.5 2.1126 1.89672 0.695923 3.58272 0.695923H30.1926C31.8797 0.695923 33.2741 2.11236 33.2741 3.88849V31.3241C33.2741 33.1013 31.8786 34.5166 30.1926 34.5166H3.58272Z\" id=\"blue square\">",
+            "message": "The <path> element has the id \"blue square\" that is already in use",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "element_id_unique",
+            "xpath": null,
+            "html": "<g id=\"EU stars\">",
+            "message": "The <g> element has the id \"EU stars\" that is already in use",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "element_id_unique",
+            "xpath": null,
+            "html": "<path fill=\"white\" d=\"M9.11998 28.748L8.09342 28.195L6.62782 28.7467L7.4355 27.8083L6.49982 27.2105L7.99742 27.1828L8.86526 26.2616L8.9971 27.1841L10.4729 27.2118L9.0611 27.8083L9.11998 28.748Z\" id=\"Vector\">",
+            "message": "The <path> element has the id \"Vector\" that is already in use",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "element_id_unique",
+            "xpath": null,
+            "html": "<path fill=\"white\" d=\"M14.8492 29.7457L13.7792 29.194L12.334 29.7457L13.0905 28.8074L12.11 28.2109L13.6204 28.1831L14.4396 27.2633L14.6291 28.1831L16.1216 28.2122L14.7328 28.8087L14.8492 29.7457Z\" id=\"Vector_2\">",
+            "message": "The <path> element has the id \"Vector_2\" that is already in use",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "element_id_unique",
+            "xpath": null,
+            "html": "<path fill=\"white\" d=\"M21.2121 28.7203L20.1229 28.1686L18.7213 28.719L19.4201 27.782L18.4166 27.1868L19.9117 27.159L20.6733 26.2405L20.9101 27.159L22.3885 27.1881L21.0457 27.7833L21.2121 28.7203Z\" id=\"Vector_3\">",
+            "message": "The <path> element has the id \"Vector_3\" that is already in use",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "element_id_unique",
+            "xpath": null,
+            "html": "<path fill=\"white\" d=\"M26.2848 25.9607L25.207 25.4091L23.8605 25.9594L24.5081 25.0237L23.5123 24.4272L24.9664 24.4008L25.6755 23.4823L25.9379 24.4008L27.3779 24.4312L26.0915 25.0251L26.2848 25.9607Z\" id=\"Vector_4\">",
+            "message": "The <path> element has the id \"Vector_4\" that is already in use",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "element_id_unique",
+            "xpath": null,
+            "html": "<path fill=\"white\" d=\"M28.6554 22.2523L27.6122 21.7007L26.3181 22.2497L26.9363 21.314L25.9725 20.7175L27.3728 20.6911L28.0499 19.7739L28.3098 20.6938L29.6973 20.7241L28.4621 21.3167L28.6554 22.2523Z\" id=\"Vector_5\">",
+            "message": "The <path> element has the id \"Vector_5\" that is already in use",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "element_id_unique",
+            "xpath": null,
+            "html": "<path fill=\"white\" d=\"M27.8809 18.5096L26.8915 17.9567L25.632 18.5043L26.2515 17.57L25.3401 16.9708L26.688 16.9471L27.3625 16.0299L27.5878 16.9497L28.9216 16.9814L27.7184 17.5739L27.8809 18.5096Z\" id=\"Vector_6\">",
+            "message": "The <path> element has the id \"Vector_6\" that is already in use",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "element_id_unique",
+            "xpath": null,
+            "html": "<path fill=\"#FBBC39\" d=\"M1.79199 5.46819C1.79199 5.46819 8.30847 6.33524 14.967 7.46228C18.8928 8.12741 19.9053 9.63189 20.7501 11.9348C20.928 12.4205 21.7318 12.3663 22.5242 11.5798C23.5046 10.6045 24.3776 9.61341 25.143 9.10004C27.3446 7.62592 29.2595 8.07726 31.3638 7.94265C31.7683 7.91758 31.9833 7.88327 31.9833 7.9321C31.9833 7.9994 31.7862 8.06011 31.3638 8.23563C30.2835 8.68565 28.7795 9.42865 28.0115 10.3379C26.7085 11.8886 26.1542 15.9177 20.6656 19.7264C15.9552 22.994 13.1494 23.0033 9.85599 24.3309C5.27743 26.1772 2.80575 28.7797 2.80575 28.7797C2.80575 28.7797 4.32255 24.6793 6.85951 22.3381C9.53343 19.8716 11.6736 18.4845 12.0538 16.2278C12.6797 12.5089 1.79199 5.46819 1.79199 5.46819Z\" id=\"EASA bird\">",
+            "message": "The <path> element has the id \"EASA bird\" that is already in use",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "element_id_unique",
+            "xpath": null,
+            "html": "<g id=\"EASA\">",
+            "message": "The <g> element has the id \"EASA\" that is already in use",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "element_id_unique",
+            "xpath": null,
+            "html": "<path fill=\"white\" d=\"M37.3005 33.1505V2.06464H53.1968V6.47381H42.6573V14.8474H51.7286V19.2117H42.6573V28.7427H53.3274V33.1519H37.3018L37.3005 33.1505Z\" id=\"Vector_7\">",
+            "message": "The <path> element has the id \"Vector_7\" that is already in use",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "element_id_unique",
+            "xpath": null,
+            "html": "<path fill=\"white\" d=\"M75.2666 33.1506C74.7482 30.8345 74.144 28.162 73.4963 25.7126H63.2589C62.6112 28.2069 62.0058 30.7896 61.4451 33.1506H56.0461C58.7238 22.3724 61.7907 12.2621 65.3325 2.06332H71.8989C75.5712 12.4851 78.7238 22.9953 81.2301 33.1506H75.2678H75.2666ZM72.5018 21.3483C71.5085 17.7402 70.3846 13.9553 69.2621 10.2139C68.96 9.32308 68.6566 8.25411 68.3981 7.31843H68.3546C68.0525 8.25411 67.7504 9.32308 67.4906 10.2139C66.368 13.8655 65.2442 17.7402 64.2509 21.3483H72.5018Z\" id=\"Vector_8\">",
+            "message": "The <path> element has the id \"Vector_8\" that is already in use",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "element_id_unique",
+            "xpath": null,
+            "html": "<path fill=\"white\" d=\"M90.2976 33.7299C87.9219 33.7299 85.8918 33.3736 83.689 32.7058L84.3366 28.0736C86.1517 28.6978 88.1382 29.1426 90.2118 29.1426C93.5808 29.1426 95.136 27.4494 95.136 24.8667C95.136 22.284 93.495 21.0804 90.039 19.1655C85.8496 16.8494 83.776 14.5782 83.776 10.3023C83.776 4.69087 87.9232 1.48396 93.3222 1.48396C95.3946 1.48396 97.5552 1.84029 99.1962 2.46451L98.4179 6.87368C96.8627 6.25078 95.1347 5.93801 93.4515 5.93801C90.8595 5.93801 89.4771 7.49659 89.4771 9.58966C89.4771 12.1723 91.2051 13.3759 94.1427 15.0678C98.3334 17.4288 100.882 19.5667 100.882 24.0194C100.882 30.4781 96.4762 33.7286 90.2989 33.7286L90.2976 33.7299Z\" id=\"Vector_9\">",
+            "message": "The <path> element has the id \"Vector_9\" that is already in use",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "element_id_unique",
+            "xpath": null,
+            "html": "<path fill=\"white\" d=\"M122.039 33.1506C121.521 30.8345 120.916 28.162 120.269 25.7126H110.031C109.384 28.2069 108.778 30.7896 108.218 33.1506H102.817C105.495 22.3724 108.562 12.2621 112.105 2.06332H118.67C122.342 12.4851 125.495 22.9953 128 33.1506H122.039ZM119.274 21.3483C118.281 17.7402 117.157 13.9553 116.035 10.2139C115.731 9.32308 115.429 8.25411 115.171 7.31843H115.127C114.825 8.25411 114.523 9.32308 114.263 10.2139C113.14 13.8655 112.017 17.7402 111.023 21.3483H119.274Z\" id=\"Vector_10\">",
+            "message": "The <path> element has the id \"Vector_10\" that is already in use",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "element_id_unique",
+            "xpath": null,
+            "html": "<clippath id=\"clip0_2148_7664\">",
+            "message": "The <clippath> element has the id \"clip0_2148_7664\" that is already in use",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "aria_role_redundant",
+            "xpath": null,
+            "html": "<footer role=\"contentinfo\" class=\"footer footer--primary\">",
+            "message": "The explicitly-assigned ARIA role \"contentinfo\" is redundant with the implicit role of the element <footer>",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "element_tabbable_role_valid",
+            "xpath": null,
+            "html": "<div class=\"cookie-notice  cookie-modal-notice \" autofocus=\"\" tabindex=\"0\" id=\"klaro-cookie-notice\" aria-labelledby=\"id-cookie-title\" aria-describedby=\"id-cookie-notice\" role=\"dialog\">",
+            "message": "The tabbable element's role 'dialog' is not a widget role",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "element_tabbable_unobscured",
+            "xpath": null,
+            "html": "<a href=\"/en/cookie-policy\">",
+            "message": "Confirm that when the element receives focus, it is not covered or, if covered by user action, can be uncovered without moving focus",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "element_tabbable_unobscured",
+            "xpath": null,
+            "html": "<button class=\"cm-btn cm-btn-lern-more cm-btn-info\" type=\"button\">",
+            "message": "Confirm that when the element receives focus, it is not covered or, if covered by user action, can be uncovered without moving focus",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "element_tabbable_unobscured",
+            "xpath": null,
+            "html": "<button class=\"cm-btn cm-btn-danger cn-decline\" type=\"button\">",
+            "message": "Confirm that when the element receives focus, it is not covered or, if covered by user action, can be uncovered without moving focus",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "element_tabbable_unobscured",
+            "xpath": null,
+            "html": "<button class=\"cm-btn cm-btn-success\" type=\"button\">",
+            "message": "Confirm that when the element receives focus, it is not covered or, if covered by user action, can be uncovered without moving focus",
+            "isDuplicate": false,
+            "duplicateOf": null
+          }
+        ],
+        "outcomeCount": 2646,
+        "uniqueFailedCount": 66,
+        "duplicateFailedCount": 12
+      },
+      "accesslint": {
+        "executed": true,
+        "error": null,
+        "counts": {
+          "passed": 86,
+          "failed": 6,
+          "cantTell": 0,
+          "inapplicable": 0
+        },
+        "failedRules": [
+          "adaptable/autocomplete-valid",
+          "distinguishable/color-contrast",
+          "labels-and-names/duplicate-id-aria",
+          "landmarks/region",
+          "navigable/heading-order",
+          "navigable/page-has-heading-one"
+        ],
+        "passedRules": [],
+        "failures": [
+          {
+            "rule": "adaptable/autocomplete-valid",
+            "xpath": "#mauticform_flightemissionslabelnewslettersignup",
+            "selector": "#mauticform_flightemissionslabelnewslettersignup",
+            "html": "<form autocomplete=\"false\" role=\"form\" method=\"post\" action=\"https://www.easa.europa.eu/go/form/submit?formId=2\" id=\"mauticform_flightemissionslabelnewslettersignup\" data-mautic-form=\"flightemissionsl...",
+            "impact": "serious",
+            "message": "Invalid autocomplete value \"false\".",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "distinguishable/color-contrast",
+            "xpath": "#website-logo-title",
+            "selector": "#website-logo-title",
+            "html": "<title id=\"website-logo-title\">EASA (European Union Aviation Safety Agency)</title>",
+            "impact": "serious",
+            "message": "Insufficient color contrast ratio of 1:1 (required 4.5:1).",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "navigable/page-has-heading-one",
+            "xpath": "html",
+            "selector": "html",
+            "html": "<html>",
+            "impact": "moderate",
+            "message": "Page does not contain a level-one heading.",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "navigable/heading-order",
+            "xpath": "#block-easa-labeling-footer > ul > li:nth-of-type(1) > h5",
+            "selector": "#block-easa-labeling-footer > ul > li:nth-of-type(1) > h5",
+            "html": "<h5 class=\"menu__link menu__link--footer menu__link--with-sub menu__link--empty\"> Sitemap</h5>",
+            "impact": "moderate",
+            "message": "Heading level 5 skipped from level 2. Use h3 instead.",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "landmarks/region",
+            "xpath": "#klaro",
+            "selector": "#klaro",
+            "html": "<div id=\"klaro\" style=\"--button-text-color: #fff; --dark1: #fafafa; --dark2: #777; --dark3: #555; --light1: #444; --light2: #666; --light3: #111; --green3: #f00;\"><div lang=\"en\" class=\"klaro  klaro-th...",
+            "impact": "moderate",
+            "message": "Content is not contained within a landmark region.",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "labels-and-names/duplicate-id-aria",
+            "xpath": "#website-logo-title",
+            "selector": "#website-logo-title",
+            "html": "<title id=\"website-logo-title\">EASA (European Union Aviation Safety Agency)</title>",
+            "impact": "critical",
+            "message": "Duplicate ID \"website-logo-title\" referenced by aria-labelledby.",
+            "isDuplicate": false,
+            "duplicateOf": null
+          }
+        ],
+        "outcomeCount": 92,
+        "uniqueFailedCount": 6,
+        "duplicateFailedCount": 0
+      },
+      "qualweb": {
+        "executed": true,
+        "error": null,
+        "counts": {
+          "passed": 432,
+          "failed": 2,
+          "cantTell": 152,
+          "inapplicable": 1
+        },
+        "failedRules": [
+          "QW-ACT-R12"
+        ],
+        "passedRules": [
+          "QW-ACT-R1",
+          "QW-ACT-R11",
+          "QW-ACT-R12",
+          "QW-ACT-R13",
+          "QW-ACT-R16",
+          "QW-ACT-R17",
+          "QW-ACT-R2",
+          "QW-ACT-R20",
+          "QW-ACT-R21",
+          "QW-ACT-R22",
+          "QW-ACT-R24",
+          "QW-ACT-R25",
+          "QW-ACT-R27",
+          "QW-ACT-R28",
+          "QW-ACT-R34",
+          "QW-ACT-R35",
+          "QW-ACT-R37",
+          "QW-ACT-R43",
+          "QW-ACT-R44",
+          "QW-ACT-R48",
+          "QW-ACT-R5",
+          "QW-ACT-R63",
+          "QW-ACT-R64",
+          "QW-ACT-R65",
+          "QW-ACT-R73",
+          "QW-ACT-R75",
+          "QW-ACT-R76",
+          "QW-ACT-R9"
+        ],
+        "failures": [
+          {
+            "rule": "QW-ACT-R12",
+            "ruleUrl": "https://www.w3.org/WAI/standards-guidelines/act/rules/c487ae/",
+            "description": "The test target doesn't have an accessible name, or it's empty ('').",
+            "xpath": null,
+            "selector": null,
+            "html": null,
+            "message": "The test target doesn't have an accessible name, or it's empty ('').",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "QW-ACT-R12",
+            "ruleUrl": "https://www.w3.org/WAI/standards-guidelines/act/rules/c487ae/",
+            "description": "The test target doesn't have an accessible name, or it's empty ('').",
+            "xpath": null,
+            "selector": null,
+            "html": null,
+            "message": "The test target doesn't have an accessible name, or it's empty ('').",
+            "isDuplicate": true,
+            "duplicateOf": "qualweb"
+          }
+        ],
+        "outcomeCount": 587,
+        "duplicateFailedCount": 1,
+        "uniqueFailedCount": 1
+      },
+      "duplicateFindingCount": 44
+    }
+  ],
+  "enhanced": {
+    "consolidatedFailures": [
+      {
+        "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+        "engine": "alfa",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 19,
+        "examples": [
+          {
+            "url": "https://flightemissions.eu",
+            "html": "<title id=\"website-logo-title\">EASA (European Union Aviation Safety Agency)</title>",
+            "xpath": "/title[@id=\"website-logo-title\"]",
+            "message": "The element does not have a unique ID"
+          },
+          {
+            "url": "https://flightemissions.eu",
+            "html": "<g id=\"EASA_Logo\" clip-path=\"url(#clip0_2148_7664)\">...</g>",
+            "xpath": "/g[@id=\"EASA_Logo\"]",
+            "message": "The element does not have a unique ID"
+          },
+          {
+            "url": "https://flightemissions.eu",
+            "html": "<g id=\"Group 3\">...</g>",
+            "xpath": "/g[@id=\"Group 3\"]",
+            "message": "The element does not have a unique ID"
+          },
+          {
+            "url": "https://flightemissions.eu",
+            "html": "<path id=\"blue square\" d=\"M3.58272 34.5166H3.58239C1.8966 34.5178 0.5 33.1012 0.5 31.3254V3.88981C0.5 2.1126 1.89672 0.695923 3.58272 0.695923H30.1926C31.8797 0.695923 33.2741 2.11236 33.2741 3.88849V31.3241C33.2741 33.1013 31.8786 34.5166 30.1926 34.5166H3.58272Z\" fill=\"#222F64\" stroke=\"white\" />",
+            "xpath": "/path[@id=\"blue square\"]",
+            "message": "The element does not have a unique ID"
+          },
+          {
+            "url": "https://flightemissions.eu",
+            "html": "<g id=\"EU stars\">...</g>",
+            "xpath": "/g[@id=\"EU stars\"]",
+            "message": "The element does not have a unique ID"
+          }
+        ]
+      },
+      {
+        "rule": "element_id_unique",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 19,
+        "examples": [
+          {
+            "url": "https://flightemissions.eu",
+            "html": "<h3 id=\"field-media-image_label\" class=\"h h3 visually-hidden\">",
+            "xpath": null,
+            "message": "The <h3> element has the id \"field-media-image_label\" that is already in use"
+          },
+          {
+            "url": "https://flightemissions.eu",
+            "html": "<title id=\"website-logo-title\">",
+            "xpath": null,
+            "message": "The <title> element has the id \"website-logo-title\" that is already in use"
+          },
+          {
+            "url": "https://flightemissions.eu",
+            "html": "<g clip-path=\"url(#clip0_2148_7664)\" id=\"EASA_Logo\">",
+            "xpath": null,
+            "message": "The <g> element has the id \"EASA_Logo\" that is already in use"
+          },
+          {
+            "url": "https://flightemissions.eu",
+            "html": "<g id=\"Group 3\">",
+            "xpath": null,
+            "message": "The <g> element has the id \"Group 3\" that is already in use"
+          },
+          {
+            "url": "https://flightemissions.eu",
+            "html": "<path stroke=\"white\" fill=\"#222F64\" d=\"M3.58272 34.5166H3.58239C1.8966 34.5178 0.5 33.1012 0.5 31.3254V3.88981C0.5 2.1126 1.89672 0.695923 3.58272 0.695923H30.1926C31.8797 0.695923 33.2741 2.11236 33.2741 3.88849V31.3241C33.2741 33.1013 31.8786 34.5166 30.1926 34.5166H3.58272Z\" id=\"blue square\">",
+            "xpath": null,
+            "message": "The <path> element has the id \"blue square\" that is already in use"
+          }
+        ]
+      },
+      {
+        "rule": "element_tabbable_unobscured",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 10,
+        "examples": [
+          {
+            "url": "https://flightemissions.eu",
+            "html": "<a data-once=\"scrollable-anchors scrollable-anchor-click skip-link\" class=\"visually-hidden focusable skip-link\" href=\"#main-content\">",
+            "xpath": null,
+            "message": "Confirm that when the element receives focus, it is not covered or, if covered by user action, can be uncovered without moving focus"
+          },
+          {
+            "url": "https://flightemissions.eu",
+            "html": "<a rel=\"home\" title=\"Logo EASA\" href=\"/en\" class=\"block__branding__image block__branding__image--header block__branding__image--provider-system block__branding__image--system-branding-block block__branding__image--region-header\">",
+            "xpath": null,
+            "message": "Confirm that when the element receives focus, it is not covered or, if covered by user action, can be uncovered without moving focus"
+          },
+          {
+            "url": "https://flightemissions.eu",
+            "html": "<button data-once=\"mobileMenu\" aria-controls=\"navigation\" class=\"navigation__toggle-expand\" id=\"toggle-expand\">",
+            "xpath": null,
+            "message": "Confirm that when the element receives focus, it is not covered or, if covered by user action, can be uncovered without moving focus"
+          },
+          {
+            "url": "https://flightemissions.eu",
+            "html": "<a href=\"https://transport.ec.europa.eu/news-events/news/eu-introduces-flight-emissions-label-more-informed-and-sustainable-travelling-2024-12-18_en\">",
+            "xpath": null,
+            "message": "Confirm that when the element receives focus, it is not covered or, if covered by user action, can be uncovered without moving focus"
+          },
+          {
+            "url": "https://flightemissions.eu",
+            "html": "<a href=\"https://www.easa.europa.eu/en/the-agency/the-agency\">",
+            "xpath": null,
+            "message": "Confirm that when the element receives focus, it is not covered or, if covered by user action, can be uncovered without moving focus"
+          }
+        ]
+      },
+      {
+        "rule": "svg_graphics_labelled",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 10,
+        "examples": [
+          {
+            "url": "https://flightemissions.eu",
+            "html": "<svg viewBox=\"0 0 1 1\" height=\"1\" width=\"1\" xmlns=\"http://www.w3.org/2000/svg\">",
+            "xpath": null,
+            "message": "The SVG element has no accessible name"
+          },
+          {
+            "url": "https://flightemissions.eu",
+            "html": "<svg viewBox=\"0 0 4 1\" height=\"1\" width=\"4\" xmlns=\"http://www.w3.org/2000/svg\">",
+            "xpath": null,
+            "message": "The SVG element has no accessible name"
+          },
+          {
+            "url": "https://flightemissions.eu",
+            "html": "<svg viewBox=\"0 0 473 81\" height=\"81\" width=\"473\" xmlns=\"http://www.w3.org/2000/svg\">",
+            "xpath": null,
+            "message": "The SVG element has no accessible name"
+          },
+          {
+            "url": "https://flightemissions.eu",
+            "html": "<svg viewBox=\"0 0 264 68\" height=\"68\" width=\"264\" xmlns=\"http://www.w3.org/2000/svg\">",
+            "xpath": null,
+            "message": "The SVG element has no accessible name"
+          },
+          {
+            "url": "https://flightemissions.eu",
+            "html": "<svg viewBox=\"0 0 150 52\" height=\"52\" width=\"150\" xmlns=\"http://www.w3.org/2000/svg\">",
+            "xpath": null,
+            "message": "The SVG element has no accessible name"
+          }
+        ]
+      },
+      {
+        "rule": "text_block_heading",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 7,
+        "examples": [
+          {
+            "url": "https://flightemissions.eu",
+            "html": "<div class=\"block block--view-mode-full block--provider-layout-builder block--inline-blockcb-text block-- block--type-cb-text block-layout_builder cb--view-mode--centered cb-text--view-mode--centered content-block\" data-bem=\"cb_text\" id=\"cb--317\">",
+            "xpath": null,
+            "message": "Confirm this text 'July 11, 2025' is used as a heading and if so, modify to use a heading element or role"
+          },
+          {
+            "url": "https://flightemissions.eu",
+            "html": "<div class=\"field field--name-field-cb-label field--type-string field--label-hidden field-cb-label\">",
+            "xpath": null,
+            "message": "Confirm this text 'July 11, 2025' is used as a heading and if so, modify to use a heading element or role"
+          },
+          {
+            "url": "https://flightemissions.eu",
+            "html": "<div class=\"field-cb-label__wrapper\">",
+            "xpath": null,
+            "message": "Confirm this text 'EU Flight Emissions Label (FEL)' is used as a heading and if so, modify to use a heading element or role"
+          },
+          {
+            "url": "https://flightemissions.eu",
+            "html": "<div class=\"block block--view-mode-full block--provider-layout-builder block--inline-blockcb-text block-- block--type-cb-text block-layout_builder cb--view-mode--left cb-text--view-mode--left content-block\" data-bem=\"cb_text\" id=\"cb--287\">",
+            "xpath": null,
+            "message": "Confirm this text 'Differentiation' is used as a heading and if so, modify to use a heading element or role"
+          },
+          {
+            "url": "https://flightemissions.eu",
+            "html": "<div class=\"mautic-block-subtitle-wrapper\">",
+            "xpath": null,
+            "message": "Confirm this text 'Stay up to date' is used as a heading and if so, modify to use a heading element or role"
+          }
+        ]
+      },
+      {
+        "rule": "aria_role_redundant",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 5,
+        "examples": [
+          {
+            "url": "https://flightemissions.eu",
+            "html": "<header class=\"wrapper--headers\" role=\"banner\">",
+            "xpath": null,
+            "message": "The explicitly-assigned ARIA role \"banner\" is redundant with the implicit role of the element <header>"
+          },
+          {
+            "url": "https://flightemissions.eu",
+            "html": "<main class=\"main no-sidebars\" role=\"main\">",
+            "xpath": null,
+            "message": "The explicitly-assigned ARIA role \"main\" is redundant with the implicit role of the element <main>"
+          },
+          {
+            "url": "https://flightemissions.eu",
+            "html": "<form target=\"mauticiframe_flightemissionslabelnewslettersignup\" enctype=\"multipart/form-data\" data-mautic-form=\"flightemissionslabelnewslettersignup\" id=\"mauticform_flightemissionslabelnewslettersignup\" action=\"https://www.easa.europa.eu/go/form/submit?formId=2\" method=\"post\" role=\"form\" autocomplete=\"false\">",
+            "xpath": null,
+            "message": "The explicitly-assigned ARIA role \"form\" is redundant with the implicit role of the element <form>"
+          },
+          {
+            "url": "https://flightemissions.eu",
+            "html": "<aside role=\"complementary\" class=\"doormat\">",
+            "xpath": null,
+            "message": "The explicitly-assigned ARIA role \"complementary\" is redundant with the implicit role of the element <aside>"
+          },
+          {
+            "url": "https://flightemissions.eu",
+            "html": "<footer role=\"contentinfo\" class=\"footer footer--primary\">",
+            "xpath": null,
+            "message": "The explicitly-assigned ARIA role \"contentinfo\" is redundant with the implicit role of the element <footer>"
+          }
+        ]
+      },
+      {
+        "rule": "input_checkboxes_grouped",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 4,
+        "examples": [
+          {
+            "url": "https://flightemissions.eu",
+            "html": "<input data-once=\"input\" value=\"Citizens\" type=\"checkbox\" id=\"mauticform_checkboxgrp_checkbox_im_interested_in_updates1_Citizens0\" name=\"mauticform[im_interested_in_updates1][]\" aria-errormessage=\"mauticform_errormsg_flightemissionslabelnewslettersignup_im_interested_in_updates1\" aria-required=\"true\" class=\"mauticform-checkboxgrp-checkbox\">",
+            "xpath": null,
+            "message": "Checkbox input and others with the name \"mauticform[im_interested_in_updates1][]\" are not grouped together"
+          },
+          {
+            "url": "https://flightemissions.eu",
+            "html": "<input data-once=\"input\" value=\"Airlines\" type=\"checkbox\" id=\"mauticform_checkboxgrp_checkbox_im_interested_in_updates1_Airlines1\" name=\"mauticform[im_interested_in_updates1][]\" aria-errormessage=\"mauticform_errormsg_flightemissionslabelnewslettersignup_im_interested_in_updates1\" aria-required=\"true\" class=\"mauticform-checkboxgrp-checkbox\">",
+            "xpath": null,
+            "message": "Checkbox input and others with the name \"mauticform[im_interested_in_updates1][]\" are not grouped together"
+          },
+          {
+            "url": "https://flightemissions.eu",
+            "html": "<input data-once=\"input\" value=\"Open data integrators\" type=\"checkbox\" id=\"mauticform_checkboxgrp_checkbox_im_interested_in_updates1_Opendataintegrators2\" name=\"mauticform[im_interested_in_updates1][]\" aria-errormessage=\"mauticform_errormsg_flightemissionslabelnewslettersignup_im_interested_in_updates1\" aria-required=\"true\" class=\"mauticform-checkboxgrp-checkbox\">",
+            "xpath": null,
+            "message": "Checkbox input and others with the name \"mauticform[im_interested_in_updates1][]\" are not grouped together"
+          },
+          {
+            "url": "https://flightemissions.eu",
+            "html": "<input data-once=\"input\" value=\"yes\" type=\"checkbox\" id=\"mauticform_checkboxgrp_checkbox_data_protection_notice_yes0\" name=\"mauticform[data_protection_notice][]\" aria-errormessage=\"mauticform_errormsg_flightemissionslabelnewslettersignup_data_protection_notice\" aria-required=\"true\" class=\"mauticform-checkboxgrp-checkbox\">",
+            "xpath": null,
+            "message": "Verify that this ungrouped checkbox input is not related to other checkboxes"
+          }
+        ]
+      },
+      {
+        "rule": "heading-order",
+        "engine": "axe",
+        "metadata": {
+          "roles": [
+            "Content Author",
+            "UX Designer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://flightemissions.eu",
+            "html": "<h5 class=\"menu__link menu__link--footer menu__link--with-sub menu__link--empty\"> Sitemap</h5>",
+            "xpath": ".menu__item--with-sub.has-sub.menu__item--footer:nth-child(1) > .menu__link--with-sub",
+            "message": "Heading levels should only increase by one",
+            "colorScheme": "light"
+          }
+        ]
+      },
+      {
+        "rule": "https://alfa.siteimprove.com/rules/sia-r53",
+        "engine": "alfa",
+        "metadata": {
+          "roles": [
+            "Content Author",
+            "UX Designer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://flightemissions.eu",
+            "html": "<h5 class=\"menu__link menu__link--footer menu__link--with-sub menu__link--empty\"> Sitemap</h5>",
+            "xpath": "/h5[@class=\"menu__link menu__link--footer menu__link--with-sub menu__link--empty\"]",
+            "message": "The heading skips one or more levels"
+          }
+        ]
+      },
+      {
+        "rule": "https://alfa.siteimprove.com/rules/sia-r61",
+        "engine": "alfa",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://flightemissions.eu",
+            "html": null,
+            "xpath": null,
+            "message": "The document does not start with a level 1 heading"
+          }
+        ]
+      },
+      {
+        "rule": "https://alfa.siteimprove.com/rules/sia-r66",
+        "engine": "alfa",
+        "metadata": {
+          "roles": [
+            "Visual Designer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://flightemissions.eu",
+            "html": null,
+            "xpath": null,
+            "message": "The highest possible contrast of the text is 1:1 which is\n        below the required contrast of 7:1"
+          }
+        ]
+      },
+      {
+        "rule": "https://alfa.siteimprove.com/rules/sia-r69",
+        "engine": "alfa",
+        "metadata": {
+          "roles": [
+            "Visual Designer"
+          ],
+          "severity": "Serious",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://flightemissions.eu",
+            "html": null,
+            "xpath": null,
+            "message": "The highest possible contrast of the text is 1:1 which is\n        below the required contrast of 4.5:1"
+          }
+        ]
+      },
+      {
+        "rule": "https://alfa.siteimprove.com/rules/sia-r78",
+        "engine": "alfa",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://flightemissions.eu",
+            "html": "<h3 class=\"heading\">European Commission endorses Air France-KLM’s coop...</h3>",
+            "xpath": "/h3[@class=\"heading\"]",
+            "message": "There is no content between this heading and the next"
+          }
+        ]
+      },
+      {
+        "rule": "element_attribute_deprecated",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://flightemissions.eu",
+            "html": "<meta content=\"IE=edge\" http-equiv=\"X-UA-Compatible\">",
+            "xpath": null,
+            "message": "The HTML attribute(s) \"http-equiv\" is deprecated for the <meta> element in HTML 5"
+          }
+        ]
+      },
+      {
+        "rule": "style_color_misuse",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://flightemissions.eu",
+            "html": "<style>",
+            "xpath": null,
+            "message": "Verify color is not used as the only visual means of conveying information"
+          }
+        ]
+      },
+      {
+        "rule": "style_highcontrast_visible",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://flightemissions.eu",
+            "html": "<style>",
+            "xpath": null,
+            "message": "Confirm Windows high contrast mode is supported when using CSS to include, position or alter non-decorative content"
+          }
+        ]
+      },
+      {
+        "rule": "aria_content_in_landmark",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://flightemissions.eu",
+            "html": "<a data-once=\"scrollable-anchors scrollable-anchor-click skip-link\" class=\"visually-hidden focusable skip-link\" href=\"#main-content\">",
+            "xpath": null,
+            "message": "Content is not within a landmark element"
+          }
+        ]
+      },
+      {
+        "rule": "element_tabbable_visible",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://flightemissions.eu",
+            "html": "<a rel=\"home\" title=\"Logo Flight emissions calculator\" href=\"/en\">",
+            "xpath": null,
+            "message": "Confirm the element should be tabbable and if so, it becomes visible when it has keyboard focus"
+          }
+        ]
+      },
+      {
+        "rule": "aria_descendant_valid",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://flightemissions.eu",
+            "html": "<button data-once=\"mobileMenu\" aria-controls=\"navigation\" class=\"navigation__toggle-expand\" id=\"toggle-expand\">",
+            "xpath": null,
+            "message": "The element with role \"button\" contains descendants with implicit roles \"generic\" which are ignored by browsers"
+          }
+        ]
+      },
+      {
+        "rule": "text_sensory_misuse",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://flightemissions.eu",
+            "html": "<p>",
+            "xpath": null,
+            "message": "Confirm the word(s) 'lower' of the user instruction is used to indicate a logical rather than visual position"
+          }
+        ]
+      },
+      {
+        "rule": "label_ref_valid",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://flightemissions.eu",
+            "html": "<label for=\"mauticform_checkboxgrp_checkbox_im_interested_in_updates1_Citizens1\" class=\"mauticform-label\">",
+            "xpath": null,
+            "message": "The value \"mauticform_checkboxgrp_checkbox_im_interested_in_updates1_Citizens1\" of the 'for' attribute is not the 'id' of a valid element"
+          }
+        ]
+      },
+      {
+        "rule": "style_focus_visible",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://flightemissions.eu",
+            "html": "<input data-once=\"input\" aria-errormessage=\"mauticform_errormsg_flightemissionslabelnewslettersignup_email_address\" aria-required=\"true\" class=\"mauticform-input\" id=\"mauticform_input_flightemissionslabelnewslettersignup_email_address\" value=\"\" name=\"mauticform[email_address]\" autocomplete=\"email\" type=\"email\">",
+            "xpath": null,
+            "message": "Check the keyboard focus indicator is visible when using CSS declaration for 'border' or 'outline'"
+          }
+        ]
+      },
+      {
+        "rule": "aria_complementary_labelled",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://flightemissions.eu",
+            "html": "<aside role=\"complementary\" class=\"doormat\">",
+            "xpath": null,
+            "message": "Element with \"complementary\" role does not have a label"
+          }
+        ]
+      },
+      {
+        "rule": "element_tabbable_role_valid",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://flightemissions.eu",
+            "html": "<div class=\"cookie-notice  cookie-modal-notice \" autofocus=\"\" tabindex=\"0\" id=\"klaro-cookie-notice\" aria-labelledby=\"id-cookie-title\" aria-describedby=\"id-cookie-notice\" role=\"dialog\">",
+            "xpath": null,
+            "message": "The tabbable element's role 'dialog' is not a widget role"
+          }
+        ]
+      },
+      {
+        "rule": "adaptable/autocomplete-valid",
+        "engine": "accesslint",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://flightemissions.eu",
+            "html": "<form autocomplete=\"false\" role=\"form\" method=\"post\" action=\"https://www.easa.europa.eu/go/form/submit?formId=2\" id=\"mauticform_flightemissionslabelnewslettersignup\" data-mautic-form=\"flightemissionsl...",
+            "xpath": "#mauticform_flightemissionslabelnewslettersignup",
+            "message": "Invalid autocomplete value \"false\"."
+          }
+        ]
+      },
+      {
+        "rule": "distinguishable/color-contrast",
+        "engine": "accesslint",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://flightemissions.eu",
+            "html": "<title id=\"website-logo-title\">EASA (European Union Aviation Safety Agency)</title>",
+            "xpath": "#website-logo-title",
+            "message": "Insufficient color contrast ratio of 1:1 (required 4.5:1)."
+          }
+        ]
+      },
+      {
+        "rule": "navigable/page-has-heading-one",
+        "engine": "accesslint",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://flightemissions.eu",
+            "html": "<html>",
+            "xpath": "html",
+            "message": "Page does not contain a level-one heading."
+          }
+        ]
+      },
+      {
+        "rule": "navigable/heading-order",
+        "engine": "accesslint",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://flightemissions.eu",
+            "html": "<h5 class=\"menu__link menu__link--footer menu__link--with-sub menu__link--empty\"> Sitemap</h5>",
+            "xpath": "#block-easa-labeling-footer > ul > li:nth-of-type(1) > h5",
+            "message": "Heading level 5 skipped from level 2. Use h3 instead."
+          }
+        ]
+      },
+      {
+        "rule": "landmarks/region",
+        "engine": "accesslint",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://flightemissions.eu",
+            "html": "<div id=\"klaro\" style=\"--button-text-color: #fff; --dark1: #fafafa; --dark2: #777; --dark3: #555; --light1: #444; --light2: #666; --light3: #111; --green3: #f00;\"><div lang=\"en\" class=\"klaro  klaro-th...",
+            "xpath": "#klaro",
+            "message": "Content is not contained within a landmark region."
+          }
+        ]
+      },
+      {
+        "rule": "labels-and-names/duplicate-id-aria",
+        "engine": "accesslint",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://flightemissions.eu",
+            "html": "<title id=\"website-logo-title\">EASA (European Union Aviation Safety Agency)</title>",
+            "xpath": "#website-logo-title",
+            "message": "Duplicate ID \"website-logo-title\" referenced by aria-labelledby."
+          }
+        ]
+      },
+      {
+        "rule": "QW-ACT-R12",
+        "engine": "qualweb",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://flightemissions.eu",
+            "html": null,
+            "xpath": null,
+            "message": "The test target doesn't have an accessible name, or it's empty ('')."
+          }
+        ]
+      }
+    ],
+    "roleStats": {
+      "UX Designer": 2,
+      "Visual Designer": 2,
+      "Content Author": 2,
+      "Front-End Developer": 94
+    },
+    "severityStats": {
+      "Critical": 0,
+      "Serious": 1,
+      "Moderate": 97,
+      "Minor": 0
+    }
+  }
+}
