@@ -1,0 +1,1793 @@
+{
+  "issueNumber": 91,
+  "issueUrl": "https://github.com/mgifford/open-scans/issues/91",
+  "issueTitle": "SCAN: Homepage",
+  "scanTitle": "Homepage",
+  "submittedBy": "Siddarthsingh49",
+  "engines": [
+    "all"
+  ],
+  "scannedAt": "2026-03-06T16:19:27.716Z",
+  "totalElapsedMs": 19810,
+  "totalSubmitted": 1,
+  "acceptedCount": 1,
+  "scannedCount": 1,
+  "skippedDueToTimeout": 0,
+  "rejectedCount": 0,
+  "rejected": [],
+  "alfaTotals": {
+    "passed": 812,
+    "failed": 17,
+    "cantTell": 5,
+    "inapplicable": 54
+  },
+  "axeTotals": {
+    "passed": 1137,
+    "failed": 2,
+    "cantTell": 9,
+    "inapplicable": 43
+  },
+  "equalAccessTotals": {
+    "passed": 3670,
+    "failed": 56,
+    "uniqueFailed": 56,
+    "duplicates": 0,
+    "cantTell": 46,
+    "inapplicable": 0
+  },
+  "accesslintTotals": {
+    "passed": 87,
+    "failed": 5,
+    "uniqueFailed": 5,
+    "duplicates": 0,
+    "cantTell": 0,
+    "inapplicable": 0
+  },
+  "qualwebTotals": {
+    "passed": 623,
+    "failed": 3,
+    "cantTell": 122,
+    "inapplicable": 19
+  },
+  "duplicateFindingTotals": 6,
+  "darkModeUrlCount": 0,
+  "results": [
+    {
+      "submittedUrl": "https://www.armani.com/en-ca/?searchVers=2",
+      "finalUrl": "https://www.armani.com/en-ca/?searchVers=2",
+      "redirected": false,
+      "statusCode": 200,
+      "ok": true,
+      "contentType": "text/html;charset=utf-8",
+      "pageTitle": "Armani.com - Official Website | Armani",
+      "elapsedMs": 19804,
+      "error": null,
+      "alfa": {
+        "executed": true,
+        "error": null,
+        "counts": {
+          "passed": 812,
+          "failed": 17,
+          "cantTell": 5,
+          "inapplicable": 54
+        },
+        "failedRules": [
+          "https://alfa.siteimprove.com/rules/sia-r11",
+          "https://alfa.siteimprove.com/rules/sia-r111",
+          "https://alfa.siteimprove.com/rules/sia-r17",
+          "https://alfa.siteimprove.com/rules/sia-r3",
+          "https://alfa.siteimprove.com/rules/sia-r57"
+        ],
+        "passedRules": [
+          "https://alfa.siteimprove.com/rules/sia-r1",
+          "https://alfa.siteimprove.com/rules/sia-r10",
+          "https://alfa.siteimprove.com/rules/sia-r11",
+          "https://alfa.siteimprove.com/rules/sia-r110",
+          "https://alfa.siteimprove.com/rules/sia-r111",
+          "https://alfa.siteimprove.com/rules/sia-r113",
+          "https://alfa.siteimprove.com/rules/sia-r12",
+          "https://alfa.siteimprove.com/rules/sia-r14",
+          "https://alfa.siteimprove.com/rules/sia-r16",
+          "https://alfa.siteimprove.com/rules/sia-r17",
+          "https://alfa.siteimprove.com/rules/sia-r18",
+          "https://alfa.siteimprove.com/rules/sia-r19",
+          "https://alfa.siteimprove.com/rules/sia-r2",
+          "https://alfa.siteimprove.com/rules/sia-r20",
+          "https://alfa.siteimprove.com/rules/sia-r21",
+          "https://alfa.siteimprove.com/rules/sia-r3",
+          "https://alfa.siteimprove.com/rules/sia-r4",
+          "https://alfa.siteimprove.com/rules/sia-r42",
+          "https://alfa.siteimprove.com/rules/sia-r5",
+          "https://alfa.siteimprove.com/rules/sia-r53",
+          "https://alfa.siteimprove.com/rules/sia-r57",
+          "https://alfa.siteimprove.com/rules/sia-r59",
+          "https://alfa.siteimprove.com/rules/sia-r61",
+          "https://alfa.siteimprove.com/rules/sia-r64",
+          "https://alfa.siteimprove.com/rules/sia-r65",
+          "https://alfa.siteimprove.com/rules/sia-r66",
+          "https://alfa.siteimprove.com/rules/sia-r67",
+          "https://alfa.siteimprove.com/rules/sia-r68",
+          "https://alfa.siteimprove.com/rules/sia-r69",
+          "https://alfa.siteimprove.com/rules/sia-r70",
+          "https://alfa.siteimprove.com/rules/sia-r75",
+          "https://alfa.siteimprove.com/rules/sia-r78",
+          "https://alfa.siteimprove.com/rules/sia-r8",
+          "https://alfa.siteimprove.com/rules/sia-r83",
+          "https://alfa.siteimprove.com/rules/sia-r86",
+          "https://alfa.siteimprove.com/rules/sia-r87",
+          "https://alfa.siteimprove.com/rules/sia-r90"
+        ],
+        "failures": [
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r11",
+            "xpath": "/a[@class=\"text-editorial-undefined\"]",
+            "html": "<a href=\"https://www.armani.com/emporio-armani/experience/woman\" rel=\"noopener noreferrer\" tabindex=\"0\" data-tracking=\"BA_https_www_armani_com_emporio_armani_experience_woman\" pos-tracking=\"hero\" class=\"text-editorial-undefined\">...</a>",
+            "message": "The link does not have an accessible name",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r11",
+            "xpath": "/a[@class=\"text-editorial-undefined\"]",
+            "html": "<a href=\"https://www.armani.com/ea7/experience/woman\" rel=\"noopener noreferrer\" tabindex=\"0\" data-tracking=\"BA_https_www_armani_com_ea_7_experience_woman\" pos-tracking=\"hero\" class=\"text-editorial-undefined\">...</a>",
+            "message": "The link does not have an accessible name",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r11",
+            "xpath": "/a[@class=\"text-editorial-undefined\"]",
+            "html": "<a href=\"https://www.armani.com/armani-exchange/experience/\" rel=\"noopener noreferrer\" tabindex=\"0\" data-tracking=\"BA_https_www_armani_com_armani_exchange_experience\" pos-tracking=\"hero\" class=\"text-editorial-undefined\">...</a>",
+            "message": "The link does not have an accessible name",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r111",
+            "xpath": "/a[@class=\"bg-primitives-black text-primitives-off-white absolute -top-10 left-0 z-[9999] p-2 transition-all duration-300 focus-within:top-0\"]",
+            "html": "<a data-testid=\"skip-link\" href=\"#main\" class=\"bg-primitives-black text-primitives-off-white absolute -top-10 left-0 z-[9999] p-2 transition-all duration-300 focus-within:top-0\">Skip to content</a>",
+            "message": "Target has insufficient size",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r111",
+            "xpath": "/a",
+            "html": "<a href=\"https://www.armani.com/my-account\">Log in to your account to get free shipping on ord...</a>",
+            "message": "Target has insufficient size",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r111",
+            "xpath": "/button[@class=\"mobile-menu-toggler relative z-[1000] flex cursor-pointer items-center justify-center p-2.5 lg:h-6 lg:gap-2 lg:p-0 max-lg:bg-neutral-black max-lg:text-neutral-white max-lg:rounded-full max-lg:px-3\"]",
+            "html": "<button aria-expanded=\"false\" aria-haspopup=\"dialog\" class=\"mobile-menu-toggler relative z-[1000] flex cursor-pointer items-center justify-center p-2.5 lg:h-6 lg:gap-2 lg:p-0 max-lg:bg-neutral-black max-lg:text-neutral-white max-lg:rounded-full max-lg:px-3\" aria-label=\"Menu\" data-v-40b0bd9b=\"\">...</button>",
+            "message": "Target has insufficient size",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r111",
+            "xpath": "/button[@class=\"button-search flex cursor-pointer items-center gap-2\"]",
+            "html": "<button class=\"button-search flex cursor-pointer items-center gap-2\" aria-label=\"Search\" aria-haspopup=\"dialog\">...</button>",
+            "message": "Target has insufficient size",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r111",
+            "xpath": "/button[@class=\"text-button-2 group flex gap-2 p-0 text-link-6 w-fit h-auto underline-effect-appear cta-l flex-row-reverse inline-flex\"]",
+            "html": "<button class=\"text-button-2 group flex gap-2 p-0 text-link-6 w-fit h-auto underline-effect-appear cta-l flex-row-reverse inline-flex\" aria-haspopup=\"dialog\" data-test-id=\"header-action-support-cta-contacts\" data-v-aad19750=\"\">...</button>",
+            "message": "Target has insufficient size",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r111",
+            "xpath": "/button[@id=\"headlessui-tabs-tab-v-0-0-1-0-0-0\"]",
+            "html": "<button class=\"text-book-6 text-text-primary basis-1/3 pb-[2px] pt-1 uppercase focus-visible:outline-none z-10 font-bold\" selected=\"\" data-tab-controller=\"true\" id=\"headlessui-tabs-tab-v-0-0-1-0-0-0\" role=\"tab\" aria-selected=\"true\" tabindex=\"0\" data-headlessui-state=\"selected\">...</button>",
+            "message": "Target has insufficient size",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r111",
+            "xpath": "/button[@id=\"headlessui-tabs-tab-v-0-0-1-0-0-1\"]",
+            "html": "<button class=\"text-book-6 text-text-primary basis-1/3 pb-[2px] pt-1 uppercase focus-visible:outline-none\" data-tab-controller=\"true\" id=\"headlessui-tabs-tab-v-0-0-1-0-0-1\" role=\"tab\" aria-selected=\"false\" tabindex=\"-1\" data-headlessui-state=\"\">...</button>",
+            "message": "Target has insufficient size",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r111",
+            "xpath": "/button[@id=\"headlessui-tabs-tab-v-0-0-1-0-0-2\"]",
+            "html": "<button class=\"text-book-6 text-text-primary basis-1/3 pb-[2px] pt-1 uppercase focus-visible:outline-none\" data-tab-controller=\"true\" id=\"headlessui-tabs-tab-v-0-0-1-0-0-2\" role=\"tab\" aria-selected=\"false\" tabindex=\"-1\" data-headlessui-state=\"\">...</button>",
+            "message": "Target has insufficient size",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r111",
+            "xpath": "/a[@class=\"text-button-2 group flex gap-2 p-0 text-link-6 w-fit h-auto underline-effect-default cta-l flex-row-reverse inline-flex\"]",
+            "html": "<a href=\"https://x.com/Armani\" rel=\"noopener noreferrer\" target=\"_blank\" class=\"text-button-2 group flex gap-2 p-0 text-link-6 w-fit h-auto underline-effect-default cta-l flex-row-reverse inline-flex\" aria-label=\"x - Opens in a new window\" data-v-aad19750=\"\">...</a>",
+            "message": "Target has insufficient size",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r111",
+            "xpath": "/a[@class=\"text-button-2 group flex gap-2 p-0 text-link-6 w-fit h-auto underline-effect-default cta-l flex-row-reverse inline-flex\"]",
+            "html": "<a href=\"https://www.linkedin.com/company/giorgio-armani/\" rel=\"noopener noreferrer\" target=\"_blank\" class=\"text-button-2 group flex gap-2 p-0 text-link-6 w-fit h-auto underline-effect-default cta-l flex-row-reverse inline-flex\" aria-label=\"linkedin - Opens in a new window\" data-v-aad19750=\"\">...</a>",
+            "message": "Target has insufficient size",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r17",
+            "xpath": "/button",
+            "html": "<button aria-hidden=\"true\" style=\"position:fixed;top:1;left:1;width:1;height:0;padding:0;margin:-1;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border-width:0;\" type=\"button\" />",
+            "message": "The element is either tabbable or has tabbable descendants",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/clipPath[@id=\"clip0_14493_3415\"]",
+            "html": "<clipPath id=\"clip0_14493_3415\">...</clipPath>",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/clipPath[@id=\"clip0_14493_3415\"]",
+            "html": "<clipPath id=\"clip0_14493_3415\">...</clipPath>",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+            "xpath": null,
+            "html": null,
+            "message": "The text is not included in a landmark region",
+            "isDuplicate": false,
+            "duplicateOf": null
+          }
+        ],
+        "outcomeCount": 888,
+        "duplicateFailedCount": 4,
+        "uniqueFailedCount": 13
+      },
+      "axe": {
+        "executed": true,
+        "error": null,
+        "counts": {
+          "passed": 1137,
+          "failed": 2,
+          "cantTell": 9,
+          "inapplicable": 43
+        },
+        "failedRules": [
+          "aria-dialog-name",
+          "region"
+        ],
+        "passedRules": [
+          "aria-allowed-attr",
+          "aria-allowed-role",
+          "aria-conditional-attr",
+          "aria-deprecated-role",
+          "aria-hidden-body",
+          "aria-hidden-focus",
+          "aria-prohibited-attr",
+          "aria-required-attr",
+          "aria-roles",
+          "aria-valid-attr",
+          "aria-valid-attr-value",
+          "autocomplete-valid",
+          "avoid-inline-spacing",
+          "button-name",
+          "bypass",
+          "color-contrast",
+          "document-title",
+          "duplicate-id-aria",
+          "empty-heading",
+          "form-field-multiple-labels",
+          "heading-order",
+          "html-has-lang",
+          "html-lang-valid",
+          "image-alt",
+          "image-redundant-alt",
+          "label",
+          "label-title-only",
+          "landmark-banner-is-top-level",
+          "landmark-contentinfo-is-top-level",
+          "landmark-main-is-top-level",
+          "landmark-no-duplicate-banner",
+          "landmark-no-duplicate-contentinfo",
+          "landmark-no-duplicate-main",
+          "landmark-one-main",
+          "landmark-unique",
+          "link-name",
+          "list",
+          "listitem",
+          "meta-viewport",
+          "meta-viewport-large",
+          "nested-interactive",
+          "page-has-heading-one",
+          "presentation-role-conflict",
+          "region",
+          "tabindex"
+        ],
+        "failures": [
+          {
+            "rule": "aria-dialog-name",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/aria-dialog-name?application=playwright",
+            "impact": "serious",
+            "wcagSc": [],
+            "xpath": ".lv-mega-menu__wrapper",
+            "html": "<div role=\"dialog\" class=\"lv-mega-menu__wrapper text-text-primary bg-background-secondary lg:border-primitives-grey-100 !h-screen lg:border-r\" data-testid=\"lv-mega-menu\"><!----></div>",
+            "message": "ARIA dialog and alertdialog nodes should have an accessible name",
+            "colorScheme": "light",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "region",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/region?application=playwright",
+            "impact": "moderate",
+            "wcagSc": [],
+            "xpath": "#strips-container > div[data-v-a4c9fe0c=\"\"]",
+            "html": "<div class=\"\" data-v-a4c9fe0c=\"\">",
+            "message": "All page content should be contained by landmarks",
+            "colorScheme": "light",
+            "isDuplicate": false,
+            "duplicateOf": null
+          }
+        ],
+        "outcomeCount": 1191,
+        "darkModeScanned": false,
+        "duplicateFailedCount": 0,
+        "uniqueFailedCount": 2
+      },
+      "equalAccess": {
+        "executed": true,
+        "error": null,
+        "counts": {
+          "passed": 3670,
+          "failed": 56,
+          "cantTell": 46,
+          "inapplicable": 0
+        },
+        "failedRules": [
+          "aria_content_in_landmark",
+          "aria_descendant_valid",
+          "aria_hidden_nontabbable",
+          "aria_role_redundant",
+          "element_attribute_deprecated",
+          "element_id_unique",
+          "element_tabbable_unobscured",
+          "element_tabbable_visible",
+          "form_submit_button_exists",
+          "html_skipnav_exists",
+          "input_label_visible",
+          "label_name_visible",
+          "list_markup_review",
+          "style_color_misuse",
+          "style_focus_visible",
+          "style_highcontrast_visible",
+          "target_spacing_sufficient",
+          "text_contrast_sufficient"
+        ],
+        "passedRules": [],
+        "failures": [
+          {
+            "rule": "element_attribute_deprecated",
+            "xpath": null,
+            "html": "<link href=\"https://try.abtasty.com/shared/me.9cc1e665fc667ca6dfeb.js\" as=\"script\" rel=\"preload\" charset=\"utf-8\">",
+            "message": "The HTML attribute(s) \"charset\" is deprecated for the <link> element in HTML 5",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "style_color_misuse",
+            "xpath": null,
+            "html": "<style>",
+            "message": "Verify color is not used as the only visual means of conveying information",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "style_highcontrast_visible",
+            "xpath": null,
+            "html": "<style>",
+            "message": "Confirm Windows high contrast mode is supported when using CSS to include, position or alter non-decorative content",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "aria_content_in_landmark",
+            "xpath": null,
+            "html": "<a class=\"bg-primitives-black text-primitives-off-white absolute -top-10 left-0 z-[9999] p-2 transition-all duration-300 focus-within:top-0\" href=\"#main\" data-testid=\"skip-link\">",
+            "message": "Content is not within a landmark element",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "element_tabbable_visible",
+            "xpath": null,
+            "html": "<a class=\"bg-primitives-black text-primitives-off-white absolute -top-10 left-0 z-[9999] p-2 transition-all duration-300 focus-within:top-0\" href=\"#main\" data-testid=\"skip-link\">",
+            "message": "Confirm the element should be tabbable and if so, it becomes visible when it has keyboard focus",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "aria_content_in_landmark",
+            "xpath": null,
+            "html": "<a href=\"https://www.armani.com/my-account\">",
+            "message": "Content is not within a landmark element",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "aria_role_redundant",
+            "xpath": null,
+            "html": "<header data-v-e5eabf38=\"\" class=\"z-[49] w-full bg-neutral-white portrait:border-neutral-black portrait:border-b bg-neutral-white text-neutral-black transition-colors duration-1000\" role=\"banner\" id=\"ab-header-container\">",
+            "message": "The explicitly-assigned ARIA role \"banner\" is redundant with the implicit role of the element <header>",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "aria_role_redundant",
+            "xpath": null,
+            "html": "<nav data-v-b2b3bd11=\"\" class=\"bg-primitives-white text-primitives-black shadow-black-15 fixed bottom-[21px] left-4 right-4 z-[51] flex h-[60px] items-center rounded-full border-[0.5px] border-[#f7f7f7] p-2 opacity-[97%] shadow-[-1px_4px_6px_0_rgb(0_0_0_/_0.15)] lg:hidden print:hidden\" role=\"navigation\" aria-label=\"navigation-menu\" id=\"navigation\">",
+            "message": "The explicitly-assigned ARIA role \"navigation\" is redundant with the implicit role of the element <nav>",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "aria_descendant_valid",
+            "xpath": null,
+            "html": "<button data-v-40b0bd9b=\"\" aria-label=\"Menu\" class=\"mobile-menu-toggler relative z-[1000] flex cursor-pointer items-center justify-center p-2.5 lg:h-6 lg:gap-2 lg:p-0 max-lg:bg-neutral-black max-lg:text-neutral-white max-lg:rounded-full max-lg:px-3\" aria-haspopup=\"dialog\" aria-expanded=\"false\">",
+            "message": "The element with role \"button\" contains descendants with implicit roles \"paragraph\" which are ignored by browsers",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "element_tabbable_unobscured",
+            "xpath": null,
+            "html": "<button aria-haspopup=\"dialog\" aria-label=\"Search\" class=\"p-2.5 lg:p-0 button-search flex cursor-pointer items-center gap-2\">",
+            "message": "Confirm that when the element receives focus, it is not covered or, if covered by user action, can be uncovered without moving focus",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "input_label_visible",
+            "xpath": null,
+            "html": "<button aria-haspopup=\"dialog\" aria-label=\"Search\" class=\"p-2.5 lg:p-0 button-search flex cursor-pointer items-center gap-2\">",
+            "message": "The input element does not have an associated visible label",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "element_tabbable_unobscured",
+            "xpath": null,
+            "html": "<button data-testid=\"open-my-account-sidebar\" class=\"underline-effect-appear relative flex p-2.5 lg:p-0 lg:pb-[0.0645rem]\" aria-haspopup=\"dialog\" aria-label=\"My Account\">",
+            "message": "Confirm that when the element receives focus, it is not covered or, if covered by user action, can be uncovered without moving focus",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "input_label_visible",
+            "xpath": null,
+            "html": "<button data-testid=\"open-my-account-sidebar\" class=\"underline-effect-appear relative flex p-2.5 lg:p-0 lg:pb-[0.0645rem]\" aria-haspopup=\"dialog\" aria-label=\"My Account\">",
+            "message": "The input element does not have an associated visible label",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "element_tabbable_unobscured",
+            "xpath": null,
+            "html": "<button class=\"underline-effect-appear flex items-center justify-center p-2.5 max-lg:min-w-20 lg:p-0\" aria-label=\"Cart\">",
+            "message": "Confirm that when the element receives focus, it is not covered or, if covered by user action, can be uncovered without moving focus",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "input_label_visible",
+            "xpath": null,
+            "html": "<button class=\"underline-effect-appear flex items-center justify-center p-2.5 max-lg:min-w-20 lg:p-0\" aria-label=\"Cart\">",
+            "message": "The input element does not have an associated visible label",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "style_focus_visible",
+            "xpath": null,
+            "html": "<a data-v-aad19750=\"\" tabindex=\"0\" class=\"text-button-2 group flex gap-2 p-0 text-link-6 w-fit h-auto underline-effect-default cta-l flex-row-reverse inline-flex !h-auto !p-0 !cta-s bg-transparent text-editorial-black border-transparent hover:!bg-transparent !h-auto !p-0\" href=\"/en-ca/emporio-armani/experience/woman/\">",
+            "message": "Check the keyboard focus indicator is visible when using CSS declaration for 'border' or 'outline'",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "element_tabbable_unobscured",
+            "xpath": null,
+            "html": "<a pos-tracking=\"hero\" data-tracking=\"BA_armani_casa_experience\" aria-label=\"Go to Armani Casa\" tabindex=\"0\" class=\"text-editorial-undefined\" href=\"/en-ca/armani-casa/experience/\">",
+            "message": "Confirm that when the element receives focus, it is not covered or, if covered by user action, can be uncovered without moving focus",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "element_tabbable_unobscured",
+            "xpath": null,
+            "html": "<a data-v-aad19750=\"\" tabindex=\"0\" aria-label=\"undefined - Opens in a new window\" class=\"text-button-2 group flex gap-2 p-0 text-link-6 w-fit h-auto underline-effect-default cta-l flex-row-reverse inline-flex !h-auto !p-0 text-editorial-undefined !h-auto !p-0\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"/en-ca/armani-casa/experience/\">",
+            "message": "Confirm that when the element receives focus, it is not covered or, if covered by user action, can be uncovered without moving focus",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "label_name_visible",
+            "xpath": null,
+            "html": "<a data-v-aad19750=\"\" tabindex=\"0\" aria-label=\"undefined - Opens in a new window\" class=\"text-button-2 group flex gap-2 p-0 text-link-6 w-fit h-auto underline-effect-default cta-l flex-row-reverse inline-flex !h-auto !p-0 text-editorial-undefined !h-auto !p-0\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"/en-ca/armani-casa/experience/\">",
+            "message": "Accessible name does not match or contain the visible label text",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "element_tabbable_unobscured",
+            "xpath": null,
+            "html": "<a pos-tracking=\"hero\" data-tracking=\"BA_armani_fiori_experience\" aria-label=\"Go to Armani Fiori\" tabindex=\"0\" class=\"text-editorial-undefined\" href=\"/en-ca/armani-fiori/experience/\">",
+            "message": "Confirm that when the element receives focus, it is not covered or, if covered by user action, can be uncovered without moving focus",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "element_tabbable_unobscured",
+            "xpath": null,
+            "html": "<a data-v-aad19750=\"\" tabindex=\"0\" class=\"text-button-2 group flex gap-2 p-0 text-link-6 w-fit h-auto underline-effect-default cta-l flex-row-reverse inline-flex !h-auto !p-0 text-editorial-undefined !h-auto !p-0\" href=\"/en-ca/armani-fiori/experience/\">",
+            "message": "Confirm that when the element receives focus, it is not covered or, if covered by user action, can be uncovered without moving focus",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "element_tabbable_unobscured",
+            "xpath": null,
+            "html": "<a class=\"text-editorial-undefined\" pos-tracking=\"hero\" data-tracking=\"BA_https_www_armanidolci_com\" aria-label=\"Go to Armani Dolci\" tabindex=\"0\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.armanidolci.com/\">",
+            "message": "Confirm that when the element receives focus, it is not covered or, if covered by user action, can be uncovered without moving focus",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "element_tabbable_unobscured",
+            "xpath": null,
+            "html": "<a data-v-aad19750=\"\" tabindex=\"0\" aria-label=\"undefined - Opens in a new window\" class=\"text-button-2 group flex gap-2 p-0 text-link-6 w-fit h-auto underline-effect-default cta-l flex-row-reverse inline-flex !h-auto !p-0 text-editorial-undefined !h-auto !p-0\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.armanidolci.com/\">",
+            "message": "Confirm that when the element receives focus, it is not covered or, if covered by user action, can be uncovered without moving focus",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "label_name_visible",
+            "xpath": null,
+            "html": "<a data-v-aad19750=\"\" tabindex=\"0\" aria-label=\"undefined - Opens in a new window\" class=\"text-button-2 group flex gap-2 p-0 text-link-6 w-fit h-auto underline-effect-default cta-l flex-row-reverse inline-flex !h-auto !p-0 text-editorial-undefined !h-auto !p-0\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.armanidolci.com/\">",
+            "message": "Accessible name does not match or contain the visible label text",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "element_tabbable_unobscured",
+            "xpath": null,
+            "html": "<a pos-tracking=\"hero\" data-tracking=\"BA_giorgio_armani_experience_armani_beauty\" aria-label=\"Go to Armani Beauty\" tabindex=\"0\" class=\"text-editorial-undefined\" href=\"/en-ca/giorgio-armani/experience/armani-beauty/\">",
+            "message": "Confirm that when the element receives focus, it is not covered or, if covered by user action, can be uncovered without moving focus",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "element_tabbable_unobscured",
+            "xpath": null,
+            "html": "<a data-v-aad19750=\"\" tabindex=\"0\" class=\"text-button-2 group flex gap-2 p-0 text-link-6 w-fit h-auto underline-effect-default cta-l flex-row-reverse inline-flex !h-auto !p-0 text-editorial-undefined !h-auto !p-0\" href=\"/en-ca/giorgio-armani/experience/armani-beauty/\">",
+            "message": "Confirm that when the element receives focus, it is not covered or, if covered by user action, can be uncovered without moving focus",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "element_tabbable_unobscured",
+            "xpath": null,
+            "html": "<a pos-tracking=\"hero\" data-tracking=\"BA_armani_restaurant_experience\" aria-label=\"Go to Armani Restaurant\" tabindex=\"0\" class=\"text-editorial-undefined\" href=\"/en-ca/armani-restaurant/experience/\">",
+            "message": "Confirm that when the element receives focus, it is not covered or, if covered by user action, can be uncovered without moving focus",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "element_tabbable_unobscured",
+            "xpath": null,
+            "html": "<a data-v-aad19750=\"\" tabindex=\"0\" class=\"text-button-2 group flex gap-2 p-0 text-link-6 w-fit h-auto underline-effect-default cta-l flex-row-reverse inline-flex !h-auto !p-0 text-editorial-undefined !h-auto !p-0\" href=\"/en-ca/armani-restaurant/experience/\">",
+            "message": "Confirm that when the element receives focus, it is not covered or, if covered by user action, can be uncovered without moving focus",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "target_spacing_sufficient",
+            "xpath": null,
+            "html": "<a data-v-aad19750=\"\" tabindex=\"0\" class=\"text-button-2 group flex gap-2 p-0 text-link-6 w-fit h-auto underline-effect-default cta-l flex-row-reverse inline-flex !h-auto !p-0 text-editorial-undefined !h-auto !p-0\" href=\"/en-ca/armani-restaurant/experience/\">",
+            "message": "Ensure the overlapped target \"a\" meets a minimum target size or has sufficient spacing from the overlapping target \"a\"",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "element_tabbable_unobscured",
+            "xpath": null,
+            "html": "<a class=\"text-editorial-undefined\" pos-tracking=\"hero\" data-tracking=\"BA_https_www_armanihotels_com_en\" aria-label=\"Go to Armani Hotels\" tabindex=\"0\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.armanihotels.com/en/\">",
+            "message": "Confirm that when the element receives focus, it is not covered or, if covered by user action, can be uncovered without moving focus",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "element_id_unique",
+            "xpath": null,
+            "html": "<clippath id=\"clip0_14493_3415\">",
+            "message": "The <clippath> element has the id \"clip0_14493_3415\" that is already in use",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "element_tabbable_unobscured",
+            "xpath": null,
+            "html": "<a data-v-aad19750=\"\" tabindex=\"0\" class=\"text-button-2 group flex gap-2 p-0 text-link-6 w-fit h-auto underline-effect-default cta-l flex-row-reverse inline-flex !h-auto !p-0 text-editorial-undefined !h-auto !p-0\" rel=\"noopener noreferrer\" href=\"https://www.armanihotels.com/en/\">",
+            "message": "Confirm that when the element receives focus, it is not covered or, if covered by user action, can be uncovered without moving focus",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "target_spacing_sufficient",
+            "xpath": null,
+            "html": "<a data-v-aad19750=\"\" tabindex=\"0\" class=\"text-button-2 group flex gap-2 p-0 text-link-6 w-fit h-auto underline-effect-default cta-l flex-row-reverse inline-flex !h-auto !p-0 text-editorial-undefined !h-auto !p-0\" rel=\"noopener noreferrer\" href=\"https://www.armanihotels.com/en/\">",
+            "message": "Ensure the overlapped target \"a\" meets a minimum target size or has sufficient spacing from the overlapping target \"a\"",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "element_tabbable_unobscured",
+            "xpath": null,
+            "html": "<a class=\"text-editorial-undefined\" pos-tracking=\"hero\" data-tracking=\"BA_https_www_armanisilos_com\" aria-label=\"Go to Armani Silos\" tabindex=\"0\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.armanisilos.com/\">",
+            "message": "Confirm that when the element receives focus, it is not covered or, if covered by user action, can be uncovered without moving focus",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "element_tabbable_unobscured",
+            "xpath": null,
+            "html": "<a data-v-aad19750=\"\" tabindex=\"0\" aria-label=\"undefined - Opens in a new window\" class=\"text-button-2 group flex gap-2 p-0 text-link-6 w-fit h-auto underline-effect-default cta-l flex-row-reverse inline-flex !h-auto !p-0 text-editorial-undefined !h-auto !p-0\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.armanisilos.com/\">",
+            "message": "Confirm that when the element receives focus, it is not covered or, if covered by user action, can be uncovered without moving focus",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "target_spacing_sufficient",
+            "xpath": null,
+            "html": "<a data-v-aad19750=\"\" tabindex=\"0\" aria-label=\"undefined - Opens in a new window\" class=\"text-button-2 group flex gap-2 p-0 text-link-6 w-fit h-auto underline-effect-default cta-l flex-row-reverse inline-flex !h-auto !p-0 text-editorial-undefined !h-auto !p-0\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.armanisilos.com/\">",
+            "message": "Ensure the overlapped target \"a\" meets a minimum target size or has sufficient spacing from the overlapping target \"a\"",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "label_name_visible",
+            "xpath": null,
+            "html": "<a data-v-aad19750=\"\" tabindex=\"0\" aria-label=\"undefined - Opens in a new window\" class=\"text-button-2 group flex gap-2 p-0 text-link-6 w-fit h-auto underline-effect-default cta-l flex-row-reverse inline-flex !h-auto !p-0 text-editorial-undefined !h-auto !p-0\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.armanisilos.com/\">",
+            "message": "Accessible name does not match or contain the visible label text",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "element_tabbable_unobscured",
+            "xpath": null,
+            "html": "<a pos-tracking=\"hero\" data-tracking=\"BA_armani_clubs_experience\" aria-label=\"Go to Armani Clubs\" tabindex=\"0\" class=\"text-editorial-undefined\" href=\"/en-ca/armani-clubs/experience/\">",
+            "message": "Confirm that when the element receives focus, it is not covered or, if covered by user action, can be uncovered without moving focus",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "element_tabbable_unobscured",
+            "xpath": null,
+            "html": "<a data-v-aad19750=\"\" tabindex=\"0\" class=\"text-button-2 group flex gap-2 p-0 text-link-6 w-fit h-auto underline-effect-default cta-l flex-row-reverse inline-flex !h-auto !p-0 text-editorial-undefined !h-auto !p-0\" href=\"/en-ca/armani-clubs/experience/\">",
+            "message": "Confirm that when the element receives focus, it is not covered or, if covered by user action, can be uncovered without moving focus",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "target_spacing_sufficient",
+            "xpath": null,
+            "html": "<a data-v-aad19750=\"\" tabindex=\"0\" class=\"text-button-2 group flex gap-2 p-0 text-link-6 w-fit h-auto underline-effect-default cta-l flex-row-reverse inline-flex !h-auto !p-0 text-editorial-undefined !h-auto !p-0\" href=\"/en-ca/armani-clubs/experience/\">",
+            "message": "Ensure the overlapped target \"a\" meets a minimum target size or has sufficient spacing from the overlapping target \"a\"",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "aria_role_redundant",
+            "xpath": null,
+            "html": "<button tabindex=\"0\" role=\"button\" title=\"Scroll down\" aria-label=\"Scroll down\" class=\"bg-neutral-white text-neutral-black border-primitives-grey-50 fixed bottom-0 left-0 z-10 h-8 w-full items-center border-t portrait:hidden landscape:flex\">",
+            "message": "The explicitly-assigned ARIA role \"button\" is redundant with the implicit role of the element <button>",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "style_focus_visible",
+            "xpath": null,
+            "html": "<button tabindex=\"0\" role=\"button\" title=\"Scroll down\" aria-label=\"Scroll down\" class=\"bg-neutral-white text-neutral-black border-primitives-grey-50 fixed bottom-0 left-0 z-10 h-8 w-full items-center border-t portrait:hidden landscape:flex\">",
+            "message": "Check the keyboard focus indicator is visible when using CSS declaration for 'border' or 'outline'",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "input_label_visible",
+            "xpath": null,
+            "html": "<button tabindex=\"0\" role=\"button\" title=\"Scroll down\" aria-label=\"Scroll down\" class=\"bg-neutral-white text-neutral-black border-primitives-grey-50 fixed bottom-0 left-0 z-10 h-8 w-full items-center border-t portrait:hidden landscape:flex\">",
+            "message": "The input element does not have an associated visible label",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "form_submit_button_exists",
+            "xpath": null,
+            "html": "<form data-auto-animate=\"true\" name=\"form_1\" id=\"newsletter-footer-form\" class=\"formkit-form\">",
+            "message": "Verify the <form> element has a submit button or an image button",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "target_spacing_sufficient",
+            "xpath": null,
+            "html": "<a data-v-aad19750=\"\" data-test-id=\"footer-first-block-cta-store-locator\" class=\"text-button-2 group flex gap-2 p-0 text-link-6 w-fit h-auto underline-effect-appear cta-l flex-row-reverse inline-flex !text-light-6 w-fit\" rel=\"noopener noreferrer\" href=\"https://locations.armani.com/search\">",
+            "message": "Ensure the overlapped target \"a\" meets a minimum target size or has sufficient spacing from the overlapping target \"a\"",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "target_spacing_sufficient",
+            "xpath": null,
+            "html": "<button data-v-aad19750=\"\" data-testid=\"footer-country-selector-button\" aria-label=\"Canada (CAD) | English - Select Your Country\" class=\"text-button-2 group flex gap-2 p-0 text-link-6 w-fit h-auto underline-effect-appear cta-l flex-row-reverse inline-flex\">",
+            "message": "Ensure the overlapped target \"button\" meets a minimum target size or has sufficient spacing from the overlapping target \"a\"",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "aria_descendant_valid",
+            "xpath": null,
+            "html": "<button data-testid=\"dropdown-button\" class=\"flex w-full items-center gap-1 py-6 justify-between\" data-headlessui-state=\"\" aria-expanded=\"false\" type=\"button\" id=\"headlessui-disclosure-button-v-0-0-2-0\">",
+            "message": "The element with role \"button\" contains descendants with implicit roles \"heading\" which are ignored by browsers",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "aria_descendant_valid",
+            "xpath": null,
+            "html": "<button data-testid=\"dropdown-button\" class=\"flex w-full items-center gap-1 py-6 justify-between\" data-headlessui-state=\"\" aria-expanded=\"false\" type=\"button\" id=\"headlessui-disclosure-button-v-0-0-2-2\">",
+            "message": "The element with role \"button\" contains descendants with implicit roles \"heading\" which are ignored by browsers",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "aria_descendant_valid",
+            "xpath": null,
+            "html": "<button data-testid=\"dropdown-button\" class=\"flex w-full items-center gap-1 py-6 justify-between\" data-headlessui-state=\"\" aria-expanded=\"false\" type=\"button\" id=\"headlessui-disclosure-button-v-0-0-2-4\">",
+            "message": "The element with role \"button\" contains descendants with implicit roles \"heading\" which are ignored by browsers",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "aria_descendant_valid",
+            "xpath": null,
+            "html": "<button data-testid=\"dropdown-button\" class=\"flex w-full items-center gap-1 py-6 justify-between\" data-headlessui-state=\"\" aria-expanded=\"false\" type=\"button\" id=\"headlessui-disclosure-button-v-0-0-2-6\">",
+            "message": "The element with role \"button\" contains descendants with implicit roles \"heading\" which are ignored by browsers",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "list_markup_review",
+            "xpath": null,
+            "html": "<span class=\"text-neutral-black text-[10px]\">",
+            "message": "Verify this is a list and if so, modify to use proper HTML elements for the list",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "text_contrast_sufficient",
+            "xpath": null,
+            "html": "<span class=\"text-neutral-black text-[10px]\">",
+            "message": "The foreground text and its background color are both detected as #000000. Verify the text meets the WCAG AA requirements for minimum contrast",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "aria_hidden_nontabbable",
+            "xpath": null,
+            "html": "<iframe style=\"display: block; width: 0px; height: 0px; border: 0px; visibility: hidden;\" src=\"/~partytown/partytown-sandbox-sw.html?1772813960874\" aria-hidden=\"true\">",
+            "message": "Element \"iframe\" should not be focusable within the subtree of an element with an 'aria-hidden' attribute with value 'true'",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "element_tabbable_visible",
+            "xpath": null,
+            "html": "<iframe style=\"display: block; width: 0px; height: 0px; border: 0px; visibility: hidden;\" src=\"/~partytown/partytown-sandbox-sw.html?1772813960874\" aria-hidden=\"true\">",
+            "message": "Confirm the element should be tabbable and if so, it becomes visible when it has keyboard focus",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "style_focus_visible",
+            "xpath": null,
+            "html": "<iframe style=\"display: block; width: 0px; height: 0px; border: 0px; visibility: hidden;\" src=\"/~partytown/partytown-sandbox-sw.html?1772813960874\" aria-hidden=\"true\">",
+            "message": "Check the keyboard focus indicator is visible when using CSS declaration for 'border' or 'outline'",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "html_skipnav_exists",
+            "xpath": null,
+            "html": "<html>",
+            "message": "Verify there is a way to bypass blocks of content that are repeated on multiple Web pages",
+            "isDuplicate": false,
+            "duplicateOf": null
+          }
+        ],
+        "outcomeCount": 3735,
+        "uniqueFailedCount": 56,
+        "duplicateFailedCount": 0
+      },
+      "accesslint": {
+        "executed": true,
+        "error": null,
+        "counts": {
+          "passed": 87,
+          "failed": 5,
+          "cantTell": 0,
+          "inapplicable": 0
+        },
+        "failedRules": [
+          "distinguishable/color-contrast",
+          "labels-and-names/aria-dialog-name",
+          "labels-and-names/label-content-mismatch"
+        ],
+        "passedRules": [],
+        "failures": [
+          {
+            "rule": "distinguishable/color-contrast",
+            "xpath": "div:nth-of-type(8) > div > span",
+            "selector": "div:nth-of-type(8) > div > span",
+            "html": "<span class=\"text-neutral-black text-[10px]\">- v0.2.15</span>",
+            "impact": "serious",
+            "message": "Insufficient color contrast ratio of 1:1 (required 4.5:1).",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "labels-and-names/label-content-mismatch",
+            "xpath": "div:nth-of-type(2) > div > a[href=\"/en-ca/armani-casa/experience/\"]",
+            "selector": "div:nth-of-type(2) > div > a[href=\"/en-ca/armani-casa/experience/\"]",
+            "html": "<a href=\"/en-ca/armani-casa/experience/\" rel=\"noopener noreferrer\" target=\"_blank\" class=\"text-button-2 group flex gap-2 p-0 text-link-6 w-fit h-auto underline-effect-default cta-l flex-row-reverse in...",
+            "impact": "serious",
+            "message": "Accessible name \"undefined - Opens in a new window\" does not contain visible text \"Discover More\".",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "labels-and-names/label-content-mismatch",
+            "xpath": "div:nth-of-type(2) > div > a[href=\"https://www.armanidolci.com/\"]",
+            "selector": "div:nth-of-type(2) > div > a[href=\"https://www.armanidolci.com/\"]",
+            "html": "<a href=\"https://www.armanidolci.com/\" rel=\"noopener noreferrer\" target=\"_blank\" class=\"text-button-2 group flex gap-2 p-0 text-link-6 w-fit h-auto underline-effect-default cta-l flex-row-reverse inli...",
+            "impact": "serious",
+            "message": "Accessible name \"undefined - Opens in a new window\" does not contain visible text \"Discover more\".",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "labels-and-names/label-content-mismatch",
+            "xpath": "div:nth-of-type(2) > div > a[href=\"https://www.armanisilos.com/\"]",
+            "selector": "div:nth-of-type(2) > div > a[href=\"https://www.armanisilos.com/\"]",
+            "html": "<a href=\"https://www.armanisilos.com/\" rel=\"noopener noreferrer\" target=\"_blank\" class=\"text-button-2 group flex gap-2 p-0 text-link-6 w-fit h-auto underline-effect-default cta-l flex-row-reverse inli...",
+            "impact": "serious",
+            "message": "Accessible name \"undefined - Opens in a new window\" does not contain visible text \"Discover more\".",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "labels-and-names/aria-dialog-name",
+            "xpath": "div > div[data-testid=\"lv-mega-menu\"]",
+            "selector": "div > div[data-testid=\"lv-mega-menu\"]",
+            "html": "<div role=\"dialog\" class=\"lv-mega-menu__wrapper text-text-primary bg-background-secondary lg:border-primitives-grey-100 !h-screen lg:border-r\" data-testid=\"lv-mega-menu\"><!----></div>",
+            "impact": "serious",
+            "message": "Dialog has no accessible name.",
+            "isDuplicate": false,
+            "duplicateOf": null
+          }
+        ],
+        "outcomeCount": 92,
+        "uniqueFailedCount": 5,
+        "duplicateFailedCount": 0
+      },
+      "qualweb": {
+        "executed": true,
+        "error": null,
+        "counts": {
+          "passed": 623,
+          "failed": 3,
+          "cantTell": 122,
+          "inapplicable": 19
+        },
+        "failedRules": [
+          "QW-ACT-R30"
+        ],
+        "passedRules": [
+          "QW-ACT-R1",
+          "QW-ACT-R11",
+          "QW-ACT-R12",
+          "QW-ACT-R13",
+          "QW-ACT-R16",
+          "QW-ACT-R17",
+          "QW-ACT-R2",
+          "QW-ACT-R20",
+          "QW-ACT-R22",
+          "QW-ACT-R24",
+          "QW-ACT-R25",
+          "QW-ACT-R27",
+          "QW-ACT-R28",
+          "QW-ACT-R30",
+          "QW-ACT-R34",
+          "QW-ACT-R35",
+          "QW-ACT-R37",
+          "QW-ACT-R48",
+          "QW-ACT-R5",
+          "QW-ACT-R63",
+          "QW-ACT-R64",
+          "QW-ACT-R65",
+          "QW-ACT-R67",
+          "QW-ACT-R73",
+          "QW-ACT-R75",
+          "QW-ACT-R76"
+        ],
+        "failures": [
+          {
+            "rule": "QW-ACT-R30",
+            "ruleUrl": "https://www.w3.org/WAI/standards-guidelines/act/rules/2ee8b8/",
+            "description": "The complete visible text content of the test target neither matches or is contained within its accessible name.",
+            "xpath": null,
+            "selector": null,
+            "html": null,
+            "message": "The complete visible text content of the test target neither matches or is contained within its accessible name.",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "QW-ACT-R30",
+            "ruleUrl": "https://www.w3.org/WAI/standards-guidelines/act/rules/2ee8b8/",
+            "description": "The complete visible text content of the test target neither matches or is contained within its accessible name.",
+            "xpath": null,
+            "selector": null,
+            "html": null,
+            "message": "The complete visible text content of the test target neither matches or is contained within its accessible name.",
+            "isDuplicate": true,
+            "duplicateOf": "qualweb"
+          },
+          {
+            "rule": "QW-ACT-R30",
+            "ruleUrl": "https://www.w3.org/WAI/standards-guidelines/act/rules/2ee8b8/",
+            "description": "The complete visible text content of the test target neither matches or is contained within its accessible name.",
+            "xpath": null,
+            "selector": null,
+            "html": null,
+            "message": "The complete visible text content of the test target neither matches or is contained within its accessible name.",
+            "isDuplicate": true,
+            "duplicateOf": "qualweb"
+          }
+        ],
+        "outcomeCount": 767,
+        "duplicateFailedCount": 2,
+        "uniqueFailedCount": 1
+      },
+      "duplicateFindingCount": 6
+    }
+  ],
+  "enhanced": {
+    "consolidatedFailures": [
+      {
+        "rule": "element_tabbable_unobscured",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 19,
+        "examples": [
+          {
+            "url": "https://www.armani.com/en-ca/?searchVers=2",
+            "html": "<button aria-haspopup=\"dialog\" aria-label=\"Search\" class=\"p-2.5 lg:p-0 button-search flex cursor-pointer items-center gap-2\">",
+            "xpath": null,
+            "message": "Confirm that when the element receives focus, it is not covered or, if covered by user action, can be uncovered without moving focus"
+          },
+          {
+            "url": "https://www.armani.com/en-ca/?searchVers=2",
+            "html": "<button data-testid=\"open-my-account-sidebar\" class=\"underline-effect-appear relative flex p-2.5 lg:p-0 lg:pb-[0.0645rem]\" aria-haspopup=\"dialog\" aria-label=\"My Account\">",
+            "xpath": null,
+            "message": "Confirm that when the element receives focus, it is not covered or, if covered by user action, can be uncovered without moving focus"
+          },
+          {
+            "url": "https://www.armani.com/en-ca/?searchVers=2",
+            "html": "<button class=\"underline-effect-appear flex items-center justify-center p-2.5 max-lg:min-w-20 lg:p-0\" aria-label=\"Cart\">",
+            "xpath": null,
+            "message": "Confirm that when the element receives focus, it is not covered or, if covered by user action, can be uncovered without moving focus"
+          },
+          {
+            "url": "https://www.armani.com/en-ca/?searchVers=2",
+            "html": "<a pos-tracking=\"hero\" data-tracking=\"BA_armani_casa_experience\" aria-label=\"Go to Armani Casa\" tabindex=\"0\" class=\"text-editorial-undefined\" href=\"/en-ca/armani-casa/experience/\">",
+            "xpath": null,
+            "message": "Confirm that when the element receives focus, it is not covered or, if covered by user action, can be uncovered without moving focus"
+          },
+          {
+            "url": "https://www.armani.com/en-ca/?searchVers=2",
+            "html": "<a data-v-aad19750=\"\" tabindex=\"0\" aria-label=\"undefined - Opens in a new window\" class=\"text-button-2 group flex gap-2 p-0 text-link-6 w-fit h-auto underline-effect-default cta-l flex-row-reverse inline-flex !h-auto !p-0 text-editorial-undefined !h-auto !p-0\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"/en-ca/armani-casa/experience/\">",
+            "xpath": null,
+            "message": "Confirm that when the element receives focus, it is not covered or, if covered by user action, can be uncovered without moving focus"
+          }
+        ]
+      },
+      {
+        "rule": "https://alfa.siteimprove.com/rules/sia-r111",
+        "engine": "alfa",
+        "metadata": {
+          "roles": [
+            "UX Designer",
+            "Visual Designer"
+          ],
+          "severity": "Serious",
+          "blocking": true
+        },
+        "pages": {},
+        "totalOccurrences": 9,
+        "examples": [
+          {
+            "url": "https://www.armani.com/en-ca/?searchVers=2",
+            "html": "<a data-testid=\"skip-link\" href=\"#main\" class=\"bg-primitives-black text-primitives-off-white absolute -top-10 left-0 z-[9999] p-2 transition-all duration-300 focus-within:top-0\">Skip to content</a>",
+            "xpath": "/a[@class=\"bg-primitives-black text-primitives-off-white absolute -top-10 left-0 z-[9999] p-2 transition-all duration-300 focus-within:top-0\"]",
+            "message": "Target has insufficient size"
+          },
+          {
+            "url": "https://www.armani.com/en-ca/?searchVers=2",
+            "html": "<a href=\"https://www.armani.com/my-account\">Log in to your account to get free shipping on ord...</a>",
+            "xpath": "/a",
+            "message": "Target has insufficient size"
+          },
+          {
+            "url": "https://www.armani.com/en-ca/?searchVers=2",
+            "html": "<button aria-expanded=\"false\" aria-haspopup=\"dialog\" class=\"mobile-menu-toggler relative z-[1000] flex cursor-pointer items-center justify-center p-2.5 lg:h-6 lg:gap-2 lg:p-0 max-lg:bg-neutral-black max-lg:text-neutral-white max-lg:rounded-full max-lg:px-3\" aria-label=\"Menu\" data-v-40b0bd9b=\"\">...</button>",
+            "xpath": "/button[@class=\"mobile-menu-toggler relative z-[1000] flex cursor-pointer items-center justify-center p-2.5 lg:h-6 lg:gap-2 lg:p-0 max-lg:bg-neutral-black max-lg:text-neutral-white max-lg:rounded-full max-lg:px-3\"]",
+            "message": "Target has insufficient size"
+          },
+          {
+            "url": "https://www.armani.com/en-ca/?searchVers=2",
+            "html": "<button class=\"button-search flex cursor-pointer items-center gap-2\" aria-label=\"Search\" aria-haspopup=\"dialog\">...</button>",
+            "xpath": "/button[@class=\"button-search flex cursor-pointer items-center gap-2\"]",
+            "message": "Target has insufficient size"
+          },
+          {
+            "url": "https://www.armani.com/en-ca/?searchVers=2",
+            "html": "<button class=\"text-button-2 group flex gap-2 p-0 text-link-6 w-fit h-auto underline-effect-appear cta-l flex-row-reverse inline-flex\" aria-haspopup=\"dialog\" data-test-id=\"header-action-support-cta-contacts\" data-v-aad19750=\"\">...</button>",
+            "xpath": "/button[@class=\"text-button-2 group flex gap-2 p-0 text-link-6 w-fit h-auto underline-effect-appear cta-l flex-row-reverse inline-flex\"]",
+            "message": "Target has insufficient size"
+          }
+        ]
+      },
+      {
+        "rule": "target_spacing_sufficient",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 6,
+        "examples": [
+          {
+            "url": "https://www.armani.com/en-ca/?searchVers=2",
+            "html": "<a data-v-aad19750=\"\" tabindex=\"0\" class=\"text-button-2 group flex gap-2 p-0 text-link-6 w-fit h-auto underline-effect-default cta-l flex-row-reverse inline-flex !h-auto !p-0 text-editorial-undefined !h-auto !p-0\" href=\"/en-ca/armani-restaurant/experience/\">",
+            "xpath": null,
+            "message": "Ensure the overlapped target \"a\" meets a minimum target size or has sufficient spacing from the overlapping target \"a\""
+          },
+          {
+            "url": "https://www.armani.com/en-ca/?searchVers=2",
+            "html": "<a data-v-aad19750=\"\" tabindex=\"0\" class=\"text-button-2 group flex gap-2 p-0 text-link-6 w-fit h-auto underline-effect-default cta-l flex-row-reverse inline-flex !h-auto !p-0 text-editorial-undefined !h-auto !p-0\" rel=\"noopener noreferrer\" href=\"https://www.armanihotels.com/en/\">",
+            "xpath": null,
+            "message": "Ensure the overlapped target \"a\" meets a minimum target size or has sufficient spacing from the overlapping target \"a\""
+          },
+          {
+            "url": "https://www.armani.com/en-ca/?searchVers=2",
+            "html": "<a data-v-aad19750=\"\" tabindex=\"0\" aria-label=\"undefined - Opens in a new window\" class=\"text-button-2 group flex gap-2 p-0 text-link-6 w-fit h-auto underline-effect-default cta-l flex-row-reverse inline-flex !h-auto !p-0 text-editorial-undefined !h-auto !p-0\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.armanisilos.com/\">",
+            "xpath": null,
+            "message": "Ensure the overlapped target \"a\" meets a minimum target size or has sufficient spacing from the overlapping target \"a\""
+          },
+          {
+            "url": "https://www.armani.com/en-ca/?searchVers=2",
+            "html": "<a data-v-aad19750=\"\" tabindex=\"0\" class=\"text-button-2 group flex gap-2 p-0 text-link-6 w-fit h-auto underline-effect-default cta-l flex-row-reverse inline-flex !h-auto !p-0 text-editorial-undefined !h-auto !p-0\" href=\"/en-ca/armani-clubs/experience/\">",
+            "xpath": null,
+            "message": "Ensure the overlapped target \"a\" meets a minimum target size or has sufficient spacing from the overlapping target \"a\""
+          },
+          {
+            "url": "https://www.armani.com/en-ca/?searchVers=2",
+            "html": "<a data-v-aad19750=\"\" data-test-id=\"footer-first-block-cta-store-locator\" class=\"text-button-2 group flex gap-2 p-0 text-link-6 w-fit h-auto underline-effect-appear cta-l flex-row-reverse inline-flex !text-light-6 w-fit\" rel=\"noopener noreferrer\" href=\"https://locations.armani.com/search\">",
+            "xpath": null,
+            "message": "Ensure the overlapped target \"a\" meets a minimum target size or has sufficient spacing from the overlapping target \"a\""
+          }
+        ]
+      },
+      {
+        "rule": "aria_descendant_valid",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 5,
+        "examples": [
+          {
+            "url": "https://www.armani.com/en-ca/?searchVers=2",
+            "html": "<button data-v-40b0bd9b=\"\" aria-label=\"Menu\" class=\"mobile-menu-toggler relative z-[1000] flex cursor-pointer items-center justify-center p-2.5 lg:h-6 lg:gap-2 lg:p-0 max-lg:bg-neutral-black max-lg:text-neutral-white max-lg:rounded-full max-lg:px-3\" aria-haspopup=\"dialog\" aria-expanded=\"false\">",
+            "xpath": null,
+            "message": "The element with role \"button\" contains descendants with implicit roles \"paragraph\" which are ignored by browsers"
+          },
+          {
+            "url": "https://www.armani.com/en-ca/?searchVers=2",
+            "html": "<button data-testid=\"dropdown-button\" class=\"flex w-full items-center gap-1 py-6 justify-between\" data-headlessui-state=\"\" aria-expanded=\"false\" type=\"button\" id=\"headlessui-disclosure-button-v-0-0-2-0\">",
+            "xpath": null,
+            "message": "The element with role \"button\" contains descendants with implicit roles \"heading\" which are ignored by browsers"
+          },
+          {
+            "url": "https://www.armani.com/en-ca/?searchVers=2",
+            "html": "<button data-testid=\"dropdown-button\" class=\"flex w-full items-center gap-1 py-6 justify-between\" data-headlessui-state=\"\" aria-expanded=\"false\" type=\"button\" id=\"headlessui-disclosure-button-v-0-0-2-2\">",
+            "xpath": null,
+            "message": "The element with role \"button\" contains descendants with implicit roles \"heading\" which are ignored by browsers"
+          },
+          {
+            "url": "https://www.armani.com/en-ca/?searchVers=2",
+            "html": "<button data-testid=\"dropdown-button\" class=\"flex w-full items-center gap-1 py-6 justify-between\" data-headlessui-state=\"\" aria-expanded=\"false\" type=\"button\" id=\"headlessui-disclosure-button-v-0-0-2-4\">",
+            "xpath": null,
+            "message": "The element with role \"button\" contains descendants with implicit roles \"heading\" which are ignored by browsers"
+          },
+          {
+            "url": "https://www.armani.com/en-ca/?searchVers=2",
+            "html": "<button data-testid=\"dropdown-button\" class=\"flex w-full items-center gap-1 py-6 justify-between\" data-headlessui-state=\"\" aria-expanded=\"false\" type=\"button\" id=\"headlessui-disclosure-button-v-0-0-2-6\">",
+            "xpath": null,
+            "message": "The element with role \"button\" contains descendants with implicit roles \"heading\" which are ignored by browsers"
+          }
+        ]
+      },
+      {
+        "rule": "input_label_visible",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 4,
+        "examples": [
+          {
+            "url": "https://www.armani.com/en-ca/?searchVers=2",
+            "html": "<button aria-haspopup=\"dialog\" aria-label=\"Search\" class=\"p-2.5 lg:p-0 button-search flex cursor-pointer items-center gap-2\">",
+            "xpath": null,
+            "message": "The input element does not have an associated visible label"
+          },
+          {
+            "url": "https://www.armani.com/en-ca/?searchVers=2",
+            "html": "<button data-testid=\"open-my-account-sidebar\" class=\"underline-effect-appear relative flex p-2.5 lg:p-0 lg:pb-[0.0645rem]\" aria-haspopup=\"dialog\" aria-label=\"My Account\">",
+            "xpath": null,
+            "message": "The input element does not have an associated visible label"
+          },
+          {
+            "url": "https://www.armani.com/en-ca/?searchVers=2",
+            "html": "<button class=\"underline-effect-appear flex items-center justify-center p-2.5 max-lg:min-w-20 lg:p-0\" aria-label=\"Cart\">",
+            "xpath": null,
+            "message": "The input element does not have an associated visible label"
+          },
+          {
+            "url": "https://www.armani.com/en-ca/?searchVers=2",
+            "html": "<button tabindex=\"0\" role=\"button\" title=\"Scroll down\" aria-label=\"Scroll down\" class=\"bg-neutral-white text-neutral-black border-primitives-grey-50 fixed bottom-0 left-0 z-10 h-8 w-full items-center border-t portrait:hidden landscape:flex\">",
+            "xpath": null,
+            "message": "The input element does not have an associated visible label"
+          }
+        ]
+      },
+      {
+        "rule": "aria_role_redundant",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 3,
+        "examples": [
+          {
+            "url": "https://www.armani.com/en-ca/?searchVers=2",
+            "html": "<header data-v-e5eabf38=\"\" class=\"z-[49] w-full bg-neutral-white portrait:border-neutral-black portrait:border-b bg-neutral-white text-neutral-black transition-colors duration-1000\" role=\"banner\" id=\"ab-header-container\">",
+            "xpath": null,
+            "message": "The explicitly-assigned ARIA role \"banner\" is redundant with the implicit role of the element <header>"
+          },
+          {
+            "url": "https://www.armani.com/en-ca/?searchVers=2",
+            "html": "<nav data-v-b2b3bd11=\"\" class=\"bg-primitives-white text-primitives-black shadow-black-15 fixed bottom-[21px] left-4 right-4 z-[51] flex h-[60px] items-center rounded-full border-[0.5px] border-[#f7f7f7] p-2 opacity-[97%] shadow-[-1px_4px_6px_0_rgb(0_0_0_/_0.15)] lg:hidden print:hidden\" role=\"navigation\" aria-label=\"navigation-menu\" id=\"navigation\">",
+            "xpath": null,
+            "message": "The explicitly-assigned ARIA role \"navigation\" is redundant with the implicit role of the element <nav>"
+          },
+          {
+            "url": "https://www.armani.com/en-ca/?searchVers=2",
+            "html": "<button tabindex=\"0\" role=\"button\" title=\"Scroll down\" aria-label=\"Scroll down\" class=\"bg-neutral-white text-neutral-black border-primitives-grey-50 fixed bottom-0 left-0 z-10 h-8 w-full items-center border-t portrait:hidden landscape:flex\">",
+            "xpath": null,
+            "message": "The explicitly-assigned ARIA role \"button\" is redundant with the implicit role of the element <button>"
+          }
+        ]
+      },
+      {
+        "rule": "style_focus_visible",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 3,
+        "examples": [
+          {
+            "url": "https://www.armani.com/en-ca/?searchVers=2",
+            "html": "<a data-v-aad19750=\"\" tabindex=\"0\" class=\"text-button-2 group flex gap-2 p-0 text-link-6 w-fit h-auto underline-effect-default cta-l flex-row-reverse inline-flex !h-auto !p-0 !cta-s bg-transparent text-editorial-black border-transparent hover:!bg-transparent !h-auto !p-0\" href=\"/en-ca/emporio-armani/experience/woman/\">",
+            "xpath": null,
+            "message": "Check the keyboard focus indicator is visible when using CSS declaration for 'border' or 'outline'"
+          },
+          {
+            "url": "https://www.armani.com/en-ca/?searchVers=2",
+            "html": "<button tabindex=\"0\" role=\"button\" title=\"Scroll down\" aria-label=\"Scroll down\" class=\"bg-neutral-white text-neutral-black border-primitives-grey-50 fixed bottom-0 left-0 z-10 h-8 w-full items-center border-t portrait:hidden landscape:flex\">",
+            "xpath": null,
+            "message": "Check the keyboard focus indicator is visible when using CSS declaration for 'border' or 'outline'"
+          },
+          {
+            "url": "https://www.armani.com/en-ca/?searchVers=2",
+            "html": "<iframe style=\"display: block; width: 0px; height: 0px; border: 0px; visibility: hidden;\" src=\"/~partytown/partytown-sandbox-sw.html?1772813960874\" aria-hidden=\"true\">",
+            "xpath": null,
+            "message": "Check the keyboard focus indicator is visible when using CSS declaration for 'border' or 'outline'"
+          }
+        ]
+      },
+      {
+        "rule": "label_name_visible",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 3,
+        "examples": [
+          {
+            "url": "https://www.armani.com/en-ca/?searchVers=2",
+            "html": "<a data-v-aad19750=\"\" tabindex=\"0\" aria-label=\"undefined - Opens in a new window\" class=\"text-button-2 group flex gap-2 p-0 text-link-6 w-fit h-auto underline-effect-default cta-l flex-row-reverse inline-flex !h-auto !p-0 text-editorial-undefined !h-auto !p-0\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"/en-ca/armani-casa/experience/\">",
+            "xpath": null,
+            "message": "Accessible name does not match or contain the visible label text"
+          },
+          {
+            "url": "https://www.armani.com/en-ca/?searchVers=2",
+            "html": "<a data-v-aad19750=\"\" tabindex=\"0\" aria-label=\"undefined - Opens in a new window\" class=\"text-button-2 group flex gap-2 p-0 text-link-6 w-fit h-auto underline-effect-default cta-l flex-row-reverse inline-flex !h-auto !p-0 text-editorial-undefined !h-auto !p-0\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.armanidolci.com/\">",
+            "xpath": null,
+            "message": "Accessible name does not match or contain the visible label text"
+          },
+          {
+            "url": "https://www.armani.com/en-ca/?searchVers=2",
+            "html": "<a data-v-aad19750=\"\" tabindex=\"0\" aria-label=\"undefined - Opens in a new window\" class=\"text-button-2 group flex gap-2 p-0 text-link-6 w-fit h-auto underline-effect-default cta-l flex-row-reverse inline-flex !h-auto !p-0 text-editorial-undefined !h-auto !p-0\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.armanisilos.com/\">",
+            "xpath": null,
+            "message": "Accessible name does not match or contain the visible label text"
+          }
+        ]
+      },
+      {
+        "rule": "labels-and-names/label-content-mismatch",
+        "engine": "accesslint",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 3,
+        "examples": [
+          {
+            "url": "https://www.armani.com/en-ca/?searchVers=2",
+            "html": "<a href=\"/en-ca/armani-casa/experience/\" rel=\"noopener noreferrer\" target=\"_blank\" class=\"text-button-2 group flex gap-2 p-0 text-link-6 w-fit h-auto underline-effect-default cta-l flex-row-reverse in...",
+            "xpath": "div:nth-of-type(2) > div > a[href=\"/en-ca/armani-casa/experience/\"]",
+            "message": "Accessible name \"undefined - Opens in a new window\" does not contain visible text \"Discover More\"."
+          },
+          {
+            "url": "https://www.armani.com/en-ca/?searchVers=2",
+            "html": "<a href=\"https://www.armanidolci.com/\" rel=\"noopener noreferrer\" target=\"_blank\" class=\"text-button-2 group flex gap-2 p-0 text-link-6 w-fit h-auto underline-effect-default cta-l flex-row-reverse inli...",
+            "xpath": "div:nth-of-type(2) > div > a[href=\"https://www.armanidolci.com/\"]",
+            "message": "Accessible name \"undefined - Opens in a new window\" does not contain visible text \"Discover more\"."
+          },
+          {
+            "url": "https://www.armani.com/en-ca/?searchVers=2",
+            "html": "<a href=\"https://www.armanisilos.com/\" rel=\"noopener noreferrer\" target=\"_blank\" class=\"text-button-2 group flex gap-2 p-0 text-link-6 w-fit h-auto underline-effect-default cta-l flex-row-reverse inli...",
+            "xpath": "div:nth-of-type(2) > div > a[href=\"https://www.armanisilos.com/\"]",
+            "message": "Accessible name \"undefined - Opens in a new window\" does not contain visible text \"Discover more\"."
+          }
+        ]
+      },
+      {
+        "rule": "aria_content_in_landmark",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 2,
+        "examples": [
+          {
+            "url": "https://www.armani.com/en-ca/?searchVers=2",
+            "html": "<a class=\"bg-primitives-black text-primitives-off-white absolute -top-10 left-0 z-[9999] p-2 transition-all duration-300 focus-within:top-0\" href=\"#main\" data-testid=\"skip-link\">",
+            "xpath": null,
+            "message": "Content is not within a landmark element"
+          },
+          {
+            "url": "https://www.armani.com/en-ca/?searchVers=2",
+            "html": "<a href=\"https://www.armani.com/my-account\">",
+            "xpath": null,
+            "message": "Content is not within a landmark element"
+          }
+        ]
+      },
+      {
+        "rule": "element_tabbable_visible",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 2,
+        "examples": [
+          {
+            "url": "https://www.armani.com/en-ca/?searchVers=2",
+            "html": "<a class=\"bg-primitives-black text-primitives-off-white absolute -top-10 left-0 z-[9999] p-2 transition-all duration-300 focus-within:top-0\" href=\"#main\" data-testid=\"skip-link\">",
+            "xpath": null,
+            "message": "Confirm the element should be tabbable and if so, it becomes visible when it has keyboard focus"
+          },
+          {
+            "url": "https://www.armani.com/en-ca/?searchVers=2",
+            "html": "<iframe style=\"display: block; width: 0px; height: 0px; border: 0px; visibility: hidden;\" src=\"/~partytown/partytown-sandbox-sw.html?1772813960874\" aria-hidden=\"true\">",
+            "xpath": null,
+            "message": "Confirm the element should be tabbable and if so, it becomes visible when it has keyboard focus"
+          }
+        ]
+      },
+      {
+        "rule": "aria-dialog-name",
+        "engine": "axe",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://www.armani.com/en-ca/?searchVers=2",
+            "html": "<div role=\"dialog\" class=\"lv-mega-menu__wrapper text-text-primary bg-background-secondary lg:border-primitives-grey-100 !h-screen lg:border-r\" data-testid=\"lv-mega-menu\"><!----></div>",
+            "xpath": ".lv-mega-menu__wrapper",
+            "message": "ARIA dialog and alertdialog nodes should have an accessible name",
+            "colorScheme": "light"
+          }
+        ]
+      },
+      {
+        "rule": "region",
+        "engine": "axe",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://www.armani.com/en-ca/?searchVers=2",
+            "html": "<div class=\"\" data-v-a4c9fe0c=\"\">",
+            "xpath": "#strips-container > div[data-v-a4c9fe0c=\"\"]",
+            "message": "All page content should be contained by landmarks",
+            "colorScheme": "light"
+          }
+        ]
+      },
+      {
+        "rule": "https://alfa.siteimprove.com/rules/sia-r11",
+        "engine": "alfa",
+        "metadata": {
+          "roles": [
+            "Front-End Developer",
+            "Content Author"
+          ],
+          "severity": "Critical",
+          "blocking": true
+        },
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://www.armani.com/en-ca/?searchVers=2",
+            "html": "<a href=\"https://www.armani.com/emporio-armani/experience/woman\" rel=\"noopener noreferrer\" tabindex=\"0\" data-tracking=\"BA_https_www_armani_com_emporio_armani_experience_woman\" pos-tracking=\"hero\" class=\"text-editorial-undefined\">...</a>",
+            "xpath": "/a[@class=\"text-editorial-undefined\"]",
+            "message": "The link does not have an accessible name"
+          }
+        ]
+      },
+      {
+        "rule": "https://alfa.siteimprove.com/rules/sia-r17",
+        "engine": "alfa",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://www.armani.com/en-ca/?searchVers=2",
+            "html": "<button aria-hidden=\"true\" style=\"position:fixed;top:1;left:1;width:1;height:0;padding:0;margin:-1;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border-width:0;\" type=\"button\" />",
+            "xpath": "/button",
+            "message": "The element is either tabbable or has tabbable descendants"
+          }
+        ]
+      },
+      {
+        "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+        "engine": "alfa",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://www.armani.com/en-ca/?searchVers=2",
+            "html": "<clipPath id=\"clip0_14493_3415\">...</clipPath>",
+            "xpath": "/clipPath[@id=\"clip0_14493_3415\"]",
+            "message": "The element does not have a unique ID"
+          }
+        ]
+      },
+      {
+        "rule": "https://alfa.siteimprove.com/rules/sia-r57",
+        "engine": "alfa",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://www.armani.com/en-ca/?searchVers=2",
+            "html": null,
+            "xpath": null,
+            "message": "The text is not included in a landmark region"
+          }
+        ]
+      },
+      {
+        "rule": "element_attribute_deprecated",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://www.armani.com/en-ca/?searchVers=2",
+            "html": "<link href=\"https://try.abtasty.com/shared/me.9cc1e665fc667ca6dfeb.js\" as=\"script\" rel=\"preload\" charset=\"utf-8\">",
+            "xpath": null,
+            "message": "The HTML attribute(s) \"charset\" is deprecated for the <link> element in HTML 5"
+          }
+        ]
+      },
+      {
+        "rule": "style_color_misuse",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://www.armani.com/en-ca/?searchVers=2",
+            "html": "<style>",
+            "xpath": null,
+            "message": "Verify color is not used as the only visual means of conveying information"
+          }
+        ]
+      },
+      {
+        "rule": "style_highcontrast_visible",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://www.armani.com/en-ca/?searchVers=2",
+            "html": "<style>",
+            "xpath": null,
+            "message": "Confirm Windows high contrast mode is supported when using CSS to include, position or alter non-decorative content"
+          }
+        ]
+      },
+      {
+        "rule": "element_id_unique",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://www.armani.com/en-ca/?searchVers=2",
+            "html": "<clippath id=\"clip0_14493_3415\">",
+            "xpath": null,
+            "message": "The <clippath> element has the id \"clip0_14493_3415\" that is already in use"
+          }
+        ]
+      },
+      {
+        "rule": "form_submit_button_exists",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://www.armani.com/en-ca/?searchVers=2",
+            "html": "<form data-auto-animate=\"true\" name=\"form_1\" id=\"newsletter-footer-form\" class=\"formkit-form\">",
+            "xpath": null,
+            "message": "Verify the <form> element has a submit button or an image button"
+          }
+        ]
+      },
+      {
+        "rule": "list_markup_review",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://www.armani.com/en-ca/?searchVers=2",
+            "html": "<span class=\"text-neutral-black text-[10px]\">",
+            "xpath": null,
+            "message": "Verify this is a list and if so, modify to use proper HTML elements for the list"
+          }
+        ]
+      },
+      {
+        "rule": "text_contrast_sufficient",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://www.armani.com/en-ca/?searchVers=2",
+            "html": "<span class=\"text-neutral-black text-[10px]\">",
+            "xpath": null,
+            "message": "The foreground text and its background color are both detected as #000000. Verify the text meets the WCAG AA requirements for minimum contrast"
+          }
+        ]
+      },
+      {
+        "rule": "aria_hidden_nontabbable",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://www.armani.com/en-ca/?searchVers=2",
+            "html": "<iframe style=\"display: block; width: 0px; height: 0px; border: 0px; visibility: hidden;\" src=\"/~partytown/partytown-sandbox-sw.html?1772813960874\" aria-hidden=\"true\">",
+            "xpath": null,
+            "message": "Element \"iframe\" should not be focusable within the subtree of an element with an 'aria-hidden' attribute with value 'true'"
+          }
+        ]
+      },
+      {
+        "rule": "html_skipnav_exists",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://www.armani.com/en-ca/?searchVers=2",
+            "html": "<html>",
+            "xpath": null,
+            "message": "Verify there is a way to bypass blocks of content that are repeated on multiple Web pages"
+          }
+        ]
+      },
+      {
+        "rule": "distinguishable/color-contrast",
+        "engine": "accesslint",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://www.armani.com/en-ca/?searchVers=2",
+            "html": "<span class=\"text-neutral-black text-[10px]\">- v0.2.15</span>",
+            "xpath": "div:nth-of-type(8) > div > span",
+            "message": "Insufficient color contrast ratio of 1:1 (required 4.5:1)."
+          }
+        ]
+      },
+      {
+        "rule": "labels-and-names/aria-dialog-name",
+        "engine": "accesslint",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://www.armani.com/en-ca/?searchVers=2",
+            "html": "<div role=\"dialog\" class=\"lv-mega-menu__wrapper text-text-primary bg-background-secondary lg:border-primitives-grey-100 !h-screen lg:border-r\" data-testid=\"lv-mega-menu\"><!----></div>",
+            "xpath": "div > div[data-testid=\"lv-mega-menu\"]",
+            "message": "Dialog has no accessible name."
+          }
+        ]
+      },
+      {
+        "rule": "QW-ACT-R30",
+        "engine": "qualweb",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://www.armani.com/en-ca/?searchVers=2",
+            "html": null,
+            "xpath": null,
+            "message": "The complete visible text content of the test target neither matches or is contained within its accessible name."
+          }
+        ]
+      }
+    ],
+    "roleStats": {
+      "UX Designer": 9,
+      "Visual Designer": 9,
+      "Content Author": 1,
+      "Front-End Developer": 68
+    },
+    "severityStats": {
+      "Critical": 1,
+      "Serious": 9,
+      "Moderate": 67,
+      "Minor": 0
+    }
+  }
+}
