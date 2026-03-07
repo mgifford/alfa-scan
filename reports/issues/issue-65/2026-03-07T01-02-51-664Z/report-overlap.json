@@ -1,0 +1,84 @@
+{
+  "generatedAt": "2026-03-07T01:01:59.444Z",
+  "issueNumber": 65,
+  "scanTitle": "Georgia.gov",
+  "scannersInUse": [
+    "axe",
+    "alfa",
+    "equalAccess",
+    "accesslint",
+    "qualweb"
+  ],
+  "scannerStats": {
+    "axe": {
+      "label": "axe",
+      "failed": 212,
+      "uniqueFailed": 212,
+      "duplicates": 0
+    },
+    "alfa": {
+      "label": "ALFA",
+      "failed": 386,
+      "uniqueFailed": 386,
+      "duplicates": 0
+    },
+    "equalAccess": {
+      "label": "Equal Access",
+      "failed": 679,
+      "uniqueFailed": 671,
+      "duplicates": 8
+    },
+    "accesslint": {
+      "label": "AccessLint",
+      "failed": 204,
+      "uniqueFailed": 204,
+      "duplicates": 0
+    },
+    "qualweb": {
+      "label": "QualWeb",
+      "failed": 196,
+      "uniqueFailed": 196,
+      "duplicates": 0
+    }
+  },
+  "matrix": {
+    "axe": {
+      "axe": 212,
+      "alfa": 0,
+      "equalAccess": 0,
+      "accesslint": 0,
+      "qualweb": 0
+    },
+    "alfa": {
+      "axe": 0,
+      "alfa": 263,
+      "equalAccess": 0,
+      "accesslint": 0,
+      "qualweb": 0
+    },
+    "equalAccess": {
+      "axe": 0,
+      "alfa": 0,
+      "equalAccess": 671,
+      "accesslint": 0,
+      "qualweb": 0
+    },
+    "accesslint": {
+      "axe": 0,
+      "alfa": 0,
+      "equalAccess": 0,
+      "accesslint": 204,
+      "qualweb": 0
+    },
+    "qualweb": {
+      "axe": 0,
+      "alfa": 0,
+      "equalAccess": 0,
+      "accesslint": 0,
+      "qualweb": 196
+    }
+  },
+  "duplicateFindingTotals": 131,
+  "overlapEntryCount": 0,
+  "overlapEntries": []
+}
