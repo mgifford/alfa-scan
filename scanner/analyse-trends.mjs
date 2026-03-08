@@ -209,7 +209,7 @@ export function analyseTrends(history) {
  * Format a totals object as a markdown table.
  *
  * @param {{ alfa: number, axe: number, equalAccess: number, qualweb: number,
- *           combined: number }} totals
+ *           accesslint: number, combined: number }} totals
  * @returns {string}
  */
 function formatTotalsTable(totals) {

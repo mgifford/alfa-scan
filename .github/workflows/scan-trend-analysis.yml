@@ -93,6 +93,7 @@ jobs:
             const owner = context.repo.owner;
             const repo = context.repo.repo;
             const reportsDir = path.join(process.cwd(), 'reports', 'issues');
+            const RECURRING_PREFIX_RE = /^\s*(?:WEEKLY|MONTHLY|QUARTERLY|MONDAYS?|TUESDAYS?|WEDNESDAYS?|THURSDAYS?|FRIDAYS?|SATURDAYS?|SUNDAYS?):\s*(.+?)\s*$/i;
 
             const issueNumbers = ${{ steps.select-issues.outputs.issue_numbers }};
 
@@ -148,7 +149,7 @@ jobs:
               }
 
               // Extract the human-readable scan title from the issue title
-              const titleMatch = issueTitle.match(/^\s*(?:WEEKLY|MONTHLY|QUARTERLY|MONDAYS?|TUESDAYS?|WEDNESDAYS?|THURSDAYS?|FRIDAYS?|SATURDAYS?|SUNDAYS?):\s*(.+?)\s*$/i);
+              const titleMatch = issueTitle.match(RECURRING_PREFIX_RE);
               const scanTitle = titleMatch ? titleMatch[1] : issueTitle;
 
               // Generate the comment body using AI if available, otherwise use basic formatter
