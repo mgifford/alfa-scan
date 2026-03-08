@@ -1,0 +1,370 @@
+# Accessibility Trend Analysis workflow
+#
+# Analyses historical scan results for recurring issues (WEEKLY:, MONTHLY:, etc.)
+# that have opted in by including the keyword TREND_ANALYSIS in their issue body.
+# Posts a structured trend analysis comment with improving/worsening violations
+# and systemic patterns detected across pages.
+#
+# Triggers:
+#   - After "Scan Timed Issues (WEEKLY, MONTHLY, etc.)" workflow completes
+#   - Manual (workflow_dispatch), optionally scoped to a single issue number
+
+name: Accessibility Trend Analysis
+
+on:
+  workflow_run:
+    workflows: ["Scan Timed Issues (WEEKLY, MONTHLY, etc.)"]
+    types: [completed]
+  workflow_dispatch:
+    inputs:
+      issue_number:
+        description: "Issue number to analyse (leave blank to analyse all opted-in recurring issues)"
+        required: false
+        type: number
+
+permissions:
+  contents: read
+  issues: write
+  models: read
+
+jobs:
+  analyse-trends:
+    runs-on: ubuntu-latest
+    # Only run after a successful or manually triggered event; skip failed scan runs
+    if: >
+      github.event_name == 'workflow_dispatch' ||
+      github.event.workflow_run.conclusion == 'success'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Determine issues to analyse
+        id: select-issues
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const manualIssueNumber = Number(process.env.MANUAL_ISSUE_NUMBER) || null;
+
+            if (manualIssueNumber) {
+              console.log(`Manual trigger: analysing issue #${manualIssueNumber}`);
+              core.setOutput('issue_numbers', JSON.stringify([manualIssueNumber]));
+              return;
+            }
+
+            // Fetch all open issues and filter to recurring ones with TREND_ANALYSIS
+            const issues = await github.paginate(github.rest.issues.listForRepo, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              per_page: 100
+            });
+
+            const RECURRING_PREFIXES = /^\s*(WEEKLY|MONTHLY|QUARTERLY|MONDAYS?|TUESDAYS?|WEDNESDAYS?|THURSDAYS?|FRIDAYS?|SATURDAYS?|SUNDAYS?):/i;
+
+            const eligible = issues
+              .filter(issue => !issue.pull_request)
+              .filter(issue => RECURRING_PREFIXES.test(issue.title))
+              .filter(issue => (issue.body ?? '').includes('TREND_ANALYSIS'))
+              .map(issue => issue.number);
+
+            console.log(`Found ${eligible.length} recurring issue(s) with TREND_ANALYSIS keyword: ${eligible.join(', ')}`);
+            core.setOutput('issue_numbers', JSON.stringify(eligible));
+        env:
+          MANUAL_ISSUE_NUMBER: ${{ inputs.issue_number || '' }}
+
+      - name: Analyse trends and post comments
+        if: steps.select-issues.outputs.issue_numbers != '[]'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { spawnSync } = require('child_process');
+            const fs = require('fs');
+            const path = require('path');
+
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const reportsDir = path.join(process.cwd(), 'reports', 'issues');
+            const RECURRING_PREFIX_RE = /^\s*(?:WEEKLY|MONTHLY|QUARTERLY|MONDAYS?|TUESDAYS?|WEDNESDAYS?|THURSDAYS?|FRIDAYS?|SATURDAYS?|SUNDAYS?):\s*(.+?)\s*$/i;
+
+            const issueNumbers = ${{ steps.select-issues.outputs.issue_numbers }};
+
+            if (!issueNumbers || issueNumbers.length === 0) {
+              console.log('No eligible issues to analyse.');
+              return;
+            }
+
+            for (const issueNumber of issueNumbers) {
+              console.log(`\n=== Analysing trends for issue #${issueNumber} ===`);
+
+              // Validate issue number
+              if (!Number.isInteger(issueNumber) || issueNumber <= 0) {
+                console.error(`Invalid issue number: ${issueNumber}`);
+                continue;
+              }
+
+              // Run the trend analysis module
+              const result = spawnSync(
+                process.execPath,
+                ['scanner/analyse-trends.mjs', reportsDir, String(issueNumber)],
+                { encoding: 'utf8', maxBuffer: 5 * 1024 * 1024 }
+              );
+
+              if (result.stderr) {
+                console.error(`[stderr] ${result.stderr.trim()}`);
+              }
+
+              if (result.error || result.status !== 0) {
+                console.error(`Failed to run analyse-trends.mjs for issue #${issueNumber}: ${result.error?.message ?? result.stderr}`);
+                continue;
+              }
+
+              let analysis;
+              try {
+                analysis = JSON.parse(result.stdout);
+              } catch (parseError) {
+                console.error(`Could not parse analysis output for issue #${issueNumber}: ${parseError.message}`);
+                continue;
+              }
+
+              // Fetch issue details for the title
+              let issueTitle = `Issue #${issueNumber}`;
+              try {
+                const issueData = await github.rest.issues.get({
+                  owner,
+                  repo,
+                  issue_number: issueNumber
+                });
+                issueTitle = issueData.data.title ?? issueTitle;
+              } catch (fetchError) {
+                console.warn(`Could not fetch issue title: ${fetchError.message}`);
+              }
+
+              // Extract the human-readable scan title from the issue title
+              const titleMatch = issueTitle.match(RECURRING_PREFIX_RE);
+              const scanTitle = titleMatch ? titleMatch[1] : issueTitle;
+
+              // Generate the comment body using AI if available, otherwise use basic formatter
+              let commentBody;
+              try {
+                commentBody = await generateAiAnalysis(analysis, scanTitle, process.env.GITHUB_TOKEN);
+              } catch (aiError) {
+                console.warn(`AI analysis unavailable (${aiError.message}), using basic formatter.`);
+                commentBody = generateBasicComment(analysis, scanTitle);
+              }
+
+              // Post the comment with retry logic
+              for (let attempt = 0; attempt < 3; attempt++) {
+                try {
+                  await github.rest.issues.createComment({
+                    owner,
+                    repo,
+                    issue_number: issueNumber,
+                    body: commentBody
+                  });
+                  console.log(`Trend analysis comment posted on issue #${issueNumber}`);
+                  break;
+                } catch (commentError) {
+                  console.warn(`Attempt ${attempt + 1} failed to post comment: ${commentError.message}`);
+                  if (attempt < 2) {
+                    const delay = Math.pow(2, attempt) * 1000;
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                  } else {
+                    console.error(`Could not post trend analysis comment for issue #${issueNumber}`);
+                  }
+                }
+              }
+            }
+
+            // ---------------------------------------------------------------------------
+            // AI analysis via GitHub Models API (opt-in, graceful fallback)
+            // ---------------------------------------------------------------------------
+            async function generateAiAnalysis(analysis, scanTitle, token) {
+              if (!token) throw new Error('No token available');
+              if (analysis.error) {
+                // Not enough data for AI analysis — fall back to basic formatter
+                throw new Error(analysis.error);
+              }
+
+              const prompt = buildPrompt(analysis, scanTitle);
+
+              const response = await fetch(
+                'https://models.inference.ai.azure.com/chat/completions',
+                {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                  },
+                  body: JSON.stringify({
+                    model: 'openai/gpt-4o-mini',
+                    messages: [
+                      {
+                        role: 'system',
+                        content:
+                          'You are an accessibility analyst. Respond only with a concise, ' +
+                          'actionable GitHub Markdown comment. Do not include preamble or caveats.'
+                      },
+                      { role: 'user', content: prompt }
+                    ],
+                    max_tokens: 800,
+                    temperature: 0.4
+                  })
+                }
+              );
+
+              if (!response.ok) {
+                const body = await response.text();
+                throw new Error(`GitHub Models API returned ${response.status}: ${body.slice(0, 200)}`);
+              }
+
+              const data = await response.json();
+              const aiText = data.choices?.[0]?.message?.content ?? '';
+              if (!aiText) throw new Error('Empty response from AI model');
+
+              return aiText;
+            }
+
+            function buildPrompt(analysis, scanTitle) {
+              const lines = [
+                `You are an accessibility analyst reviewing scan results for: ${scanTitle}.`,
+                '',
+                `Here is the trend data from the last ${analysis.scansAnalysed} scans:`,
+                '',
+                `Overall trend: ${analysis.overallTrend}`,
+                `Scans improved: ${analysis.improvingCount}, worsened: ${analysis.worseningCount}`,
+                `Latest combined failures: ${analysis.latestTotals?.combined ?? 'N/A'}`,
+                `Baseline combined failures: ${analysis.baselineTotals?.combined ?? 'N/A'}`,
+                ''
+              ];
+
+              if (analysis.latestSystemicPatterns?.length > 0) {
+                lines.push('Systemic patterns (rules failing on many pages):');
+                for (const p of analysis.latestSystemicPatterns.slice(0, 5)) {
+                  const ruleDisplay = p.ruleId
+                    .replace(/^axe:/, '[axe] ')
+                    .replace(/.*\/rules\//, '');
+                  lines.push(`  - ${ruleDisplay}: ${p.pageCount} pages`);
+                }
+                lines.push('');
+              }
+
+              lines.push(
+                'Please provide a structured GitHub Markdown comment (use ## headers, bullet points) that includes:',
+                '1. Overall trend summary (improving / stable / worsening) with 1-sentence explanation',
+                '2. Top 3 issues to fix first based on the systemic patterns and scan data',
+                '3. Any systemic patterns that suggest a shared component fix',
+                '4. Estimated effort level (low/medium/high) for each recommendation',
+                '',
+                'Keep the comment concise and actionable. End with:',
+                '> _AI-generated trend analysis. Add `TREND_ANALYSIS` to your issue body to enable this analysis._'
+              );
+
+              return lines.join('\n');
+            }
+
+            // ---------------------------------------------------------------------------
+            // Basic (non-AI) comment formatter — mirrors formatTrendComment() in
+            // scanner/analyse-trends.mjs but runs inside actions/github-script
+            // ---------------------------------------------------------------------------
+            function generateBasicComment(analysis, scanTitle) {
+              const titleSuffix = scanTitle ? ` — ${scanTitle}` : '';
+
+              if (analysis.error === 'No scan history available') {
+                return `## 📊 Accessibility Trend Analysis${titleSuffix}\n\n_No scan history found for this issue._`;
+              }
+
+              if (analysis.error === 'Insufficient history') {
+                const lines = [
+                  `## 📊 Accessibility Trend Analysis${titleSuffix}`,
+                  '',
+                  '_Not enough scan history for trend analysis. At least 2 scans are needed._'
+                ];
+                if (analysis.latestTotals) {
+                  lines.push('', formatTotalsTable(analysis.latestTotals));
+                }
+                return lines.join('\n');
+              }
+
+              const trendEmoji = { improving: '📈', stable: '➡️', worsening: '📉' };
+              const trendLabel = {
+                improving: '✅ Improving',
+                stable: '⚠️ Stable',
+                worsening: '❌ Worsening'
+              };
+
+              const lines = [
+                `## 📊 Accessibility Trend Analysis${titleSuffix}`,
+                '',
+                `**Overall Trend: ${trendEmoji[analysis.overallTrend] ?? '➡️'} ${trendLabel[analysis.overallTrend] ?? analysis.overallTrend}**`,
+                `(${analysis.improvingCount} scan${analysis.improvingCount === 1 ? '' : 's'} improved, ${analysis.worseningCount} worsened)`,
+                ''
+              ];
+
+              const latestDiff = analysis.latestDiff;
+              if (latestDiff.change !== 0) {
+                const direction = latestDiff.change < 0 ? 'decreased' : 'increased';
+                lines.push(`Total violations ${direction} by **${Math.abs(latestDiff.change)}** since the previous scan.`, '');
+              } else {
+                lines.push('Total violations unchanged since the previous scan.', '');
+              }
+
+              if (analysis.latestSystemicPatterns?.length > 0) {
+                lines.push('### 🔵 Systemic Patterns (same violation across multiple pages)', '');
+                for (const pattern of analysis.latestSystemicPatterns.slice(0, 5)) {
+                  const ruleDisplay = pattern.ruleId
+                    .replace(/^axe:/, '[axe] ')
+                    .replace(/.*\/rules\//, '');
+                  lines.push(`- **${ruleDisplay}** — fails on **${pattern.pageCount}** page${pattern.pageCount === 1 ? '' : 's'}`);
+                }
+                lines.push('');
+              }
+
+              lines.push('### 📋 Scan History', '');
+              lines.push('| Scan date | Combined failures | Change |');
+              lines.push('|-----------|-------------------|--------|');
+
+              const baseDate = analysis.baselineTotals.scannedAt
+                ? new Date(analysis.baselineTotals.scannedAt).toISOString().slice(0, 10)
+                : 'Unknown';
+              lines.push(`| ${baseDate} (baseline) | ${analysis.baselineTotals.combined} | — |`);
+
+              for (const diff of analysis.diffs) {
+                const date = diff.to.scannedAt
+                  ? new Date(diff.to.scannedAt).toISOString().slice(0, 10)
+                  : 'Unknown';
+                const changeStr = diff.change === 0 ? '±0' : diff.change > 0 ? `+${diff.change}` : `${diff.change}`;
+                lines.push(`| ${date} | ${diff.to.totals.combined} | ${changeStr} |`);
+              }
+
+              lines.push(
+                '',
+                `_Analysis based on ${analysis.scansAnalysed} scans. Add \`TREND_ANALYSIS\` to your issue body to enable this analysis._`
+              );
+
+              return lines.join('\n');
+            }
+
+            function formatTotalsTable(totals) {
+              return [
+                '### Current Scan Totals',
+                '',
+                '| Scanner | Failures |',
+                '|---------|----------|',
+                `| ALFA | ${totals.alfa} |`,
+                `| axe-core | ${totals.axe} |`,
+                `| Equal Access | ${totals.equalAccess} |`,
+                `| QualWeb | ${totals.qualweb} |`,
+                `| **Combined** | **${totals.combined}** |`
+              ].join('\n');
+            }
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
