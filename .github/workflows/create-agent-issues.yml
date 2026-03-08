@@ -4,14 +4,18 @@ name: Create Agent Technique Issues
 # from the AI agent techniques described in:
 # https://accessibility.github.com/documentation/guide/getting-started-with-agents/
 #
-# Run this workflow once via the Actions tab after the PR is merged.
-# After the issues are created, this workflow file can be removed or disabled.
+# This workflow runs automatically when changes are pushed to the main branch,
+# and can also be triggered manually via the Actions tab.
+# Idempotency checks prevent duplicate issues from being created on re-runs.
 #
 # Prerequisites: The 'enhancement' and 'documentation' labels must exist in the
 # repository. Both are created by default in new GitHub repositories.
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
 
 permissions:
   issues: write
@@ -24,10 +28,17 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
+            const title = 'Feature: Add AI-powered remediation code suggestions to scan reports';
+            const search = await github.rest.search.issuesAndPullRequests({
+              q: `repo:${context.repo.owner}/${context.repo.repo} is:issue in:title "${title}"`,
+            });
+            if (search.data.total_count > 0) {
+              console.error('Issue 1 already exists, skipping');
+            } else {
             await github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              title: 'Feature: Add AI-powered remediation code suggestions to scan reports',
+              title,
               labels: ['enhancement'],
               body: `## Overview
 
@@ -97,15 +108,23 @@ jobs:
             `
             });
             console.error('Issue 1 created successfully');
+            }
 
       - name: Create Issue 2 - Copilot Custom Prompt Files
         uses: actions/github-script@v7
         with:
           script: |
+            const title = 'Feature: Add Copilot custom prompt files for accessibility-first code generation';
+            const search = await github.rest.search.issuesAndPullRequests({
+              q: `repo:${context.repo.owner}/${context.repo.repo} is:issue in:title "${title}"`,
+            });
+            if (search.data.total_count > 0) {
+              console.error('Issue 2 already exists, skipping');
+            } else {
             await github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              title: 'Feature: Add Copilot custom prompt files for accessibility-first code generation',
+              title,
               labels: ['enhancement', 'documentation'],
               body: `## Overview
 
@@ -177,15 +196,23 @@ jobs:
             `
             });
             console.error('Issue 2 created successfully');
+            }
 
       - name: Create Issue 3 - Agent-Driven Cross-Scan Trend Analysis
         uses: actions/github-script@v7
         with:
           script: |
+            const title = 'Feature: Add AI agent workflow for cross-scan trend analysis and issue prioritisation';
+            const search = await github.rest.search.issuesAndPullRequests({
+              q: `repo:${context.repo.owner}/${context.repo.repo} is:issue in:title "${title}"`,
+            });
+            if (search.data.total_count > 0) {
+              console.error('Issue 3 already exists, skipping');
+            } else {
             await github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              title: 'Feature: Add AI agent workflow for cross-scan trend analysis and issue prioritisation',
+              title,
               labels: ['enhancement'],
               body: `## Overview
 
@@ -274,3 +301,4 @@ jobs:
             `
             });
             console.error('Issue 3 created successfully');
+            }
