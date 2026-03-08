@@ -1,0 +1,276 @@
+name: Create Agent Technique Issues
+
+# This workflow creates three GitHub issues documenting how this project can benefit
+# from the AI agent techniques described in:
+# https://accessibility.github.com/documentation/guide/getting-started-with-agents/
+#
+# Run this workflow once via the Actions tab after the PR is merged.
+# After the issues are created, this workflow file can be removed or disabled.
+#
+# Prerequisites: The 'enhancement' and 'documentation' labels must exist in the
+# repository. Both are created by default in new GitHub repositories.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  issues: write
+
+jobs:
+  create-issues:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create Issue 1 - AI-Powered Remediation Suggestions
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: 'Feature: Add AI-powered remediation code suggestions to scan reports',
+              labels: ['enhancement'],
+              body: `## Overview
+
+            Scan reports currently identify accessibility violations (e.g., "Color contrast ratio 2.5:1 fails WCAG 1.4.3") but leave developers to research and implement fixes on their own. The GitHub accessibility agents guide (https://accessibility.github.com/documentation/guide/getting-started-with-agents/) describes techniques for using AI agents to close the gap between detection and remediation.
+
+            ## Problem
+
+            When a developer receives a scan report showing 47 violations across 20 URLs, they must:
+            1. Understand each WCAG criterion that was violated
+            2. Look up remediation guidance
+            3. Locate the relevant code
+            4. Implement a fix
+
+            This is time-consuming and often leads to violations being deprioritised or misunderstood.
+
+            ## Proposed Solution
+
+            Integrate GitHub Models API into the scan workflow to generate AI-powered remediation suggestions for each detected violation type. The agent would:
+
+            - **Analyse violation context**: Review the failing HTML element, its ARIA attributes, and surrounding DOM context captured during scanning
+            - **Generate specific code fixes**: Produce before/after code snippets that demonstrate the exact change needed (e.g., adding \`aria-label\`, adjusting contrast values, restructuring heading hierarchy)
+            - **Reference WCAG criteria**: Link each suggestion to the specific success criterion and explain why it matters
+            - **Prioritise by impact**: Rank suggestions by number of affected users and severity level
+
+            ### Example Enhancement to Scan Reports
+
+            **Current report output:**
+            \`\`\`
+            VIOLATION: Color contrast (axe rule: color-contrast)
+            Element: <button class="btn-secondary">Learn more</button>
+            Contrast ratio: 2.8:1 (required: 4.5:1)
+            \`\`\`
+
+            **Enhanced with AI remediation:**
+            \`\`\`
+            VIOLATION: Color contrast (axe rule: color-contrast)
+            Element: <button class="btn-secondary">Learn more</button>
+            Contrast ratio: 2.8:1 (required: 4.5:1)
+
+            💡 Suggested Fix:
+            Change the foreground colour from #999999 to #767676 or darker to meet the 4.5:1 minimum.
+            CSS: .btn-secondary { color: #595959; } /* ratio: 7.0:1 ✓ */
+
+            📖 Why this matters: Low contrast affects users with low vision, colour blindness,
+            and those using screens in bright environments. WCAG 1.4.3 (Level AA).
+            \`\`\`
+
+            ## Implementation Approach
+
+            1. Add an optional \`REMEDIATE\` keyword to issue titles (e.g., \`SCAN: REMEDIATE My Site\`) to trigger AI remediation suggestions
+            2. After scanning, pass violation details to GitHub Models API (gpt-4o or similar)
+            3. Include AI-generated suggestions in the Markdown report and interactive HTML report
+            4. Add a \`fix-suggestions.json\` output file grouping suggestions by violation type
+
+            ## Agent Technique Reference
+
+            This feature applies the **"agent as advisor"** pattern from the GitHub accessibility agents guide: using an AI agent not to automate fixes automatically, but to provide human developers with targeted, accurate, actionable guidance that respects their context and judgement.
+
+            ## Acceptance Criteria
+
+            - [ ] AI remediation suggestions are generated for the top 10 most common violation types
+            - [ ] Each suggestion includes a before/after code example
+            - [ ] Suggestions are only generated when \`REMEDIATE\` keyword is present (opt-in to control costs)
+            - [ ] Suggestions are included in the Markdown report under each violation
+            - [ ] Unit tests cover the suggestion generation and formatting logic
+            - [ ] Workflow gracefully handles GitHub Models API unavailability
+            `
+            });
+            console.error('Issue 1 created successfully');
+
+      - name: Create Issue 2 - Copilot Custom Prompt Files
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: 'Feature: Add Copilot custom prompt files for accessibility-first code generation',
+              labels: ['enhancement', 'documentation'],
+              body: `## Overview
+
+            The GitHub accessibility agents guide (https://accessibility.github.com/documentation/guide/getting-started-with-agents/) recommends configuring AI coding agents with domain-specific context through custom prompt files and instructions. This project has \`.github/copilot-instructions.md\` covering project conventions, but is missing targeted prompt files that encode accessibility expertise for common development tasks.
+
+            ## Problem
+
+            When developers use GitHub Copilot or other AI agents to:
+            - Write new scanner rules
+            - Create report templates
+            - Build accessible UI components for the Pages frontend
+            - Fix detected accessibility violations
+
+            ...the agents lack specific accessibility context. They may generate technically correct code that fails WCAG requirements, or produce report HTML that is itself inaccessible.
+
+            ## Proposed Solution
+
+            Create a set of \`.github/prompts/\` files that give AI agents deep accessibility context for each common task in this project. These prompt files are referenced by GitHub Copilot's custom instructions system and provide task-specific guidance beyond the general project conventions in \`copilot-instructions.md\`.
+
+            ### Proposed Prompt Files
+
+            **\`.github/prompts/new-scanner-rule.prompt.md\`**
+            Context for writing new accessibility scanner rules:
+            - WCAG success criterion structure
+            - How to map violations to impact levels (critical/serious/moderate/minor)
+            - Patterns for consistent rule metadata in \`rule-metadata.mjs\`
+            - Test data conventions used in \`tests/unit/\`
+
+            **\`.github/prompts/report-template.prompt.md\`**
+            Context for generating accessible report HTML:
+            - Required ARIA landmark structure (main, nav, region)
+            - Accessible table patterns (thead, scope, caption)
+            - Keyboard navigation requirements for interactive elements
+            - Colour contrast requirements for all status indicators
+            - Screen reader announcement patterns (aria-live regions)
+
+            **\`.github/prompts/fix-accessibility-violation.prompt.md\`**
+            Context for fixing specific WCAG violation types:
+            - Common patterns for each of the 5 scanners' most frequent findings
+            - ARIA role and property usage guidance
+            - Focus management techniques for dynamic content
+            - Form validation and error message patterns
+
+            **\`.github/prompts/write-scan-test.prompt.md\`**
+            Context for writing unit tests for scanner modules:
+            - Node.js built-in test runner patterns used in this project
+            - How to create fixture HTML for testing
+            - How to mock scanner engine outputs
+            - Import guard pattern for ES module test isolation
+
+            ## Implementation Approach
+
+            1. Audit the most common Copilot tasks performed in this repository
+            2. Create each prompt file with structured accessibility guidance
+            3. Update \`AGENTS.md\` to document the prompt files and when to use them
+            4. Test each prompt file by using it in a real development scenario
+
+            ## Agent Technique Reference
+
+            This feature applies the **"context-enriched agent"** pattern from the GitHub accessibility agents guide: providing AI agents with domain-specific knowledge through structured prompt files so they generate correct, accessible outputs on the first attempt rather than requiring iterative correction.
+
+            ## Acceptance Criteria
+
+            - [ ] At least 3 prompt files created in \`.github/prompts/\`
+            - [ ] Each prompt file covers a distinct development task in this project
+            - [ ] Prompt files reference specific WCAG criteria relevant to each task
+            - [ ] \`AGENTS.md\` updated with documentation on available prompt files
+            - [ ] Each prompt file tested with GitHub Copilot to validate it produces better output than without the prompt
+            `
+            });
+            console.error('Issue 2 created successfully');
+
+      - name: Create Issue 3 - Agent-Driven Cross-Scan Trend Analysis
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: 'Feature: Add AI agent workflow for cross-scan trend analysis and issue prioritisation',
+              labels: ['enhancement'],
+              body: `## Overview
+
+            This project collects accessibility scan results over time through recurring issues (WEEKLY:, MONTHLY:, etc.), but currently there is no automated analysis comparing results between scans. The GitHub accessibility agents guide (https://accessibility.github.com/documentation/guide/getting-started-with-agents/) describes how AI agents can perform ongoing monitoring and synthesis tasks that go beyond what rule-based automation can achieve.
+
+            ## Problem
+
+            When a WEEKLY: scan issue accumulates results from multiple weeks, the repository owner must:
+            1. Manually compare scan reports from different dates
+            2. Identify which violations are new, recurring, or resolved
+            3. Determine whether the site's overall accessibility is improving or deteriorating
+            4. Decide which issues to prioritise based on trend data and impact
+
+            This analysis is currently manual and time-consuming. As more recurring scans are added (currently 11 open recurring issues), the volume of data quickly exceeds what can be reasonably reviewed by hand.
+
+            ## Proposed Solution
+
+            Create a GitHub Actions workflow that uses an AI agent (via GitHub Models API) to automatically analyse scan result history for recurring issues and post a structured trend analysis comment.
+
+            ### Workflow Trigger
+
+            The workflow would run after each completed scan for a recurring issue (WEEKLY:, MONTHLY:, etc.) and:
+
+            1. **Retrieve historical scan data**: Load the last 3–5 scan results stored in the \`reports/\` directory for the same issue
+            2. **Compute diff metrics**: Calculate which violation types appeared, disappeared, or changed in count between runs
+            3. **Call GitHub Models API**: Pass the diff data and violation context to an AI agent with this prompt pattern:
+
+            \`\`\`
+            You are an accessibility analyst reviewing scan results for [site name].
+            Here are the last 3 scans. Identify:
+            1. Which issues are getting worse (new violations or increasing counts)
+            2. Which issues are improving (resolved or decreasing counts)  
+            3. The top 3 issues to fix first based on user impact and fix effort
+            4. Any patterns across pages suggesting a systemic problem
+            \`\`\`
+
+            4. **Post analysis comment**: Add a structured comment to the GitHub issue with:
+               - Trend summary (improving / stable / deteriorating)
+               - Top issues to fix this week
+               - Issues that were resolved since the last scan
+               - Estimated effort level for the top recommendations
+
+            ### Example Agent Output Comment
+
+            \`\`\`
+            ## 📊 Accessibility Trend Analysis (WEEKLY: London — Week 12)
+
+            **Overall Trend: ⚠️ Mixed** (3 issues improved, 2 issues worsened)
+
+            ### 🔴 Worsening Issues (Fix First)
+            1. **Missing form labels** — Increased from 4 to 9 violations across 3 new pages
+               Likely cause: Recent deployment added new search forms without labels
+               Estimated fix: 1–2 hours
+
+            ### 🟢 Resolved Since Last Week
+            - Color contrast failures on /homepage (8 violations fixed ✓)
+            - Missing alt text on /about page (3 violations fixed ✓)
+
+            ### 🔵 Systemic Pattern Detected
+            All 7 navigation-related violations appear on pages using the shared nav component.
+            Fixing the component once would resolve violations across all pages.
+            \`\`\`
+
+            ## Implementation Approach
+
+            1. Create \`.github/workflows/scan-trend-analysis.yml\` triggered after \`scan-request.yml\` completes
+            2. Add \`scanner/analyse-trends.mjs\` module to diff historical scan JSON reports
+            3. Integrate with GitHub Models API for AI-generated natural language analysis
+            4. Add \`TREND_ANALYSIS\` keyword support (opt-in per issue) to control costs
+            5. Store trend data in a structured \`reports/{issue-number}/trends.json\` file
+
+            ## Agent Technique Reference
+
+            This feature applies the **"agent as analyst"** pattern from the GitHub accessibility agents guide: delegating synthesis and prioritisation tasks to an AI agent that can reason over structured data and produce actionable natural language recommendations. This frees human reviewers to focus on implementing fixes rather than interpreting raw scan data.
+
+            ## Acceptance Criteria
+
+            - [ ] New workflow \`scan-trend-analysis.yml\` created and triggered after completed recurring scans
+            - [ ] \`scanner/analyse-trends.mjs\` module computes diffs between scan result JSON files
+            - [ ] AI agent generates a structured trend analysis comment on the issue
+            - [ ] Analysis identifies improving, worsening, and newly-resolved violation types
+            - [ ] Systemic patterns (same violation across many pages) are surfaced as a priority finding
+            - [ ] Feature is opt-in via \`TREND_ANALYSIS\` keyword to avoid unexpected API costs
+            - [ ] Unit tests cover the diff computation logic in \`analyse-trends.mjs\`
+            - [ ] Workflow handles gracefully when fewer than 2 historical scans exist
+            `
+            });
+            console.error('Issue 3 created successfully');
