@@ -1,0 +1,84 @@
+{
+  "generatedAt": "2026-03-09T14:34:09.277Z",
+  "issueNumber": 100,
+  "scanTitle": "Kalamuna test",
+  "scannersInUse": [
+    "axe",
+    "alfa",
+    "equalAccess",
+    "accesslint",
+    "qualweb"
+  ],
+  "scannerStats": {
+    "axe": {
+      "label": "axe",
+      "failed": 6,
+      "uniqueFailed": 6,
+      "duplicates": 0
+    },
+    "alfa": {
+      "label": "ALFA",
+      "failed": 190,
+      "uniqueFailed": 190,
+      "duplicates": 0
+    },
+    "equalAccess": {
+      "label": "Equal Access",
+      "failed": 397,
+      "uniqueFailed": 196,
+      "duplicates": 201
+    },
+    "accesslint": {
+      "label": "AccessLint",
+      "failed": 10,
+      "uniqueFailed": 10,
+      "duplicates": 0
+    },
+    "qualweb": {
+      "label": "QualWeb",
+      "failed": 47,
+      "uniqueFailed": 47,
+      "duplicates": 0
+    }
+  },
+  "matrix": {
+    "axe": {
+      "axe": 6,
+      "alfa": 0,
+      "equalAccess": 0,
+      "accesslint": 0,
+      "qualweb": 0
+    },
+    "alfa": {
+      "axe": 0,
+      "alfa": 106,
+      "equalAccess": 0,
+      "accesslint": 0,
+      "qualweb": 0
+    },
+    "equalAccess": {
+      "axe": 0,
+      "alfa": 0,
+      "equalAccess": 196,
+      "accesslint": 0,
+      "qualweb": 0
+    },
+    "accesslint": {
+      "axe": 0,
+      "alfa": 0,
+      "equalAccess": 0,
+      "accesslint": 10,
+      "qualweb": 0
+    },
+    "qualweb": {
+      "axe": 0,
+      "alfa": 0,
+      "equalAccess": 0,
+      "accesslint": 0,
+      "qualweb": 8
+    }
+  },
+  "duplicateFindingTotals": 324,
+  "overlapEntryCount": 0,
+  "overlapEntries": []
+}
