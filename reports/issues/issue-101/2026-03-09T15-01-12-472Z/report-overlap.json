@@ -1,0 +1,84 @@
+{
+  "generatedAt": "2026-03-09T15:00:22.388Z",
+  "issueNumber": 101,
+  "scanTitle": "PKP Website request",
+  "scannersInUse": [
+    "axe",
+    "alfa",
+    "equalAccess",
+    "accesslint",
+    "qualweb"
+  ],
+  "scannerStats": {
+    "axe": {
+      "label": "axe",
+      "failed": 149,
+      "uniqueFailed": 149,
+      "duplicates": 0
+    },
+    "alfa": {
+      "label": "ALFA",
+      "failed": 2237,
+      "uniqueFailed": 2237,
+      "duplicates": 0
+    },
+    "equalAccess": {
+      "label": "Equal Access",
+      "failed": 1012,
+      "uniqueFailed": 659,
+      "duplicates": 353
+    },
+    "accesslint": {
+      "label": "AccessLint",
+      "failed": 262,
+      "uniqueFailed": 262,
+      "duplicates": 0
+    },
+    "qualweb": {
+      "label": "QualWeb",
+      "failed": 545,
+      "uniqueFailed": 545,
+      "duplicates": 0
+    }
+  },
+  "matrix": {
+    "axe": {
+      "axe": 149,
+      "alfa": 0,
+      "equalAccess": 0,
+      "accesslint": 0,
+      "qualweb": 0
+    },
+    "alfa": {
+      "axe": 0,
+      "alfa": 432,
+      "equalAccess": 0,
+      "accesslint": 0,
+      "qualweb": 0
+    },
+    "equalAccess": {
+      "axe": 0,
+      "alfa": 0,
+      "equalAccess": 659,
+      "accesslint": 0,
+      "qualweb": 0
+    },
+    "accesslint": {
+      "axe": 0,
+      "alfa": 0,
+      "equalAccess": 0,
+      "accesslint": 262,
+      "qualweb": 0
+    },
+    "qualweb": {
+      "axe": 0,
+      "alfa": 0,
+      "equalAccess": 0,
+      "accesslint": 0,
+      "qualweb": 155
+    }
+  },
+  "duplicateFindingTotals": 2548,
+  "overlapEntryCount": 0,
+  "overlapEntries": []
+}
