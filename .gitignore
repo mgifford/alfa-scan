@@ -2,3 +2,4 @@ node_modules/
 .scan-output/
 .tmp/
 actionlint
+nohup.out

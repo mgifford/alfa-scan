@@ -108,6 +108,9 @@ test("priority table count buttons have correct data attributes", () => {
   assert.ok(html.includes('data-page-url="https://example.com/page1"'), "Button should have submitted page URL as data attribute");
   assert.ok(html.includes('data-engine="axe"'), "Button should have axe engine data attribute");
   assert.ok(html.includes('data-engine="alfa"'), "Button should have alfa engine data attribute");
+  // Engine label stored directly to avoid fragile aria-label parsing
+  assert.ok(html.includes('data-engine-label="axe"'), "Button should have axe engine label data attribute");
+  assert.ok(html.includes('data-engine-label="ALFA"'), "Button should have ALFA engine label data attribute");
 });
 
 test("rule cards have data-engine and data-page-urls attributes", () => {
@@ -176,6 +179,8 @@ test("interactive HTML includes JavaScript for page filter", () => {
   assert.ok(html.includes("activePageUrl"), "JS should track active page URL filter");
   assert.ok(html.includes("activeEngine"), "JS should track active engine filter");
   assert.ok(html.includes("generateGitHubIssueMarkdown"), "JS should include GitHub issue markdown generator");
+  // Engine label should use data-engine-label attribute, not parse aria-label
+  assert.ok(html.includes("btn.dataset.engineLabel"), "JS should use data-engine-label attribute for engine label");
 });
 
 test("JavaScript filters by page URL and engine", () => {

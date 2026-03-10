@@ -71,6 +71,7 @@ export function generateInteractiveHtml(summary) {
                     <button class="count-btn" 
                             data-page-url="${escapeHtml(filterUrl)}"
                             data-engine="${eng}"
+                            data-engine-label="${escapeHtml(SCANNER_LABELS[eng])}"
                             aria-label="Filter: ${count} ${SCANNER_LABELS[eng]} errors on ${escapeHtml(pageTitle)}"
                             title="Click to filter rules for this page and scanner">
                       ${count}
@@ -588,7 +589,7 @@ export function generateInteractiveHtml(summary) {
       if (!btn) return;
       const pageUrl = btn.dataset.pageUrl;
       const engine = btn.dataset.engine;
-      const engineLabel = btn.getAttribute('aria-label').match(/^Filter: \\d+ (.+?) errors/)?.[1] || engine;
+      const engineLabel = btn.dataset.engineLabel || engine;
       const pageTitle = btn.closest('tr')?.querySelector('.page-title-text')?.textContent?.trim() || '';
       setPageFilter(pageUrl, engine, engineLabel, pageTitle, btn);
     });
@@ -605,8 +606,32 @@ export function generateInteractiveHtml(summary) {
           copyIssueBtn.classList.remove('copied');
         }, 2500);
       }).catch(() => {
-        // Fallback: show in a prompt
-        prompt('Copy this GitHub issue markdown:', md);
+        // Fallback: show markdown in a textarea overlay for manual copying
+        const overlay = document.createElement('div');
+        overlay.setAttribute('role', 'dialog');
+        overlay.setAttribute('aria-modal', 'true');
+        overlay.setAttribute('aria-label', 'Copy GitHub Issue Markdown');
+        overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:1000;display:flex;align-items:center;justify-content:center;';
+        const inner = document.createElement('div');
+        inner.style.cssText = 'background:white;border-radius:8px;padding:1.5rem;max-width:600px;width:90%;max-height:80vh;display:flex;flex-direction:column;gap:1rem;';
+        const label = document.createElement('p');
+        label.textContent = 'Clipboard access unavailable. Select all and copy manually:';
+        label.style.fontWeight = '600';
+        const ta = document.createElement('textarea');
+        ta.value = md;
+        ta.style.cssText = 'width:100%;height:300px;font-family:monospace;font-size:0.8rem;resize:vertical;border:1px solid #d0d7de;border-radius:4px;padding:0.5rem;';
+        ta.setAttribute('aria-label', 'GitHub issue markdown - select all and copy');
+        const closeBtn = document.createElement('button');
+        closeBtn.textContent = '✕ Close';
+        closeBtn.style.cssText = 'align-self:flex-end;padding:0.4rem 0.8rem;cursor:pointer;border:1px solid #d0d7de;border-radius:6px;background:white;';
+        closeBtn.setAttribute('aria-label', 'Close copy dialog');
+        closeBtn.addEventListener('click', () => overlay.remove());
+        overlay.addEventListener('click', (ev) => { if (ev.target === overlay) overlay.remove(); });
+        inner.append(label, ta, closeBtn);
+        overlay.appendChild(inner);
+        document.body.appendChild(overlay);
+        ta.focus();
+        ta.select();
       });
     });
 
