@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-03-10T23:54:57.414Z",
+  "issueNumber": 93,
+  "scanTitle": "Fel website",
+  "scannersInUse": [
+    "alfa"
+  ],
+  "scannerStats": {
+    "axe": {
+      "label": "axe",
+      "failed": 0,
+      "uniqueFailed": 0,
+      "duplicates": 0
+    },
+    "alfa": {
+      "label": "ALFA",
+      "failed": 55,
+      "uniqueFailed": 55,
+      "duplicates": 0
+    },
+    "equalAccess": {
+      "label": "Equal Access",
+      "failed": 0,
+      "uniqueFailed": 0,
+      "duplicates": 0
+    },
+    "accesslint": {
+      "label": "AccessLint",
+      "failed": 0,
+      "uniqueFailed": 0,
+      "duplicates": 0
+    },
+    "qualweb": {
+      "label": "QualWeb",
+      "failed": 0,
+      "uniqueFailed": 0,
+      "duplicates": 0
+    }
+  },
+  "matrix": {
+    "alfa": {
+      "alfa": 24
+    }
+  },
+  "duplicateFindingTotals": 31,
+  "overlapEntryCount": 0,
+  "overlapEntries": []
+}

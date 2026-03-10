@@ -1,0 +1,808 @@
+{
+  "issueNumber": 93,
+  "issueUrl": "https://github.com/mgifford/open-scans/issues/93",
+  "issueTitle": "SCAN: Fel website ALFA",
+  "scanTitle": "Fel website",
+  "submittedBy": "JayNiker",
+  "engines": [
+    "alfa"
+  ],
+  "scannedAt": "2026-03-10T23:54:57.410Z",
+  "totalElapsedMs": 7334,
+  "totalSubmitted": 1,
+  "acceptedCount": 1,
+  "scannedCount": 1,
+  "skippedDueToTimeout": 0,
+  "rejectedCount": 0,
+  "rejected": [],
+  "alfaTotals": {
+    "passed": 1157,
+    "failed": 55,
+    "cantTell": 25,
+    "inapplicable": 46
+  },
+  "axeTotals": {
+    "passed": 0,
+    "failed": 0,
+    "cantTell": 0,
+    "inapplicable": 0
+  },
+  "equalAccessTotals": {
+    "passed": 0,
+    "failed": 0,
+    "uniqueFailed": 0,
+    "duplicates": 0,
+    "cantTell": 0,
+    "inapplicable": 0
+  },
+  "accesslintTotals": {
+    "passed": 0,
+    "failed": 0,
+    "uniqueFailed": 0,
+    "duplicates": 0,
+    "cantTell": 0,
+    "inapplicable": 0
+  },
+  "qualwebTotals": {
+    "passed": 0,
+    "failed": 0,
+    "cantTell": 0,
+    "inapplicable": 0
+  },
+  "duplicateFindingTotals": 31,
+  "darkModeUrlCount": 0,
+  "results": [
+    {
+      "submittedUrl": "https://flightemissions.eu",
+      "finalUrl": "https://www.flightemissions.eu/en",
+      "redirected": true,
+      "statusCode": 200,
+      "ok": true,
+      "contentType": "text/html; charset=UTF-8",
+      "pageTitle": "EU Flight Emissions Label (FEL) | EU Flight Emissions Label (FEL)",
+      "elapsedMs": 7327,
+      "error": null,
+      "alfa": {
+        "executed": true,
+        "error": null,
+        "counts": {
+          "passed": 1157,
+          "failed": 55,
+          "cantTell": 25,
+          "inapplicable": 46
+        },
+        "failedRules": [
+          "https://alfa.siteimprove.com/rules/sia-r3",
+          "https://alfa.siteimprove.com/rules/sia-r53",
+          "https://alfa.siteimprove.com/rules/sia-r61",
+          "https://alfa.siteimprove.com/rules/sia-r66",
+          "https://alfa.siteimprove.com/rules/sia-r69",
+          "https://alfa.siteimprove.com/rules/sia-r78"
+        ],
+        "passedRules": [
+          "https://alfa.siteimprove.com/rules/sia-r1",
+          "https://alfa.siteimprove.com/rules/sia-r10",
+          "https://alfa.siteimprove.com/rules/sia-r11",
+          "https://alfa.siteimprove.com/rules/sia-r110",
+          "https://alfa.siteimprove.com/rules/sia-r111",
+          "https://alfa.siteimprove.com/rules/sia-r113",
+          "https://alfa.siteimprove.com/rules/sia-r12",
+          "https://alfa.siteimprove.com/rules/sia-r16",
+          "https://alfa.siteimprove.com/rules/sia-r17",
+          "https://alfa.siteimprove.com/rules/sia-r18",
+          "https://alfa.siteimprove.com/rules/sia-r19",
+          "https://alfa.siteimprove.com/rules/sia-r2",
+          "https://alfa.siteimprove.com/rules/sia-r20",
+          "https://alfa.siteimprove.com/rules/sia-r21",
+          "https://alfa.siteimprove.com/rules/sia-r3",
+          "https://alfa.siteimprove.com/rules/sia-r4",
+          "https://alfa.siteimprove.com/rules/sia-r41",
+          "https://alfa.siteimprove.com/rules/sia-r42",
+          "https://alfa.siteimprove.com/rules/sia-r43",
+          "https://alfa.siteimprove.com/rules/sia-r5",
+          "https://alfa.siteimprove.com/rules/sia-r53",
+          "https://alfa.siteimprove.com/rules/sia-r57",
+          "https://alfa.siteimprove.com/rules/sia-r59",
+          "https://alfa.siteimprove.com/rules/sia-r64",
+          "https://alfa.siteimprove.com/rules/sia-r65",
+          "https://alfa.siteimprove.com/rules/sia-r66",
+          "https://alfa.siteimprove.com/rules/sia-r67",
+          "https://alfa.siteimprove.com/rules/sia-r68",
+          "https://alfa.siteimprove.com/rules/sia-r69",
+          "https://alfa.siteimprove.com/rules/sia-r7",
+          "https://alfa.siteimprove.com/rules/sia-r70",
+          "https://alfa.siteimprove.com/rules/sia-r71",
+          "https://alfa.siteimprove.com/rules/sia-r72",
+          "https://alfa.siteimprove.com/rules/sia-r73",
+          "https://alfa.siteimprove.com/rules/sia-r75",
+          "https://alfa.siteimprove.com/rules/sia-r78",
+          "https://alfa.siteimprove.com/rules/sia-r8",
+          "https://alfa.siteimprove.com/rules/sia-r81",
+          "https://alfa.siteimprove.com/rules/sia-r83",
+          "https://alfa.siteimprove.com/rules/sia-r84",
+          "https://alfa.siteimprove.com/rules/sia-r85",
+          "https://alfa.siteimprove.com/rules/sia-r86",
+          "https://alfa.siteimprove.com/rules/sia-r87",
+          "https://alfa.siteimprove.com/rules/sia-r90"
+        ],
+        "failures": [
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/title[@id=\"website-logo-title\"]",
+            "html": "<title id=\"website-logo-title\">EASA (European Union Aviation Safety Agency)</title>",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/title[@id=\"website-logo-title\"]",
+            "html": "<title id=\"website-logo-title\">EASA (European Union Aviation Safety Agency)</title>",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/g[@id=\"EASA_Logo\"]",
+            "html": "<g id=\"EASA_Logo\" clip-path=\"url(#clip0_2148_7664)\">...</g>",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/g[@id=\"Group 3\"]",
+            "html": "<g id=\"Group 3\">...</g>",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/path[@id=\"blue square\"]",
+            "html": "<path id=\"blue square\" d=\"M3.58272 34.5166H3.58239C1.8966 34.5178 0.5 33.1012 0.5 31.3254V3.88981C0.5 2.1126 1.89672 0.695923 3.58272 0.695923H30.1926C31.8797 0.695923 33.2741 2.11236 33.2741 3.88849V31.3241C33.2741 33.1013 31.8786 34.5166 30.1926 34.5166H3.58272Z\" fill=\"#222F64\" stroke=\"white\" />",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/g[@id=\"EU stars\"]",
+            "html": "<g id=\"EU stars\">...</g>",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/path[@id=\"Vector\"]",
+            "html": "<path id=\"Vector\" d=\"M9.11998 28.748L8.09342 28.195L6.62782 28.7467L7.4355 27.8083L6.49982 27.2105L7.99742 27.1828L8.86526 26.2616L8.9971 27.1841L10.4729 27.2118L9.0611 27.8083L9.11998 28.748Z\" fill=\"white\" />",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/path[@id=\"Vector_2\"]",
+            "html": "<path id=\"Vector_2\" d=\"M14.8492 29.7457L13.7792 29.194L12.334 29.7457L13.0905 28.8074L12.11 28.2109L13.6204 28.1831L14.4396 27.2633L14.6291 28.1831L16.1216 28.2122L14.7328 28.8087L14.8492 29.7457Z\" fill=\"white\" />",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/path[@id=\"Vector_3\"]",
+            "html": "<path id=\"Vector_3\" d=\"M21.2121 28.7203L20.1229 28.1686L18.7213 28.719L19.4201 27.782L18.4166 27.1868L19.9117 27.159L20.6733 26.2405L20.9101 27.159L22.3885 27.1881L21.0457 27.7833L21.2121 28.7203Z\" fill=\"white\" />",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/path[@id=\"Vector_4\"]",
+            "html": "<path id=\"Vector_4\" d=\"M26.2848 25.9607L25.207 25.4091L23.8605 25.9594L24.5081 25.0237L23.5123 24.4272L24.9664 24.4008L25.6755 23.4823L25.9379 24.4008L27.3779 24.4312L26.0915 25.0251L26.2848 25.9607Z\" fill=\"white\" />",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/path[@id=\"Vector_5\"]",
+            "html": "<path id=\"Vector_5\" d=\"M28.6554 22.2523L27.6122 21.7007L26.3181 22.2497L26.9363 21.314L25.9725 20.7175L27.3728 20.6911L28.0499 19.7739L28.3098 20.6938L29.6973 20.7241L28.4621 21.3167L28.6554 22.2523Z\" fill=\"white\" />",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/path[@id=\"Vector_6\"]",
+            "html": "<path id=\"Vector_6\" d=\"M27.8809 18.5096L26.8915 17.9567L25.632 18.5043L26.2515 17.57L25.3401 16.9708L26.688 16.9471L27.3625 16.0299L27.5878 16.9497L28.9216 16.9814L27.7184 17.5739L27.8809 18.5096Z\" fill=\"white\" />",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/path[@id=\"EASA bird\"]",
+            "html": "<path id=\"EASA bird\" d=\"M1.79199 5.46819C1.79199 5.46819 8.30847 6.33524 14.967 7.46228C18.8928 8.12741 19.9053 9.63189 20.7501 11.9348C20.928 12.4205 21.7318 12.3663 22.5242 11.5798C23.5046 10.6045 24.3776 9.61341 25.143 9.10004C27.3446 7.62592 29.2595 8.07726 31.3638 7.94265C31.7683 7.91758 31.9833 7.88327 31.9833 7.9321C31.9833 7.9994 31.7862 8.06011 31.3638 8.23563C30.2835 8.68565 28.7795 9.42865 28.0115 10.3379C26.7085 11.8886 26.1542 15.9177 20.6656 19.7264C15.9552 22.994 13.1494 23.0033 9.85599 24.3309C5.27743 26.1772 2.80575 28.7797 2.80575 28.7797C2.80575 28.7797 4.32255 24.6793 6.85951 22.3381C9.53343 19.8716 11.6736 18.4845 12.0538 16.2278C12.6797 12.5089 1.79199 5.46819 1.79199 5.46819Z\" fill=\"#FBBC39\" />",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/g[@id=\"EASA\"]",
+            "html": "<g id=\"EASA\">...</g>",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/path[@id=\"Vector_7\"]",
+            "html": "<path id=\"Vector_7\" d=\"M37.3005 33.1505V2.06464H53.1968V6.47381H42.6573V14.8474H51.7286V19.2117H42.6573V28.7427H53.3274V33.1519H37.3018L37.3005 33.1505Z\" fill=\"white\" />",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/path[@id=\"Vector_8\"]",
+            "html": "<path id=\"Vector_8\" d=\"M75.2666 33.1506C74.7482 30.8345 74.144 28.162 73.4963 25.7126H63.2589C62.6112 28.2069 62.0058 30.7896 61.4451 33.1506H56.0461C58.7238 22.3724 61.7907 12.2621 65.3325 2.06332H71.8989C75.5712 12.4851 78.7238 22.9953 81.2301 33.1506H75.2678H75.2666ZM72.5018 21.3483C71.5085 17.7402 70.3846 13.9553 69.2621 10.2139C68.96 9.32308 68.6566 8.25411 68.3981 7.31843H68.3546C68.0525 8.25411 67.7504 9.32308 67.4906 10.2139C66.368 13.8655 65.2442 17.7402 64.2509 21.3483H72.5018Z\" fill=\"white\" />",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/path[@id=\"Vector_9\"]",
+            "html": "<path id=\"Vector_9\" d=\"M90.2976 33.7299C87.9219 33.7299 85.8918 33.3736 83.689 32.7058L84.3366 28.0736C86.1517 28.6978 88.1382 29.1426 90.2118 29.1426C93.5808 29.1426 95.136 27.4494 95.136 24.8667C95.136 22.284 93.495 21.0804 90.039 19.1655C85.8496 16.8494 83.776 14.5782 83.776 10.3023C83.776 4.69087 87.9232 1.48396 93.3222 1.48396C95.3946 1.48396 97.5552 1.84029 99.1962 2.46451L98.4179 6.87368C96.8627 6.25078 95.1347 5.93801 93.4515 5.93801C90.8595 5.93801 89.4771 7.49659 89.4771 9.58966C89.4771 12.1723 91.2051 13.3759 94.1427 15.0678C98.3334 17.4288 100.882 19.5667 100.882 24.0194C100.882 30.4781 96.4762 33.7286 90.2989 33.7286L90.2976 33.7299Z\" fill=\"white\" />",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/path[@id=\"Vector_10\"]",
+            "html": "<path id=\"Vector_10\" d=\"M122.039 33.1506C121.521 30.8345 120.916 28.162 120.269 25.7126H110.031C109.384 28.2069 108.778 30.7896 108.218 33.1506H102.817C105.495 22.3724 108.562 12.2621 112.105 2.06332H118.67C122.342 12.4851 125.495 22.9953 128 33.1506H122.039ZM119.274 21.3483C118.281 17.7402 117.157 13.9553 116.035 10.2139C115.731 9.32308 115.429 8.25411 115.171 7.31843H115.127C114.825 8.25411 114.523 9.32308 114.263 10.2139C113.14 13.8655 112.017 17.7402 111.023 21.3483H119.274Z\" fill=\"white\" />",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/clipPath[@id=\"clip0_2148_7664\"]",
+            "html": "<clipPath id=\"clip0_2148_7664\">...</clipPath>",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/h3[@id=\"field-media-image_label\"]",
+            "html": "<h3 class=\"h h3 visually-hidden\" id=\"field-media-image_label\"> Image</h3>",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/h3[@id=\"field-media-image_label\"]",
+            "html": "<h3 class=\"h h3 visually-hidden\" id=\"field-media-image_label\"> Image</h3>",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/h3[@id=\"field-media-image_label\"]",
+            "html": "<h3 class=\"h h3 visually-hidden\" id=\"field-media-image_label\"> Image</h3>",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/title[@id=\"website-logo-title\"]",
+            "html": "<title id=\"website-logo-title\">EASA (European Union Aviation Safety Agency)</title>",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/g[@id=\"EASA_Logo\"]",
+            "html": "<g id=\"EASA_Logo\" clip-path=\"url(#clip0_2148_7664)\">...</g>",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/g[@id=\"Group 3\"]",
+            "html": "<g id=\"Group 3\">...</g>",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/path[@id=\"blue square\"]",
+            "html": "<path id=\"blue square\" d=\"M3.58272 34.5166H3.58239C1.8966 34.5178 0.5 33.1012 0.5 31.3254V3.88981C0.5 2.1126 1.89672 0.695923 3.58272 0.695923H30.1926C31.8797 0.695923 33.2741 2.11236 33.2741 3.88849V31.3241C33.2741 33.1013 31.8786 34.5166 30.1926 34.5166H3.58272Z\" fill=\"#222F64\" stroke=\"white\" />",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/g[@id=\"EU stars\"]",
+            "html": "<g id=\"EU stars\">...</g>",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/path[@id=\"Vector\"]",
+            "html": "<path id=\"Vector\" d=\"M9.11998 28.748L8.09342 28.195L6.62782 28.7467L7.4355 27.8083L6.49982 27.2105L7.99742 27.1828L8.86526 26.2616L8.9971 27.1841L10.4729 27.2118L9.0611 27.8083L9.11998 28.748Z\" fill=\"white\" />",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/path[@id=\"Vector_2\"]",
+            "html": "<path id=\"Vector_2\" d=\"M14.8492 29.7457L13.7792 29.194L12.334 29.7457L13.0905 28.8074L12.11 28.2109L13.6204 28.1831L14.4396 27.2633L14.6291 28.1831L16.1216 28.2122L14.7328 28.8087L14.8492 29.7457Z\" fill=\"white\" />",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/path[@id=\"Vector_3\"]",
+            "html": "<path id=\"Vector_3\" d=\"M21.2121 28.7203L20.1229 28.1686L18.7213 28.719L19.4201 27.782L18.4166 27.1868L19.9117 27.159L20.6733 26.2405L20.9101 27.159L22.3885 27.1881L21.0457 27.7833L21.2121 28.7203Z\" fill=\"white\" />",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/path[@id=\"Vector_4\"]",
+            "html": "<path id=\"Vector_4\" d=\"M26.2848 25.9607L25.207 25.4091L23.8605 25.9594L24.5081 25.0237L23.5123 24.4272L24.9664 24.4008L25.6755 23.4823L25.9379 24.4008L27.3779 24.4312L26.0915 25.0251L26.2848 25.9607Z\" fill=\"white\" />",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/path[@id=\"Vector_5\"]",
+            "html": "<path id=\"Vector_5\" d=\"M28.6554 22.2523L27.6122 21.7007L26.3181 22.2497L26.9363 21.314L25.9725 20.7175L27.3728 20.6911L28.0499 19.7739L28.3098 20.6938L29.6973 20.7241L28.4621 21.3167L28.6554 22.2523Z\" fill=\"white\" />",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/path[@id=\"Vector_6\"]",
+            "html": "<path id=\"Vector_6\" d=\"M27.8809 18.5096L26.8915 17.9567L25.632 18.5043L26.2515 17.57L25.3401 16.9708L26.688 16.9471L27.3625 16.0299L27.5878 16.9497L28.9216 16.9814L27.7184 17.5739L27.8809 18.5096Z\" fill=\"white\" />",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/path[@id=\"EASA bird\"]",
+            "html": "<path id=\"EASA bird\" d=\"M1.79199 5.46819C1.79199 5.46819 8.30847 6.33524 14.967 7.46228C18.8928 8.12741 19.9053 9.63189 20.7501 11.9348C20.928 12.4205 21.7318 12.3663 22.5242 11.5798C23.5046 10.6045 24.3776 9.61341 25.143 9.10004C27.3446 7.62592 29.2595 8.07726 31.3638 7.94265C31.7683 7.91758 31.9833 7.88327 31.9833 7.9321C31.9833 7.9994 31.7862 8.06011 31.3638 8.23563C30.2835 8.68565 28.7795 9.42865 28.0115 10.3379C26.7085 11.8886 26.1542 15.9177 20.6656 19.7264C15.9552 22.994 13.1494 23.0033 9.85599 24.3309C5.27743 26.1772 2.80575 28.7797 2.80575 28.7797C2.80575 28.7797 4.32255 24.6793 6.85951 22.3381C9.53343 19.8716 11.6736 18.4845 12.0538 16.2278C12.6797 12.5089 1.79199 5.46819 1.79199 5.46819Z\" fill=\"#FBBC39\" />",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/g[@id=\"EASA\"]",
+            "html": "<g id=\"EASA\">...</g>",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/path[@id=\"Vector_7\"]",
+            "html": "<path id=\"Vector_7\" d=\"M37.3005 33.1505V2.06464H53.1968V6.47381H42.6573V14.8474H51.7286V19.2117H42.6573V28.7427H53.3274V33.1519H37.3018L37.3005 33.1505Z\" fill=\"white\" />",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/path[@id=\"Vector_8\"]",
+            "html": "<path id=\"Vector_8\" d=\"M75.2666 33.1506C74.7482 30.8345 74.144 28.162 73.4963 25.7126H63.2589C62.6112 28.2069 62.0058 30.7896 61.4451 33.1506H56.0461C58.7238 22.3724 61.7907 12.2621 65.3325 2.06332H71.8989C75.5712 12.4851 78.7238 22.9953 81.2301 33.1506H75.2678H75.2666ZM72.5018 21.3483C71.5085 17.7402 70.3846 13.9553 69.2621 10.2139C68.96 9.32308 68.6566 8.25411 68.3981 7.31843H68.3546C68.0525 8.25411 67.7504 9.32308 67.4906 10.2139C66.368 13.8655 65.2442 17.7402 64.2509 21.3483H72.5018Z\" fill=\"white\" />",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/path[@id=\"Vector_9\"]",
+            "html": "<path id=\"Vector_9\" d=\"M90.2976 33.7299C87.9219 33.7299 85.8918 33.3736 83.689 32.7058L84.3366 28.0736C86.1517 28.6978 88.1382 29.1426 90.2118 29.1426C93.5808 29.1426 95.136 27.4494 95.136 24.8667C95.136 22.284 93.495 21.0804 90.039 19.1655C85.8496 16.8494 83.776 14.5782 83.776 10.3023C83.776 4.69087 87.9232 1.48396 93.3222 1.48396C95.3946 1.48396 97.5552 1.84029 99.1962 2.46451L98.4179 6.87368C96.8627 6.25078 95.1347 5.93801 93.4515 5.93801C90.8595 5.93801 89.4771 7.49659 89.4771 9.58966C89.4771 12.1723 91.2051 13.3759 94.1427 15.0678C98.3334 17.4288 100.882 19.5667 100.882 24.0194C100.882 30.4781 96.4762 33.7286 90.2989 33.7286L90.2976 33.7299Z\" fill=\"white\" />",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/path[@id=\"Vector_10\"]",
+            "html": "<path id=\"Vector_10\" d=\"M122.039 33.1506C121.521 30.8345 120.916 28.162 120.269 25.7126H110.031C109.384 28.2069 108.778 30.7896 108.218 33.1506H102.817C105.495 22.3724 108.562 12.2621 112.105 2.06332H118.67C122.342 12.4851 125.495 22.9953 128 33.1506H122.039ZM119.274 21.3483C118.281 17.7402 117.157 13.9553 116.035 10.2139C115.731 9.32308 115.429 8.25411 115.171 7.31843H115.127C114.825 8.25411 114.523 9.32308 114.263 10.2139C113.14 13.8655 112.017 17.7402 111.023 21.3483H119.274Z\" fill=\"white\" />",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+            "xpath": "/clipPath[@id=\"clip0_2148_7664\"]",
+            "html": "<clipPath id=\"clip0_2148_7664\">...</clipPath>",
+            "message": "The element does not have a unique ID",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r53",
+            "xpath": "/h5[@class=\"menu__link menu__link--footer menu__link--with-sub menu__link--empty\"]",
+            "html": "<h5 class=\"menu__link menu__link--footer menu__link--with-sub menu__link--empty\"> Sitemap</h5>",
+            "message": "The heading skips one or more levels",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r61",
+            "xpath": null,
+            "html": null,
+            "message": "The document does not start with a level 1 heading",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r66",
+            "xpath": null,
+            "html": null,
+            "message": "The highest possible contrast of the text is 1:1 which is\n        below the required contrast of 7:1",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r66",
+            "xpath": null,
+            "html": null,
+            "message": "The highest possible contrast of the text is 1:1 which is\n        below the required contrast of 7:1",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r66",
+            "xpath": null,
+            "html": null,
+            "message": "The highest possible contrast of the text is 1:1 which is\n        below the required contrast of 7:1",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r66",
+            "xpath": null,
+            "html": null,
+            "message": "The highest possible contrast of the text is 1:1 which is\n        below the required contrast of 7:1",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r66",
+            "xpath": null,
+            "html": null,
+            "message": "The highest possible contrast of the text is 1:1 which is\n        below the required contrast of 7:1",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r66",
+            "xpath": null,
+            "html": null,
+            "message": "The highest possible contrast of the text is 1:1 which is\n        below the required contrast of 7:1",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r69",
+            "xpath": null,
+            "html": null,
+            "message": "The highest possible contrast of the text is 1:1 which is\n        below the required contrast of 4.5:1",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r69",
+            "xpath": null,
+            "html": null,
+            "message": "The highest possible contrast of the text is 1:1 which is\n        below the required contrast of 4.5:1",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r69",
+            "xpath": null,
+            "html": null,
+            "message": "The highest possible contrast of the text is 1:1 which is\n        below the required contrast of 4.5:1",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r69",
+            "xpath": null,
+            "html": null,
+            "message": "The highest possible contrast of the text is 1:1 which is\n        below the required contrast of 4.5:1",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r69",
+            "xpath": null,
+            "html": null,
+            "message": "The highest possible contrast of the text is 1:1 which is\n        below the required contrast of 4.5:1",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r69",
+            "xpath": null,
+            "html": null,
+            "message": "The highest possible contrast of the text is 1:1 which is\n        below the required contrast of 4.5:1",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r78",
+            "xpath": "/h3[@class=\"heading\"]",
+            "html": "<h3 class=\"heading\">European Commission endorses Air France-KLM’s coop...</h3>",
+            "message": "There is no content between this heading and the next",
+            "isDuplicate": false,
+            "duplicateOf": null
+          }
+        ],
+        "outcomeCount": 1283,
+        "duplicateFailedCount": 31,
+        "uniqueFailedCount": 24
+      },
+      "axe": {
+        "executed": false,
+        "error": "Skipped (not requested)",
+        "counts": {
+          "passed": 0,
+          "failed": 0,
+          "cantTell": 0,
+          "inapplicable": 0
+        },
+        "failedRules": [],
+        "passedRules": [],
+        "failures": [],
+        "outcomeCount": 0,
+        "uniqueFailedCount": 0,
+        "duplicateFailedCount": 0
+      },
+      "equalAccess": {
+        "executed": false,
+        "error": "Skipped (not requested)",
+        "counts": {
+          "passed": 0,
+          "failed": 0,
+          "cantTell": 0,
+          "inapplicable": 0
+        },
+        "failedRules": [],
+        "passedRules": [],
+        "failures": [],
+        "outcomeCount": 0,
+        "uniqueFailedCount": 0,
+        "duplicateFailedCount": 0
+      },
+      "accesslint": {
+        "executed": false,
+        "error": "Skipped (not requested)",
+        "counts": {
+          "passed": 0,
+          "failed": 0,
+          "cantTell": 0,
+          "inapplicable": 0
+        },
+        "failedRules": [],
+        "passedRules": [],
+        "failures": [],
+        "outcomeCount": 0,
+        "uniqueFailedCount": 0,
+        "duplicateFailedCount": 0
+      },
+      "qualweb": {
+        "executed": false,
+        "error": "Skipped (not requested)",
+        "counts": {
+          "passed": 0,
+          "failed": 0,
+          "cantTell": 0,
+          "inapplicable": 0
+        },
+        "failedRules": [],
+        "passedRules": [],
+        "failures": [],
+        "outcomeCount": 0,
+        "uniqueFailedCount": 0,
+        "duplicateFailedCount": 0
+      },
+      "duplicateFindingCount": 31
+    }
+  ],
+  "enhanced": {
+    "consolidatedFailures": [
+      {
+        "rule": "https://alfa.siteimprove.com/rules/sia-r3",
+        "engine": "alfa",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 19,
+        "examples": [
+          {
+            "url": "https://flightemissions.eu",
+            "html": "<title id=\"website-logo-title\">EASA (European Union Aviation Safety Agency)</title>",
+            "xpath": "/title[@id=\"website-logo-title\"]",
+            "message": "The element does not have a unique ID"
+          },
+          {
+            "url": "https://flightemissions.eu",
+            "html": "<g id=\"EASA_Logo\" clip-path=\"url(#clip0_2148_7664)\">...</g>",
+            "xpath": "/g[@id=\"EASA_Logo\"]",
+            "message": "The element does not have a unique ID"
+          },
+          {
+            "url": "https://flightemissions.eu",
+            "html": "<g id=\"Group 3\">...</g>",
+            "xpath": "/g[@id=\"Group 3\"]",
+            "message": "The element does not have a unique ID"
+          },
+          {
+            "url": "https://flightemissions.eu",
+            "html": "<path id=\"blue square\" d=\"M3.58272 34.5166H3.58239C1.8966 34.5178 0.5 33.1012 0.5 31.3254V3.88981C0.5 2.1126 1.89672 0.695923 3.58272 0.695923H30.1926C31.8797 0.695923 33.2741 2.11236 33.2741 3.88849V31.3241C33.2741 33.1013 31.8786 34.5166 30.1926 34.5166H3.58272Z\" fill=\"#222F64\" stroke=\"white\" />",
+            "xpath": "/path[@id=\"blue square\"]",
+            "message": "The element does not have a unique ID"
+          },
+          {
+            "url": "https://flightemissions.eu",
+            "html": "<g id=\"EU stars\">...</g>",
+            "xpath": "/g[@id=\"EU stars\"]",
+            "message": "The element does not have a unique ID"
+          }
+        ]
+      },
+      {
+        "rule": "https://alfa.siteimprove.com/rules/sia-r53",
+        "engine": "alfa",
+        "metadata": {
+          "roles": [
+            "Content Author",
+            "UX Designer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://flightemissions.eu",
+            "html": "<h5 class=\"menu__link menu__link--footer menu__link--with-sub menu__link--empty\"> Sitemap</h5>",
+            "xpath": "/h5[@class=\"menu__link menu__link--footer menu__link--with-sub menu__link--empty\"]",
+            "message": "The heading skips one or more levels"
+          }
+        ]
+      },
+      {
+        "rule": "https://alfa.siteimprove.com/rules/sia-r61",
+        "engine": "alfa",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://flightemissions.eu",
+            "html": null,
+            "xpath": null,
+            "message": "The document does not start with a level 1 heading"
+          }
+        ]
+      },
+      {
+        "rule": "https://alfa.siteimprove.com/rules/sia-r66",
+        "engine": "alfa",
+        "metadata": {
+          "roles": [
+            "Visual Designer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://flightemissions.eu",
+            "html": null,
+            "xpath": null,
+            "message": "The highest possible contrast of the text is 1:1 which is\n        below the required contrast of 7:1"
+          }
+        ]
+      },
+      {
+        "rule": "https://alfa.siteimprove.com/rules/sia-r69",
+        "engine": "alfa",
+        "metadata": {
+          "roles": [
+            "Visual Designer"
+          ],
+          "severity": "Serious",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://flightemissions.eu",
+            "html": null,
+            "xpath": null,
+            "message": "The highest possible contrast of the text is 1:1 which is\n        below the required contrast of 4.5:1"
+          }
+        ]
+      },
+      {
+        "rule": "https://alfa.siteimprove.com/rules/sia-r78",
+        "engine": "alfa",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://flightemissions.eu",
+            "html": "<h3 class=\"heading\">European Commission endorses Air France-KLM’s coop...</h3>",
+            "xpath": "/h3[@class=\"heading\"]",
+            "message": "There is no content between this heading and the next"
+          }
+        ]
+      }
+    ],
+    "roleStats": {
+      "UX Designer": 1,
+      "Visual Designer": 2,
+      "Content Author": 1,
+      "Front-End Developer": 21
+    },
+    "severityStats": {
+      "Critical": 0,
+      "Serious": 1,
+      "Moderate": 23,
+      "Minor": 0
+    }
+  }
+}
