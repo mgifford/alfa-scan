@@ -1,0 +1,81 @@
+name: Delete Merged Branches
+
+# Run manually to delete branches that have already been merged into main.
+# All listed branches were verified to have 0 unique commits relative to main.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  delete-branches:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Delete merged branches
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          BRANCHES=(
+            "copilot/add-accordion-elements"
+            "copilot/add-ai-agent-workflow"
+            "copilot/add-anchor-links-light-dark-mode"
+            "copilot/add-dark-mode-reporting"
+            "copilot/create-issues-for-new-techniques"
+            "copilot/enhance-json-data-viewing"
+            "copilot/fix-action-errors"
+            "copilot/fix-error-in-action-run"
+            "copilot/fix-nav-links-issue-69"
+            "copilot/fix-puppeteer-connection-error"
+            "copilot/fix-scan-issue-handling"
+            "copilot/improve-script-robustness"
+            "copilot/investigate-qualweb-issue"
+            "copilot/optimize-social-media-visibility"
+            "copilot/refactor-html-page-presentation"
+            "copilot/resolve-pull-106-conflicts"
+            "copilot/setup-redirect-to-reports-html"
+            "copilot/skip-non-web-documents"
+            "copilot/update-create-agent-issues-file"
+          )
+
+          DELETED=0
+          SKIPPED=0
+          FAILED=0
+
+          for branch in "${BRANCHES[@]}"; do
+            # Verify the branch exists remotely
+            if ! git ls-remote --exit-code --heads origin "$branch" > /dev/null 2>&1; then
+              echo "SKIP: $branch (does not exist remotely)"
+              SKIPPED=$((SKIPPED + 1))
+              continue
+            fi
+
+            # Verify all commits on the branch are reachable from main (i.e. fully merged)
+            UNIQUE=$(git log "origin/$branch" --not origin/main --oneline 2>/dev/null | wc -l)
+            if [ "$UNIQUE" -ne 0 ]; then
+              echo "SKIP: $branch ($UNIQUE unique commit(s) not in main — not deleting)"
+              SKIPPED=$((SKIPPED + 1))
+              continue
+            fi
+
+            # Delete the remote branch
+            if git push origin --delete "$branch" 2>&1; then
+              echo "DELETED: $branch"
+              DELETED=$((DELETED + 1))
+            else
+              echo "FAILED: $branch"
+              FAILED=$((FAILED + 1))
+            fi
+          done
+
+          echo ""
+          echo "Summary: $DELETED deleted, $SKIPPED skipped, $FAILED failed"
+          if [ "$FAILED" -gt 0 ]; then
+            exit 1
+          fi

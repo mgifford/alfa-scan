@@ -272,7 +272,7 @@ export function generateReportsHtml(reports) {
 <body>
   <div class="container">
     <nav class="nav">
-      <a href="reports.html">Submit URLs</a>
+      <a href="index.html">Submit URLs</a>
       <a href="reports.html">View Reports</a>
     </nav>
     
