@@ -2101,6 +2101,48 @@ export function markdownToHtml(markdown, summary) {
   // Wrap consecutive list items in ul
   html = html.replace(/(<li>.*<\/li>\n?)+/g, '<ul>$&</ul>');
 
+  // Post-process the Detailed Results table: merge continuation rows (rows with
+  // all empty cells except the last) into collapsible <details> elements within
+  // the preceding URL row's last cell. Done after list conversion to avoid
+  // double-wrapping the <li> elements added in the details block.
+  //
+  // Continuation rows have at least this many leading empty <td></td> cells.
+  // The Detailed Results table has 11 data columns; continuation rows omit all
+  // of them and only populate the last (Notes) column, so ≥5 empty leading cells
+  // is a reliable signal that the row carries scanner failure details.
+  const MIN_EMPTY_CELLS_FOR_CONTINUATION = 5;
+  html = html.replace(
+    /(<h2>📊 Detailed Results<\/h2>[\s\S]*?<tbody>\n?)([\s\S]*?)(\n?<\/tbody>)/,
+    (match, before, tbody, after) => {
+      const rows = tbody.trim().split('\n').filter(r => r.trim().length > 0);
+      const groups = [];
+      for (const row of rows) {
+        // Continuation rows start with multiple consecutive empty <td></td> cells
+        const continuationPattern = new RegExp(`^<tr>(<td><\/td>){${MIN_EMPTY_CELLS_FOR_CONTINUATION},}`);
+        if (continuationPattern.test(row) && groups.length > 0) {
+          // Extract content from the last <td> cell using lastIndexOf for reliability
+          const lastTdStart = row.lastIndexOf('<td>');
+          const lastTdEnd = row.lastIndexOf('</td>');
+          if (lastTdStart !== -1 && lastTdEnd > lastTdStart) {
+            const content = row.substring(lastTdStart + 4, lastTdEnd);
+            groups[groups.length - 1].continuations.push(content);
+          }
+        } else {
+          groups.push({ row, continuations: [] });
+        }
+      }
+      const outputRows = groups.map(({ row, continuations }) => {
+        if (continuations.length === 0) return row;
+        const items = continuations.map(c => `<li>${c}</li>`).join('');
+        const scannerCount = continuations.length;
+        const label = `View failed rules (${scannerCount} scanner${scannerCount !== 1 ? 's' : ''})`;
+        const detailsHtml = `<details><summary>${label}</summary><ul>${items}</ul></details>`;
+        return row.replace(/<\/td><\/tr>$/, `${detailsHtml}</td></tr>`);
+      });
+      return before + outputRows.join('\n') + after;
+    }
+  );
+
   // Paragraphs - wrap non-HTML lines in <p> tags
   const lines = html.split('\n');
   const processedLines = [];
@@ -2252,6 +2294,33 @@ export function markdownToHtml(markdown, summary) {
     
     tr:nth-child(even) {
       background-color: #f6f8fa;
+    }
+    
+    details {
+      margin-top: 0.5rem;
+    }
+    
+    summary {
+      cursor: pointer;
+      color: #0969da;
+      font-size: 0.875rem;
+      padding: 0.25rem 0;
+    }
+    
+    summary:hover {
+      text-decoration: underline;
+    }
+    
+    details ul {
+      margin: 0.5rem 0 0 1rem;
+      padding: 0;
+      list-style: disc;
+    }
+    
+    details li {
+      margin-bottom: 0.25rem;
+      font-size: 0.875rem;
+      color: #57606a;
     }
     
     ul {

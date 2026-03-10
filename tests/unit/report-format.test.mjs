@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { escapeMarkdown, extractRuleId, toMarkdownReport } from "../../scanner/run-scan.mjs";
+import { escapeMarkdown, extractRuleId, toMarkdownReport, markdownToHtml } from "../../scanner/run-scan.mjs";
 
 test("Enhanced report format includes priority sections", () => {
   // Test data matching the structure from run-scan.mjs
@@ -602,4 +602,138 @@ test("Report shows message when no URLs support dark mode", () => {
     "Report should show that no URLs support dark mode");
   assert.ok(report.includes("prefers-color-scheme: dark"), 
     "Report should mention prefers-color-scheme: dark");
+});
+
+test("markdownToHtml collapses continuation rows in Detailed Results table", () => {
+  const summary = {
+    issueNumber: 42,
+    issueUrl: "https://github.com/example/repo/issues/42",
+    scanTitle: "Test Scan",
+    scannedAt: "2026-01-01T00:00:00.000Z",
+    totalSubmitted: 1,
+    acceptedCount: 1,
+    rejectedCount: 0,
+    rejected: [],
+    alfaTotals: { passed: 10, failed: 2, cantTell: 0, inapplicable: 0 },
+    axeTotals: { passed: 8, failed: 1, cantTell: 0, inapplicable: 0 },
+    results: [
+      {
+        submittedUrl: "https://example.com/",
+        finalUrl: "https://example.com/",
+        redirected: false,
+        statusCode: 200,
+        ok: true,
+        pageTitle: "Example Page",
+        elapsedMs: 1000,
+        error: null,
+        duplicateFindingCount: 0,
+        alfa: {
+          executed: true,
+          error: null,
+          counts: { passed: 10, failed: 2, cantTell: 0, inapplicable: 0 },
+          failedRules: [
+            "https://alfa.siteimprove.com/rules/sia-r111",
+            "https://alfa.siteimprove.com/rules/sia-r73"
+          ],
+          passedRules: [],
+          failures: [],
+          uniqueFailedCount: 2
+        },
+        axe: {
+          executed: true,
+          error: null,
+          counts: { passed: 8, failed: 1, cantTell: 0, inapplicable: 0 },
+          failedRules: ["color-contrast"],
+          passedRules: [],
+          failures: [],
+          uniqueFailedCount: 1
+        },
+        equalAccess: {
+          executed: false,
+          error: null,
+          counts: { passed: 0, failed: 0, cantTell: 0, inapplicable: 0 },
+          failedRules: [],
+          uniqueFailedCount: 0
+        },
+        accesslint: {
+          executed: false,
+          error: null,
+          counts: { passed: 0, failed: 0, cantTell: 0, inapplicable: 0 },
+          failedRules: [],
+          uniqueFailedCount: 0
+        }
+      }
+    ]
+  };
+
+  const markdown = toMarkdownReport(summary);
+  const html = markdownToHtml(markdown, summary);
+
+  // The Detailed Results table should not have bare continuation rows
+  // (rows with all empty cells except the last)
+  assert.ok(!html.includes("<tr><td></td><td></td><td></td><td></td><td></td>"),
+    "HTML report should not contain bare continuation rows with empty cells");
+
+  // Should use <details> for failed rules
+  assert.ok(html.includes("<details>"), "HTML report should use <details> for failed rules");
+  assert.ok(html.includes("<summary>"), "HTML report should use <summary> element");
+  assert.ok(html.includes("View failed rules"), "Summary should say 'View failed rules'");
+
+  // The failed rules content should be inside <details>
+  assert.ok(html.includes("ALFA failed rules:"), "ALFA failed rules should still be present");
+  assert.ok(html.includes("axe failed rules:"), "axe failed rules should still be present");
+});
+
+test("markdownToHtml Detailed Results table shows scanner count in summary", () => {
+  const summary = {
+    issueNumber: 43,
+    issueUrl: "https://github.com/example/repo/issues/43",
+    scanTitle: "Test Scan 2",
+    scannedAt: "2026-01-01T00:00:00.000Z",
+    totalSubmitted: 1,
+    acceptedCount: 1,
+    rejectedCount: 0,
+    rejected: [],
+    alfaTotals: { passed: 5, failed: 1, cantTell: 0, inapplicable: 0 },
+    axeTotals: { passed: 5, failed: 1, cantTell: 0, inapplicable: 0 },
+    results: [
+      {
+        submittedUrl: "https://example.com/",
+        finalUrl: "https://example.com/",
+        redirected: false,
+        statusCode: 200,
+        ok: true,
+        pageTitle: "Example",
+        elapsedMs: 500,
+        error: null,
+        duplicateFindingCount: 0,
+        alfa: {
+          executed: true,
+          error: null,
+          counts: { passed: 5, failed: 1, cantTell: 0, inapplicable: 0 },
+          failedRules: ["https://alfa.siteimprove.com/rules/sia-r111"],
+          passedRules: [],
+          failures: [],
+          uniqueFailedCount: 1
+        },
+        axe: {
+          executed: true,
+          error: null,
+          counts: { passed: 5, failed: 1, cantTell: 0, inapplicable: 0 },
+          failedRules: ["color-contrast"],
+          passedRules: [],
+          failures: [],
+          uniqueFailedCount: 1
+        },
+        equalAccess: null,
+        accesslint: null
+      }
+    ]
+  };
+
+  const markdown = toMarkdownReport(summary);
+  const html = markdownToHtml(markdown, summary);
+
+  // With 2 scanners reporting failures, summary should say "2 scanners"
+  assert.ok(html.includes("2 scanners"), "Summary should show scanner count");
 });
