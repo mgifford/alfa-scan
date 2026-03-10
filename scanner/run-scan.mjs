@@ -2269,7 +2269,7 @@ export function markdownToHtml(markdown, summary) {
 <body>
   <div class="container">
     <nav class="nav">
-      <a href="../../../../../../index.html">Submit URLs</a>
+      <a href="../../../../../../reports.html">Submit URLs</a>
       <a href="../../../../../../reports.html">View Reports</a>
       <a href="${summary.issueUrl}" target="_blank" rel="noopener">View Issue #${summary.issueNumber}</a>
     </nav>
