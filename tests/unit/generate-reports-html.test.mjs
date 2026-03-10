@@ -56,7 +56,7 @@ describe('generate-reports-html', () => {
           path: 'reports/issues/issue-1/2026-02-21T16-37-55-764Z',
           data: {
             issueNumber: 1,
-            issueUrl: 'https://github.com/mgifford/alfa-scan/issues/1',
+            issueUrl: 'https://github.com/mgifford/open-scans/issues/1',
             scanTitle: 'GSA.gov',
             scannedAt: '2026-02-21T16:37:55.764Z',
             acceptedCount: 13,
@@ -86,7 +86,7 @@ describe('generate-reports-html', () => {
           path: 'reports/issues/issue-1/2026-02-21T12-48-19-132Z',
           data: {
             issueNumber: 1,
-            issueUrl: 'https://github.com/mgifford/alfa-scan/issues/1',
+            issueUrl: 'https://github.com/mgifford/open-scans/issues/1',
             scanTitle: 'GSA.gov',
             scannedAt: '2026-02-21T12:48:19.132Z',
             acceptedCount: 13,
@@ -109,7 +109,7 @@ describe('generate-reports-html', () => {
           path: 'reports/issues/issue-18/2026-02-21T20-55-47-400Z',
           data: {
             issueNumber: 18,
-            issueUrl: 'https://github.com/mgifford/alfa-scan/issues/18',
+            issueUrl: 'https://github.com/mgifford/open-scans/issues/18',
             scanTitle: 'Government of Canada',
             scannedAt: '2026-02-21T20:55:47.400Z',
             acceptedCount: 46,
@@ -137,7 +137,7 @@ describe('generate-reports-html', () => {
           path: 'reports/issues/issue-1/2026-02-21T16-37-55-764Z',
           data: {
             issueNumber: 1,
-            issueUrl: 'https://github.com/mgifford/alfa-scan/issues/1',
+            issueUrl: 'https://github.com/mgifford/open-scans/issues/1',
             scanTitle: 'GSA.gov',
             scannedAt: '2026-02-21T16:37:55.764Z',
             acceptedCount: 13,
@@ -151,7 +151,7 @@ describe('generate-reports-html', () => {
       
       assert.ok(html.includes('<!DOCTYPE html>'), 'Should include DOCTYPE');
       assert.ok(html.includes('<html lang="en">'), 'Should include html tag');
-      assert.ok(html.includes('Alfa Scan Reports'), 'Should include title');
+      assert.ok(html.includes('Scan Reports'), 'Should include title');
       assert.ok(html.includes('GSA.gov'), 'Should include report data');
       assert.ok(html.includes('Join our GitHub Community'), 'Should include footer');
     });
