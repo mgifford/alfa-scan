@@ -19,11 +19,88 @@ export function generateInteractiveHtml(summary) {
   // Calculate total issues once
   const totalIssues = consolidatedFailures.reduce((acc, f) => acc + f.totalOccurrences, 0);
 
+  // Build priority table data (top 10 pages by total unique errors)
+  const SCANNERS = ['axe', 'alfa', 'equalAccess', 'accesslint', 'qualweb'];
+  const SCANNER_LABELS = { axe: 'axe', alfa: 'ALFA', equalAccess: 'Equal Access', accesslint: 'AccessLint', qualweb: 'QualWeb' };
+
+  function getUnique(result, engine) {
+    if (engine === 'axe') return result.axe?.uniqueFailedCount ?? result.axe?.counts?.failed ?? 0;
+    if (engine === 'alfa') return result.alfa?.uniqueFailedCount ?? result.alfa?.counts?.failed ?? 0;
+    if (engine === 'equalAccess') return result.equalAccess?.uniqueFailedCount ?? result.equalAccess?.counts?.failed ?? 0;
+    if (engine === 'accesslint') return result.accesslint?.uniqueFailedCount ?? result.accesslint?.counts?.failed ?? 0;
+    if (engine === 'qualweb') return result.qualweb?.counts?.failed ?? 0;
+    return 0;
+  }
+
+  const pagesByErrorCount = [...(results || [])]
+    .map(r => {
+      const counts = {};
+      let total = 0;
+      for (const eng of SCANNERS) {
+        counts[eng] = getUnique(r, eng);
+        total += counts[eng];
+      }
+      return { result: r, counts, total };
+    })
+    .filter(p => p.total > 0)
+    .sort((a, b) => b.total - a.total)
+    .slice(0, 10);
+
+  const priorityTableHtml = pagesByErrorCount.length > 0 ? `
+    <section class="priority-section" aria-labelledby="priority-heading">
+      <h2 id="priority-heading">🎯 Priority: Pages with Most Errors</h2>
+      <p>Focus your efforts on these pages to make the biggest impact. Click any error count to filter the rule list below.</p>
+      <div class="table-wrapper" role="region" aria-label="Pages with most errors" tabindex="0">
+        <table class="priority-table" aria-label="Pages sorted by total unique accessibility errors">
+          <thead>
+            <tr>
+              <th scope="col">Page</th>
+              ${SCANNERS.map(eng => `<th scope="col">${SCANNER_LABELS[eng]} Unique</th>`).join('')}
+              <th scope="col">Total Unique</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${pagesByErrorCount.map(({ result: r, counts, total }) => {
+    const displayUrl = r.finalUrl || r.submittedUrl;
+    const filterUrl = r.submittedUrl;  // Must match the URL stored in consolidatedFailures.pages
+    const pageTitle = r.pageTitle || displayUrl;
+    return `
+              <tr>
+                <td>
+                  <a href="${escapeHtml(displayUrl)}" target="_blank" rel="noopener" title="${escapeHtml(pageTitle)}" class="page-link">
+                    View Page
+                  </a>
+                  <span class="page-title-text">${escapeHtml(pageTitle)}</span>
+                </td>
+                ${SCANNERS.map(eng => {
+      const count = counts[eng];
+      if (count === 0) return `<td class="count-cell count-zero">0</td>`;
+      return `<td class="count-cell">
+                    <button class="count-btn" 
+                            data-page-url="${escapeHtml(filterUrl)}"
+                            data-engine="${eng}"
+                            data-engine-label="${escapeHtml(SCANNER_LABELS[eng])}"
+                            aria-label="Filter: ${count} ${SCANNER_LABELS[eng]} errors on ${escapeHtml(pageTitle)}"
+                            title="Click to filter rules for this page and scanner">
+                      ${count}
+                    </button>
+                  </td>`;
+    }).join('')}
+                <td class="count-total"><strong>${total}</strong></td>
+              </tr>`;
+  }).join('')}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  ` : '';
+
   const ruleCardsHtml = consolidatedFailures.map(f => {
     const ruleInfo = f.engine === 'alfa' ? formatAlfaRule(f.rule) : { id: f.rule, description: f.metadata.description };
     const displayId = ruleInfo.id;
     const displayDesc = ruleInfo.description || "";
     const rolesData = JSON.stringify(f.metadata.roles);
+    const pageUrlsData = JSON.stringify([...f.pages.keys()]);
     const ruleSlug = slugify(f.engine + "-" + displayId);
 
     return `
@@ -31,11 +108,14 @@ export function generateInteractiveHtml(summary) {
                id="rule-${ruleSlug}"
                data-roles='${rolesData}' 
                data-severity="${f.metadata.severity}"
-               data-search="${(displayId + " " + displayDesc).toLowerCase()}">
+               data-engine="${f.engine}"
+               data-page-urls='${pageUrlsData}'
+               data-search="${escapeHtml((displayId + " " + displayDesc).toLowerCase())}">
         <summary>
           <div class="rule-summary-info">
             <span class="badge badge-count">${f.totalOccurrences}</span>
             <span class="badge badge-severity severity-${f.metadata.severity}">${f.metadata.severity}</span>
+            <span class="badge badge-engine">${f.engine}</span>
             <span>
               <strong>${displayId}</strong>: ${displayDesc}
               <a href="#rule-${ruleSlug}" class="anchor-link anchor-link-inline" aria-label="Link to ${displayId} rule">
@@ -72,12 +152,12 @@ export function generateInteractiveHtml(summary) {
                   <span>Example ${i + 1}</span>
                   <a href="${ex.url}" target="_blank" style="font-size: 0.75rem;">View on Page</a>
                 </div>
-                ${ex.message ? `<div style="margin-bottom: 0.5rem; font-weight: 600;">${ex.message}</div>` : ''}
+                ${ex.message ? `<div style="margin-bottom: 0.5rem; font-weight: 600;">${escapeHtml(ex.message)}</div>` : ''}
                 <div class="example-mode">
                   <strong>Mode:</strong> <span class="badge ${ex.colorScheme === 'dark' ? 'badge-dark' : 'badge-light'}">${ex.colorScheme || 'light'}</span>
                 </div>
                 ${ex.html ? `<div class="example-code">${escapeHtml(ex.html)}</div>` : ''}
-                ${ex.xpath ? `<div class="example-xpath">XPath: ${ex.xpath}</div>` : ''}
+                ${ex.xpath ? `<div class="example-xpath">XPath: ${escapeHtml(ex.xpath)}</div>` : ''}
               </div>
             `).join('')}
           </div>
@@ -380,6 +460,7 @@ export function generateInteractiveHtml(summary) {
     .badge { padding: 0.2rem 0.6rem; border-radius: 12px; font-size: 0.75rem; font-weight: 600; }
     .badge-severity { background: var(--bar-bg); color: var(--text); }
     .badge-count { background: var(--primary); color: var(--badge-count-text); }
+    .badge-engine { background: #e8f4fd; color: #0969da; border: 1px solid #b6d9fb; }
     .badge-light { background: var(--container-bg); border: 1px solid var(--border); color: var(--text); }
     .badge-dark { background: var(--badge-dark-bg); color: var(--badge-dark-text); }
     
@@ -401,6 +482,62 @@ export function generateInteractiveHtml(summary) {
     .example-mode { font-size: 0.75rem; color: var(--muted); margin-bottom: 0.5rem; }
     .example-code { color: var(--code-color); }
     .example-xpath { color: var(--xpath-color); margin-top: 0.5rem; }
+
+    /* Priority table */
+    .priority-section { margin-bottom: 2rem; padding: 1.5rem; border: 1px solid var(--border); border-radius: 6px; background: var(--surface); }
+    .priority-section h2 { font-size: 1.25rem; margin-bottom: 0.5rem; }
+    .priority-section > p { color: var(--muted); font-size: 0.9rem; margin-bottom: 1rem; }
+    .table-wrapper { overflow-x: auto; }
+    .priority-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+    .priority-table th { background: var(--bar-bg); padding: 0.6rem 0.8rem; text-align: left; font-weight: 600; border-bottom: 2px solid var(--border); white-space: nowrap; }
+    .priority-table td { padding: 0.5rem 0.8rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
+    .priority-table tr:last-child td { border-bottom: none; }
+    .priority-table tr:hover td { background: var(--hover-bg); }
+    .count-cell { text-align: right; }
+    .count-zero { color: var(--muted); }
+    .count-total { text-align: right; }
+    .count-btn {
+      background: none;
+      border: 1px solid transparent;
+      border-radius: 4px;
+      padding: 0.2rem 0.6rem;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--primary);
+      min-width: 2.5rem;
+      text-align: right;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .count-btn:hover { background: var(--hover-bg); border-color: var(--primary); }
+    .count-btn:focus { outline: 2px solid var(--primary); outline-offset: 2px; }
+    .count-btn.active-filter { background: var(--primary); color: var(--badge-count-text); border-color: var(--primary); }
+    .page-link { font-weight: 500; }
+    .page-title-text { display: block; font-size: 0.8rem; color: var(--muted); max-width: 280px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+    /* Active filter banner */
+    .filter-banner {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      background: #dbeafe;
+      border: 1px solid #b6d9fb;
+      border-radius: 6px;
+      padding: 0.6rem 1rem;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+    }
+    .filter-banner.hidden { display: none !important; }
+    .filter-banner-text { flex: 1; }
+    .filter-banner-actions { display: flex; gap: 0.5rem; }
+    .btn { display: inline-flex; align-items: center; gap: 0.3rem; padding: 0.35rem 0.75rem; border-radius: 6px; font-size: 0.85rem; font-weight: 600; cursor: pointer; border: 1px solid; }
+    .btn:focus { outline: 2px solid var(--primary); outline-offset: 2px; }
+    .btn-clear { background: var(--container-bg); color: var(--text); border-color: var(--border); }
+    .btn-clear:hover { background: var(--hover-bg); }
+    .btn-copy { background: var(--success); color: white; border-color: var(--success); }
+    .btn-copy:hover { background: #156b31; }
+    .btn-copy.copied { background: var(--muted); border-color: var(--muted); }
 
     .hidden { display: none !important; }
     .visually-hidden {
@@ -426,7 +563,7 @@ export function generateInteractiveHtml(summary) {
         font-weight: bold;
         text-align: center;
       }
-      .nav, .filters, .nav-item, #theme-toggle, .skip-link, .anchor-link { display: none; }
+      .nav, .filters, .nav-item, .priority-section, .filter-banner, #theme-toggle, .skip-link, .anchor-link { display: none; }
       details { border: none; }
       summary { background: none; padding: 0.5rem 0; border-bottom: 1px solid var(--border); }
       .container { box-shadow: none; max-width: none; width: 100%; padding: 0; }
@@ -518,6 +655,21 @@ export function generateInteractiveHtml(summary) {
         </a>
       </h2>
 
+      ${priorityTableHtml}
+
+      <!-- Active page/engine filter banner -->
+      <div id="filterBanner" class="filter-banner hidden" role="region" aria-live="polite" aria-label="Active filter">
+        <span class="filter-banner-text" id="filterBannerText"></span>
+        <div class="filter-banner-actions">
+          <button class="btn btn-copy" id="copyIssueBtn" aria-label="Copy filtered results as GitHub issue markdown">
+            📋 Copy as GitHub Issue
+          </button>
+          <button class="btn btn-clear" id="clearFilterBtn" aria-label="Clear page filter">
+            ✕ Clear Filter
+          </button>
+        </div>
+      </div>
+
       <h3 id="filters-heading" class="visually-hidden">Filter Issues</h3>
 
       <div class="nav" role="tablist" aria-labelledby="filters-heading" id="roleTabs">
@@ -588,6 +740,15 @@ export function generateInteractiveHtml(summary) {
     const searchInput = document.getElementById('search');
     const ruleCards = document.querySelectorAll('.rule-card');
     const tabs = roleTabs.querySelectorAll('[role="tab"]');
+    const filterBanner = document.getElementById('filterBanner');
+    const filterBannerText = document.getElementById('filterBannerText');
+    const clearFilterBtn = document.getElementById('clearFilterBtn');
+    const copyIssueBtn = document.getElementById('copyIssueBtn');
+
+    let activePageUrl = null;
+    let activeEngine = null;
+    let activeEngineLabel = null;
+    let activePageTitle = null;
 
     function filterRules() {
       const activeRole = roleTabs.querySelector('[aria-selected="true"]').dataset.role;
@@ -599,12 +760,16 @@ export function generateInteractiveHtml(summary) {
         const roles = JSON.parse(card.dataset.roles);
         const severity = card.dataset.severity;
         const searchText = card.dataset.search;
+        const cardEngine = card.dataset.engine;
+        const pageUrls = JSON.parse(card.dataset.pageUrls || '[]');
 
         const roleMatch = activeRole === 'all' || roles.includes(activeRole);
         const severityMatch = activeSeverity === 'all' || severity === activeSeverity;
         const searchMatch = !searchTerm || searchText.includes(searchTerm);
+        const pageMatch = !activePageUrl || pageUrls.includes(activePageUrl);
+        const engineMatch = !activeEngine || cardEngine === activeEngine;
 
-        if (roleMatch && severityMatch && searchMatch) {
+        if (roleMatch && severityMatch && searchMatch && pageMatch && engineMatch) {
           card.classList.remove('hidden');
           visibleCount++;
         } else {
@@ -615,9 +780,154 @@ export function generateInteractiveHtml(summary) {
       // Announce result count to screen readers
       const announcement = document.getElementById('filter-announcement');
       if (announcement) {
-        announcement.textContent = visibleCount + ' rule' + (visibleCount !== 1 ? 's' : '') + ' shown';
+        let msg = visibleCount + ' rule' + (visibleCount !== 1 ? 's' : '') + ' shown';
+        if (activePageUrl) {
+          msg += ' for ' + (activeEngineLabel || activeEngine) + ' on selected page';
+        }
+        announcement.textContent = msg;
       }
     }
+
+    function setPageFilter(pageUrl, engine, engineLabel, pageTitle, btnEl) {
+      // Toggle off if same button clicked again
+      if (activePageUrl === pageUrl && activeEngine === engine) {
+        clearPageFilter();
+        return;
+      }
+
+      // Clear previous active button
+      document.querySelectorAll('.count-btn.active-filter').forEach(b => b.classList.remove('active-filter'));
+
+      activePageUrl = pageUrl;
+      activeEngine = engine;
+      activeEngineLabel = engineLabel;
+      activePageTitle = pageTitle;
+
+      if (btnEl) btnEl.classList.add('active-filter');
+
+      const displayPage = pageTitle || pageUrl;
+      filterBannerText.textContent = 'Showing ' + (engineLabel || engine) + ' errors for: ' + displayPage;
+      filterBanner.classList.remove('hidden');
+
+      // Scroll to rule list
+      document.getElementById('ruleList').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+      filterRules();
+    }
+
+    function clearPageFilter() {
+      activePageUrl = null;
+      activeEngine = null;
+      activeEngineLabel = null;
+      activePageTitle = null;
+
+      document.querySelectorAll('.count-btn.active-filter').forEach(b => b.classList.remove('active-filter'));
+      filterBanner.classList.add('hidden');
+      filterRules();
+    }
+
+    function generateGitHubIssueMarkdown() {
+      const visibleCards = Array.from(ruleCards).filter(c => !c.classList.contains('hidden'));
+      if (visibleCards.length === 0) return '<!-- No matching issues found -->';
+
+      const pageDisplay = activePageTitle || activePageUrl || 'Unknown page';
+      const engineDisplay = activeEngineLabel || activeEngine || 'All scanners';
+
+      let md = '## Accessibility Issues: ' + engineDisplay + ' — ' + pageDisplay + '\\n\\n';
+      md += '> Generated from [Accessibility Scan Report](' + window.location.href + ')\\n\\n';
+      md += '**Page:** ' + (activePageUrl ? '[' + pageDisplay + '](' + activePageUrl + ')' : pageDisplay) + '\\n';
+      md += '**Scanner:** ' + engineDisplay + '\\n';
+      md += '**Issues found:** ' + visibleCards.length + '\\n\\n';
+      md += '---\\n\\n';
+
+      visibleCards.forEach((card, i) => {
+        const summary = card.querySelector('summary');
+        const countBadge = summary.querySelector('.badge-count');
+        const severityBadge = summary.querySelector('.badge-severity');
+        const ruleText = summary.querySelector('strong');
+        const descEl = ruleText ? ruleText.parentElement : null;
+        const count = countBadge ? countBadge.textContent.trim() : '?';
+        const severity = severityBadge ? severityBadge.textContent.trim() : '?';
+        const ruleId = ruleText ? ruleText.textContent.trim() : '?';
+        const descFull = descEl ? descEl.textContent.trim() : '';
+
+        md += '### ' + (i + 1) + '. ' + ruleId + '\\n\\n';
+        md += '- **Severity:** ' + severity + '\\n';
+        md += '- **Occurrences:** ' + count + '\\n';
+        md += '- **Description:** ' + descFull + '\\n\\n';
+
+        // Include examples
+        const examples = card.querySelectorAll('.example-item');
+        if (examples.length > 0) {
+          md += '**Examples:**\\n\\n';
+          examples.forEach((ex) => {
+            const msg = ex.querySelector('div[style*="font-weight: 600"]');
+            const codeEl = ex.querySelector('.example-code');
+            const xpathEl = ex.querySelector('.example-xpath');
+            if (msg) md += '- ' + msg.textContent.trim() + '\\n';
+            if (codeEl) md += '\`\`\`html\\n' + codeEl.textContent.trim() + '\\n\`\`\`\\n';
+            if (xpathEl) md += '  ' + xpathEl.textContent.trim() + '\\n';
+          });
+          md += '\\n';
+        }
+
+        md += '---\\n\\n';
+      });
+
+      return md;
+    }
+
+    // Priority table click handler
+    document.addEventListener('click', (e) => {
+      const btn = e.target.closest('.count-btn');
+      if (!btn) return;
+      const pageUrl = btn.dataset.pageUrl;
+      const engine = btn.dataset.engine;
+      const engineLabel = btn.dataset.engineLabel || engine;
+      const pageTitle = btn.closest('tr')?.querySelector('.page-title-text')?.textContent?.trim() || '';
+      setPageFilter(pageUrl, engine, engineLabel, pageTitle, btn);
+    });
+
+    clearFilterBtn.addEventListener('click', clearPageFilter);
+
+    copyIssueBtn.addEventListener('click', () => {
+      const md = generateGitHubIssueMarkdown();
+      navigator.clipboard.writeText(md).then(() => {
+        copyIssueBtn.textContent = '✅ Copied!';
+        copyIssueBtn.classList.add('copied');
+        setTimeout(() => {
+          copyIssueBtn.textContent = '📋 Copy as GitHub Issue';
+          copyIssueBtn.classList.remove('copied');
+        }, 2500);
+      }).catch(() => {
+        // Fallback: show markdown in a textarea overlay for manual copying
+        const overlay = document.createElement('div');
+        overlay.setAttribute('role', 'dialog');
+        overlay.setAttribute('aria-modal', 'true');
+        overlay.setAttribute('aria-label', 'Copy GitHub Issue Markdown');
+        overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:1000;display:flex;align-items:center;justify-content:center;';
+        const inner = document.createElement('div');
+        inner.style.cssText = 'background:white;border-radius:8px;padding:1.5rem;max-width:600px;width:90%;max-height:80vh;display:flex;flex-direction:column;gap:1rem;';
+        const label = document.createElement('p');
+        label.textContent = 'Clipboard access unavailable. Select all and copy manually:';
+        label.style.fontWeight = '600';
+        const ta = document.createElement('textarea');
+        ta.value = md;
+        ta.style.cssText = 'width:100%;height:300px;font-family:monospace;font-size:0.8rem;resize:vertical;border:1px solid #d0d7de;border-radius:4px;padding:0.5rem;';
+        ta.setAttribute('aria-label', 'GitHub issue markdown - select all and copy');
+        const closeBtn = document.createElement('button');
+        closeBtn.textContent = '✕ Close';
+        closeBtn.style.cssText = 'align-self:flex-end;padding:0.4rem 0.8rem;cursor:pointer;border:1px solid #d0d7de;border-radius:6px;background:white;';
+        closeBtn.setAttribute('aria-label', 'Close copy dialog');
+        closeBtn.addEventListener('click', () => overlay.remove());
+        overlay.addEventListener('click', (ev) => { if (ev.target === overlay) overlay.remove(); });
+        inner.append(label, ta, closeBtn);
+        overlay.appendChild(inner);
+        document.body.appendChild(overlay);
+        ta.focus();
+        ta.select();
+      });
+    });
 
     function activateTab(tab) {
       // Deactivate all tabs
