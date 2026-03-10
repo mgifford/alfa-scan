@@ -2663,7 +2663,7 @@ async function main() {
   const overlapMarkdownContent = toOverlapMarkdown(overlapReport);
   writeFileSync(summaryPath, JSON.stringify(summary, null, 2) + "\n", "utf8");
   writeFileSync(markdownPath, markdownContent, "utf8");
-  writeFileSync(htmlPath, markdownToHtml(markdownContent, summary), "utf8");
+  writeFileSync(htmlPath, generateInteractiveHtml(summary), "utf8");
   writeFileSync(csvPath, toCsv(summary), "utf8");
   writeFileSync(overlapJsonPath, JSON.stringify(overlapReport, null, 2) + "\n", "utf8");
   writeFileSync(overlapMarkdownPath, overlapMarkdownContent, "utf8");
