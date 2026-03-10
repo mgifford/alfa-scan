@@ -276,12 +276,11 @@ test("generateInteractiveHtml escapes HTML in example code blocks", () => {
   );
 });
 
-test("generateInteractiveHtml includes ARIA tab pattern for role filtering", () => {
+test("generateInteractiveHtml includes per-engine accordion sections after priority table", () => {
   const html = generateInteractiveHtml(makeSummary());
-  assert.ok(html.includes('role="tablist"'), "Should have a tablist");
-  assert.ok(html.includes('role="tab"'), "Tabs should have role='tab'");
-  assert.ok(html.includes('role="tabpanel"'), "Should have a tabpanel");
-  assert.ok(html.includes('aria-live="polite"'), "Should have a live region for filter announcements");
+  assert.ok(html.includes('accordion-section'), "Should have accordion-section elements");
+  assert.ok(html.includes('accordion-header'), "Should have accordion-header elements");
+  assert.ok(html.includes('🔧 Priority: Most Common Issues'), "Should have Most Common Issues accordion headings");
 });
 
 // ── Priority table ─────────────────────────────────────────────────────────────
@@ -392,13 +391,18 @@ test("rule cards have data-engine and data-page-urls attributes", () => {
   assert.ok(html.includes('https://example.com/page1'), "Page URLs should be embedded in data attribute");
 });
 
-test("filter banner is present in hidden state", () => {
+test("accordion sections are present per engine with failures", () => {
   const html = generateInteractiveHtml(buildPrioritySummary());
 
-  assert.ok(html.includes('id="filterBanner"'), "Filter banner should be present");
-  assert.ok(html.includes('class="filter-banner hidden"'), "Filter banner should start hidden");
-  assert.ok(html.includes('id="clearFilterBtn"'), "Clear filter button should be present");
-  assert.ok(html.includes("Copy as GitHub Issue"), "Copy as GitHub Issue button should be present");
+  assert.ok(html.includes('id="accordion-axe"'), "Should have axe accordion section");
+  assert.ok(html.includes('id="accordion-alfa"'), "Should have alfa accordion section");
+  assert.ok(html.includes('🔧 Priority: Most Common Issues (axe)'), "Should have axe section label");
+  assert.ok(html.includes('🔧 Priority: Most Common Issues (ALFA)'), "Should have ALFA section label");
+  // Sections should be collapsed by default (no 'open' attribute on accordion-section details elements)
+  // Extract accordion-section details tags and verify none have 'open' attribute
+  const accordionMatches = html.match(/<details class="accordion-section"[^>]*>/g) || [];
+  assert.ok(accordionMatches.length > 0, "Should have accordion-section elements");
+  assert.ok(accordionMatches.every(tag => !tag.includes(' open')), "All accordion sections should be collapsed by default");
 });
 
 test("rule cards include engine badge", () => {
@@ -433,24 +437,21 @@ test("page title is shown in priority table", () => {
   assert.ok(html.includes("Page Two"), "Page title should appear in priority table");
 });
 
-test("interactive HTML includes JavaScript for page filter", () => {
+test("interactive HTML includes JavaScript for priority table navigation", () => {
   const html = generateInteractiveHtml(buildPrioritySummary());
 
-  assert.ok(html.includes("setPageFilter"), "JS should include setPageFilter function");
-  assert.ok(html.includes("clearPageFilter"), "JS should include clearPageFilter function");
-  assert.ok(html.includes("activePageUrl"), "JS should track active page URL filter");
-  assert.ok(html.includes("activeEngine"), "JS should track active engine filter");
-  assert.ok(html.includes("generateGitHubIssueMarkdown"), "JS should include GitHub issue markdown generator");
-  // Engine label should use data-engine-label attribute, not parse aria-label
-  assert.ok(html.includes("btn.dataset.engineLabel"), "JS should use data-engine-label attribute for engine label");
+  assert.ok(html.includes("count-btn"), "Priority table should have clickable count buttons");
+  assert.ok(html.includes("accordion"), "JS should reference accordion elements");
+  assert.ok(html.includes("active-filter"), "JS should track active filter button");
 });
 
-test("JavaScript filters by page URL and engine", () => {
+test("JavaScript opens accordion on priority table click", () => {
   const html = generateInteractiveHtml(buildPrioritySummary());
 
-  // The filterRules function should check both page URL and engine
-  assert.ok(html.includes("pageUrls.includes(activePageUrl)"), "Filter should check if page URL is in card's page list");
-  assert.ok(html.includes("cardEngine === activeEngine"), "Filter should check card engine matches active engine");
+  // The click handler should open the relevant accordion and scroll to it
+  assert.ok(html.includes("accordion-"), "JS should reference accordion by engine id");
+  assert.ok(html.includes("setAttribute('open'"), "JS should open accordion via open attribute");
+  assert.ok(html.includes("scrollIntoView"), "JS should scroll to accordion");
 });
 
 test("priority table is absent when all pages have zero errors", () => {
