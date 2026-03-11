@@ -1,0 +1,54 @@
+{
+  "generatedAt": "2026-03-11T19:29:20.978Z",
+  "issueNumber": 122,
+  "scanTitle": "Mgov",
+  "scannersInUse": [
+    "axe",
+    "equalAccess"
+  ],
+  "scannerStats": {
+    "axe": {
+      "label": "axe",
+      "failed": 38,
+      "uniqueFailed": 38,
+      "duplicates": 0
+    },
+    "alfa": {
+      "label": "ALFA",
+      "failed": 0,
+      "uniqueFailed": 0,
+      "duplicates": 0
+    },
+    "equalAccess": {
+      "label": "Equal Access",
+      "failed": 2567,
+      "uniqueFailed": 2251,
+      "duplicates": 316
+    },
+    "accesslint": {
+      "label": "AccessLint",
+      "failed": 0,
+      "uniqueFailed": 0,
+      "duplicates": 0
+    },
+    "qualweb": {
+      "label": "QualWeb",
+      "failed": 0,
+      "uniqueFailed": 0,
+      "duplicates": 0
+    }
+  },
+  "matrix": {
+    "axe": {
+      "axe": 38,
+      "equalAccess": 0
+    },
+    "equalAccess": {
+      "axe": 0,
+      "equalAccess": 2239
+    }
+  },
+  "duplicateFindingTotals": 316,
+  "overlapEntryCount": 0,
+  "overlapEntries": []
+}
