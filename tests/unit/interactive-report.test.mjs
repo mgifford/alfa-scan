@@ -467,3 +467,54 @@ test("priority table is absent when all pages have zero errors", () => {
   // When there are no results, the priority TABLE element should not appear
   assert.ok(!html.includes('<table class="priority-table"'), "Priority table element should not appear when there are no results");
 });
+
+// ── Show all pages toggle ──────────────────────────────────────────────────────
+
+function buildLargePrioritySummary() {
+  const results = Array.from({ length: 15 }, (_, i) => ({
+    submittedUrl: `https://example.com/page${i + 1}`,
+    finalUrl: `https://example.com/page${i + 1}`,
+    pageTitle: `Page ${i + 1}`,
+    axe: { uniqueFailedCount: 10 - i, counts: { failed: 10 - i }, failures: [], failedRules: [] },
+    alfa: { uniqueFailedCount: 5, counts: { failed: 5 }, failures: [], failedRules: [] },
+    equalAccess: { uniqueFailedCount: 3, counts: { failed: 3 }, failures: [], failedRules: [] },
+    accesslint: { uniqueFailedCount: 2, counts: { failed: 2 }, failures: [], failedRules: [] },
+    qualweb: { counts: { failed: 1 }, failures: [], failedRules: [] },
+    duplicateFindingCount: 0
+  }));
+  const base = buildPrioritySummary();
+  return { ...base, totalSubmitted: 15, acceptedCount: 15, scannedCount: 15, results };
+}
+
+test("show-all button appears when there are more than 10 pages with errors", () => {
+  const html = generateInteractiveHtml(buildLargePrioritySummary());
+  assert.ok(html.includes('id="show-all-pages-btn"'), "Show-all button should be present");
+  assert.ok(html.includes("Show all 15 pages"), "Button should show the total page count");
+  assert.ok(html.includes('aria-expanded="false"'), "Button should start collapsed");
+});
+
+test("show-all button does not appear when there are 10 or fewer pages with errors", () => {
+  const html = generateInteractiveHtml(buildPrioritySummary());
+  assert.ok(!html.includes('id="show-all-pages-btn"'), "Show-all button should NOT be present for ≤10 pages");
+});
+
+test("extra rows beyond 10 are marked hidden in priority table", () => {
+  const html = generateInteractiveHtml(buildLargePrioritySummary());
+  assert.ok(html.includes('class="priority-row-extra" hidden'), "Rows beyond the first 10 should have hidden attribute");
+});
+
+test("first 10 rows are not marked as extra in priority table", () => {
+  const html = generateInteractiveHtml(buildLargePrioritySummary());
+  // The first row (Page 1) should NOT have the extra class
+  const page1Index = html.indexOf("Page 1");
+  const extraClassIndex = html.indexOf('priority-row-extra');
+  // Page 1 appears before any extra rows
+  assert.ok(page1Index < extraClassIndex, "First rows should appear before the extra hidden rows");
+});
+
+test("show-all toggle JavaScript is included when extra rows exist", () => {
+  const html = generateInteractiveHtml(buildLargePrioritySummary());
+  assert.ok(html.includes("show-all-pages-btn"), "JS should reference the show-all button");
+  assert.ok(html.includes("priority-row-extra"), "JS should reference extra rows by class");
+  assert.ok(html.includes("Show fewer pages"), "JS should have 'show fewer' text for toggling back");
+});

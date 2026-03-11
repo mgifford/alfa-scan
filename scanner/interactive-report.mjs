@@ -32,6 +32,8 @@ export function generateInteractiveHtml(summary) {
     return 0;
   }
 
+  const PRIORITY_TABLE_DEFAULT_ROWS = 10;
+
   const pagesByErrorCount = [...(results || [])]
     .map(r => {
       const counts = {};
@@ -43,8 +45,10 @@ export function generateInteractiveHtml(summary) {
       return { result: r, counts, total };
     })
     .filter(p => p.total > 0)
-    .sort((a, b) => b.total - a.total)
-    .slice(0, 10);
+    .sort((a, b) => b.total - a.total);
+
+  const totalPageCount = pagesByErrorCount.length;
+  const extraPageCount = Math.max(0, totalPageCount - PRIORITY_TABLE_DEFAULT_ROWS);
 
   const priorityTableHtml = pagesByErrorCount.length > 0 ? `
     <section class="priority-section" aria-labelledby="priority-heading">
@@ -60,12 +64,13 @@ export function generateInteractiveHtml(summary) {
             </tr>
           </thead>
           <tbody>
-            ${pagesByErrorCount.map(({ result: r, counts, total }) => {
+            ${pagesByErrorCount.map(({ result: r, counts, total }, index) => {
     const displayUrl = r.finalUrl || r.submittedUrl;
     const filterUrl = r.submittedUrl;  // Must match the URL stored in consolidatedFailures.pages
     const pageTitle = r.pageTitle || displayUrl;
+    const isExtra = index >= PRIORITY_TABLE_DEFAULT_ROWS;
     return `
-              <tr>
+              <tr${isExtra ? ' class="priority-row-extra" hidden' : ''}>
                 <td>
                   <a href="${escapeHtml(displayUrl)}" target="_blank" rel="noopener" title="${escapeHtml(pageTitle)}" class="page-link">
                     View Page
@@ -92,6 +97,13 @@ export function generateInteractiveHtml(summary) {
           </tbody>
         </table>
       </div>
+      ${extraPageCount > 0 ? `
+      <div class="show-all-pages-wrapper">
+        <button class="btn btn-show-all-pages" id="show-all-pages-btn"
+                aria-expanded="false">
+          Show all ${totalPageCount} pages
+        </button>
+      </div>` : ''}
     </section>
   ` : '';
 
@@ -518,6 +530,10 @@ export function generateInteractiveHtml(summary) {
     .table-wrapper { overflow-x: auto; }
     .priority-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
     .priority-table th { background: var(--bar-bg); padding: 0.6rem 0.8rem; text-align: left; font-weight: 600; border-bottom: 2px solid var(--border); white-space: nowrap; }
+    .show-all-pages-wrapper { margin-top: 0.75rem; text-align: center; }
+    .btn-show-all-pages { background: var(--container-bg); color: var(--primary); border: 1px solid var(--primary); border-radius: 6px; padding: 0.4rem 1rem; font-size: 0.85rem; font-weight: 600; cursor: pointer; }
+    .btn-show-all-pages:hover { background: var(--hover-bg); }
+    .btn-show-all-pages:focus { outline: 2px solid var(--primary); outline-offset: 2px; }
     .priority-table td { padding: 0.5rem 0.8rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
     .priority-table tr:last-child td { border-bottom: none; }
     .priority-table tr:hover td { background: var(--hover-bg); }
@@ -626,6 +642,10 @@ export function generateInteractiveHtml(summary) {
     .table-wrapper { overflow-x: auto; }
     .priority-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
     .priority-table th { background: #e8ecf0; padding: 0.6rem 0.8rem; text-align: left; font-weight: 600; border-bottom: 2px solid var(--border); white-space: nowrap; }
+    .show-all-pages-wrapper { margin-top: 0.75rem; text-align: center; }
+    .btn-show-all-pages { background: #fff; color: var(--primary); border: 1px solid var(--primary); border-radius: 6px; padding: 0.4rem 1rem; font-size: 0.85rem; font-weight: 600; cursor: pointer; }
+    .btn-show-all-pages:hover { background: #eaf1fb; }
+    .btn-show-all-pages:focus { outline: 2px solid var(--primary); outline-offset: 2px; }
     .priority-table td { padding: 0.5rem 0.8rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
     .priority-table tr:last-child td { border-bottom: none; }
     .priority-table tr:hover td { background: #eaf1fb; }
@@ -669,8 +689,8 @@ export function generateInteractiveHtml(summary) {
     .filter-banner-actions { display: flex; gap: 0.5rem; }
     .btn { display: inline-flex; align-items: center; gap: 0.3rem; padding: 0.35rem 0.75rem; border-radius: 6px; font-size: 0.85rem; font-weight: 600; cursor: pointer; border: 1px solid; }
     .btn:focus { outline: 2px solid var(--primary); outline-offset: 2px; }
-    .btn-clear { background: white; color: var(--text); border-color: var(--border); }
-    .btn-clear:hover { background: #f0f0f0; }
+    .btn-clear { background: var(--container-bg); color: var(--text); border-color: var(--border); }
+    .btn-clear:hover { background: var(--hover-bg); }
     .btn-copy { background: var(--success); color: white; border-color: var(--success); }
     .btn-copy:hover { background: #156b31; }
     .btn-copy.copied { background: #57606a; border-color: #57606a; }
@@ -856,6 +876,24 @@ export function generateInteractiveHtml(summary) {
         }
       }
     });
+
+    // ── Show all / Show fewer pages toggle ──
+    const showAllBtn = document.getElementById('show-all-pages-btn');
+    if (showAllBtn) {
+      showAllBtn.addEventListener('click', () => {
+        const expanded = showAllBtn.getAttribute('aria-expanded') === 'true';
+        const extraRows = document.querySelectorAll('.priority-row-extra');
+        if (expanded) {
+          extraRows.forEach(row => { row.hidden = true; });
+          showAllBtn.setAttribute('aria-expanded', 'false');
+          showAllBtn.textContent = 'Show all ' + (extraRows.length + ${PRIORITY_TABLE_DEFAULT_ROWS}) + ' pages';
+        } else {
+          extraRows.forEach(row => { row.hidden = false; });
+          showAllBtn.setAttribute('aria-expanded', 'true');
+          showAllBtn.textContent = 'Show fewer pages';
+        }
+      });
+    }
   </script>
 </body>
 </html>`;
