@@ -1,0 +1,84 @@
+{
+  "generatedAt": "2026-03-11T13:44:49.324Z",
+  "issueNumber": 92,
+  "scanTitle": "Bob's first try —",
+  "scannersInUse": [
+    "axe",
+    "alfa",
+    "equalAccess",
+    "accesslint",
+    "qualweb"
+  ],
+  "scannerStats": {
+    "axe": {
+      "label": "axe",
+      "failed": 196,
+      "uniqueFailed": 196,
+      "duplicates": 0
+    },
+    "alfa": {
+      "label": "ALFA",
+      "failed": 7656,
+      "uniqueFailed": 7656,
+      "duplicates": 0
+    },
+    "equalAccess": {
+      "label": "Equal Access",
+      "failed": 2565,
+      "uniqueFailed": 2390,
+      "duplicates": 175
+    },
+    "accesslint": {
+      "label": "AccessLint",
+      "failed": 1286,
+      "uniqueFailed": 1088,
+      "duplicates": 198
+    },
+    "qualweb": {
+      "label": "QualWeb",
+      "failed": 1569,
+      "uniqueFailed": 1569,
+      "duplicates": 0
+    }
+  },
+  "matrix": {
+    "axe": {
+      "axe": 149,
+      "alfa": 0,
+      "equalAccess": 0,
+      "accesslint": 0,
+      "qualweb": 0
+    },
+    "alfa": {
+      "axe": 0,
+      "alfa": 2055,
+      "equalAccess": 0,
+      "accesslint": 0,
+      "qualweb": 0
+    },
+    "equalAccess": {
+      "axe": 0,
+      "alfa": 0,
+      "equalAccess": 2390,
+      "accesslint": 0,
+      "qualweb": 0
+    },
+    "accesslint": {
+      "axe": 0,
+      "alfa": 0,
+      "equalAccess": 0,
+      "accesslint": 1088,
+      "qualweb": 0
+    },
+    "qualweb": {
+      "axe": 0,
+      "alfa": 0,
+      "equalAccess": 0,
+      "accesslint": 0,
+      "qualweb": 517
+    }
+  },
+  "duplicateFindingTotals": 7073,
+  "overlapEntryCount": 0,
+  "overlapEntries": []
+}
