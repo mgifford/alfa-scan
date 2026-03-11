@@ -1,0 +1,1046 @@
+{
+  "issueNumber": 120,
+  "issueUrl": "https://github.com/mgifford/open-scans/issues/120",
+  "issueTitle": "SCAN: Green Software Foundation - 1 Page Sample",
+  "scanTitle": "Green Software Foundation - 1 Page Sample",
+  "submittedBy": "mgifford",
+  "engines": [
+    "axe",
+    "equalaccess"
+  ],
+  "scannedAt": "2026-03-11T13:46:46.708Z",
+  "totalElapsedMs": 7830,
+  "totalSubmitted": 1,
+  "acceptedCount": 1,
+  "scannedCount": 1,
+  "skippedDueToTimeout": 0,
+  "rejectedCount": 0,
+  "rejected": [],
+  "alfaTotals": {
+    "passed": 0,
+    "failed": 0,
+    "cantTell": 0,
+    "inapplicable": 0
+  },
+  "axeTotals": {
+    "passed": 1490,
+    "failed": 10,
+    "cantTell": 5,
+    "inapplicable": 51
+  },
+  "equalAccessTotals": {
+    "passed": 5741,
+    "failed": 31,
+    "uniqueFailed": 28,
+    "duplicates": 3,
+    "cantTell": 19,
+    "inapplicable": 0
+  },
+  "accesslintTotals": {
+    "passed": 0,
+    "failed": 0,
+    "uniqueFailed": 0,
+    "duplicates": 0,
+    "cantTell": 0,
+    "inapplicable": 0
+  },
+  "qualwebTotals": {
+    "passed": 0,
+    "failed": 0,
+    "cantTell": 0,
+    "inapplicable": 0
+  },
+  "duplicateFindingTotals": 3,
+  "darkModeUrlCount": 0,
+  "results": [
+    {
+      "submittedUrl": "https://greensoftware.foundation/",
+      "finalUrl": "https://greensoftware.foundation/",
+      "redirected": false,
+      "statusCode": 200,
+      "ok": true,
+      "contentType": "text/html; charset=UTF-8",
+      "pageTitle": "Green Software Foundation  | GSF",
+      "elapsedMs": 7823,
+      "error": null,
+      "alfa": {
+        "executed": false,
+        "error": "Skipped (not requested)",
+        "counts": {
+          "passed": 0,
+          "failed": 0,
+          "cantTell": 0,
+          "inapplicable": 0
+        },
+        "failedRules": [],
+        "passedRules": [],
+        "failures": [],
+        "outcomeCount": 0,
+        "uniqueFailedCount": 0,
+        "duplicateFailedCount": 0
+      },
+      "axe": {
+        "executed": true,
+        "error": null,
+        "counts": {
+          "passed": 1490,
+          "failed": 10,
+          "cantTell": 5,
+          "inapplicable": 51
+        },
+        "failedRules": [
+          "button-name",
+          "link-name",
+          "region"
+        ],
+        "passedRules": [
+          "aria-allowed-attr",
+          "aria-allowed-role",
+          "aria-conditional-attr",
+          "aria-hidden-body",
+          "aria-hidden-focus",
+          "aria-prohibited-attr",
+          "aria-valid-attr",
+          "aria-valid-attr-value",
+          "avoid-inline-spacing",
+          "button-name",
+          "bypass",
+          "color-contrast",
+          "document-title",
+          "empty-heading",
+          "form-field-multiple-labels",
+          "heading-order",
+          "html-has-lang",
+          "html-lang-valid",
+          "image-alt",
+          "image-redundant-alt",
+          "label",
+          "label-title-only",
+          "landmark-contentinfo-is-top-level",
+          "landmark-main-is-top-level",
+          "landmark-no-duplicate-banner",
+          "landmark-no-duplicate-contentinfo",
+          "landmark-no-duplicate-main",
+          "landmark-one-main",
+          "landmark-unique",
+          "link-name",
+          "list",
+          "listitem",
+          "meta-viewport",
+          "meta-viewport-large",
+          "nested-interactive",
+          "page-has-heading-one",
+          "region",
+          "tabindex"
+        ],
+        "failures": [
+          {
+            "rule": "button-name",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/button-name?application=playwright",
+            "impact": "critical",
+            "wcagSc": [
+              "wcag2a",
+              "wcag412"
+            ],
+            "xpath": ".search-btn:nth-child(5)",
+            "html": "<button class=\"search-btn\"><svg style=\"width:1.5rem;height:1.5rem\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z\"></path></svg></button>",
+            "message": "Buttons must have discernible text",
+            "colorScheme": "light",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "link-name",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/link-name?application=playwright",
+            "impact": "serious",
+            "wcagSc": [
+              "wcag2a",
+              "wcag244",
+              "wcag412"
+            ],
+            "xpath": ".cta-wrapper > .search-btn[target=\"_blank\"][rel=\"noopener noreferrer\"]:nth-child(1)",
+            "html": "<a href=\"https://www.youtube.com/@greensoftwarefoundation3662\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"search-btn\">",
+            "message": "Links must have discernible text",
+            "colorScheme": "light",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "link-name",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/link-name?application=playwright",
+            "impact": "serious",
+            "wcagSc": [
+              "wcag2a",
+              "wcag244",
+              "wcag412"
+            ],
+            "xpath": ".search-btn[target=\"_blank\"][rel=\"noopener noreferrer\"]:nth-child(2)",
+            "html": "<a href=\"https://movement.greensoftware.foundation/about\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"search-btn\">",
+            "message": "Links must have discernible text",
+            "colorScheme": "light",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "link-name",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/link-name?application=playwright",
+            "impact": "serious",
+            "wcagSc": [
+              "wcag2a",
+              "wcag244",
+              "wcag412"
+            ],
+            "xpath": ".search-btn[target=\"_blank\"][rel=\"noopener noreferrer\"]:nth-child(3)",
+            "html": "<a href=\"https://www.linkedin.com/company/green-software-foundation\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"search-btn\">",
+            "message": "Links must have discernible text",
+            "colorScheme": "light",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "link-name",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/link-name?application=playwright",
+            "impact": "serious",
+            "wcagSc": [
+              "wcag2a",
+              "wcag244",
+              "wcag412"
+            ],
+            "xpath": ".search-btn[target=\"_blank\"][rel=\"noopener noreferrer\"]:nth-child(4)",
+            "html": "<a href=\"https://github.com/Green-Software-Foundation\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"search-btn\">",
+            "message": "Links must have discernible text",
+            "colorScheme": "light",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "link-name",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/link-name?application=playwright",
+            "impact": "serious",
+            "wcagSc": [
+              "wcag2a",
+              "wcag244",
+              "wcag412"
+            ],
+            "xpath": ".social-links > li:nth-child(1) > a[target=\"_blank\"][rel=\"noopener noreferrer\"]",
+            "html": "<a href=\"https://github.com/Green-Software-Foundation\" target=\"_blank\" rel=\"noopener noreferrer\">",
+            "message": "Links must have discernible text",
+            "colorScheme": "light",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "link-name",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/link-name?application=playwright",
+            "impact": "serious",
+            "wcagSc": [
+              "wcag2a",
+              "wcag244",
+              "wcag412"
+            ],
+            "xpath": ".social-links > li:nth-child(2) > a[target=\"_blank\"][rel=\"noopener noreferrer\"]",
+            "html": "<a href=\"https://twitter.com/gsfcommunity\" target=\"_blank\" rel=\"noopener noreferrer\">",
+            "message": "Links must have discernible text",
+            "colorScheme": "light",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "link-name",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/link-name?application=playwright",
+            "impact": "serious",
+            "wcagSc": [
+              "wcag2a",
+              "wcag244",
+              "wcag412"
+            ],
+            "xpath": ".social-links > li:nth-child(3) > a[target=\"_blank\"][rel=\"noopener noreferrer\"]",
+            "html": "<a href=\"https://www.linkedin.com/company/green-software-foundation/\" target=\"_blank\" rel=\"noopener noreferrer\">",
+            "message": "Links must have discernible text",
+            "colorScheme": "light",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "region",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/region?application=playwright",
+            "impact": "moderate",
+            "wcagSc": [],
+            "xpath": ".banner-wrapper",
+            "html": "<div class=\"banner-wrapper\">",
+            "message": "All page content should be contained by landmarks",
+            "colorScheme": "light",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "region",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/region?application=playwright",
+            "impact": "moderate",
+            "wcagSc": [],
+            "xpath": ".sub-footer",
+            "html": "<div class=\"sub-footer\"><p>The Joint Development Foundation Projects, LLC is an affiliate of the Linux Foundation.</p></div>",
+            "message": "All page content should be contained by landmarks",
+            "colorScheme": "light",
+            "isDuplicate": false,
+            "duplicateOf": null
+          }
+        ],
+        "outcomeCount": 1556,
+        "darkModeScanned": false,
+        "duplicateFailedCount": 0,
+        "uniqueFailedCount": 10
+      },
+      "equalAccess": {
+        "executed": true,
+        "error": null,
+        "counts": {
+          "passed": 5741,
+          "failed": 31,
+          "cantTell": 19,
+          "inapplicable": 0
+        },
+        "failedRules": [
+          "a_text_purpose",
+          "aria_content_in_landmark",
+          "aria_form_label_unique",
+          "element_attribute_deprecated",
+          "input_label_visible",
+          "style_background_decorative",
+          "style_color_misuse",
+          "style_focus_visible",
+          "style_highcontrast_visible",
+          "svg_graphics_labelled",
+          "text_block_heading"
+        ],
+        "passedRules": [],
+        "failures": [
+          {
+            "rule": "element_attribute_deprecated",
+            "xpath": null,
+            "html": "<meta content=\"ie=edge\" http-equiv=\"x-ua-compatible\">",
+            "message": "The HTML attribute(s) \"http-equiv\" is deprecated for the <meta> element in HTML 5",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "style_background_decorative",
+            "xpath": null,
+            "html": "<style data-identity=\"gatsby-global-css\" data-href=\"/styles.10e58f5f24191695185c.css\">",
+            "message": "Verify the CSS background image does not convey important information",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "style_color_misuse",
+            "xpath": null,
+            "html": "<style data-identity=\"gatsby-global-css\" data-href=\"/styles.10e58f5f24191695185c.css\">",
+            "message": "Verify color is not used as the only visual means of conveying information",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "style_highcontrast_visible",
+            "xpath": null,
+            "html": "<style data-identity=\"gatsby-global-css\" data-href=\"/styles.10e58f5f24191695185c.css\">",
+            "message": "Confirm Windows high contrast mode is supported when using CSS to include, position or alter non-decorative content",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "aria_content_in_landmark",
+            "xpath": null,
+            "html": "<a rel=\"noopener noreferrer\" target=\"_blank\" href=\"https://grnsft.org/mov-plat-website\">",
+            "message": "Content is not within a landmark element",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "svg_graphics_labelled",
+            "xpath": null,
+            "html": "<svg fill=\"none\" viewBox=\"0 0 157 53\" height=\"53\" width=\"157\">",
+            "message": "The SVG element has no accessible name",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "style_focus_visible",
+            "xpath": null,
+            "html": "<button rel=\"noopener noreferrer\" target=\"_blank\" class=\"search-btn\" aria-label=\"search\">",
+            "message": "Check the keyboard focus indicator is visible when using CSS declaration for 'border' or 'outline'",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "input_label_visible",
+            "xpath": null,
+            "html": "<button rel=\"noopener noreferrer\" target=\"_blank\" class=\"search-btn\" aria-label=\"search\">",
+            "message": "The input element does not have an associated visible label",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "style_focus_visible",
+            "xpath": null,
+            "html": "<button aria-label=\"menu\">",
+            "message": "Check the keyboard focus indicator is visible when using CSS declaration for 'border' or 'outline'",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "input_label_visible",
+            "xpath": null,
+            "html": "<button aria-label=\"menu\">",
+            "message": "The input element does not have an associated visible label",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "aria_form_label_unique",
+            "xpath": null,
+            "html": "<form class=\"newsletter-form \">",
+            "message": "Multiple elements with \"form\" role do not have unique labels",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "style_focus_visible",
+            "xpath": null,
+            "html": "<input placeholder=\"Sign up to our newsletter...\" name=\"email\" type=\"text\">",
+            "message": "Check the keyboard focus indicator is visible when using CSS declaration for 'border' or 'outline'",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "input_label_visible",
+            "xpath": null,
+            "html": "<input placeholder=\"Sign up to our newsletter...\" name=\"email\" type=\"text\">",
+            "message": "The ‘placeholder’ is the only visible label",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "style_focus_visible",
+            "xpath": null,
+            "html": "<button type=\"submit\" class=\"button\">",
+            "message": "Check the keyboard focus indicator is visible when using CSS declaration for 'border' or 'outline'",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "svg_graphics_labelled",
+            "xpath": null,
+            "html": "<svg style=\"width: 100%; height: 100%; transform: translate3d(0px, 0px, 0px); content-visibility: visible;\" preserveAspectRatio=\"xMidYMid meet\" height=\"500\" width=\"1024\" viewBox=\"0 0 1024 500\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" xmlns=\"http://www.w3.org/2000/svg\">",
+            "message": "The SVG element has no accessible name",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "svg_graphics_labelled",
+            "xpath": null,
+            "html": "<svg fill=\"none\" viewBox=\"0 0 321 321\" height=\"321\" width=\"321\">",
+            "message": "The SVG element has no accessible name",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "style_focus_visible",
+            "xpath": null,
+            "html": "<a href=\"/articles/what-is-green-software\" class=\"button\">",
+            "message": "Check the keyboard focus indicator is visible when using CSS declaration for 'border' or 'outline'",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "text_block_heading",
+            "xpath": null,
+            "html": "<div class=\"text\">",
+            "message": "Confirm this text '68 68 MEMBER ORGANISATIONS' is used as a heading and if so, modify to use a heading element or role",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "text_block_heading",
+            "xpath": null,
+            "html": "<div class=\"text\">",
+            "message": "Confirm this text '1098 1098 INDIVIDUALS' is used as a heading and if so, modify to use a heading element or role",
+            "isDuplicate": true,
+            "duplicateOf": "equalAccess"
+          },
+          {
+            "rule": "text_block_heading",
+            "xpath": null,
+            "html": "<div class=\"content-wrapper\">",
+            "message": "Confirm this text 'Wanna work' is used as a heading and if so, modify to use a heading element or role",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "text_block_heading",
+            "xpath": null,
+            "html": "<br>",
+            "message": "Confirm this text 'with us?' is used as a heading and if so, modify to use a heading element or role",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "style_focus_visible",
+            "xpath": null,
+            "html": "<a href=\"/join-us\" class=\"button\">",
+            "message": "Check the keyboard focus indicator is visible when using CSS declaration for 'border' or 'outline'",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "svg_graphics_labelled",
+            "xpath": null,
+            "html": "<svg fill=\"none\" viewBox=\"0 0 53 54\" height=\"54\" width=\"53\">",
+            "message": "The SVG element has no accessible name",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "a_text_purpose",
+            "xpath": null,
+            "html": "<a rel=\"noopener noreferrer\" target=\"_blank\" href=\"https://github.com/Green-Software-Foundation\">",
+            "message": "Hyperlink has no link text, label or image with a text alternative",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "a_text_purpose",
+            "xpath": null,
+            "html": "<a rel=\"noopener noreferrer\" target=\"_blank\" href=\"https://twitter.com/gsfcommunity\">",
+            "message": "Hyperlink has no link text, label or image with a text alternative",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "a_text_purpose",
+            "xpath": null,
+            "html": "<a rel=\"noopener noreferrer\" target=\"_blank\" href=\"https://www.linkedin.com/company/green-software-foundation/\">",
+            "message": "Hyperlink has no link text, label or image with a text alternative",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "aria_form_label_unique",
+            "xpath": null,
+            "html": "<form class=\"newsletter-form \">",
+            "message": "Multiple elements with \"form\" role do not have unique labels",
+            "isDuplicate": true,
+            "duplicateOf": "equalAccess"
+          },
+          {
+            "rule": "style_focus_visible",
+            "xpath": null,
+            "html": "<input placeholder=\"you@example.xyz\" name=\"email\" type=\"text\">",
+            "message": "Check the keyboard focus indicator is visible when using CSS declaration for 'border' or 'outline'",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "input_label_visible",
+            "xpath": null,
+            "html": "<input placeholder=\"you@example.xyz\" name=\"email\" type=\"text\">",
+            "message": "The ‘placeholder’ is the only visible label",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "style_focus_visible",
+            "xpath": null,
+            "html": "<button type=\"submit\" class=\"button\">",
+            "message": "Check the keyboard focus indicator is visible when using CSS declaration for 'border' or 'outline'",
+            "isDuplicate": true,
+            "duplicateOf": "equalAccess"
+          },
+          {
+            "rule": "aria_content_in_landmark",
+            "xpath": null,
+            "html": "<p>",
+            "message": "Content is not within a landmark element",
+            "isDuplicate": false,
+            "duplicateOf": null
+          }
+        ],
+        "outcomeCount": 5843,
+        "uniqueFailedCount": 28,
+        "duplicateFailedCount": 3
+      },
+      "accesslint": {
+        "executed": false,
+        "error": "Skipped (not requested)",
+        "counts": {
+          "passed": 0,
+          "failed": 0,
+          "cantTell": 0,
+          "inapplicable": 0
+        },
+        "failedRules": [],
+        "passedRules": [],
+        "failures": [],
+        "outcomeCount": 0,
+        "uniqueFailedCount": 0,
+        "duplicateFailedCount": 0
+      },
+      "qualweb": {
+        "executed": false,
+        "error": "Skipped (not requested)",
+        "counts": {
+          "passed": 0,
+          "failed": 0,
+          "cantTell": 0,
+          "inapplicable": 0
+        },
+        "failedRules": [],
+        "passedRules": [],
+        "failures": [],
+        "outcomeCount": 0,
+        "uniqueFailedCount": 0,
+        "duplicateFailedCount": 0
+      },
+      "duplicateFindingCount": 3
+    }
+  ],
+  "enhanced": {
+    "consolidatedFailures": [
+      {
+        "rule": "link-name",
+        "engine": "axe",
+        "metadata": {
+          "roles": [
+            "Content Author",
+            "UX Designer"
+          ],
+          "severity": "Serious",
+          "blocking": true
+        },
+        "pages": {},
+        "totalOccurrences": 7,
+        "examples": [
+          {
+            "url": "https://greensoftware.foundation/",
+            "html": "<a href=\"https://www.youtube.com/@greensoftwarefoundation3662\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"search-btn\">",
+            "xpath": ".cta-wrapper > .search-btn[target=\"_blank\"][rel=\"noopener noreferrer\"]:nth-child(1)",
+            "message": "Links must have discernible text",
+            "colorScheme": "light"
+          },
+          {
+            "url": "https://greensoftware.foundation/",
+            "html": "<a href=\"https://movement.greensoftware.foundation/about\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"search-btn\">",
+            "xpath": ".search-btn[target=\"_blank\"][rel=\"noopener noreferrer\"]:nth-child(2)",
+            "message": "Links must have discernible text",
+            "colorScheme": "light"
+          },
+          {
+            "url": "https://greensoftware.foundation/",
+            "html": "<a href=\"https://www.linkedin.com/company/green-software-foundation\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"search-btn\">",
+            "xpath": ".search-btn[target=\"_blank\"][rel=\"noopener noreferrer\"]:nth-child(3)",
+            "message": "Links must have discernible text",
+            "colorScheme": "light"
+          },
+          {
+            "url": "https://greensoftware.foundation/",
+            "html": "<a href=\"https://github.com/Green-Software-Foundation\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"search-btn\">",
+            "xpath": ".search-btn[target=\"_blank\"][rel=\"noopener noreferrer\"]:nth-child(4)",
+            "message": "Links must have discernible text",
+            "colorScheme": "light"
+          },
+          {
+            "url": "https://greensoftware.foundation/",
+            "html": "<a href=\"https://github.com/Green-Software-Foundation\" target=\"_blank\" rel=\"noopener noreferrer\">",
+            "xpath": ".social-links > li:nth-child(1) > a[target=\"_blank\"][rel=\"noopener noreferrer\"]",
+            "message": "Links must have discernible text",
+            "colorScheme": "light"
+          }
+        ]
+      },
+      {
+        "rule": "style_focus_visible",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 7,
+        "examples": [
+          {
+            "url": "https://greensoftware.foundation/",
+            "html": "<button rel=\"noopener noreferrer\" target=\"_blank\" class=\"search-btn\" aria-label=\"search\">",
+            "xpath": null,
+            "message": "Check the keyboard focus indicator is visible when using CSS declaration for 'border' or 'outline'"
+          },
+          {
+            "url": "https://greensoftware.foundation/",
+            "html": "<button aria-label=\"menu\">",
+            "xpath": null,
+            "message": "Check the keyboard focus indicator is visible when using CSS declaration for 'border' or 'outline'"
+          },
+          {
+            "url": "https://greensoftware.foundation/",
+            "html": "<input placeholder=\"Sign up to our newsletter...\" name=\"email\" type=\"text\">",
+            "xpath": null,
+            "message": "Check the keyboard focus indicator is visible when using CSS declaration for 'border' or 'outline'"
+          },
+          {
+            "url": "https://greensoftware.foundation/",
+            "html": "<button type=\"submit\" class=\"button\">",
+            "xpath": null,
+            "message": "Check the keyboard focus indicator is visible when using CSS declaration for 'border' or 'outline'"
+          },
+          {
+            "url": "https://greensoftware.foundation/",
+            "html": "<a href=\"/articles/what-is-green-software\" class=\"button\">",
+            "xpath": null,
+            "message": "Check the keyboard focus indicator is visible when using CSS declaration for 'border' or 'outline'"
+          }
+        ]
+      },
+      {
+        "rule": "svg_graphics_labelled",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 4,
+        "examples": [
+          {
+            "url": "https://greensoftware.foundation/",
+            "html": "<svg fill=\"none\" viewBox=\"0 0 157 53\" height=\"53\" width=\"157\">",
+            "xpath": null,
+            "message": "The SVG element has no accessible name"
+          },
+          {
+            "url": "https://greensoftware.foundation/",
+            "html": "<svg style=\"width: 100%; height: 100%; transform: translate3d(0px, 0px, 0px); content-visibility: visible;\" preserveAspectRatio=\"xMidYMid meet\" height=\"500\" width=\"1024\" viewBox=\"0 0 1024 500\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" xmlns=\"http://www.w3.org/2000/svg\">",
+            "xpath": null,
+            "message": "The SVG element has no accessible name"
+          },
+          {
+            "url": "https://greensoftware.foundation/",
+            "html": "<svg fill=\"none\" viewBox=\"0 0 321 321\" height=\"321\" width=\"321\">",
+            "xpath": null,
+            "message": "The SVG element has no accessible name"
+          },
+          {
+            "url": "https://greensoftware.foundation/",
+            "html": "<svg fill=\"none\" viewBox=\"0 0 53 54\" height=\"54\" width=\"53\">",
+            "xpath": null,
+            "message": "The SVG element has no accessible name"
+          }
+        ]
+      },
+      {
+        "rule": "input_label_visible",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 4,
+        "examples": [
+          {
+            "url": "https://greensoftware.foundation/",
+            "html": "<button rel=\"noopener noreferrer\" target=\"_blank\" class=\"search-btn\" aria-label=\"search\">",
+            "xpath": null,
+            "message": "The input element does not have an associated visible label"
+          },
+          {
+            "url": "https://greensoftware.foundation/",
+            "html": "<button aria-label=\"menu\">",
+            "xpath": null,
+            "message": "The input element does not have an associated visible label"
+          },
+          {
+            "url": "https://greensoftware.foundation/",
+            "html": "<input placeholder=\"Sign up to our newsletter...\" name=\"email\" type=\"text\">",
+            "xpath": null,
+            "message": "The ‘placeholder’ is the only visible label"
+          },
+          {
+            "url": "https://greensoftware.foundation/",
+            "html": "<input placeholder=\"you@example.xyz\" name=\"email\" type=\"text\">",
+            "xpath": null,
+            "message": "The ‘placeholder’ is the only visible label"
+          }
+        ]
+      },
+      {
+        "rule": "text_block_heading",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 3,
+        "examples": [
+          {
+            "url": "https://greensoftware.foundation/",
+            "html": "<div class=\"text\">",
+            "xpath": null,
+            "message": "Confirm this text '68 68 MEMBER ORGANISATIONS' is used as a heading and if so, modify to use a heading element or role"
+          },
+          {
+            "url": "https://greensoftware.foundation/",
+            "html": "<div class=\"content-wrapper\">",
+            "xpath": null,
+            "message": "Confirm this text 'Wanna work' is used as a heading and if so, modify to use a heading element or role"
+          },
+          {
+            "url": "https://greensoftware.foundation/",
+            "html": "<br>",
+            "xpath": null,
+            "message": "Confirm this text 'with us?' is used as a heading and if so, modify to use a heading element or role"
+          }
+        ]
+      },
+      {
+        "rule": "a_text_purpose",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 3,
+        "examples": [
+          {
+            "url": "https://greensoftware.foundation/",
+            "html": "<a rel=\"noopener noreferrer\" target=\"_blank\" href=\"https://github.com/Green-Software-Foundation\">",
+            "xpath": null,
+            "message": "Hyperlink has no link text, label or image with a text alternative"
+          },
+          {
+            "url": "https://greensoftware.foundation/",
+            "html": "<a rel=\"noopener noreferrer\" target=\"_blank\" href=\"https://twitter.com/gsfcommunity\">",
+            "xpath": null,
+            "message": "Hyperlink has no link text, label or image with a text alternative"
+          },
+          {
+            "url": "https://greensoftware.foundation/",
+            "html": "<a rel=\"noopener noreferrer\" target=\"_blank\" href=\"https://www.linkedin.com/company/green-software-foundation/\">",
+            "xpath": null,
+            "message": "Hyperlink has no link text, label or image with a text alternative"
+          }
+        ]
+      },
+      {
+        "rule": "region",
+        "engine": "axe",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 2,
+        "examples": [
+          {
+            "url": "https://greensoftware.foundation/",
+            "html": "<div class=\"banner-wrapper\">",
+            "xpath": ".banner-wrapper",
+            "message": "All page content should be contained by landmarks",
+            "colorScheme": "light"
+          },
+          {
+            "url": "https://greensoftware.foundation/",
+            "html": "<div class=\"sub-footer\"><p>The Joint Development Foundation Projects, LLC is an affiliate of the Linux Foundation.</p></div>",
+            "xpath": ".sub-footer",
+            "message": "All page content should be contained by landmarks",
+            "colorScheme": "light"
+          }
+        ]
+      },
+      {
+        "rule": "aria_content_in_landmark",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 2,
+        "examples": [
+          {
+            "url": "https://greensoftware.foundation/",
+            "html": "<a rel=\"noopener noreferrer\" target=\"_blank\" href=\"https://grnsft.org/mov-plat-website\">",
+            "xpath": null,
+            "message": "Content is not within a landmark element"
+          },
+          {
+            "url": "https://greensoftware.foundation/",
+            "html": "<p>",
+            "xpath": null,
+            "message": "Content is not within a landmark element"
+          }
+        ]
+      },
+      {
+        "rule": "button-name",
+        "engine": "axe",
+        "metadata": {
+          "roles": [
+            "Front-End Developer",
+            "Content Author"
+          ],
+          "severity": "Critical",
+          "blocking": true
+        },
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://greensoftware.foundation/",
+            "html": "<button class=\"search-btn\"><svg style=\"width:1.5rem;height:1.5rem\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z\"></path></svg></button>",
+            "xpath": ".search-btn:nth-child(5)",
+            "message": "Buttons must have discernible text",
+            "colorScheme": "light"
+          }
+        ]
+      },
+      {
+        "rule": "element_attribute_deprecated",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://greensoftware.foundation/",
+            "html": "<meta content=\"ie=edge\" http-equiv=\"x-ua-compatible\">",
+            "xpath": null,
+            "message": "The HTML attribute(s) \"http-equiv\" is deprecated for the <meta> element in HTML 5"
+          }
+        ]
+      },
+      {
+        "rule": "style_background_decorative",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://greensoftware.foundation/",
+            "html": "<style data-identity=\"gatsby-global-css\" data-href=\"/styles.10e58f5f24191695185c.css\">",
+            "xpath": null,
+            "message": "Verify the CSS background image does not convey important information"
+          }
+        ]
+      },
+      {
+        "rule": "style_color_misuse",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://greensoftware.foundation/",
+            "html": "<style data-identity=\"gatsby-global-css\" data-href=\"/styles.10e58f5f24191695185c.css\">",
+            "xpath": null,
+            "message": "Verify color is not used as the only visual means of conveying information"
+          }
+        ]
+      },
+      {
+        "rule": "style_highcontrast_visible",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://greensoftware.foundation/",
+            "html": "<style data-identity=\"gatsby-global-css\" data-href=\"/styles.10e58f5f24191695185c.css\">",
+            "xpath": null,
+            "message": "Confirm Windows high contrast mode is supported when using CSS to include, position or alter non-decorative content"
+          }
+        ]
+      },
+      {
+        "rule": "aria_form_label_unique",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://greensoftware.foundation/",
+            "html": "<form class=\"newsletter-form \">",
+            "xpath": null,
+            "message": "Multiple elements with \"form\" role do not have unique labels"
+          }
+        ]
+      }
+    ],
+    "roleStats": {
+      "UX Designer": 7,
+      "Visual Designer": 0,
+      "Content Author": 8,
+      "Front-End Developer": 31
+    },
+    "severityStats": {
+      "Critical": 1,
+      "Serious": 7,
+      "Moderate": 30,
+      "Minor": 0
+    }
+  }
+}
