@@ -31,8 +31,9 @@ export function determineScannersToRun(engines) {
   }
 
   // Map engine names to scanner flags
+  // axe always runs regardless of what was specified
   return {
-    runAxe: engines.includes("axe"),
+    runAxe: true,
     runAlfa: engines.includes("alfa"),
     runEqualAccess: engines.includes("equalaccess"),
     runAccesslint: engines.includes("accesslint"),
@@ -1601,25 +1602,38 @@ export function toMarkdownReport(summary, axeVersion = "4.11") {
   lines.push("Focus your efforts on these pages to make the biggest impact (combined scanner unique failures):");
   lines.push("");
 
+  // Determine which engine columns to show based on which engines were run
+  const enginesSpec = summary.engines || ["all"];
+  const isAllEngines = enginesSpec.includes("all");
+  const activeEngineKeys = isAllEngines
+    ? ["axe", "alfa", "equalaccess", "accesslint", "qualweb"]
+    : [...new Set([...enginesSpec.map(e => e.toLowerCase()), "axe"])]; // axe always included
+
+  const PRIORITY_COLUMNS = [
+    { key: "axe", label: "axe Unique", getValue: r => r.axe?.uniqueFailedCount ?? r.axe?.counts?.failed ?? 0 },
+    { key: "alfa", label: "ALFA Unique", getValue: r => r.alfa?.uniqueFailedCount ?? r.alfa?.counts?.failed ?? 0 },
+    { key: "equalaccess", label: "Equal Access Unique", getValue: r => r.equalAccess?.uniqueFailedCount ?? r.equalAccess?.counts?.failed ?? 0 },
+    { key: "accesslint", label: "AccessLint Unique", getValue: r => r.accesslint?.uniqueFailedCount ?? r.accesslint?.counts?.failed ?? 0 },
+    { key: "qualweb", label: "QualWeb", getValue: r => r.qualweb?.counts?.failed ?? 0 },
+  ];
+  const activeColumns = PRIORITY_COLUMNS.filter(col => activeEngineKeys.includes(col.key));
+
   const pagesByErrorCount = [...summary.results]
-    .filter(r => ((r.axe.uniqueFailedCount ?? r.axe.counts.failed) + (r.alfa.uniqueFailedCount ?? r.alfa.counts.failed) + (r.equalAccess?.uniqueFailedCount ?? r.equalAccess?.counts?.failed ?? 0) + (r.accesslint?.uniqueFailedCount ?? r.accesslint?.counts?.failed ?? 0) + (r.qualweb?.counts?.failed ?? 0)) > 0)
-    .sort((a, b) =>
-      ((b.axe.uniqueFailedCount ?? b.axe.counts.failed) + (b.alfa.uniqueFailedCount ?? b.alfa.counts.failed) + (b.equalAccess?.uniqueFailedCount ?? b.equalAccess?.counts?.failed ?? 0) + (b.accesslint?.uniqueFailedCount ?? b.accesslint?.counts?.failed ?? 0) + (b.qualweb?.counts?.failed ?? 0)) -
-      ((a.axe.uniqueFailedCount ?? a.axe.counts.failed) + (a.alfa.uniqueFailedCount ?? a.alfa.counts.failed) + (a.equalAccess?.uniqueFailedCount ?? a.equalAccess?.counts?.failed ?? 0) + (a.accesslint?.uniqueFailedCount ?? a.accesslint?.counts?.failed ?? 0) + (a.qualweb?.counts?.failed ?? 0))
-    )
+    .filter(r => activeColumns.reduce((sum, col) => sum + col.getValue(r), 0) > 0)
+    .sort((a, b) => {
+      const totalA = activeColumns.reduce((sum, col) => sum + col.getValue(a), 0);
+      const totalB = activeColumns.reduce((sum, col) => sum + col.getValue(b), 0);
+      return totalB - totalA;
+    })
     .slice(0, 10);
 
   if (pagesByErrorCount.length > 0) {
-    lines.push("| Page | axe Unique | ALFA Unique | Equal Access Unique | AccessLint Unique | QualWeb | Total Unique | Page Title |");
-    lines.push("|---|---:|---:|---:|---:|---:|---:|---|");
+    lines.push(`| Page | ${activeColumns.map(c => c.label).join(" | ")} | Total Unique | Page Title |`);
+    lines.push(`|---|${activeColumns.map(() => "---:").join("|")}|---:|---|`);
     for (const result of pagesByErrorCount) {
-      const axeUnique = result.axe.uniqueFailedCount ?? result.axe.counts.failed;
-      const alfaUnique = result.alfa.uniqueFailedCount ?? result.alfa.counts.failed;
-      const equalAccessUnique = result.equalAccess?.uniqueFailedCount ?? result.equalAccess?.counts?.failed ?? 0;
-      const accesslintUnique = result.accesslint?.uniqueFailedCount ?? result.accesslint?.counts?.failed ?? 0;
-      const qualwebFailed = result.qualweb?.counts?.failed ?? 0;
-      const totalFailed = axeUnique + alfaUnique + equalAccessUnique + accesslintUnique + qualwebFailed;
-      lines.push(`| [View Page](${escapeMarkdown(result.finalUrl)}) | ${axeUnique} | ${alfaUnique} | ${equalAccessUnique} | ${accesslintUnique} | ${qualwebFailed} | **${totalFailed}** | ${escapeMarkdown(result.pageTitle || result.finalUrl)} |`);
+      const colValues = activeColumns.map(c => c.getValue(result));
+      const totalFailed = colValues.reduce((sum, v) => sum + v, 0);
+      lines.push(`| [View Page](${escapeMarkdown(result.finalUrl)}) | ${colValues.join(" | ")} | **${totalFailed}** | ${escapeMarkdown(result.pageTitle || result.finalUrl)} |`);
     }
   } else {
     lines.push("✅ No pages with accessibility errors detected!");
@@ -2494,6 +2508,10 @@ async function main() {
 
   const request = parsed.value;
   const engines = request.engines || ["all"];
+  // axe always runs; ensure it's reflected in the engines list for reporting
+  if (!engines.includes("all") && !engines.includes("axe")) {
+    engines.push("axe");
+  }
   const validation = validateTargets(request.requestedUrls);
   const acceptedTargets = validation.accepted;
 

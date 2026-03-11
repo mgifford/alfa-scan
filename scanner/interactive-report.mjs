@@ -20,8 +20,22 @@ export function generateInteractiveHtml(summary) {
   const totalIssues = consolidatedFailures.reduce((acc, f) => acc + f.totalOccurrences, 0);
 
   // Build priority table data (top 10 pages by total unique errors)
-  const SCANNERS = ['axe', 'alfa', 'equalAccess', 'accesslint', 'qualweb'];
+  const ALL_SCANNERS = ['axe', 'alfa', 'equalAccess', 'accesslint', 'qualweb'];
   const SCANNER_LABELS = { axe: 'axe', alfa: 'ALFA', equalAccess: 'Equal Access', accesslint: 'AccessLint', qualweb: 'QualWeb' };
+  // Mapping from lowercase engine key (as stored in summary.engines) to SCANNERS key
+  const ENGINE_KEY_MAP = { axe: 'axe', alfa: 'alfa', equalaccess: 'equalAccess', accesslint: 'accesslint', qualweb: 'qualweb' };
+
+  // Determine which scanners to show columns for based on which engines were run
+  const enginesSpec = summary.engines || ["all"];
+  const isAllEngines = enginesSpec.includes("all");
+  const activeScannerKeys = isAllEngines
+    ? ALL_SCANNERS
+    : [...new Set([
+        ...enginesSpec.map(e => ENGINE_KEY_MAP[e.toLowerCase()]).filter(Boolean),
+        'axe' // axe always included
+      ])];
+  // Preserve original SCANNERS order
+  const SCANNERS = ALL_SCANNERS.filter(s => activeScannerKeys.includes(s));
 
   function getUnique(result, engine) {
     if (engine === 'axe') return result.axe?.uniqueFailedCount ?? result.axe?.counts?.failed ?? 0;

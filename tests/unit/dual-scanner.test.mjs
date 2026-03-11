@@ -220,7 +220,7 @@ describe("Dual-Scanner Integration Tests", () => {
 
   it("should determine only alfa runs when 'alfa' is specified", () => {
     const result = determineScannersToRun(["alfa"]);
-    assert.strictEqual(result.runAxe, false);
+    assert.strictEqual(result.runAxe, true); // axe always runs
     assert.strictEqual(result.runAlfa, true);
     assert.strictEqual(result.runEqualAccess, false);
     assert.strictEqual(result.runAccesslint, false);
@@ -238,7 +238,7 @@ describe("Dual-Scanner Integration Tests", () => {
 
   it("should determine equalaccess and accesslint run when specified", () => {
     const result = determineScannersToRun(["equalaccess", "accesslint"]);
-    assert.strictEqual(result.runAxe, false);
+    assert.strictEqual(result.runAxe, true); // axe always runs
     assert.strictEqual(result.runAlfa, false);
     assert.strictEqual(result.runEqualAccess, true);
     assert.strictEqual(result.runAccesslint, true);
@@ -247,7 +247,7 @@ describe("Dual-Scanner Integration Tests", () => {
 
   it("should determine only qualweb runs when 'qualweb' is specified", () => {
     const result = determineScannersToRun(["qualweb"]);
-    assert.strictEqual(result.runAxe, false);
+    assert.strictEqual(result.runAxe, true); // axe always runs
     assert.strictEqual(result.runAlfa, false);
     assert.strictEqual(result.runEqualAccess, false);
     assert.strictEqual(result.runAccesslint, false);
