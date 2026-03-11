@@ -1,0 +1,54 @@
+{
+  "generatedAt": "2026-03-11T00:18:08.524Z",
+  "issueNumber": 92,
+  "scanTitle": "Bob's first try",
+  "scannersInUse": [
+    "axe",
+    "alfa"
+  ],
+  "scannerStats": {
+    "axe": {
+      "label": "axe",
+      "failed": 196,
+      "uniqueFailed": 196,
+      "duplicates": 0
+    },
+    "alfa": {
+      "label": "ALFA",
+      "failed": 7655,
+      "uniqueFailed": 7655,
+      "duplicates": 0
+    },
+    "equalAccess": {
+      "label": "Equal Access",
+      "failed": 0,
+      "uniqueFailed": 0,
+      "duplicates": 0
+    },
+    "accesslint": {
+      "label": "AccessLint",
+      "failed": 0,
+      "uniqueFailed": 0,
+      "duplicates": 0
+    },
+    "qualweb": {
+      "label": "QualWeb",
+      "failed": 0,
+      "uniqueFailed": 0,
+      "duplicates": 0
+    }
+  },
+  "matrix": {
+    "axe": {
+      "axe": 149,
+      "alfa": 0
+    },
+    "alfa": {
+      "axe": 0,
+      "alfa": 2051
+    }
+  },
+  "duplicateFindingTotals": 5651,
+  "overlapEntryCount": 0,
+  "overlapEntries": []
+}
