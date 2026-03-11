@@ -297,13 +297,22 @@ jobs:
               const ghMdUrl = `https://github.com/${owner}/${repo}/blob/main/${item.markdownPath}`;
               const ghOverlapUrl = `https://github.com/${owner}/${repo}/blob/main/${item.overlapMarkdownPath}`;
 
-              const body = [
+              const commentLines = [
                 `Scheduled scan complete for **${item.scanTitle}** (${item.triggerType}).`,
                 '',
                 `- Accepted URLs scanned: ${item.acceptedCount}`,
                 `- URLs scanned this run: ${item.scannedCount}`,
                 `- Rejected URLs: ${item.rejectedCount}`,
-                '',
+                ''
+              ];
+              
+              // Add recommendation if only 1 URL was scanned
+              if (item.acceptedCount === 1) {
+                commentLines.push(`💡 **Only 1 URL was scanned.** Open Scans works best with multiple URLs. To generate a list of related URLs for a more thorough accessibility scan, try the [Top Task Finder](https://mgifford.github.io/top-task-finder/). You can edit this issue to add more URLs and reopen it to trigger a new scan.`);
+                commentLines.push('');
+              }
+              
+              commentLines.push(
                 `Latest report (Pages, HTML): ${pagesHtmlUrl}`,
                 `Latest report (Pages, Markdown): ${pagesMdUrl}`,
                 `Latest CSV (Pages): ${pagesCsvUrl}`,
@@ -312,7 +321,9 @@ jobs:
                 `Overlap fallback (GitHub): ${ghOverlapUrl}`,
                 '',
                 '_Issue remains open for future scheduled scans._'
-              ].join('\n');
+              );
+              
+              const body = commentLines.join('\n');
 
               await github.rest.issues.createComment({
                 owner,
