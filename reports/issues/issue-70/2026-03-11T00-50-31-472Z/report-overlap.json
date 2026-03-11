@@ -1,0 +1,54 @@
+{
+  "generatedAt": "2026-03-11T00:49:38.418Z",
+  "issueNumber": 70,
+  "scanTitle": "Italy",
+  "scannersInUse": [
+    "alfa",
+    "equalAccess"
+  ],
+  "scannerStats": {
+    "axe": {
+      "label": "axe",
+      "failed": 0,
+      "uniqueFailed": 0,
+      "duplicates": 0
+    },
+    "alfa": {
+      "label": "ALFA",
+      "failed": 6384,
+      "uniqueFailed": 6384,
+      "duplicates": 0
+    },
+    "equalAccess": {
+      "label": "Equal Access",
+      "failed": 2732,
+      "uniqueFailed": 2275,
+      "duplicates": 457
+    },
+    "accesslint": {
+      "label": "AccessLint",
+      "failed": 0,
+      "uniqueFailed": 0,
+      "duplicates": 0
+    },
+    "qualweb": {
+      "label": "QualWeb",
+      "failed": 0,
+      "uniqueFailed": 0,
+      "duplicates": 0
+    }
+  },
+  "matrix": {
+    "alfa": {
+      "alfa": 1207,
+      "equalAccess": 0
+    },
+    "equalAccess": {
+      "alfa": 0,
+      "equalAccess": 2235
+    }
+  },
+  "duplicateFindingTotals": 5612,
+  "overlapEntryCount": 0,
+  "overlapEntries": []
+}
