@@ -78,7 +78,7 @@ export function generateTableRows(reports) {
     const totalCantTell = alfaTotals.cantTell + axeTotals.cantTell;
     
     return `
-        <tr>
+        <tr data-issue="${data.issueNumber}" data-title="${escapeHtml(data.scanTitle)}" data-date="${escapeHtml(data.scannedAt)}" data-urls="${data.acceptedCount}">
           <td><a href="${data.issueUrl}">#${data.issueNumber}</a></td>
           <td>${escapeHtml(data.scanTitle)}</td>
           <td class="date">${formattedDate}</td>
@@ -267,6 +267,94 @@ export function generateReportsHtml(reports) {
     footer a:hover {
       text-decoration: underline;
     }
+    
+    .sort-btn {
+      background: none;
+      border: none;
+      font: inherit;
+      font-weight: 600;
+      color: #24292f;
+      cursor: pointer;
+      padding: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      white-space: nowrap;
+    }
+    
+    .sort-btn:hover {
+      color: #0969da;
+    }
+    
+    .sort-btn:focus-visible {
+      outline: 2px solid #0969da;
+      outline-offset: 2px;
+      border-radius: 2px;
+    }
+    
+    .sort-icon {
+      font-size: 0.75rem;
+      opacity: 0.5;
+    }
+    
+    .sort-btn:hover .sort-icon {
+      opacity: 1;
+    }
+    
+    .table-info {
+      color: #57606a;
+      font-size: 0.875rem;
+      margin-top: 0.75rem;
+    }
+    
+    .pagination-nav {
+      display: flex;
+      align-items: center;
+      gap: 0.375rem;
+      flex-wrap: wrap;
+      margin-top: 1.25rem;
+    }
+    
+    .page-info {
+      color: #57606a;
+      font-size: 0.875rem;
+      margin-right: 0.5rem;
+    }
+    
+    .page-btn {
+      padding: 0.375rem 0.75rem;
+      border: 1px solid #d0d7de;
+      border-radius: 6px;
+      background: white;
+      color: #0969da;
+      cursor: pointer;
+      font-size: 0.875rem;
+      line-height: 1.4;
+    }
+    
+    .page-btn:hover {
+      background: #f3f4f6;
+    }
+    
+    .page-btn:focus-visible {
+      outline: 2px solid #0969da;
+      outline-offset: 2px;
+    }
+    
+    .page-btn-active {
+      background: #0969da;
+      color: white;
+      border-color: #0969da;
+    }
+    
+    .page-btn-active:hover {
+      background: #0860ca;
+    }
+    
+    .page-ellipsis {
+      padding: 0 0.25rem;
+      color: #57606a;
+    }
   </style>
 </head>
 <body>
@@ -283,23 +371,172 @@ export function generateReportsHtml(reports) {
     <table>
       <thead>
         <tr>
-          <th>Issue</th>
-          <th>Scan Title</th>
-          <th>Scanned At</th>
-          <th>URLs</th>
-          <th>Results</th>
-          <th>Reports</th>
+          <th scope="col"><button class="sort-btn" data-col="issue">Issue <span class="sort-icon" aria-hidden="true">↕</span></button></th>
+          <th scope="col"><button class="sort-btn" data-col="title">Scan Title <span class="sort-icon" aria-hidden="true">↕</span></button></th>
+          <th scope="col"><button class="sort-btn" data-col="date">Scanned At <span class="sort-icon" aria-hidden="true">↓</span></button></th>
+          <th scope="col"><button class="sort-btn" data-col="urls">URLs <span class="sort-icon" aria-hidden="true">↕</span></button></th>
+          <th scope="col">Results</th>
+          <th scope="col">Reports</th>
         </tr>
       </thead>
       <tbody>
         ${tableRows}
       </tbody>
-    </table>`}
+    </table>
+    <p class="table-info" id="table-info" aria-live="polite"></p>
+    <div id="pagination"></div>`}
     
     <footer>
       <a href="https://github.com/mgifford/open-scans">Join our GitHub Community</a>
     </footer>
   </div>
+  <script>
+  (function () {
+    var PAGE_SIZE = 50;
+    var currentPage = 1;
+    var sortCol = 'date';
+    var sortDir = 'desc';
+
+    var tbody = document.querySelector('tbody');
+    var tableEl = document.querySelector('table');
+    var paginationEl = document.getElementById('pagination');
+    var tableInfoEl = document.getElementById('table-info');
+
+    if (!tbody) return;
+
+    function getRows() {
+      return Array.from(tbody.querySelectorAll('tr'));
+    }
+
+    function compareValues(a, b) {
+      var valA, valB;
+      if (sortCol === 'issue' || sortCol === 'urls') {
+        valA = parseInt(a.dataset[sortCol], 10) || 0;
+        valB = parseInt(b.dataset[sortCol], 10) || 0;
+      } else if (sortCol === 'date') {
+        valA = a.dataset.date || '';
+        valB = b.dataset.date || '';
+      } else {
+        valA = (a.dataset.title || '').toLowerCase();
+        valB = (b.dataset.title || '').toLowerCase();
+      }
+      var cmp = valA < valB ? -1 : valA > valB ? 1 : 0;
+      return sortDir === 'asc' ? cmp : -cmp;
+    }
+
+    function sortRows() {
+      var rows = getRows();
+      rows.sort(compareValues);
+      rows.forEach(function (row) { tbody.appendChild(row); });
+    }
+
+    function renderPage() {
+      var rows = getRows();
+      var total = rows.length;
+      var totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+      if (currentPage > totalPages) currentPage = totalPages;
+      var start = (currentPage - 1) * PAGE_SIZE;
+      var end = start + PAGE_SIZE;
+
+      rows.forEach(function (row, i) {
+        row.style.display = (i >= start && i < end) ? '' : 'none';
+      });
+
+      if (tableInfoEl) {
+        var showing = Math.min(end, total);
+        tableInfoEl.textContent = total > 0
+          ? 'Showing ' + (start + 1) + ' to ' + showing + ' of ' + total + ' reports'
+          : '';
+      }
+
+      renderPagination(totalPages);
+    }
+
+    function renderPagination(totalPages) {
+      if (!paginationEl) return;
+      if (totalPages <= 1) {
+        paginationEl.innerHTML = '';
+        return;
+      }
+
+      var html = '<nav class="pagination-nav" aria-label="Report pages">';
+      html += '<span class="page-info">Page ' + currentPage + ' of ' + totalPages + '</span>';
+
+      if (currentPage > 1) {
+        html += '<button class="page-btn" data-page="' + (currentPage - 1) + '">Previous</button>';
+      }
+
+      var pages = [];
+      for (var i = 1; i <= totalPages; i++) {
+        if (i === 1 || i === totalPages || (i >= currentPage - 2 && i <= currentPage + 2)) {
+          pages.push(i);
+        }
+      }
+
+      var prev = 0;
+      pages.forEach(function (page) {
+        if (prev && page - prev > 1) {
+          html += '<span class="page-ellipsis" aria-hidden="true">\u2026</span>';
+        }
+        var isActive = page === currentPage;
+        html += '<button class="page-btn' + (isActive ? ' page-btn-active' : '') + '" data-page="' + page + '"' +
+          (isActive ? ' aria-current="page"' : '') + '>' + page + '</button>';
+        prev = page;
+      });
+
+      if (currentPage < totalPages) {
+        html += '<button class="page-btn" data-page="' + (currentPage + 1) + '">Next</button>';
+      }
+
+      html += '</nav>';
+      paginationEl.innerHTML = html;
+
+      paginationEl.querySelectorAll('.page-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          currentPage = parseInt(this.dataset.page, 10);
+          renderPage();
+          if (tableEl) {
+            var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            tableEl.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', block: 'start' });
+          }
+        });
+      });
+    }
+
+    function updateSortIcons() {
+      document.querySelectorAll('.sort-btn').forEach(function (btn) {
+        var icon = btn.querySelector('.sort-icon');
+        var th = btn.closest('th');
+        if (btn.dataset.col === sortCol) {
+          icon.textContent = sortDir === 'asc' ? '\u2191' : '\u2193';
+          if (th) th.setAttribute('aria-sort', sortDir === 'asc' ? 'ascending' : 'descending');
+        } else {
+          icon.textContent = '\u2195';
+          if (th) th.removeAttribute('aria-sort');
+        }
+      });
+    }
+
+    document.querySelectorAll('.sort-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var col = this.dataset.col;
+        if (col === sortCol) {
+          sortDir = sortDir === 'asc' ? 'desc' : 'asc';
+        } else {
+          sortCol = col;
+          sortDir = col === 'date' ? 'desc' : 'asc';
+        }
+        currentPage = 1;
+        sortRows();
+        updateSortIcons();
+        renderPage();
+      });
+    });
+
+    updateSortIcons();
+    renderPage();
+  }());
+  </script>
 </body>
 </html>`;
 }
