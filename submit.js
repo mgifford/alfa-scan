@@ -22,6 +22,8 @@ const NON_WEB_EXTENSIONS = new Set([
   "zip", "tar", "gz", "bz2", "rar", "7z",
   // Executables / packages
   "exe", "dmg", "pkg", "msi", "apk", "deb", "rpm",
+  // E-books
+  "epub", "mobi", "azw", "azw3", "fb2", "lit",
   // Data / code (not HTML pages)
   "json", "xml", "yaml", "yml", "rss", "atom",
   // Fonts

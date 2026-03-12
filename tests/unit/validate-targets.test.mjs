@@ -113,3 +113,25 @@ test("isNonWebDocument returns false for URL with no extension", () => {
 test("isNonWebDocument returns false when extension is in query string only", () => {
   assert.equal(isNonWebDocument(new URL("https://example.com/search?file=report.pdf")), false);
 });
+
+test("isNonWebDocument returns true for epub URL", () => {
+  assert.equal(isNonWebDocument(new URL("https://www.medicare.gov/publications/guide.epub")), true);
+});
+
+test("isNonWebDocument returns true for mobi URL", () => {
+  assert.equal(isNonWebDocument(new URL("https://example.com/book.mobi")), true);
+});
+
+test("validateTargets filters out epub and mobi URLs", () => {
+  const result = validateTargets([
+    "https://example.com/page",
+    "https://www.medicare.gov/publications/guide.epub",
+    "https://example.com/book.mobi"
+  ]);
+
+  assert.equal(result.accepted.length, 1);
+  assert.equal(result.rejected.length, 2);
+  for (const rejected of result.rejected) {
+    assert.match(rejected.reason, /non-web document/);
+  }
+});

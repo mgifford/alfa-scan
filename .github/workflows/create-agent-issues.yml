@@ -25,7 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Create Issue 1 - AI-Powered Remediation Suggestions
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             const title = 'Feature: Add AI-powered remediation code suggestions to scan reports';
@@ -111,7 +111,7 @@ jobs:
             }
 
       - name: Create Issue 2 - Copilot Custom Prompt Files
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             const title = 'Feature: Add Copilot custom prompt files for accessibility-first code generation';
@@ -199,7 +199,7 @@ jobs:
             }
 
       - name: Create Issue 3 - Agent-Driven Cross-Scan Trend Analysis
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             const title = 'Feature: Add AI agent workflow for cross-scan trend analysis and issue prioritisation';

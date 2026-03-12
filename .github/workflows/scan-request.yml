@@ -19,14 +19,14 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
-          node-version: 20
+          node-version: 24
 
       - name: Install dependencies
         run: npm ci
@@ -167,7 +167,7 @@ jobs:
           fi
 
       - name: Comment report link
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             const issueNumber = context.payload.issue.number;
@@ -256,7 +256,7 @@ jobs:
 
       - name: Close issue after scan
         if: ${{ steps.meta.outputs.accepted_count != '0' }}
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             // Retry closing issue with exponential backoff
