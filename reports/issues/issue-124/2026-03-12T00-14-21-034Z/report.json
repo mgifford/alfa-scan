@@ -1,0 +1,1177 @@
+{
+  "issueNumber": 124,
+  "issueUrl": "https://github.com/mgifford/open-scans/issues/124",
+  "issueTitle": "SCAN: Test",
+  "scanTitle": "Test",
+  "submittedBy": "pattonwebz",
+  "engines": [
+    "axe",
+    "equalaccess"
+  ],
+  "scannedAt": "2026-03-12T00:13:33.212Z",
+  "totalElapsedMs": 12261,
+  "totalSubmitted": 1,
+  "acceptedCount": 1,
+  "scannedCount": 1,
+  "skippedDueToTimeout": 0,
+  "rejectedCount": 0,
+  "rejected": [],
+  "alfaTotals": {
+    "passed": 0,
+    "failed": 0,
+    "cantTell": 0,
+    "inapplicable": 0
+  },
+  "axeTotals": {
+    "passed": 397,
+    "failed": 9,
+    "cantTell": 8,
+    "inapplicable": 45
+  },
+  "equalAccessTotals": {
+    "passed": 1255,
+    "failed": 40,
+    "uniqueFailed": 36,
+    "duplicates": 4,
+    "cantTell": 34,
+    "inapplicable": 0
+  },
+  "accesslintTotals": {
+    "passed": 0,
+    "failed": 0,
+    "uniqueFailed": 0,
+    "duplicates": 0,
+    "cantTell": 0,
+    "inapplicable": 0
+  },
+  "qualwebTotals": {
+    "passed": 0,
+    "failed": 0,
+    "cantTell": 0,
+    "inapplicable": 0
+  },
+  "duplicateFindingTotals": 4,
+  "darkModeUrlCount": 0,
+  "results": [
+    {
+      "submittedUrl": "https://pattonwebz.com",
+      "finalUrl": "https://www.pattonwebz.com/",
+      "redirected": true,
+      "statusCode": 200,
+      "ok": true,
+      "contentType": "text/html; charset=UTF-8",
+      "pageTitle": "William Patton - WordPress Developer - PattonWebz",
+      "elapsedMs": 12253,
+      "error": null,
+      "alfa": {
+        "executed": false,
+        "error": "Skipped (not requested)",
+        "counts": {
+          "passed": 0,
+          "failed": 0,
+          "cantTell": 0,
+          "inapplicable": 0
+        },
+        "failedRules": [],
+        "passedRules": [],
+        "failures": [],
+        "outcomeCount": 0,
+        "uniqueFailedCount": 0,
+        "duplicateFailedCount": 0
+      },
+      "axe": {
+        "executed": true,
+        "error": null,
+        "counts": {
+          "passed": 397,
+          "failed": 9,
+          "cantTell": 8,
+          "inapplicable": 45
+        },
+        "failedRules": [
+          "heading-order",
+          "landmark-unique",
+          "link-in-text-block",
+          "link-name",
+          "region"
+        ],
+        "passedRules": [
+          "aria-allowed-attr",
+          "aria-allowed-role",
+          "aria-conditional-attr",
+          "aria-deprecated-role",
+          "aria-hidden-body",
+          "aria-hidden-focus",
+          "aria-prohibited-attr",
+          "aria-required-attr",
+          "aria-roles",
+          "aria-valid-attr",
+          "aria-valid-attr-value",
+          "avoid-inline-spacing",
+          "bypass",
+          "color-contrast",
+          "document-title",
+          "duplicate-id-aria",
+          "empty-heading",
+          "form-field-multiple-labels",
+          "heading-order",
+          "html-has-lang",
+          "html-lang-valid",
+          "image-alt",
+          "image-redundant-alt",
+          "label",
+          "label-title-only",
+          "landmark-banner-is-top-level",
+          "landmark-complementary-is-top-level",
+          "landmark-contentinfo-is-top-level",
+          "landmark-main-is-top-level",
+          "landmark-no-duplicate-banner",
+          "landmark-no-duplicate-contentinfo",
+          "landmark-no-duplicate-main",
+          "landmark-one-main",
+          "landmark-unique",
+          "link-in-text-block",
+          "link-name",
+          "list",
+          "listitem",
+          "meta-viewport",
+          "meta-viewport-large",
+          "nested-interactive",
+          "page-has-heading-one",
+          "presentation-role-conflict",
+          "region"
+        ],
+        "failures": [
+          {
+            "rule": "heading-order",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/heading-order?application=playwright",
+            "impact": "moderate",
+            "wcagSc": [],
+            "xpath": ".post-2891 > .wpmtst-testimonial-inner.testimonial-inner > .wpmtst-testimonial-heading.testimonial-heading",
+            "html": "<h3 class=\"wpmtst-testimonial-heading testimonial-heading\">Robert DeVore – WP Dispensary</h3>",
+            "message": "Heading levels should only increase by one",
+            "colorScheme": "light",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "landmark-unique",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/landmark-unique?application=playwright",
+            "impact": "moderate",
+            "wcagSc": [],
+            "xpath": "#text-2",
+            "html": "<aside id=\"text-2\" class=\"widget widget_text\">",
+            "message": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination",
+            "colorScheme": "light",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "link-in-text-block",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/link-in-text-block?application=playwright",
+            "impact": "serious",
+            "wcagSc": [
+              "wcag2a",
+              "wcag141"
+            ],
+            "xpath": "a[href$=\"ninjawebz.com/\"]",
+            "html": "<a href=\"https://www.ninjawebz.com/\" title=\"NinjaWebz Infrastructure\">NinjaWebz</a>",
+            "message": "Links must be distinguishable without relying on color",
+            "colorScheme": "light",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "link-name",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/link-name?application=playwright",
+            "impact": "serious",
+            "wcagSc": [
+              "wcag2a",
+              "wcag244",
+              "wcag412"
+            ],
+            "xpath": ".prev",
+            "html": "<a class=\"prev\" href=\"#\"></a>",
+            "message": "Links must have discernible text",
+            "colorScheme": "light",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "link-name",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/link-name?application=playwright",
+            "impact": "serious",
+            "wcagSc": [
+              "wcag2a",
+              "wcag244",
+              "wcag412"
+            ],
+            "xpath": ".next",
+            "html": "<a class=\"next\" href=\"#\"></a>",
+            "message": "Links must have discernible text",
+            "colorScheme": "light",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "link-name",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/link-name?application=playwright",
+            "impact": "serious",
+            "wcagSc": [
+              "wcag2a",
+              "wcag244",
+              "wcag412"
+            ],
+            "xpath": ".post-12354 > header > .post-thumb",
+            "html": "<a href=\"https://www.pattonwebz.com/web-development/creating-a-keyboard-focus-trap/\" class=\"post-thumb\">",
+            "message": "Links must have discernible text",
+            "colorScheme": "light",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "link-name",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/link-name?application=playwright",
+            "impact": "serious",
+            "wcagSc": [
+              "wcag2a",
+              "wcag244",
+              "wcag412"
+            ],
+            "xpath": ".post-12073 > header > .post-thumb",
+            "html": "<a href=\"https://www.pattonwebz.com/theme-dev/adding-a-custom-color-palette-blocks-to-a-gutenberg-ready-theme/\" class=\"post-thumb\">",
+            "message": "Links must have discernible text",
+            "colorScheme": "light",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "region",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/region?application=playwright",
+            "impact": "moderate",
+            "wcagSc": [],
+            "xpath": "body > .container-main.container > .row:nth-child(1)",
+            "html": "<div class=\"row\">",
+            "message": "All page content should be contained by landmarks",
+            "colorScheme": "light",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "region",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/region?application=playwright",
+            "impact": "moderate",
+            "wcagSc": [],
+            "xpath": ".container-main.container > .row:nth-child(2)",
+            "html": "<div class=\"row\">",
+            "message": "All page content should be contained by landmarks",
+            "colorScheme": "light",
+            "isDuplicate": false,
+            "duplicateOf": null
+          }
+        ],
+        "outcomeCount": 459,
+        "darkModeScanned": false,
+        "duplicateFailedCount": 0,
+        "uniqueFailedCount": 9
+      },
+      "equalAccess": {
+        "executed": true,
+        "error": null,
+        "counts": {
+          "passed": 1255,
+          "failed": 40,
+          "cantTell": 34,
+          "inapplicable": 0
+        },
+        "failedRules": [
+          "a_text_purpose",
+          "aria_complementary_labelled",
+          "aria_content_in_landmark",
+          "aria_landmark_name_unique",
+          "aria_role_redundant",
+          "element_tabbable_unobscured",
+          "input_label_exists",
+          "style_color_misuse",
+          "style_focus_visible",
+          "style_highcontrast_visible",
+          "text_block_heading",
+          "text_contrast_sufficient",
+          "widget_tabbable_exists"
+        ],
+        "passedRules": [],
+        "failures": [
+          {
+            "rule": "style_highcontrast_visible",
+            "xpath": null,
+            "html": "<style>",
+            "message": "Confirm Windows high contrast mode is supported when using CSS to include, position or alter non-decorative content",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "style_color_misuse",
+            "xpath": null,
+            "html": "<style type=\"text/css\" id=\"wp-emoji-styles-inline-css\">",
+            "message": "Verify color is not used as the only visual means of conveying information",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "input_label_exists",
+            "xpath": null,
+            "html": "<a role=\"button\" data-target=\".nav-collapse\" data-toggle=\"collapse\" class=\"btn btn-navbar\">",
+            "message": "Form control with \"button\" role has no associated label",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "widget_tabbable_exists",
+            "xpath": null,
+            "html": "<a role=\"button\" data-target=\".nav-collapse\" data-toggle=\"collapse\" class=\"btn btn-navbar\">",
+            "message": "Component with \"button\" role does not have a tabbable element",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "text_contrast_sufficient",
+            "xpath": null,
+            "html": "<span aria-hidden=\"true\" class=\"navigation-label hidden-desktop\">",
+            "message": "Verify the contrast ratio of the text with shadow meets the WCAG AA minimum requirements for text of size 20px and weight of 700",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "aria_role_redundant",
+            "xpath": null,
+            "html": "<nav aria-label=\"Main Menu\" role=\"navigation\" class=\"nav-collapse clearfix\">",
+            "message": "The explicitly-assigned ARIA role \"navigation\" is redundant with the implicit role of the element <nav>",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "text_contrast_sufficient",
+            "xpath": null,
+            "html": "<a aria-current=\"page\" href=\"https://www.pattonwebz.com/\">",
+            "message": "Verify the contrast ratio of the text with shadow meets the WCAG AA minimum requirements for text of size 13px and weight of 300",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "element_tabbable_unobscured",
+            "xpath": null,
+            "html": "<a href=\"https://www.pattonwebz.com/blog/\" title=\"WordPress and Web Development Articles\">",
+            "message": "Confirm that when the element receives focus, it is not covered or, if covered by user action, can be uncovered without moving focus",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "text_contrast_sufficient",
+            "xpath": null,
+            "html": "<a href=\"https://www.pattonwebz.com/blog/\" title=\"WordPress and Web Development Articles\">",
+            "message": "Verify the contrast ratio of the text with shadow meets the WCAG AA minimum requirements for text of size 13px and weight of 300",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "element_tabbable_unobscured",
+            "xpath": null,
+            "html": "<a href=\"https://www.pattonwebz.com/william-patton-wordpress-developer/\" title=\"William Patton – WordPress Developer\">",
+            "message": "Confirm that when the element receives focus, it is not covered or, if covered by user action, can be uncovered without moving focus",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "text_contrast_sufficient",
+            "xpath": null,
+            "html": "<a href=\"https://www.pattonwebz.com/william-patton-wordpress-developer/\" title=\"William Patton – WordPress Developer\">",
+            "message": "Verify the contrast ratio of the text with shadow meets the WCAG AA minimum requirements for text of size 13px and weight of 300",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "element_tabbable_unobscured",
+            "xpath": null,
+            "html": "<a href=\"https://www.pattonwebz.com/contact-me/\" title=\"Contact William Patton\">",
+            "message": "Confirm that when the element receives focus, it is not covered or, if covered by user action, can be uncovered without moving focus",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "text_contrast_sufficient",
+            "xpath": null,
+            "html": "<a href=\"https://www.pattonwebz.com/contact-me/\" title=\"Contact William Patton\">",
+            "message": "Verify the contrast ratio of the text with shadow meets the WCAG AA minimum requirements for text of size 13px and weight of 300",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "element_tabbable_unobscured",
+            "xpath": null,
+            "html": "<a href=\"https://wordpress.org/themes/author/williampatton/\">",
+            "message": "Confirm that when the element receives focus, it is not covered or, if covered by user action, can be uncovered without moving focus",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "text_contrast_sufficient",
+            "xpath": null,
+            "html": "<a href=\"https://wordpress.org/themes/author/williampatton/\">",
+            "message": "Verify the contrast ratio of the text with shadow meets the WCAG AA minimum requirements for text of size 13px and weight of 300",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "element_tabbable_unobscured",
+            "xpath": null,
+            "html": "<input id=\"s\" name=\"s\" placeholder=\"type and hit \"enter\" to search\" class=\"search-query\" type=\"text\">",
+            "message": "Confirm that when the element receives focus, it is not covered or, if covered by user action, can be uncovered without moving focus",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "style_focus_visible",
+            "xpath": null,
+            "html": "<input id=\"s\" name=\"s\" placeholder=\"type and hit \"enter\" to search\" class=\"search-query\" type=\"text\">",
+            "message": "Check the keyboard focus indicator is visible when using CSS declaration for 'border' or 'outline'",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "aria_content_in_landmark",
+            "xpath": null,
+            "html": "<h1>",
+            "message": "Content is not within a landmark element",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "aria_content_in_landmark",
+            "xpath": null,
+            "html": "<p class=\"hero-p\">",
+            "message": "Content is not within a landmark element",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "text_block_heading",
+            "xpath": null,
+            "html": "<p class=\"hero-p hero-mini\">",
+            "message": "Confirm this text 'Define, Design, Develop, Deploy' is used as a heading and if so, modify to use a heading element or role",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "text_block_heading",
+            "xpath": null,
+            "html": "<p class=\"hero-p hero-mini\">",
+            "message": "Confirm this text 'WordPress Set-up or Development' is used as a heading and if so, modify to use a heading element or role",
+            "isDuplicate": true,
+            "duplicateOf": "equalAccess"
+          },
+          {
+            "rule": "text_block_heading",
+            "xpath": null,
+            "html": "<p class=\"hero-p hero-mini\">",
+            "message": "Confirm this text 'Split Testing & Web Data Analyitics' is used as a heading and if so, modify to use a heading element or role",
+            "isDuplicate": true,
+            "duplicateOf": "equalAccess"
+          },
+          {
+            "rule": "element_tabbable_unobscured",
+            "xpath": null,
+            "html": "<a href=\"https://www.pattonwebz.com/wp-content/uploads/2013/04/wedding-photographers-colorado.png\" class=\"\">",
+            "message": "Confirm that when the element receives focus, it is not covered or, if covered by user action, can be uncovered without moving focus",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "element_tabbable_unobscured",
+            "xpath": null,
+            "html": "<a title=\"Build A Responsive Bootstrap 4 Navbar for WordPress in 10 Minutes\" href=\"https://www.pattonwebz.com/wordpress-custom/bootstrap-wordpress-responsive-menu/\">",
+            "message": "Confirm that when the element receives focus, it is not covered or, if covered by user action, can be uncovered without moving focus",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "text_contrast_sufficient",
+            "xpath": null,
+            "html": "<a title=\"Build A Responsive Bootstrap 4 Navbar for WordPress in 10 Minutes\" href=\"https://www.pattonwebz.com/wordpress-custom/bootstrap-wordpress-responsive-menu/\">",
+            "message": "Verify the contrast ratio of the text with shadow meets the WCAG AA minimum requirements for text of size 30px and weight of 500",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "text_contrast_sufficient",
+            "xpath": null,
+            "html": "<a class=\"active\">",
+            "message": "Verify the contrast ratio of the text with shadow meets the WCAG AA minimum requirements for text of size 16.25px and weight of 300",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "text_contrast_sufficient",
+            "xpath": null,
+            "html": "<a>",
+            "message": "Verify the contrast ratio of the text with shadow meets the WCAG AA minimum requirements for text of size 16.25px and weight of 300",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "text_contrast_sufficient",
+            "xpath": null,
+            "html": "<a>",
+            "message": "Verify the contrast ratio of the text with shadow meets the WCAG AA minimum requirements for text of size 16.25px and weight of 300",
+            "isDuplicate": true,
+            "duplicateOf": "equalAccess"
+          },
+          {
+            "rule": "text_contrast_sufficient",
+            "xpath": null,
+            "html": "<a>",
+            "message": "Verify the contrast ratio of the text with shadow meets the WCAG AA minimum requirements for text of size 16.25px and weight of 300",
+            "isDuplicate": true,
+            "duplicateOf": "equalAccess"
+          },
+          {
+            "rule": "aria_complementary_labelled",
+            "xpath": null,
+            "html": "<aside class=\"widget widget_text\" id=\"text-2\">",
+            "message": "Element with \"complementary\" role does not have a label",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "aria_landmark_name_unique",
+            "xpath": null,
+            "html": "<aside class=\"widget widget_text\" id=\"text-2\">",
+            "message": "Multiple elements with \"complementary\" landmarks within the same parent region are not distinguished from one another because they have the same \"\" label",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "text_contrast_sufficient",
+            "xpath": null,
+            "html": "<a title=\"One-on-One Training for WordPress\" class=\"btn btn-green btn-large\" href=\"https://www.pattonwebz.com/1-on-1-wordpress-training\">",
+            "message": "Verify the contrast ratio of the text against the lightest and the darkest colors of the background meets the WCAG AA minimum requirements for text of size 14.768px and weight of 700",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "text_contrast_sufficient",
+            "xpath": null,
+            "html": "<a title=\"Bootstrap 4 WordPress Theme\" class=\"btn btn-orange btn-large\" href=\"https://www.pattonwebz.com/best-reloaded-bootstrap-theme/\">",
+            "message": "Verify the contrast ratio of the text against the lightest and the darkest colors of the background meets the WCAG AA minimum requirements for text of size 14.768px and weight of 700",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "text_contrast_sufficient",
+            "xpath": null,
+            "html": "<a title=\"WordPress Docker Configurations\" class=\"btn btn-teal btn-large\" href=\"https://www.pattonwebz.com/docker/\">",
+            "message": "Verify the contrast ratio of the text against the lightest and the darkest colors of the background meets the WCAG AA minimum requirements for text of size 14.768px and weight of 700",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "aria_complementary_labelled",
+            "xpath": null,
+            "html": "<aside class=\"widget gform_widget\" id=\"gform_widget-5\">",
+            "message": "Element with \"complementary\" role does not have a label",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "aria_landmark_name_unique",
+            "xpath": null,
+            "html": "<aside class=\"widget gform_widget\" id=\"gform_widget-5\">",
+            "message": "Multiple elements with \"complementary\" landmarks within the same parent region are not distinguished from one another because they have the same \"\" label",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "a_text_purpose",
+            "xpath": null,
+            "html": "<a class=\"post-thumb\" href=\"https://www.pattonwebz.com/web-development/creating-a-keyboard-focus-trap/\">",
+            "message": "Hyperlink has no link text, label or image with a text alternative",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "a_text_purpose",
+            "xpath": null,
+            "html": "<a class=\"post-thumb\" href=\"https://www.pattonwebz.com/theme-dev/adding-a-custom-color-palette-blocks-to-a-gutenberg-ready-theme/\">",
+            "message": "Hyperlink has no link text, label or image with a text alternative",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "aria_role_redundant",
+            "xpath": null,
+            "html": "<footer role=\"contentinfo\">",
+            "message": "The explicitly-assigned ARIA role \"contentinfo\" is redundant with the implicit role of the element <footer>",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "aria_role_redundant",
+            "xpath": null,
+            "html": "<nav role=\"navigation\" class=\"clearfix\">",
+            "message": "The explicitly-assigned ARIA role \"navigation\" is redundant with the implicit role of the element <nav>",
+            "isDuplicate": false,
+            "duplicateOf": null
+          }
+        ],
+        "outcomeCount": 1302,
+        "uniqueFailedCount": 36,
+        "duplicateFailedCount": 4
+      },
+      "accesslint": {
+        "executed": false,
+        "error": "Skipped (not requested)",
+        "counts": {
+          "passed": 0,
+          "failed": 0,
+          "cantTell": 0,
+          "inapplicable": 0
+        },
+        "failedRules": [],
+        "passedRules": [],
+        "failures": [],
+        "outcomeCount": 0,
+        "uniqueFailedCount": 0,
+        "duplicateFailedCount": 0
+      },
+      "qualweb": {
+        "executed": false,
+        "error": "Skipped (not requested)",
+        "counts": {
+          "passed": 0,
+          "failed": 0,
+          "cantTell": 0,
+          "inapplicable": 0
+        },
+        "failedRules": [],
+        "passedRules": [],
+        "failures": [],
+        "outcomeCount": 0,
+        "uniqueFailedCount": 0,
+        "duplicateFailedCount": 0
+      },
+      "duplicateFindingCount": 4
+    }
+  ],
+  "enhanced": {
+    "consolidatedFailures": [
+      {
+        "rule": "text_contrast_sufficient",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 12,
+        "examples": [
+          {
+            "url": "https://pattonwebz.com",
+            "html": "<span aria-hidden=\"true\" class=\"navigation-label hidden-desktop\">",
+            "xpath": null,
+            "message": "Verify the contrast ratio of the text with shadow meets the WCAG AA minimum requirements for text of size 20px and weight of 700"
+          },
+          {
+            "url": "https://pattonwebz.com",
+            "html": "<a aria-current=\"page\" href=\"https://www.pattonwebz.com/\">",
+            "xpath": null,
+            "message": "Verify the contrast ratio of the text with shadow meets the WCAG AA minimum requirements for text of size 13px and weight of 300"
+          },
+          {
+            "url": "https://pattonwebz.com",
+            "html": "<a href=\"https://www.pattonwebz.com/blog/\" title=\"WordPress and Web Development Articles\">",
+            "xpath": null,
+            "message": "Verify the contrast ratio of the text with shadow meets the WCAG AA minimum requirements for text of size 13px and weight of 300"
+          },
+          {
+            "url": "https://pattonwebz.com",
+            "html": "<a href=\"https://www.pattonwebz.com/william-patton-wordpress-developer/\" title=\"William Patton – WordPress Developer\">",
+            "xpath": null,
+            "message": "Verify the contrast ratio of the text with shadow meets the WCAG AA minimum requirements for text of size 13px and weight of 300"
+          },
+          {
+            "url": "https://pattonwebz.com",
+            "html": "<a href=\"https://www.pattonwebz.com/contact-me/\" title=\"Contact William Patton\">",
+            "xpath": null,
+            "message": "Verify the contrast ratio of the text with shadow meets the WCAG AA minimum requirements for text of size 13px and weight of 300"
+          }
+        ]
+      },
+      {
+        "rule": "element_tabbable_unobscured",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 7,
+        "examples": [
+          {
+            "url": "https://pattonwebz.com",
+            "html": "<a href=\"https://www.pattonwebz.com/blog/\" title=\"WordPress and Web Development Articles\">",
+            "xpath": null,
+            "message": "Confirm that when the element receives focus, it is not covered or, if covered by user action, can be uncovered without moving focus"
+          },
+          {
+            "url": "https://pattonwebz.com",
+            "html": "<a href=\"https://www.pattonwebz.com/william-patton-wordpress-developer/\" title=\"William Patton – WordPress Developer\">",
+            "xpath": null,
+            "message": "Confirm that when the element receives focus, it is not covered or, if covered by user action, can be uncovered without moving focus"
+          },
+          {
+            "url": "https://pattonwebz.com",
+            "html": "<a href=\"https://www.pattonwebz.com/contact-me/\" title=\"Contact William Patton\">",
+            "xpath": null,
+            "message": "Confirm that when the element receives focus, it is not covered or, if covered by user action, can be uncovered without moving focus"
+          },
+          {
+            "url": "https://pattonwebz.com",
+            "html": "<a href=\"https://wordpress.org/themes/author/williampatton/\">",
+            "xpath": null,
+            "message": "Confirm that when the element receives focus, it is not covered or, if covered by user action, can be uncovered without moving focus"
+          },
+          {
+            "url": "https://pattonwebz.com",
+            "html": "<input id=\"s\" name=\"s\" placeholder=\"type and hit \"enter\" to search\" class=\"search-query\" type=\"text\">",
+            "xpath": null,
+            "message": "Confirm that when the element receives focus, it is not covered or, if covered by user action, can be uncovered without moving focus"
+          }
+        ]
+      },
+      {
+        "rule": "link-name",
+        "engine": "axe",
+        "metadata": {
+          "roles": [
+            "Content Author",
+            "UX Designer"
+          ],
+          "severity": "Serious",
+          "blocking": true
+        },
+        "pages": {},
+        "totalOccurrences": 4,
+        "examples": [
+          {
+            "url": "https://pattonwebz.com",
+            "html": "<a class=\"prev\" href=\"#\"></a>",
+            "xpath": ".prev",
+            "message": "Links must have discernible text",
+            "colorScheme": "light"
+          },
+          {
+            "url": "https://pattonwebz.com",
+            "html": "<a class=\"next\" href=\"#\"></a>",
+            "xpath": ".next",
+            "message": "Links must have discernible text",
+            "colorScheme": "light"
+          },
+          {
+            "url": "https://pattonwebz.com",
+            "html": "<a href=\"https://www.pattonwebz.com/web-development/creating-a-keyboard-focus-trap/\" class=\"post-thumb\">",
+            "xpath": ".post-12354 > header > .post-thumb",
+            "message": "Links must have discernible text",
+            "colorScheme": "light"
+          },
+          {
+            "url": "https://pattonwebz.com",
+            "html": "<a href=\"https://www.pattonwebz.com/theme-dev/adding-a-custom-color-palette-blocks-to-a-gutenberg-ready-theme/\" class=\"post-thumb\">",
+            "xpath": ".post-12073 > header > .post-thumb",
+            "message": "Links must have discernible text",
+            "colorScheme": "light"
+          }
+        ]
+      },
+      {
+        "rule": "aria_role_redundant",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 3,
+        "examples": [
+          {
+            "url": "https://pattonwebz.com",
+            "html": "<nav aria-label=\"Main Menu\" role=\"navigation\" class=\"nav-collapse clearfix\">",
+            "xpath": null,
+            "message": "The explicitly-assigned ARIA role \"navigation\" is redundant with the implicit role of the element <nav>"
+          },
+          {
+            "url": "https://pattonwebz.com",
+            "html": "<footer role=\"contentinfo\">",
+            "xpath": null,
+            "message": "The explicitly-assigned ARIA role \"contentinfo\" is redundant with the implicit role of the element <footer>"
+          },
+          {
+            "url": "https://pattonwebz.com",
+            "html": "<nav role=\"navigation\" class=\"clearfix\">",
+            "xpath": null,
+            "message": "The explicitly-assigned ARIA role \"navigation\" is redundant with the implicit role of the element <nav>"
+          }
+        ]
+      },
+      {
+        "rule": "region",
+        "engine": "axe",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 2,
+        "examples": [
+          {
+            "url": "https://pattonwebz.com",
+            "html": "<div class=\"row\">",
+            "xpath": "body > .container-main.container > .row:nth-child(1)",
+            "message": "All page content should be contained by landmarks",
+            "colorScheme": "light"
+          },
+          {
+            "url": "https://pattonwebz.com",
+            "html": "<div class=\"row\">",
+            "xpath": ".container-main.container > .row:nth-child(2)",
+            "message": "All page content should be contained by landmarks",
+            "colorScheme": "light"
+          }
+        ]
+      },
+      {
+        "rule": "aria_content_in_landmark",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 2,
+        "examples": [
+          {
+            "url": "https://pattonwebz.com",
+            "html": "<h1>",
+            "xpath": null,
+            "message": "Content is not within a landmark element"
+          },
+          {
+            "url": "https://pattonwebz.com",
+            "html": "<p class=\"hero-p\">",
+            "xpath": null,
+            "message": "Content is not within a landmark element"
+          }
+        ]
+      },
+      {
+        "rule": "aria_complementary_labelled",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 2,
+        "examples": [
+          {
+            "url": "https://pattonwebz.com",
+            "html": "<aside class=\"widget widget_text\" id=\"text-2\">",
+            "xpath": null,
+            "message": "Element with \"complementary\" role does not have a label"
+          },
+          {
+            "url": "https://pattonwebz.com",
+            "html": "<aside class=\"widget gform_widget\" id=\"gform_widget-5\">",
+            "xpath": null,
+            "message": "Element with \"complementary\" role does not have a label"
+          }
+        ]
+      },
+      {
+        "rule": "aria_landmark_name_unique",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 2,
+        "examples": [
+          {
+            "url": "https://pattonwebz.com",
+            "html": "<aside class=\"widget widget_text\" id=\"text-2\">",
+            "xpath": null,
+            "message": "Multiple elements with \"complementary\" landmarks within the same parent region are not distinguished from one another because they have the same \"\" label"
+          },
+          {
+            "url": "https://pattonwebz.com",
+            "html": "<aside class=\"widget gform_widget\" id=\"gform_widget-5\">",
+            "xpath": null,
+            "message": "Multiple elements with \"complementary\" landmarks within the same parent region are not distinguished from one another because they have the same \"\" label"
+          }
+        ]
+      },
+      {
+        "rule": "a_text_purpose",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 2,
+        "examples": [
+          {
+            "url": "https://pattonwebz.com",
+            "html": "<a class=\"post-thumb\" href=\"https://www.pattonwebz.com/web-development/creating-a-keyboard-focus-trap/\">",
+            "xpath": null,
+            "message": "Hyperlink has no link text, label or image with a text alternative"
+          },
+          {
+            "url": "https://pattonwebz.com",
+            "html": "<a class=\"post-thumb\" href=\"https://www.pattonwebz.com/theme-dev/adding-a-custom-color-palette-blocks-to-a-gutenberg-ready-theme/\">",
+            "xpath": null,
+            "message": "Hyperlink has no link text, label or image with a text alternative"
+          }
+        ]
+      },
+      {
+        "rule": "heading-order",
+        "engine": "axe",
+        "metadata": {
+          "roles": [
+            "Content Author",
+            "UX Designer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://pattonwebz.com",
+            "html": "<h3 class=\"wpmtst-testimonial-heading testimonial-heading\">Robert DeVore – WP Dispensary</h3>",
+            "xpath": ".post-2891 > .wpmtst-testimonial-inner.testimonial-inner > .wpmtst-testimonial-heading.testimonial-heading",
+            "message": "Heading levels should only increase by one",
+            "colorScheme": "light"
+          }
+        ]
+      },
+      {
+        "rule": "landmark-unique",
+        "engine": "axe",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://pattonwebz.com",
+            "html": "<aside id=\"text-2\" class=\"widget widget_text\">",
+            "xpath": "#text-2",
+            "message": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination",
+            "colorScheme": "light"
+          }
+        ]
+      },
+      {
+        "rule": "link-in-text-block",
+        "engine": "axe",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://pattonwebz.com",
+            "html": "<a href=\"https://www.ninjawebz.com/\" title=\"NinjaWebz Infrastructure\">NinjaWebz</a>",
+            "xpath": "a[href$=\"ninjawebz.com/\"]",
+            "message": "Links must be distinguishable without relying on color",
+            "colorScheme": "light"
+          }
+        ]
+      },
+      {
+        "rule": "style_highcontrast_visible",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://pattonwebz.com",
+            "html": "<style>",
+            "xpath": null,
+            "message": "Confirm Windows high contrast mode is supported when using CSS to include, position or alter non-decorative content"
+          }
+        ]
+      },
+      {
+        "rule": "style_color_misuse",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://pattonwebz.com",
+            "html": "<style type=\"text/css\" id=\"wp-emoji-styles-inline-css\">",
+            "xpath": null,
+            "message": "Verify color is not used as the only visual means of conveying information"
+          }
+        ]
+      },
+      {
+        "rule": "input_label_exists",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://pattonwebz.com",
+            "html": "<a role=\"button\" data-target=\".nav-collapse\" data-toggle=\"collapse\" class=\"btn btn-navbar\">",
+            "xpath": null,
+            "message": "Form control with \"button\" role has no associated label"
+          }
+        ]
+      },
+      {
+        "rule": "widget_tabbable_exists",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://pattonwebz.com",
+            "html": "<a role=\"button\" data-target=\".nav-collapse\" data-toggle=\"collapse\" class=\"btn btn-navbar\">",
+            "xpath": null,
+            "message": "Component with \"button\" role does not have a tabbable element"
+          }
+        ]
+      },
+      {
+        "rule": "style_focus_visible",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://pattonwebz.com",
+            "html": "<input id=\"s\" name=\"s\" placeholder=\"type and hit \"enter\" to search\" class=\"search-query\" type=\"text\">",
+            "xpath": null,
+            "message": "Check the keyboard focus indicator is visible when using CSS declaration for 'border' or 'outline'"
+          }
+        ]
+      },
+      {
+        "rule": "text_block_heading",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false
+        },
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://pattonwebz.com",
+            "html": "<p class=\"hero-p hero-mini\">",
+            "xpath": null,
+            "message": "Confirm this text 'Define, Design, Develop, Deploy' is used as a heading and if so, modify to use a heading element or role"
+          }
+        ]
+      }
+    ],
+    "roleStats": {
+      "UX Designer": 5,
+      "Visual Designer": 0,
+      "Content Author": 5,
+      "Front-End Developer": 40
+    },
+    "severityStats": {
+      "Critical": 0,
+      "Serious": 4,
+      "Moderate": 41,
+      "Minor": 0
+    }
+  }
+}
