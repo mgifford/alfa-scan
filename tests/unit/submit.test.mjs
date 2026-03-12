@@ -6,7 +6,8 @@ import {
   validateUrl,
   validateUrls,
   formatIssueBody,
-  createGitHubIssue
+  createGitHubIssue,
+  applyGitHubUrlLimit
 } from '../../submit.js';
 
 test('parseUrls handles line-by-line format', () => {
@@ -214,3 +215,59 @@ test('createGitHubIssue handles prefix without space "scan:MyTitle"', withMocked
   // Should normalize to "SCAN: MyTitle"
   assert.strictEqual(titleParam, 'SCAN: MyTitle');
 }));
+
+test('applyGitHubUrlLimit returns all URLs when they fit within the limit', () => {
+  const urls = ['https://example.com', 'https://example.org'];
+  const result = applyGitHubUrlLimit(urls, 'testowner', 'testrepo', 'Test Scan');
+
+  assert.strictEqual(result.fitting.length, 2);
+  assert.strictEqual(result.tooLong.length, 0);
+  assert.deepEqual(result.fitting, urls);
+});
+
+test('applyGitHubUrlLimit rejects URLs that would exceed GitHub URL length limit', () => {
+  // Create many long URLs whose total encoding would exceed the 8000-char limit
+  const urls = Array.from({ length: 200 }, (_, i) =>
+    `https://example.com/very-long-path-that-takes-up-a-lot-of-url-space-${i}/subpath/another-segment`
+  );
+  const result = applyGitHubUrlLimit(urls, 'testowner', 'testrepo', 'Test Scan');
+
+  assert.ok(result.fitting.length < 200, 'Some URLs should be rejected due to length');
+  assert.ok(result.tooLong.length > 0, 'Some URLs should be marked as too long');
+  assert.strictEqual(result.fitting.length + result.tooLong.length, 200);
+});
+
+test('applyGitHubUrlLimit sets correct reason for too-long URLs', () => {
+  const urls = Array.from({ length: 200 }, (_, i) =>
+    `https://example.com/very-long-path-that-takes-up-a-lot-of-url-space-${i}/subpath/another-segment`
+  );
+  const result = applyGitHubUrlLimit(urls, 'testowner', 'testrepo', 'Test Scan');
+
+  for (const { reason } of result.tooLong) {
+    assert.match(reason, /URL too long/i);
+  }
+});
+
+test('applyGitHubUrlLimit preserves URL order (greedy first-fit)', () => {
+  const urls = Array.from({ length: 200 }, (_, i) =>
+    `https://example.com/very-long-path-that-takes-up-a-lot-of-url-space-${i}/subpath/another-segment`
+  );
+  const result = applyGitHubUrlLimit(urls, 'testowner', 'testrepo', 'Test Scan');
+
+  // The first N URLs should be in fitting (in original order)
+  assert.deepEqual(result.fitting, urls.slice(0, result.fitting.length));
+
+  // The remaining URLs should be in tooLong (in original order)
+  const expectedTooLong = urls.slice(result.fitting.length).map(url => ({
+    url,
+    reason: 'URL too long for GitHub issue creation'
+  }));
+  assert.deepEqual(result.tooLong, expectedTooLong);
+});
+
+test('applyGitHubUrlLimit returns empty tooLong for an empty input', () => {
+  const result = applyGitHubUrlLimit([], 'testowner', 'testrepo', 'Test Scan');
+
+  assert.strictEqual(result.fitting.length, 0);
+  assert.strictEqual(result.tooLong.length, 0);
+});

@@ -7,6 +7,10 @@
 // Intentionally uses \s* to handle spaces, tabs, and other whitespace that users might accidentally include
 const SCAN_PREFIX_REGEX = /^scan:\s*/i;
 
+// Maximum GitHub URL length to avoid "URL too long" errors
+// GitHub's server rejects URLs that exceed ~8192 characters; 8000 provides a safe margin
+const MAX_GITHUB_URL_LENGTH = 8000;
+
 // File extensions that indicate non-web documents which cannot be accessibility-scanned
 const NON_WEB_EXTENSIONS = new Set([
   // Documents
@@ -163,42 +167,72 @@ ${urls.join("\n")}
 `;
 }
 
-// Create GitHub issue via authenticated API call
-export async function createGitHubIssue(scanTitle, urls) {
-  // Extract repository info from current page
-  // For GitHub Pages URLs like username.github.io/repo-name/
+// Extract GitHub owner and repo from the current GitHub Pages URL.
+// Returns null if the current page is not a GitHub Pages URL.
+function getGitHubRepoInfo() {
   const hostname = window.location.hostname;
   const pathname = window.location.pathname;
-  
-  let owner, repo;
-  
-  // Check if it's a GitHub Pages URL
   const pagesMatch = hostname.match(/^(.+)\.github\.io$/);
-  if (pagesMatch) {
-    owner = pagesMatch[1];
-    // Extract repo name from pathname (e.g., /alfa-scan/ -> alfa-scan)
-    const pathMatch = pathname.match(/^\/([^\/]+)/);
-    repo = pathMatch ? pathMatch[1] : "alfa-scan"; // fallback to alfa-scan
-  } else {
+  if (!pagesMatch) return null;
+  const owner = pagesMatch[1];
+  // Extract repo name from pathname (e.g., /open-scans/ -> open-scans)
+  // Fallback to "open-scans" matches the deployed GitHub Pages URL path for this project
+  const pathMatch = pathname.match(/^\/([^/]+)/);
+  const repo = pathMatch ? pathMatch[1] : "open-scans";
+  return { owner, repo };
+}
+
+// Apply GitHub URL length limit to pre-validated accepted URLs.
+// Returns { fitting, tooLong } where tooLong items have { url, reason }.
+// URLs are accepted greedily in order; once adding the next URL would exceed
+// MAX_GITHUB_URL_LENGTH, it and all remaining URLs go into tooLong.
+export function applyGitHubUrlLimit(accepted, owner, repo, scanTitle) {
+  const issueTitle = `SCAN: ${scanTitle.replace(SCAN_PREFIX_REGEX, "")}`;
+  const encodedTitle = encodeURIComponent(issueTitle);
+  const baseUrl = `https://github.com/${owner}/${repo}/issues/new?title=${encodedTitle}&body=`;
+  const bodyPrefix = encodeURIComponent("# URLs\n\n");
+
+  let currentLength = baseUrl.length + bodyPrefix.length;
+  const fitting = [];
+  const tooLong = [];
+
+  for (const url of accepted) {
+    const encodedUrl = encodeURIComponent(`${url}\n`);
+    if (currentLength + encodedUrl.length <= MAX_GITHUB_URL_LENGTH) {
+      fitting.push(url);
+      currentLength += encodedUrl.length;
+    } else {
+      tooLong.push({ url, reason: "URL too long for GitHub issue creation" });
+    }
+  }
+
+  return { fitting, tooLong };
+}
+
+// Create GitHub issue via authenticated API call
+export async function createGitHubIssue(scanTitle, urls) {
+  const repoInfo = getGitHubRepoInfo();
+  if (!repoInfo) {
     throw new Error("Could not determine GitHub repository from URL");
   }
-  
+  const { owner, repo } = repoInfo;
+
   // For GitHub Pages, we need to handle authentication differently
   // Since we can't make authenticated API calls from client-side JavaScript,
   // we'll redirect to GitHub's issue creation URL with pre-filled data
-  
+
   // Prepend "SCAN: " and normalize any existing prefix (case-insensitive)
   // replace() returns the original string if pattern doesn't match
-  const issueTitle = `SCAN: ${scanTitle.replace(SCAN_PREFIX_REGEX, '')}`;
+  const issueTitle = `SCAN: ${scanTitle.replace(SCAN_PREFIX_REGEX, "")}`;
   const issueBody = formatIssueBody(scanTitle, urls);
-  
+
   // Encode the issue title and body for URL
   const encodedTitle = encodeURIComponent(issueTitle);
   const encodedBody = encodeURIComponent(issueBody);
-  
+
   // Construct GitHub issue creation URL
   const githubUrl = `https://github.com/${owner}/${repo}/issues/new?title=${encodedTitle}&body=${encodedBody}`;
-  
+
   return githubUrl;
 }
 
@@ -225,21 +259,42 @@ function initForm() {
       return;
     }
 
-    const { accepted, rejected } = validateUrls(urls);
-    const total = accepted.length + rejected.length;
+    const { accepted: validUrls, rejected } = validateUrls(urls);
+
+    // Apply GitHub URL length limit
+    const scanTitle = document.getElementById("scan-title").value.trim() || "Scan";
+    const repoInfo = getGitHubRepoInfo();
+    let accepted = validUrls;
+    let urlsTooLong = [];
+    if (repoInfo) {
+      const result = applyGitHubUrlLimit(validUrls, repoInfo.owner, repoInfo.repo, scanTitle);
+      accepted = result.fitting;
+      urlsTooLong = result.tooLong;
+    }
+
+    const total = urls.length;
 
     // Show preview
     previewDiv.classList.add("visible");
 
-    // Update count
-    urlCountDiv.textContent = `Total: ${total} URLs (${accepted.length} accepted, ${rejected.length} rejected)`;
+    // Build count message
+    let countText = `Total: ${total} URLs (${accepted.length} accepted`;
+    if (urlsTooLong.length > 0 && rejected.length === 0) {
+      countText += `, ${urlsTooLong.length} rejected — URL${urlsTooLong.length === 1 ? "" : "s"} too long for GitHub`;
+    } else if (urlsTooLong.length > 0) {
+      countText += `, ${rejected.length} rejected, ${urlsTooLong.length} URL${urlsTooLong.length === 1 ? "" : "s"} too long for GitHub`;
+    } else if (rejected.length > 0) {
+      countText += `, ${rejected.length} rejected`;
+    }
+    countText += ")";
+    urlCountDiv.textContent = countText;
     
     if (accepted.length === 0) {
       urlCountDiv.className = "url-count invalid";
       submitButton.disabled = true;
     } else if (accepted.length > 500) {
       urlCountDiv.className = "url-count invalid";
-      urlCountDiv.textContent += " - Maximum 500 URLs allowed";
+      urlCountDiv.textContent += " — Maximum 500 URLs allowed";
       submitButton.disabled = true;
     } else {
       urlCountDiv.className = "url-count valid";
@@ -257,8 +312,16 @@ function initForm() {
       urlListDiv.appendChild(div);
     }
     
-    // Show rejected URLs
+    // Show rejected URLs (validation failures)
     for (const { url, reason } of rejected) {
+      const div = document.createElement("div");
+      div.className = "url-item rejected";
+      div.innerHTML = `✗ ${url}<div class="reason">${reason}</div>`;
+      urlListDiv.appendChild(div);
+    }
+
+    // Show URLs rejected due to GitHub URL length limit
+    for (const { url, reason } of urlsTooLong) {
       const div = document.createElement("div");
       div.className = "url-item rejected";
       div.innerHTML = `✗ ${url}<div class="reason">${reason}</div>`;
@@ -277,7 +340,13 @@ function initForm() {
     const scanTitle = document.getElementById("scan-title").value.trim();
     const rawText = urlsTextarea.value;
     const urls = parseUrls(rawText);
-    const { accepted, rejected } = validateUrls(urls);
+    const { accepted: validUrls } = validateUrls(urls);
+
+    // Apply GitHub URL length limit so the generated URL doesn't exceed GitHub's limit
+    const repoInfo = getGitHubRepoInfo();
+    const accepted = (repoInfo && validUrls.length > 0)
+      ? applyGitHubUrlLimit(validUrls, repoInfo.owner, repoInfo.repo, scanTitle).fitting
+      : validUrls;
 
     // Validate
     if (accepted.length === 0) {
