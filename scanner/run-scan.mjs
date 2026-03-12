@@ -6,7 +6,7 @@ import { createRequire } from "node:module";
 import { parseScanIssue } from "./parse-issue.mjs";
 import { validateTargets } from "./validate-targets.mjs";
 import { formatAlfaRule } from "./alfa-rule-metadata.mjs";
-import { getRuleMetadata, ROLES, SEVERITY } from "./rule-metadata.mjs";
+import { getRuleMetadata, ROLES, SEVERITY, formatWcagFromTags, wcagScUrl } from "./rule-metadata.mjs";
 import { generateInteractiveHtml } from "./interactive-report.mjs";
 
 const alfaCliPath = fileURLToPath(new URL("../node_modules/@siteimprove/alfa-cli/bin/alfa.js", import.meta.url));
@@ -1489,10 +1489,16 @@ function buildEnhancedSummary(summary) {
         const key = `${engine}:${ruleId}`;
 
         if (!consolidatedFailures.has(key)) {
+          // For axe, use dynamic wcagSc tags from the violation; fall back to static metadata
+          const wcagTagsForEntry = engine === "axe" && Array.isArray(failure.wcagSc)
+            ? formatWcagFromTags(failure.wcagSc)
+            : { scs: metadata.wcagCriteria || [], level: metadata.conformanceLevel || null };
+
           consolidatedFailures.set(key, {
             rule: ruleId,
             engine,
             metadata,
+            wcag: wcagTagsForEntry,
             pages: new Map(), // pageUrl -> count
             totalOccurrences: 0,
             examples: [] // Store a few unique examples
@@ -1921,6 +1927,14 @@ export function toMarkdownReport(summary, axeVersion = "4.11") {
         ? `${ruleInfo.id}: ${ruleInfo.description}`
         : ruleInfo.id;
       lines.push(`#### Rule: [${ruleDisplay}](${rule})`);
+      // Show WCAG criteria from ALFA rule metadata
+      if (ruleInfo.wcagCriteria && ruleInfo.wcagCriteria.length > 0) {
+        const scLinks = ruleInfo.wcagCriteria.map(sc => `[SC ${sc}](${wcagScUrl(sc)})`).join(", ");
+        const levelBadge = ruleInfo.conformanceLevel ? ` (Level ${ruleInfo.conformanceLevel})` : "";
+        lines.push(`**WCAG**: ${scLinks}${levelBadge}`);
+      } else if (ruleInfo.conformanceLevel === "best-practice") {
+        lines.push(`**WCAG**: Best Practice`);
+      }
       lines.push("");
 
       for (let i = 0; i < failures.length && i < MAX_FAILURES_PER_RULE; i++) {
@@ -1972,6 +1986,15 @@ export function toMarkdownReport(summary, axeVersion = "4.11") {
       lines.push(`#### Rule: [${rule}](${ruleUrl})`);
       if (failures[0].impact) {
         lines.push(`**Impact**: ${failures[0].impact}`);
+      }
+      // Show WCAG criteria from the axe tags captured at scan time
+      const wcagInfo = formatWcagFromTags(failures[0].wcagSc || []);
+      if (wcagInfo.scs.length > 0) {
+        const scLinks = wcagInfo.scs.map(sc => `[SC ${sc}](${wcagScUrl(sc)})`).join(", ");
+        const levelBadge = wcagInfo.level ? ` (Level ${wcagInfo.level})` : "";
+        lines.push(`**WCAG**: ${scLinks}${levelBadge}`);
+      } else if (wcagInfo.level === "best-practice") {
+        lines.push(`**WCAG**: Best Practice`);
       }
       lines.push("");
 

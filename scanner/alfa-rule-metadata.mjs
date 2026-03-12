@@ -12,109 +12,161 @@ export const alfaRuleMetadata = {
   // Common rules seen in reports
   "https://alfa.siteimprove.com/rules/sia-r111": {
     name: "Target size (enhanced)",
-    description: "Interactive elements have a sufficient target size"
+    description: "Interactive elements have a sufficient target size",
+    wcagCriteria: ["2.5.8"],
+    conformanceLevel: "AA"
   },
   "https://alfa.siteimprove.com/rules/sia-r56": {
     name: "Landmarks are unique",
-    description: "Landmarks with the same role are distinguishable"
+    description: "Landmarks with the same role are distinguishable",
+    wcagCriteria: ["1.3.6"],
+    conformanceLevel: "AAA"
   },
   "https://alfa.siteimprove.com/rules/sia-r57": {
     name: "Landmark has non-repeated content",
-    description: "Landmarks don't repeat the same content"
+    description: "Landmarks don't repeat the same content",
+    wcagCriteria: ["1.3.6"],
+    conformanceLevel: "AAA"
   },
   "https://alfa.siteimprove.com/rules/sia-r66": {
     name: "Contrast (enhanced)",
-    description: "Text has enhanced contrast with its background"
+    description: "Text has enhanced contrast with its background",
+    wcagCriteria: ["1.4.6"],
+    conformanceLevel: "AAA"
   },
   "https://alfa.siteimprove.com/rules/sia-r78": {
     name: "Headings have content between them",
-    description: "Headings of same level have text content between them"
+    description: "Headings of same level have text content between them",
+    wcagCriteria: ["1.3.1"],
+    conformanceLevel: "A"
   },
   "https://alfa.siteimprove.com/rules/sia-r18": {
     name: "ARIA states match semantics",
-    description: "ARIA states are consistent with element semantics"
+    description: "ARIA states are consistent with element semantics",
+    wcagCriteria: ["4.1.2"],
+    conformanceLevel: "A"
   },
   
   // Additional common ALFA rules
   "https://alfa.siteimprove.com/rules/sia-r1": {
     name: "Unique id attributes",
-    description: "id attributes are unique within the document"
+    description: "id attributes are unique within the document",
+    wcagCriteria: ["4.1.1"],
+    conformanceLevel: "A"
   },
   "https://alfa.siteimprove.com/rules/sia-r2": {
     name: "lang attribute",
-    description: "HTML elements have a valid lang attribute"
+    description: "HTML elements have a valid lang attribute",
+    wcagCriteria: ["3.1.1"],
+    conformanceLevel: "A"
   },
   "https://alfa.siteimprove.com/rules/sia-r3": {
     name: "lang attribute valid",
-    description: "lang attribute has a valid language code"
+    description: "lang attribute has a valid language code",
+    wcagCriteria: ["3.1.1"],
+    conformanceLevel: "A"
   },
   "https://alfa.siteimprove.com/rules/sia-r4": {
     name: "Page title",
-    description: "Page has a descriptive title"
+    description: "Page has a descriptive title",
+    wcagCriteria: ["2.4.2"],
+    conformanceLevel: "A"
   },
   "https://alfa.siteimprove.com/rules/sia-r5": {
     name: "HTML lang attribute",
-    description: "html element has a lang attribute"
+    description: "html element has a lang attribute",
+    wcagCriteria: ["3.1.1"],
+    conformanceLevel: "A"
   },
   "https://alfa.siteimprove.com/rules/sia-r8": {
     name: "Form elements labeled",
-    description: "Form elements have accessible labels"
+    description: "Form elements have accessible labels",
+    wcagCriteria: ["1.3.1", "4.1.2"],
+    conformanceLevel: "A"
   },
   "https://alfa.siteimprove.com/rules/sia-r11": {
     name: "Button has accessible name",
-    description: "Button elements have an accessible name"
+    description: "Button elements have an accessible name",
+    wcagCriteria: ["4.1.2"],
+    conformanceLevel: "A"
   },
   "https://alfa.siteimprove.com/rules/sia-r12": {
     name: "Link has accessible name",
-    description: "Links have an accessible name"
+    description: "Links have an accessible name",
+    wcagCriteria: ["2.4.4", "4.1.2"],
+    conformanceLevel: "A"
   },
   "https://alfa.siteimprove.com/rules/sia-r14": {
     name: "Image has accessible name",
-    description: "Images have an accessible name or are decorative"
+    description: "Images have an accessible name or are decorative",
+    wcagCriteria: ["1.1.1"],
+    conformanceLevel: "A"
   },
   "https://alfa.siteimprove.com/rules/sia-r53": {
     name: "Heading hierarchy",
-    description: "Headings follow a logical hierarchy"
+    description: "Headings follow a logical hierarchy",
+    wcagCriteria: [],
+    conformanceLevel: "best-practice"
   },
   "https://alfa.siteimprove.com/rules/sia-r62": {
     name: "Links are distinguishable",
-    description: "Links are visually distinguishable from surrounding text"
+    description: "Links are visually distinguishable from surrounding text",
+    wcagCriteria: ["1.4.1"],
+    conformanceLevel: "A"
   },
   "https://alfa.siteimprove.com/rules/sia-r65": {
     name: "Table headers",
-    description: "Tables have appropriate headers"
+    description: "Tables have appropriate headers",
+    wcagCriteria: ["1.3.1"],
+    conformanceLevel: "A"
   },
   "https://alfa.siteimprove.com/rules/sia-r68": {
     name: "Accessible name matches visible text",
-    description: "Accessible name contains the visible label text"
+    description: "Accessible name contains the visible label text",
+    wcagCriteria: ["2.5.3"],
+    conformanceLevel: "A"
   },
   "https://alfa.siteimprove.com/rules/sia-r69": {
     name: "Contrast (minimum)",
-    description: "Text has sufficient contrast with its background"
+    description: "Text has sufficient contrast with its background",
+    wcagCriteria: ["1.4.3"],
+    conformanceLevel: "AA"
   },
   "https://alfa.siteimprove.com/rules/sia-r73": {
     name: "Text spacing",
-    description: "Text spacing can be adjusted without loss of content"
+    description: "Text spacing can be adjusted without loss of content",
+    wcagCriteria: ["1.4.12"],
+    conformanceLevel: "AA"
   },
   "https://alfa.siteimprove.com/rules/sia-r80": {
     name: "Text alternatives for ASCII art",
-    description: "ASCII art has a text alternative"
+    description: "ASCII art has a text alternative",
+    wcagCriteria: ["1.1.1"],
+    conformanceLevel: "A"
   },
   "https://alfa.siteimprove.com/rules/sia-r83": {
     name: "Text resize",
-    description: "Text can be resized to 200% without loss of content"
+    description: "Text can be resized to 200% without loss of content",
+    wcagCriteria: ["1.4.4"],
+    conformanceLevel: "AA"
   },
   "https://alfa.siteimprove.com/rules/sia-r86": {
     name: "Bypass blocks",
-    description: "Page has a mechanism to bypass repeated blocks of content"
+    description: "Page has a mechanism to bypass repeated blocks of content",
+    wcagCriteria: ["2.4.1"],
+    conformanceLevel: "A"
   },
   "https://alfa.siteimprove.com/rules/sia-r87": {
     name: "Skip link",
-    description: "First focusable element is a skip link"
+    description: "First focusable element is a skip link",
+    wcagCriteria: ["2.4.1"],
+    conformanceLevel: "A"
   },
   "https://alfa.siteimprove.com/rules/sia-r90": {
     name: "Iframe has accessible name",
-    description: "iframe elements have an accessible name"
+    description: "iframe elements have an accessible name",
+    wcagCriteria: ["4.1.2"],
+    conformanceLevel: "A"
   }
 };
 
@@ -140,7 +192,7 @@ export function extractAlfaRuleId(ruleUrl) {
 /**
  * Format an ALFA rule for display in reports
  * @param {string} ruleUrl - The full ALFA rule URL
- * @returns {{ id: string, name: string | null, description: string | null, url: string }} Formatted rule info
+ * @returns {{ id: string, name: string | null, description: string | null, url: string, wcagCriteria: string[], conformanceLevel: string | null }} Formatted rule info
  */
 export function formatAlfaRule(ruleUrl) {
   const id = extractAlfaRuleId(ruleUrl) || "Unknown Rule";
@@ -150,6 +202,8 @@ export function formatAlfaRule(ruleUrl) {
     id,
     name: metadata?.name || null,
     description: metadata?.description || null,
-    url: ruleUrl
+    url: ruleUrl,
+    wcagCriteria: metadata?.wcagCriteria || [],
+    conformanceLevel: metadata?.conformanceLevel || null
   };
 }

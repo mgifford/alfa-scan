@@ -1,5 +1,25 @@
-import { ROLES, SEVERITY } from "./rule-metadata.mjs";
+import { ROLES, SEVERITY, wcagScUrl } from "./rule-metadata.mjs";
 import { formatAlfaRule } from "./alfa-rule-metadata.mjs";
+
+/**
+ * Format WCAG criteria for display in HTML reports.
+ * @param {{ scs: string[], level: string|null }} wcag
+ * @returns {string} HTML string
+ */
+function formatWcagHtml(wcag) {
+  if (!wcag) return "";
+  const { scs, level } = wcag;
+  if (level === "best-practice") {
+    return `<span class="badge badge-wcag badge-best-practice">Best Practice</span>`;
+  }
+  if (!scs || scs.length === 0) return "";
+  const scLinks = scs.map(sc => {
+    const url = wcagScUrl(sc);
+    return `<a href="${url}" target="_blank" rel="noopener" class="wcag-sc-link">SC ${sc}</a>`;
+  }).join(", ");
+  const levelBadge = level ? `<span class="badge badge-wcag badge-level-${level.toLowerCase()}">${level}</span>` : "";
+  return `${scLinks} ${levelBadge}`;
+}
 
 /** Convert a string to a URL-safe slug for use as an HTML id */
 function slugify(text) {
@@ -135,6 +155,9 @@ export function generateInteractiveHtml(summary) {
     const rolesData = JSON.stringify(f.metadata.roles);
     const pageUrlsData = JSON.stringify([...f.pages.keys()]);
     const ruleSlug = slugify(f.engine + "-" + displayId);
+    // Use stored wcag info (set during buildEnhancedSummary), falling back to metadata
+    const wcag = f.wcag || { scs: f.metadata.wcagCriteria || [], level: f.metadata.conformanceLevel || null };
+    const wcagHtml = formatWcagHtml(wcag);
 
     return `
       <details class="rule-card"
@@ -149,6 +172,7 @@ export function generateInteractiveHtml(summary) {
             <span class="badge badge-count">${f.totalOccurrences}</span>
             <span class="badge badge-severity severity-${f.metadata.severity}">${f.metadata.severity}</span>
             <span class="badge badge-engine">${f.engine}</span>
+            ${wcagHtml ? `<span class="wcag-inline">${wcagHtml}</span>` : ''}
             <span>
               <strong>${displayId}</strong>: ${displayDesc}
               <a href="#rule-${ruleSlug}" class="anchor-link anchor-link-inline" aria-label="Link to ${displayId} rule">
@@ -167,6 +191,7 @@ export function generateInteractiveHtml(summary) {
               <p><strong>Engine:</strong> ${f.engine}</p>
               <p><strong>Roles:</strong> ${f.metadata.roles.join(', ')}</p>
               <p><strong>Blocking:</strong> ${f.metadata.blocking ? '⚠️ Yes (Task-Blocking)' : 'No'}</p>
+              ${wcagHtml ? `<p><strong>WCAG:</strong> ${wcagHtml}</p>` : ''}
             </div>
             <div>
               <h4>Affected Pages</h4>
@@ -509,7 +534,7 @@ export function generateInteractiveHtml(summary) {
     summary:hover { background: var(--hover-bg); }
     summary:focus { outline: 2px solid var(--primary); outline-offset: 2px; }
     summary::-webkit-details-marker { display: none; }
-    .rule-summary-info { display: flex; align-items: center; gap: 1rem; }
+    .rule-summary-info { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
     .pages-affected { color: var(--muted); font-size: 0.8rem; }
     .badge { padding: 0.2rem 0.6rem; border-radius: 12px; font-size: 0.75rem; font-weight: 600; }
     .badge-severity { background: var(--bar-bg); color: var(--text); }
@@ -517,6 +542,14 @@ export function generateInteractiveHtml(summary) {
     .badge-engine { background: #e8f4fd; color: #0969da; border: 1px solid #b6d9fb; }
     .badge-light { background: var(--container-bg); border: 1px solid var(--border); color: var(--text); }
     .badge-dark { background: var(--badge-dark-bg); color: var(--badge-dark-text); }
+    .badge-wcag { font-size: 0.7rem; }
+    .badge-level-a { background: #d1fae5; color: #065f46; border: 1px solid #6ee7b7; }
+    .badge-level-aa { background: #dbeafe; color: #1e40af; border: 1px solid #93c5fd; }
+    .badge-level-aaa { background: #ede9fe; color: #5b21b6; border: 1px solid #c4b5fd; }
+    .badge-best-practice { background: #fef3c7; color: #92400e; border: 1px solid #fcd34d; }
+    .wcag-inline { display: inline-flex; align-items: center; gap: 0.25rem; }
+    .wcag-sc-link { color: var(--link); font-size: 0.8rem; text-decoration: none; }
+    .wcag-sc-link:hover { text-decoration: underline; }
     
     .rule-content { padding: 1.5rem; border-top: 1px solid var(--border); }
     .rule-details { margin-bottom: 1.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
