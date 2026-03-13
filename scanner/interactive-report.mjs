@@ -69,6 +69,15 @@ function getWcagVersionFromScs(scs) {
   return version;
 }
 
+/**
+ * Extract the WCAG object for a consolidated failure, falling back to metadata fields.
+ * @param {{ wcag?: {scs: string[], level: string|null}, metadata?: {wcagCriteria?: string[], conformanceLevel?: string} }} f
+ * @returns {{ scs: string[], level: string|null }}
+ */
+function getRuleWcag(f) {
+  return f.wcag || { scs: f.metadata?.wcagCriteria || [], level: f.metadata?.conformanceLevel || null };
+}
+
 export function generateInteractiveHtml(summary) {
   const { enhanced, scanTitle, issueNumber, issueUrl, scannedAt, totalElapsedMs, totalSubmitted, acceptedCount, scannedCount, darkModeUrlCount, results } = summary;
   const { consolidatedFailures, roleStats, severityStats } = enhanced;
@@ -78,6 +87,38 @@ export function generateInteractiveHtml(summary) {
 
   // Calculate total issues once
   const totalIssues = consolidatedFailures.reduce((acc, f) => acc + f.totalOccurrences, 0);
+
+  // Calculate detailed issue breakdown statistics for the header summary
+  const engineCount = new Set(consolidatedFailures.map(f => f.engine)).size;
+  let levelA = 0, levelAA = 0, levelAAA = 0;
+  let version20 = 0, version21 = 0, version22 = 0;
+  let axeStrict = 0, bestPractice = 0, otherUnique = 0;
+  for (const f of consolidatedFailures) {
+    const wcag = getRuleWcag(f);
+    const wcagLevel = wcag.level || "";
+    const count = f.totalOccurrences;
+    // By WCAG conformance level
+    if (wcagLevel === "A") levelA += count;
+    else if (wcagLevel === "AA") levelAA += count;
+    else if (wcagLevel === "AAA") levelAAA += count;
+    // By WCAG version (A & AA only -- AAA is advisory and version tracking is less relevant)
+    if (wcagLevel === "A" || wcagLevel === "AA") {
+      const ver = getWcagVersionFromScs(wcag.scs || []);
+      if (ver === "2.0") version20 += count;
+      else if (ver === "2.1") version21 += count;
+      else if (ver === "2.2") version22 += count;
+    }
+    // By confidence/engine category
+    if (wcagLevel === "best-practice") {
+      bestPractice += count;
+    } else if (f.engine === "axe") {
+      // axe-strict: axe violations mapped to WCAG SCs (high-confidence, no false positives)
+      axeStrict += count;
+    } else {
+      // Other unique errors: non-axe engine violations
+      otherUnique += count;
+    }
+  }
 
   // Build priority table data (top 10 pages by total unique errors)
   const ALL_SCANNERS = ['axe', 'alfa', 'equalAccess', 'accesslint', 'qualweb'];
@@ -196,7 +237,7 @@ export function generateInteractiveHtml(summary) {
     const pageUrlsData = JSON.stringify([...f.pages.keys()]);
     const ruleSlug = slugify(f.engine + "-" + displayId);
     // Use stored wcag info (set during buildEnhancedSummary), falling back to metadata
-    const wcag = f.wcag || { scs: f.metadata.wcagCriteria || [], level: f.metadata.conformanceLevel || null };
+    const wcag = getRuleWcag(f);
     const wcagHtml = formatWcagHtml(wcag);
     const wcagLevel = wcag.level || "";
     const wcagVersion = wcagLevel === "best-practice"
@@ -588,6 +629,10 @@ export function generateInteractiveHtml(summary) {
     .card { border: 1px solid var(--border); padding: 1.5rem; border-radius: 6px; background: var(--container-bg); }
     .card h3 { font-size: 1rem; margin-bottom: 1rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
     .stat { font-size: 2.5rem; font-weight: 700; line-height: 1; margin-bottom: 0.5rem; }
+    .card-issues-overview { grid-column: 1 / -1; }
+    .issues-breakdown { list-style: disc; padding-left: 1.4rem; margin: 0; font-size: 0.9rem; line-height: 2; }
+    .issues-breakdown li { color: var(--text); }
+    .stat-inline { font-size: 1.4rem; font-weight: 700; }
 
     .bar-chart { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 1rem; }
     .bar-item { display: flex; align-items: center; gap: 0.5rem; }
@@ -901,10 +946,26 @@ export function generateInteractiveHtml(summary) {
         </a>
       </h2>
       <div class="dashboard">
-        <div class="card">
-          <h3>Total Issues</h3>
-          <div class="stat" aria-label="${totalIssues} total issues">${totalIssues}</div>
-          <p>Across ${consolidatedFailures.length} unique rules</p>
+        <div class="card card-issues-overview">
+          <h3>Issues</h3>
+          <ul class="issues-breakdown" aria-label="Issues breakdown by WCAG level, version, and category">
+            <li>
+              <strong>By Level:</strong>
+              A (${levelA}), AA (${levelAA}), AAA (${levelAAA})
+            </li>
+            <li>
+              <strong>By Version (A &amp; AA):</strong>
+              WCAG 2.0 (${version20}), WCAG 2.1 (${version21}), WCAG 2.2 (${version22})
+            </li>
+            <li>
+              <strong>By Category:</strong>
+              axe-strict (${axeStrict}), Best Practice (${bestPractice}), Other unique errors (${otherUnique})
+            </li>
+            <li>
+              <strong>Total: <span class="stat-inline" aria-label="${totalIssues} total issues">${totalIssues}</span></strong>
+              across ${consolidatedFailures.length} unique rules and ${engineCount} accessibility engine${engineCount !== 1 ? 's' : ''}
+            </li>
+          </ul>
         </div>
         <div class="card">
           <h3>By Severity</h3>

@@ -725,3 +725,164 @@ test("filter controls have accessible labels", () => {
   assert.ok(html.includes('aria-label="Filter by accessibility engine"'), "Engine filter should have aria-label");
   assert.ok(html.includes('aria-live="polite"'), "Filter count should use aria-live for announcements");
 });
+
+// ── Issues breakdown card ─────────────────────────────────────────────────────
+
+test("issues overview card shows By Level breakdown", () => {
+  const summary = makeSummary({
+    enhanced: {
+      consolidatedFailures: [
+        {
+          rule: "color-contrast",
+          engine: "axe",
+          totalOccurrences: 3,
+          pages: new Map([["https://example.com/page1", 3]]),
+          wcag: { scs: ["1.4.3"], level: "AA" },
+          metadata: { severity: "Serious", roles: ["Visual"], blocking: false, description: "Color contrast" },
+          examples: [],
+        },
+        {
+          rule: "image-alt",
+          engine: "axe",
+          totalOccurrences: 2,
+          pages: new Map([["https://example.com/page1", 2]]),
+          wcag: { scs: ["1.1.1"], level: "A" },
+          metadata: { severity: "Critical", roles: ["Content"], blocking: true, description: "Images must have alt text" },
+          examples: [],
+        },
+      ],
+      roleStats: { Visual: 3, Content: 2 },
+      severityStats: { Serious: 3, Critical: 2 },
+    },
+  });
+  const html = generateInteractiveHtml(summary);
+
+  assert.ok(html.includes("By Level:"), "Issues card should show 'By Level:' heading");
+  assert.ok(html.includes("A (2)"), "Issues card should show A count of 2");
+  assert.ok(html.includes("AA (3)"), "Issues card should show AA count of 3");
+  assert.ok(html.includes("AAA (0)"), "Issues card should show AAA count of 0");
+});
+
+test("issues overview card shows By Version breakdown for A and AA issues", () => {
+  const summary = makeSummary({
+    enhanced: {
+      consolidatedFailures: [
+        {
+          rule: "color-contrast",
+          engine: "axe",
+          totalOccurrences: 4,
+          pages: new Map([["https://example.com/page1", 4]]),
+          wcag: { scs: ["1.4.3"], level: "AA" },
+          metadata: { severity: "Serious", roles: ["Visual"], blocking: false, description: "Color contrast" },
+          examples: [],
+        },
+        {
+          rule: "reflow",
+          engine: "axe",
+          totalOccurrences: 2,
+          pages: new Map([["https://example.com/page1", 2]]),
+          wcag: { scs: ["1.4.10"], level: "AA" },
+          metadata: { severity: "Serious", roles: ["Visual"], blocking: false, description: "Reflow" },
+          examples: [],
+        },
+        {
+          rule: "target-size",
+          engine: "alfa",
+          totalOccurrences: 1,
+          pages: new Map([["https://example.com/page1", 1]]),
+          wcag: { scs: ["2.5.8"], level: "AA" },
+          metadata: { severity: "Serious", roles: ["UX"], blocking: false, description: "Target size" },
+          examples: [],
+        },
+      ],
+      roleStats: { Visual: 6, UX: 1 },
+      severityStats: { Serious: 7 },
+    },
+  });
+  const html = generateInteractiveHtml(summary);
+
+  // HTML-encodes & as &amp; because the template uses &amp; for the ampersand in "A & AA"
+  assert.ok(html.includes("By Version (A &amp; AA):"), "Issues card should show 'By Version (A & AA):' heading");
+  assert.ok(html.includes("WCAG 2.0 (4)"), "Issues card should show WCAG 2.0 count of 4");
+  assert.ok(html.includes("WCAG 2.1 (2)"), "Issues card should show WCAG 2.1 count of 2");
+  assert.ok(html.includes("WCAG 2.2 (1)"), "Issues card should show WCAG 2.2 count of 1");
+});
+
+test("issues overview card shows By Category breakdown", () => {
+  const summary = makeSummary({
+    enhanced: {
+      consolidatedFailures: [
+        {
+          rule: "color-contrast",
+          engine: "axe",
+          totalOccurrences: 5,
+          pages: new Map([["https://example.com/page1", 5]]),
+          wcag: { scs: ["1.4.3"], level: "AA" },
+          metadata: { severity: "Serious", roles: ["Visual"], blocking: false, description: "Color contrast" },
+          examples: [],
+        },
+        {
+          rule: "heading-order",
+          engine: "axe",
+          totalOccurrences: 3,
+          pages: new Map([["https://example.com/page1", 3]]),
+          wcag: { scs: [], level: "best-practice" },
+          metadata: { severity: "Moderate", roles: ["Content"], blocking: false, description: "Heading order" },
+          examples: [],
+        },
+        {
+          rule: "target-size",
+          engine: "alfa",
+          totalOccurrences: 2,
+          pages: new Map([["https://example.com/page1", 2]]),
+          wcag: { scs: ["2.5.8"], level: "AA" },
+          metadata: { severity: "Serious", roles: ["UX"], blocking: false, description: "Target size" },
+          examples: [],
+        },
+      ],
+      roleStats: { Visual: 5, Content: 3, UX: 2 },
+      severityStats: { Serious: 7, Moderate: 3 },
+    },
+  });
+  const html = generateInteractiveHtml(summary);
+
+  assert.ok(html.includes("By Category:"), "Issues card should show 'By Category:' heading");
+  assert.ok(html.includes("axe-strict (5)"), "Issues card should show axe-strict count of 5");
+  assert.ok(html.includes("Best Practice (3)"), "Issues card should show Best Practice count of 3");
+  assert.ok(html.includes("Other unique errors (2)"), "Issues card should show Other unique errors count of 2");
+});
+
+test("issues overview card shows total count with engine and rule counts", () => {
+  const summary = makeSummary({
+    enhanced: {
+      consolidatedFailures: [
+        {
+          rule: "color-contrast",
+          engine: "axe",
+          totalOccurrences: 5,
+          pages: new Map([["https://example.com/page1", 5]]),
+          wcag: { scs: ["1.4.3"], level: "AA" },
+          metadata: { severity: "Serious", roles: ["Visual"], blocking: false, description: "Color contrast" },
+          examples: [],
+        },
+        {
+          rule: "target-size",
+          engine: "alfa",
+          totalOccurrences: 2,
+          pages: new Map([["https://example.com/page1", 2]]),
+          wcag: { scs: ["2.5.8"], level: "AA" },
+          metadata: { severity: "Serious", roles: ["UX"], blocking: false, description: "Target size" },
+          examples: [],
+        },
+      ],
+      roleStats: { Visual: 5, UX: 2 },
+      severityStats: { Serious: 7 },
+    },
+  });
+  const html = generateInteractiveHtml(summary);
+
+  assert.ok(html.includes("Total:"), "Issues card should show 'Total:' label");
+  assert.ok(html.includes(">7<"), "Issues card should show total count of 7");
+  assert.ok(html.includes("2 unique rules"), "Issues card should mention 2 unique rules");
+  assert.ok(html.includes("2 accessibility engines"), "Issues card should mention 2 accessibility engines");
+});
