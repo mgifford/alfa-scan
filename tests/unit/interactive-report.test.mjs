@@ -518,3 +518,210 @@ test("show-all toggle JavaScript is included when extra rows exist", () => {
   assert.ok(html.includes("priority-row-extra"), "JS should reference extra rows by class");
   assert.ok(html.includes("Show fewer pages"), "JS should have 'show fewer' text for toggling back");
 });
+
+// ── WCAG filtering ────────────────────────────────────────────────────────────
+
+/** Build a failure fixture with explicit WCAG data for filtering tests */
+function makeWcagSummary(wcagScs, wcagLevel) {
+  return makeSummary({
+    enhanced: {
+      consolidatedFailures: [
+        {
+          rule: "color-contrast",
+          engine: "axe",
+          totalOccurrences: 5,
+          pages: new Map([["https://example.com/page1", 5]]),
+          wcag: { scs: wcagScs, level: wcagLevel },
+          metadata: {
+            severity: "Serious",
+            roles: ["Visual"],
+            blocking: false,
+            description: "Ensure sufficient color contrast",
+            wcagCriteria: wcagScs,
+            conformanceLevel: wcagLevel,
+          },
+          examples: [],
+        },
+      ],
+      roleStats: { Visual: 5 },
+      severityStats: { Serious: 5 },
+    },
+  });
+}
+
+test("rule cards include data-wcag-level attribute", () => {
+  const html = generateInteractiveHtml(makeWcagSummary(["1.4.3"], "AA"));
+
+  assert.ok(html.includes('data-wcag-level="AA"'), "Rule card should have data-wcag-level=AA for a WCAG AA rule");
+});
+
+test("rule cards include data-wcag-version attribute for WCAG 2.0 criterion", () => {
+  const html = generateInteractiveHtml(makeWcagSummary(["1.4.3"], "AA"));
+
+  // SC 1.4.3 was introduced in WCAG 2.0
+  assert.ok(html.includes('data-wcag-version="2.0"'), "Rule card for SC 1.4.3 (WCAG 2.0) should have data-wcag-version=2.0");
+});
+
+test("best-practice rule cards have data-wcag-level=best-practice and data-wcag-version=best-practice", () => {
+  const summary = makeSummary({
+    enhanced: {
+      consolidatedFailures: [
+        {
+          rule: "heading-order",
+          engine: "axe",
+          totalOccurrences: 3,
+          pages: new Map([["https://example.com/page1", 3]]),
+          wcag: { scs: [], level: "best-practice" },
+          metadata: {
+            severity: "Moderate",
+            roles: ["Content"],
+            blocking: false,
+            description: "Heading levels should only increase by one",
+            wcagCriteria: [],
+            conformanceLevel: "best-practice",
+          },
+          examples: [],
+        },
+      ],
+      roleStats: { Content: 3 },
+      severityStats: { Moderate: 3 },
+    },
+  });
+  const html = generateInteractiveHtml(summary);
+
+  assert.ok(
+    html.includes('data-wcag-level="best-practice"'),
+    "Best-practice rule should have data-wcag-level=best-practice"
+  );
+  assert.ok(
+    html.includes('data-wcag-version="best-practice"'),
+    "Best-practice rule should have data-wcag-version=best-practice"
+  );
+});
+
+test("rule cards for WCAG 2.1-only criteria have data-wcag-version=2.1", () => {
+  const summary = makeSummary({
+    enhanced: {
+      consolidatedFailures: [
+        {
+          rule: "some-reflow-rule",
+          engine: "axe",
+          totalOccurrences: 2,
+          pages: new Map([["https://example.com/page1", 2]]),
+          wcag: { scs: ["1.4.10"], level: "AA" },
+          metadata: {
+            severity: "Serious",
+            roles: ["Visual"],
+            blocking: false,
+            description: "Content should not require scrolling in two dimensions",
+            wcagCriteria: ["1.4.10"],
+            conformanceLevel: "AA",
+          },
+          examples: [],
+        },
+      ],
+      roleStats: { Visual: 2 },
+      severityStats: { Serious: 2 },
+    },
+  });
+  const html = generateInteractiveHtml(summary);
+
+  assert.ok(
+    html.includes('data-wcag-version="2.1"'),
+    "Rule with SC 1.4.10 (introduced in WCAG 2.1) should have data-wcag-version=2.1"
+  );
+});
+
+test("rule cards for WCAG 2.2-only criteria have data-wcag-version=2.2", () => {
+  const summary = makeSummary({
+    enhanced: {
+      consolidatedFailures: [
+        {
+          rule: "target-size",
+          engine: "alfa",
+          totalOccurrences: 4,
+          pages: new Map([["https://example.com/page1", 4]]),
+          wcag: { scs: ["2.5.8"], level: "AA" },
+          metadata: {
+            severity: "Serious",
+            roles: ["UX"],
+            blocking: true,
+            description: "Target size should be at least 24x24 CSS pixels",
+            wcagCriteria: ["2.5.8"],
+            conformanceLevel: "AA",
+          },
+          examples: [],
+        },
+      ],
+      roleStats: { UX: 4 },
+      severityStats: { Serious: 4 },
+    },
+  });
+  const html = generateInteractiveHtml(summary);
+
+  assert.ok(
+    html.includes('data-wcag-version="2.2"'),
+    "Rule with SC 2.5.8 (introduced in WCAG 2.2) should have data-wcag-version=2.2"
+  );
+});
+
+test("filter controls are present in the HTML report", () => {
+  const html = generateInteractiveHtml(buildPrioritySummary());
+
+  assert.ok(html.includes('id="rule-filters"'), "Filter controls should be present");
+  assert.ok(html.includes('id="filter-type"'), "Type filter should be present");
+  assert.ok(html.includes('id="filter-level"'), "Level filter should be present");
+  assert.ok(html.includes('id="filter-version"'), "Version filter should be present");
+  assert.ok(html.includes('id="filter-engine"'), "Engine filter should be present");
+});
+
+test("filter controls include WCAG level options A, A+AA, and A+AA+AAA", () => {
+  const html = generateInteractiveHtml(buildPrioritySummary());
+
+  assert.ok(html.includes('value="A"'), "Level A option should be present");
+  assert.ok(html.includes('value="A+AA"'), "Level A+AA option should be present");
+  assert.ok(html.includes('value="A+AA+AAA"'), "Level A+AA+AAA option should be present");
+});
+
+test("filter controls include WCAG version options 2.0, 2.1, and 2.2", () => {
+  const html = generateInteractiveHtml(buildPrioritySummary());
+
+  assert.ok(html.includes('value="2.0"'), "WCAG 2.0 version option should be present");
+  assert.ok(html.includes('value="2.1"'), "WCAG 2.1 version option should be present");
+  assert.ok(html.includes('value="2.2"'), "WCAG 2.2 version option should be present");
+});
+
+test("filter controls include Best Practices and WCAG Requirements type options", () => {
+  const html = generateInteractiveHtml(buildPrioritySummary());
+
+  assert.ok(html.includes('value="wcag"'), "WCAG requirements type option should be present");
+  assert.ok(html.includes('value="best-practice"'), "Best practices type option should be present");
+});
+
+test("filter controls include engine options for active engines", () => {
+  const html = generateInteractiveHtml(buildPrioritySummary());
+
+  assert.ok(html.includes('value="axe"'), "axe engine option should be present in filter");
+  assert.ok(html.includes('value="alfa"'), "alfa engine option should be present in filter");
+});
+
+test("filter JavaScript references filter control elements", () => {
+  const html = generateInteractiveHtml(buildPrioritySummary());
+
+  assert.ok(html.includes("applyRuleFilters"), "JS should define applyRuleFilters function");
+  assert.ok(html.includes("filter-type"), "JS should reference type filter");
+  assert.ok(html.includes("filter-level"), "JS should reference level filter");
+  assert.ok(html.includes("filter-version"), "JS should reference version filter");
+  assert.ok(html.includes("clear-rule-filters"), "JS should reference clear filters button");
+  assert.ok(html.includes("filter-rule-count"), "JS should reference filter count display");
+});
+
+test("filter controls have accessible labels", () => {
+  const html = generateInteractiveHtml(buildPrioritySummary());
+
+  assert.ok(html.includes('aria-label="Filter by requirement type"'), "Type filter should have aria-label");
+  assert.ok(html.includes('aria-label="Filter by WCAG conformance level"'), "Level filter should have aria-label");
+  assert.ok(html.includes('aria-label="Filter by WCAG version"'), "Version filter should have aria-label");
+  assert.ok(html.includes('aria-label="Filter by accessibility engine"'), "Engine filter should have aria-label");
+  assert.ok(html.includes('aria-live="polite"'), "Filter count should use aria-live for announcements");
+});

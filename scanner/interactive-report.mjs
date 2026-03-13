@@ -29,6 +29,46 @@ function slugify(text) {
     .replace(/^-|-$/g, "");
 }
 
+/**
+ * WCAG Success Criteria introduced in WCAG 2.1 (not in 2.0).
+ * @type {Set<string>}
+ */
+const WCAG_21_SCS = new Set([
+  "1.3.4", "1.3.5", "1.3.6",
+  "1.4.10", "1.4.11", "1.4.12", "1.4.13",
+  "2.1.4",
+  "2.5.1", "2.5.2", "2.5.3", "2.5.4", "2.5.5", "2.5.6",
+  "4.1.3"
+]);
+
+/**
+ * WCAG Success Criteria introduced in WCAG 2.2 (not in 2.0 or 2.1).
+ * @type {Set<string>}
+ */
+const WCAG_22_SCS = new Set([
+  "2.4.11", "2.4.12", "2.4.13",
+  "2.5.7", "2.5.8",
+  "3.2.6",
+  "3.3.7", "3.3.8", "3.3.9"
+]);
+
+/**
+ * Given an array of WCAG SC strings, return the minimum WCAG version
+ * required to cover all of them ("2.0", "2.1", or "2.2").
+ * Returns "" when the array is empty or null.
+ * @param {string[]} scs
+ * @returns {string}
+ */
+function getWcagVersionFromScs(scs) {
+  if (!scs || scs.length === 0) return "";
+  let version = "2.0";
+  for (const sc of scs) {
+    if (WCAG_22_SCS.has(sc)) return "2.2";
+    if (WCAG_21_SCS.has(sc)) version = "2.1";
+  }
+  return version;
+}
+
 export function generateInteractiveHtml(summary) {
   const { enhanced, scanTitle, issueNumber, issueUrl, scannedAt, totalElapsedMs, totalSubmitted, acceptedCount, scannedCount, darkModeUrlCount, results } = summary;
   const { consolidatedFailures, roleStats, severityStats } = enhanced;
@@ -158,6 +198,10 @@ export function generateInteractiveHtml(summary) {
     // Use stored wcag info (set during buildEnhancedSummary), falling back to metadata
     const wcag = f.wcag || { scs: f.metadata.wcagCriteria || [], level: f.metadata.conformanceLevel || null };
     const wcagHtml = formatWcagHtml(wcag);
+    const wcagLevel = wcag.level || "";
+    const wcagVersion = wcagLevel === "best-practice"
+      ? "best-practice"
+      : getWcagVersionFromScs(wcag.scs);
 
     return `
       <details class="rule-card"
@@ -166,6 +210,8 @@ export function generateInteractiveHtml(summary) {
                data-severity="${f.metadata.severity}"
                data-engine="${f.engine}"
                data-page-urls='${pageUrlsData}'
+               data-wcag-level="${escapeHtml(wcagLevel)}"
+               data-wcag-version="${escapeHtml(wcagVersion)}"
                data-search="${escapeHtml((displayId + " " + displayDesc).toLowerCase())}">
         <summary>
           <div class="rule-summary-info">
@@ -244,6 +290,50 @@ export function generateInteractiveHtml(summary) {
       `;
     })
     .join('');
+
+  // Engine filter options for the filter bar
+  const engineFilterOptions = [
+    '<option value="all">All Engines</option>',
+    ...SCANNERS.map(s => `<option value="${s}">${escapeHtml(SCANNER_LABELS[s])}</option>`)
+  ].join('');
+
+  const filterControlsHtml = `
+    <div class="filters" id="rule-filters" role="search" aria-label="Filter accessibility rules">
+      <div class="filter-group">
+        <label for="filter-type" class="filter-label">Type:</label>
+        <select id="filter-type" aria-label="Filter by requirement type">
+          <option value="all">All</option>
+          <option value="wcag">WCAG Requirements</option>
+          <option value="best-practice">Best Practices</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label for="filter-level" class="filter-label">WCAG Level:</label>
+        <select id="filter-level" aria-label="Filter by WCAG conformance level">
+          <option value="all">All Levels</option>
+          <option value="A">Level A only</option>
+          <option value="A+AA">A &amp; AA</option>
+          <option value="A+AA+AAA">A, AA &amp; AAA</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label for="filter-version" class="filter-label">WCAG Version:</label>
+        <select id="filter-version" aria-label="Filter by WCAG version">
+          <option value="all">All Versions</option>
+          <option value="2.0">WCAG 2.0</option>
+          <option value="2.1">WCAG 2.1</option>
+          <option value="2.2">WCAG 2.2</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label for="filter-engine" class="filter-label">Engine:</label>
+        <select id="filter-engine" aria-label="Filter by accessibility engine">
+          ${engineFilterOptions}
+        </select>
+      </div>
+      <button class="btn btn-clear" id="clear-rule-filters" type="button" hidden>Clear Filters</button>
+      <span id="filter-rule-count" class="filter-count-text" aria-live="polite" aria-atomic="true"></span>
+    </div>`;
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -510,7 +600,10 @@ export function generateInteractiveHtml(summary) {
     .severity-Moderate { color: var(--moderate); }
     .severity-Minor { color: var(--minor); }
 
-    .filters { margin-bottom: 1.5rem; display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+    .filters { margin-bottom: 1.5rem; display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap; padding: 1rem; background: var(--surface); border: 1px solid var(--border); border-radius: 6px; }
+    .filter-group { display: flex; align-items: center; gap: 0.4rem; }
+    .filter-label { font-size: 0.9rem; font-weight: 600; white-space: nowrap; color: var(--text); }
+    .filter-count-text { font-size: 0.85rem; color: var(--muted); margin-left: auto; }
     select, input {
       padding: 0.5rem;
       border: 1px solid var(--border);
@@ -860,6 +953,8 @@ export function generateInteractiveHtml(summary) {
 
       ${priorityTableHtml}
 
+      ${filterControlsHtml}
+
       ${engineAccordionHtml}
     </section>
   </div>
@@ -941,6 +1036,84 @@ export function generateInteractiveHtml(summary) {
         }
       });
     }
+
+    // ── Rule card filtering ──
+    const filterTypeEl = document.getElementById('filter-type');
+    const filterLevelEl = document.getElementById('filter-level');
+    const filterVersionEl = document.getElementById('filter-version');
+    const filterEngineEl = document.getElementById('filter-engine');
+    const clearRuleFiltersBtn = document.getElementById('clear-rule-filters');
+    const filterRuleCountEl = document.getElementById('filter-rule-count');
+
+    function applyRuleFilters() {
+      const type = filterTypeEl.value;
+      const level = filterLevelEl.value;
+      const version = filterVersionEl.value;
+      const engine = filterEngineEl.value;
+
+      const allCards = document.querySelectorAll('.rule-card');
+      let visibleCount = 0;
+
+      allCards.forEach(card => {
+        const cardEngine = card.dataset.engine || '';
+        const cardLevel = card.dataset.wcagLevel || '';
+        const cardVersion = card.dataset.wcagVersion || '';
+        const isBestPractice = cardLevel === 'best-practice';
+
+        let visible = true;
+
+        // Engine filter
+        if (engine !== 'all' && cardEngine !== engine) visible = false;
+
+        // Type filter
+        if (visible && type === 'wcag' && isBestPractice) visible = false;
+        if (visible && type === 'best-practice' && !isBestPractice) visible = false;
+
+        // Level filter (only meaningful for WCAG requirements, not best practices)
+        if (visible && level !== 'all' && !isBestPractice) {
+          if (level === 'A' && cardLevel !== 'A') visible = false;
+          if (level === 'A+AA' && cardLevel !== 'A' && cardLevel !== 'AA') visible = false;
+          // 'A+AA+AAA' includes A, AA, and AAA — any known WCAG level passes
+        }
+
+        // Version filter (only for WCAG requirements with a known version)
+        if (visible && version !== 'all' && !isBestPractice && cardVersion !== '') {
+          if (version === '2.0' && cardVersion !== '2.0') visible = false;
+          else if (version === '2.1' && cardVersion !== '2.0' && cardVersion !== '2.1') visible = false;
+          // '2.2' shows all
+        }
+
+        card.style.display = visible ? '' : 'none';
+        if (visible) visibleCount++;
+      });
+
+      // Hide accordion sections that have no visible rule cards
+      document.querySelectorAll('.accordion-section').forEach(section => {
+        const sectionCards = section.querySelectorAll('.rule-card');
+        const hasVisible = Array.from(sectionCards).some(c => c.style.display !== 'none');
+        section.style.display = hasVisible ? '' : 'none';
+      });
+
+      // Update live count text
+      const total = allCards.length;
+      const hasActiveFilters = type !== 'all' || level !== 'all' || version !== 'all' || engine !== 'all';
+      filterRuleCountEl.textContent = hasActiveFilters
+        ? ('Showing ' + visibleCount + ' of ' + total + ' rules')
+        : '';
+      clearRuleFiltersBtn.hidden = !hasActiveFilters;
+    }
+
+    [filterTypeEl, filterLevelEl, filterVersionEl, filterEngineEl].forEach(el => {
+      el.addEventListener('change', applyRuleFilters);
+    });
+
+    clearRuleFiltersBtn.addEventListener('click', () => {
+      filterTypeEl.value = 'all';
+      filterLevelEl.value = 'all';
+      filterVersionEl.value = 'all';
+      filterEngineEl.value = 'all';
+      applyRuleFilters();
+    });
   </script>
 </body>
 </html>`;
