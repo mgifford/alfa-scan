@@ -1647,7 +1647,7 @@ export function toMarkdownReport(summary, axeVersion = "4.11") {
   lines.push("");
 
   // ACTION-ORIENTED SUMMARY: Pages with most errors
-  lines.push("## 🎯 Priority: Pages with Most Errors");
+  lines.push("## 🎯 Pages with Most Errors");
   lines.push("");
   lines.push("Focus your efforts on these pages to make the biggest impact (combined scanner unique failures):");
   lines.push("");
@@ -1691,7 +1691,7 @@ export function toMarkdownReport(summary, axeVersion = "4.11") {
   lines.push("");
 
   // ACTION-ORIENTED SUMMARY: Most common failed rules (ALFA)
-  lines.push("## 🔧 Priority: Most Common Issues (ALFA)");
+  lines.push("## 🔧 Most Common Issues (ALFA)");
   lines.push("");
   lines.push("These ALFA accessibility issues appear most frequently across your pages:");
   lines.push("");
@@ -1726,7 +1726,7 @@ export function toMarkdownReport(summary, axeVersion = "4.11") {
   lines.push("");
 
   // ACTION-ORIENTED SUMMARY: Most common failed rules (axe)
-  lines.push("## 🔧 Priority: Most Common Issues (axe)");
+  lines.push("## 🔧 Most Common Issues (axe)");
   lines.push("");
   lines.push("These axe accessibility issues appear most frequently across your pages:");
   lines.push("");
@@ -2075,8 +2075,8 @@ export function toMarkdownReport(summary, axeVersion = "4.11") {
 function wrapSectionsInAccordions(html) {
   // These headings are hardcoded strings from toMarkdownReport – safe to embed directly.
   const ACCORDION_HEADINGS = new Set([
-    '🔧 Priority: Most Common Issues (ALFA)',
-    '🔧 Priority: Most Common Issues (axe)',
+    '🔧 Most Common Issues (ALFA)',
+    '🔧 Most Common Issues (axe)',
     '🔍 Cross-Page Patterns: Common HTML Issues',
     '📊 Detailed Results',
     'Detailed Failure Information (ALFA)',

@@ -280,7 +280,7 @@ test("generateInteractiveHtml includes per-engine accordion sections after prior
   const html = generateInteractiveHtml(makeSummary());
   assert.ok(html.includes('accordion-section'), "Should have accordion-section elements");
   assert.ok(html.includes('accordion-header'), "Should have accordion-header elements");
-  assert.ok(html.includes('🔧 Priority: Most Common Issues'), "Should have Most Common Issues accordion headings");
+  assert.ok(html.includes('🔧 Most Common Issues'), "Should have Most Common Issues accordion headings");
 });
 
 // ── Priority table ─────────────────────────────────────────────────────────────
@@ -354,7 +354,7 @@ function buildPrioritySummary() {
 test("priority table is included in interactive HTML report", () => {
   const html = generateInteractiveHtml(buildPrioritySummary());
 
-  assert.ok(html.includes("🎯 Priority: Pages with Most Errors"), "Priority table heading should be present");
+  assert.ok(html.includes("🎯 Pages with Most Errors"), "Pages with Most Errors table heading should be present");
   assert.ok(html.includes("priority-table"), "Priority table CSS class should be present");
   assert.ok(html.includes("View Page"), "Priority table should have page links");
 });
@@ -396,8 +396,8 @@ test("accordion sections are present per engine with failures", () => {
 
   assert.ok(html.includes('id="accordion-axe"'), "Should have axe accordion section");
   assert.ok(html.includes('id="accordion-alfa"'), "Should have alfa accordion section");
-  assert.ok(html.includes('🔧 Priority: Most Common Issues (axe)'), "Should have axe section label");
-  assert.ok(html.includes('🔧 Priority: Most Common Issues (ALFA)'), "Should have ALFA section label");
+  assert.ok(html.includes('🔧 Most Common Issues (axe)'), "Should have axe section label");
+  assert.ok(html.includes('🔧 Most Common Issues (ALFA)'), "Should have ALFA section label");
   // Sections should be collapsed by default (no 'open' attribute on accordion-section details elements)
   // Extract accordion-section details tags and verify none have 'open' attribute
   const accordionMatches = html.match(/<details class="accordion-section"[^>]*>/g) || [];

@@ -126,7 +126,7 @@ export function generateInteractiveHtml(summary) {
 
   const priorityTableHtml = pagesByErrorCount.length > 0 ? `
     <section class="priority-section" aria-labelledby="priority-heading">
-      <h2 id="priority-heading">🎯 Priority: Pages with Most Errors</h2>
+      <h2 id="priority-heading">🎯 Pages with Most Errors</h2>
       <p>Focus your efforts on these pages to make the biggest impact. Click any error count to filter the rule list below.</p>
       <div class="table-wrapper" role="region" aria-label="Pages with most errors" tabindex="0">
         <table class="priority-table" aria-label="Pages sorted by total unique accessibility errors">
@@ -280,7 +280,7 @@ export function generateInteractiveHtml(summary) {
       return `
       <details class="accordion-section" id="accordion-${eng}">
         <summary class="accordion-header">
-          <h2>🔧 Priority: Most Common Issues (${label})</h2>
+          <h2>🔧 Most Common Issues (${label})</h2>
           <span class="accordion-count">${engFailures.length} rule${engFailures.length !== 1 ? 's' : ''}</span>
         </summary>
         <div class="accordion-content rule-list">

@@ -129,9 +129,9 @@ test("Enhanced report format includes priority sections", () => {
   const report = toMarkdownReport(summary);
 
   // Verify priority sections are present
-  assert.ok(report.includes("## 🎯 Priority: Pages with Most Errors"), "Report should include priority pages section");
-  assert.ok(report.includes("## 🔧 Priority: Most Common Issues (ALFA)"), "Report should include ALFA priority issues section");
-  assert.ok(report.includes("## 🔧 Priority: Most Common Issues (axe)"), "Report should include axe priority issues section");
+  assert.ok(report.includes("## 🎯 Pages with Most Errors"), "Report should include pages with most errors section");
+  assert.ok(report.includes("## 🔧 Most Common Issues (ALFA)"), "Report should include ALFA most common issues section");
+  assert.ok(report.includes("## 🔧 Most Common Issues (axe)"), "Report should include axe most common issues section");
   
   // Verify pages are sorted by error count (descending) - combined ALFA + axe
   assert.ok(report.includes("Page 1"), "Report should include Page 1");
