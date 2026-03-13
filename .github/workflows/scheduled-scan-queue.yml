@@ -75,9 +75,11 @@ jobs:
 
           const isQuarterStartMonth = month === 0 || month === 3 || month === 6 || month === 9;
 
-          const isDueToday = (prefix) => {
+          const isDueToday = (prefix, issue) => {
             if (prefix === 'WEEKLY') {
-              return day === 1;
+              // Run on the same day of the week the issue was originally created
+              const createdDay = new Date(issue.createdAt).getUTCDay();
+              return day === createdDay;
             }
             if (prefix === 'MONTHLY') {
               return date === 1;
@@ -104,7 +106,7 @@ jobs:
             if (!prefix) {
               continue;
             }
-            if (!isDueToday(prefix)) {
+            if (!isDueToday(prefix, issue)) {
               continue;
             }
             due.push({
@@ -127,7 +129,7 @@ jobs:
             console.log('[INFO] No timed issues are due today.');
             console.log('');
             console.log('This workflow only processes issues with timed prefixes:');
-            console.log('  - WEEKLY: (runs every Monday)');
+            console.log('  - WEEKLY: (runs on the same day of the week the issue was created)');
             console.log('  - MONTHLY: (runs on 1st of each month)');
             console.log('  - QUARTERLY: (runs on Jan 1, Apr 1, Jul 1, Oct 1)');
             console.log('  - MONDAY:, TUESDAY:, WEDNESDAY:, THURSDAY:, FRIDAY:, SATURDAY:, SUNDAY:');

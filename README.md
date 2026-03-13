@@ -83,7 +83,7 @@ If you find the scan results useful and want to run the same scan regularly:
    - Look for your issue number (e.g., `#54`)
 
 2. **Edit the issue title**: Change the prefix from `SCAN:` to one of the following:
-   - `WEEKLY:` - Runs every Monday
+   - `WEEKLY:` - Runs on the same day of the week the issue was created
    - `SUNDAY:` - Runs every Sunday
    - `MONDAY:`, `TUESDAY:`, `WEDNESDAY:`, `THURSDAY:`, `FRIDAY:`, `SATURDAY:` - Runs on that specific day
    - `MONTHLY:` - Runs on the 1st of each month
@@ -153,7 +153,7 @@ List engine names separated by spaces or commas. This overrides any engine keywo
 **All Open SCAN Issues** - The "Scan All Open SCAN Issues" workflow runs daily at midnight UTC and scans ALL open issues with titles starting with "SCAN:". This ensures that any pending scan requests are processed regularly.
 
 **Timed Issues Only** - The "Scan Timed Issues (WEEKLY, MONTHLY, etc.)" workflow runs daily at 00:15 UTC but ONLY processes issues with timed prefixes that are due on that day:
-- `WEEKLY:` - Scans every Monday
+- `WEEKLY:` - Scans on the same day of the week the issue was created
 - `MONTHLY:` - Scans on the 1st of each month
 - `QUARTERLY:` - Scans on Jan 1, Apr 1, Jul 1, Oct 1
 - `MONDAY:`, `TUESDAY:`, `WEDNESDAY:`, `THURSDAY:`, `FRIDAY:`, `SATURDAY:`, `SUNDAY:` - Scans on the corresponding day of the week
