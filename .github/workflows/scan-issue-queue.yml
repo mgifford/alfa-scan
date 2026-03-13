@@ -193,12 +193,14 @@ jobs:
                 const reportDir = `reports/issues/issue-${issueNumber}/${stamp}`;
                 const summaryPath = `${reportDir}/report.json`;
                 const markdownPath = `${reportDir}/report.md`;
+                const htmlPath = `${reportDir}/report.html`;
                 const csvPath = `${reportDir}/report.csv`;
 
                 // Create report directory and copy files
                 fs.mkdirSync(reportDir, { recursive: true });
                 fs.copyFileSync(`${scanOutputDir}/report.json`, summaryPath);
                 fs.copyFileSync(`${scanOutputDir}/report.md`, markdownPath);
+                fs.copyFileSync(`${scanOutputDir}/report.html`, htmlPath);
                 fs.copyFileSync(`${scanOutputDir}/report.csv`, csvPath);
 
                 // Clean up temporary files
@@ -283,8 +285,9 @@ jobs:
                 const owner = context.repo.owner;
                 const repo = context.repo.repo;
                 const encodedMarkdownPath = markdownPath.split('/').map(encodeURIComponent).join('/');
+                const encodedHtmlPath = htmlPath.split('/').map(encodeURIComponent).join('/');
                 const encodedCsvPath = csvPath.split('/').map(encodeURIComponent).join('/');
-                const pagesUrl = `https://${owner}.github.io/${repo}/${encodedMarkdownPath}`;
+                const pagesUrl = `https://${owner}.github.io/${repo}/${encodedHtmlPath}`;
                 const csvPagesUrl = `https://${owner}.github.io/${repo}/${encodedCsvPath}`;
                 const blobUrl = `https://github.com/${owner}/${repo}/blob/${encodeURIComponent(defaultBranch)}/${encodedMarkdownPath}`;
                 const csvBlobUrl = `https://github.com/${owner}/${repo}/blob/${encodeURIComponent(defaultBranch)}/${encodedCsvPath}`;

@@ -78,6 +78,7 @@ jobs:
           const reportDir = `reports/issues/issue-${issueNumber}/${stamp}`;
           const summaryPath = `${reportDir}/report.json`;
           const markdownPath = `${reportDir}/report.md`;
+          const htmlPath = `${reportDir}/report.html`;
           const csvPath = `${reportDir}/report.csv`;
           const overlapJsonPath = `${reportDir}/report-overlap.json`;
           const overlapMarkdownPath = `${reportDir}/report-overlap.md`;
@@ -92,6 +93,7 @@ jobs:
             `report_dir=${reportDir}`,
             `summary_path=${summaryPath}`,
             `markdown_path=${markdownPath}`,
+            `html_path=${htmlPath}`,
             `csv_path=${csvPath}`,
             `overlap_json_path=${overlapJsonPath}`,
             `overlap_markdown_path=${overlapMarkdownPath}`,
@@ -108,6 +110,7 @@ jobs:
           mkdir -p "${{ steps.meta.outputs.report_dir }}"
           cp .scan-output/report.json "${{ steps.meta.outputs.summary_path }}"
           cp .scan-output/report.md "${{ steps.meta.outputs.markdown_path }}"
+          cp .scan-output/report.html "${{ steps.meta.outputs.html_path }}"
           cp .scan-output/report.csv "${{ steps.meta.outputs.csv_path }}"
           cp .scan-output/report-overlap.json "${{ steps.meta.outputs.overlap_json_path }}"
           cp .scan-output/report-overlap.md "${{ steps.meta.outputs.overlap_markdown_path }}"
@@ -174,11 +177,12 @@ jobs:
             const owner = context.repo.owner;
             const repo = context.repo.repo;
             const markdownPath = process.env.MARKDOWN_PATH;
+            const htmlPath = process.env.HTML_PATH;
             const csvPath = process.env.CSV_PATH;
             const overlapMarkdownPath = process.env.OVERLAP_MARKDOWN_PATH;
             const acceptedCount = process.env.ACCEPTED_COUNT;
             const rejectedCount = process.env.REJECTED_COUNT;
-            const pagesUrl = `https://${owner}.github.io/${repo}/${markdownPath}`;
+            const pagesUrl = `https://${owner}.github.io/${repo}/${htmlPath}`;
             const csvPagesUrl = `https://${owner}.github.io/${repo}/${csvPath}`;
             const overlapPagesUrl = `https://${owner}.github.io/${repo}/${overlapMarkdownPath}`;
             const blobUrl = `https://github.com/${owner}/${repo}/blob/main/${markdownPath}`;
@@ -246,6 +250,7 @@ jobs:
             }
         env:
           MARKDOWN_PATH: ${{ steps.meta.outputs.markdown_path }}
+          HTML_PATH: ${{ steps.meta.outputs.html_path }}
           CSV_PATH: ${{ steps.meta.outputs.csv_path }}
           OVERLAP_MARKDOWN_PATH: ${{ steps.meta.outputs.overlap_markdown_path }}
           ACCEPTED_COUNT: ${{ steps.meta.outputs.accepted_count }}
