@@ -1,0 +1,84 @@
+{
+  "generatedAt": "2026-03-13T18:15:22.886Z",
+  "issueNumber": 150,
+  "scanTitle": "PEI Gov —",
+  "scannersInUse": [
+    "axe",
+    "alfa",
+    "equalAccess",
+    "accesslint",
+    "qualweb"
+  ],
+  "scannerStats": {
+    "axe": {
+      "label": "axe",
+      "failed": 915,
+      "uniqueFailed": 915,
+      "duplicates": 0
+    },
+    "alfa": {
+      "label": "ALFA",
+      "failed": 2000,
+      "uniqueFailed": 2000,
+      "duplicates": 0
+    },
+    "equalAccess": {
+      "label": "Equal Access",
+      "failed": 1500,
+      "uniqueFailed": 1000,
+      "duplicates": 500
+    },
+    "accesslint": {
+      "label": "AccessLint",
+      "failed": 615,
+      "uniqueFailed": 615,
+      "duplicates": 0
+    },
+    "qualweb": {
+      "label": "QualWeb",
+      "failed": 604,
+      "uniqueFailed": 604,
+      "duplicates": 0
+    }
+  },
+  "matrix": {
+    "axe": {
+      "axe": 915,
+      "alfa": 0,
+      "equalAccess": 0,
+      "accesslint": 0,
+      "qualweb": 0
+    },
+    "alfa": {
+      "axe": 0,
+      "alfa": 700,
+      "equalAccess": 0,
+      "accesslint": 0,
+      "qualweb": 0
+    },
+    "equalAccess": {
+      "axe": 0,
+      "alfa": 0,
+      "equalAccess": 1000,
+      "accesslint": 0,
+      "qualweb": 0
+    },
+    "accesslint": {
+      "axe": 0,
+      "alfa": 0,
+      "equalAccess": 0,
+      "accesslint": 615,
+      "qualweb": 0
+    },
+    "qualweb": {
+      "axe": 0,
+      "alfa": 0,
+      "equalAccess": 0,
+      "accesslint": 0,
+      "qualweb": 204
+    }
+  },
+  "duplicateFindingTotals": 2200,
+  "overlapEntryCount": 0,
+  "overlapEntries": []
+}
