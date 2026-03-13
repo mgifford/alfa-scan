@@ -624,7 +624,7 @@ async function isDarkModeSupported(page) {
   }
 }
 
-export async function runAxeAudit(url) {
+export async function runAxeAudit(url, pageLoadDelayMs = 2000) {
   const base = createScannerBaseError(null);
 
   try {
@@ -652,6 +652,12 @@ export async function runAxeAudit(url) {
         waitUntil: "domcontentloaded",
         timeout: TIMEOUTS.BROWSER_NAV_TIMEOUT
       });
+
+      // Wait for the page to fully settle after initial load
+      // This helps with slow/dynamic sites that continue rendering after domcontentloaded
+      if (pageLoadDelayMs > 0) {
+        await page.waitForTimeout(pageLoadDelayMs);
+      }
 
       const darkSupported = await isDarkModeSupported(page);
       const modesToRun = ["light"];
@@ -737,7 +743,7 @@ export async function runAxeAudit(url) {
   }
 }
 
-async function runAccessLintAudit(url) {
+async function runAccessLintAudit(url, pageLoadDelayMs = 2000) {
   const base = createScannerBaseError(null);
 
   try {
@@ -761,6 +767,11 @@ async function runAccessLintAudit(url) {
         waitUntil: "domcontentloaded",
         timeout: TIMEOUTS.BROWSER_NAV_TIMEOUT
       });
+
+      // Wait for the page to fully settle after initial load
+      if (pageLoadDelayMs > 0) {
+        await page.waitForTimeout(pageLoadDelayMs);
+      }
 
       await page.addScriptTag({ path: accessLintIifePath });
 
@@ -1049,7 +1060,7 @@ function extractHtmlTitle(html) {
   return match ? match[1].trim() : null;
 }
 
-async function scanOneUrl(target, engines = ["all"]) {
+async function scanOneUrl(target, engines = ["all"], pageLoadDelayMs = 2000) {
   const started = Date.now();
   const heartbeat = setInterval(() => {
     const elapsedSec = Math.floor((Date.now() - started) / 1000);
@@ -1105,7 +1116,7 @@ async function scanOneUrl(target, engines = ["all"]) {
       const axe = browserSkipReason
         ? createScannerBaseError(browserSkipReason)
         : scannersToRun.runAxe
-          ? await runAxeAudit(finalUrl)
+          ? await runAxeAudit(finalUrl, pageLoadDelayMs)
           : createScannerBaseError("Skipped (not requested)");
       const alfa = scannersToRun.runAlfa
         ? await runAlfaAudit(finalUrl)
@@ -1118,7 +1129,7 @@ async function scanOneUrl(target, engines = ["all"]) {
       const accesslint = browserSkipReason
         ? createScannerBaseError(browserSkipReason)
         : scannersToRun.runAccesslint
-          ? await runAccessLintAudit(finalUrl)
+          ? await runAccessLintAudit(finalUrl, pageLoadDelayMs)
           : createScannerBaseError("Skipped (not requested)");
       const qualweb = browserSkipReason
         ? createScannerBaseError(browserSkipReason)
@@ -2579,6 +2590,9 @@ async function main() {
   if (!engines.includes("all") && !engines.includes("axe")) {
     engines.push("axe");
   }
+  // Convert pageLoadDelay from seconds (as stored in request) to milliseconds
+  const pageLoadDelayMs = (request.pageLoadDelay ?? 2) * 1000;
+  console.error(`Page load delay: ${pageLoadDelayMs}ms`);
   const validation = validateTargets(request.requestedUrls);
   const acceptedTargets = validation.accepted;
 
@@ -2598,7 +2612,7 @@ async function main() {
       break;
     }
 
-    const result = await scanOneUrl(target, engines);
+    const result = await scanOneUrl(target, engines, pageLoadDelayMs);
     results.push(result);
 
     // Log progress to help with debugging (stderr to not interfere with JSON output)

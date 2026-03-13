@@ -45,9 +45,14 @@
       "type": "array",
       "items": {
         "type": "string",
-        "enum": ["all", "axe", "alfa", "accesslint", "equalaccess"]
+        "enum": ["all", "axe", "alfa", "accesslint", "equalaccess", "qualweb"]
       },
       "minItems": 1
+    },
+    "pageLoadDelay": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 300
     },
     "requestedUrls": {
       "type": "array",

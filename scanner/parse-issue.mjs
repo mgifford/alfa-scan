@@ -86,6 +86,17 @@ function extractScanTitle(issueTitle) {
       scanTitle = scanTitle.replace(regex, "").trim();
     }
   }
+
+  // Extract TIME:N delay specification from the title (e.g. "TIME:5" = 5 second delay)
+  // Default delay is 2 seconds to allow slow-loading pages to fully render
+  const DEFAULT_PAGE_LOAD_DELAY = 2;
+  let pageLoadDelay = DEFAULT_PAGE_LOAD_DELAY;
+  const timeMatch = scanTitle.match(/\bTIME:(\d+)\b/i);
+  if (timeMatch) {
+    const requestedSeconds = parseInt(timeMatch[1], 10);
+    pageLoadDelay = Math.min(Math.max(requestedSeconds, 0), 300);
+    scanTitle = scanTitle.replace(/\bTIME:\d+\b/i, "").trim();
+  }
   
   // Clean up extra whitespace
   scanTitle = scanTitle.replace(/\s+/g, " ").trim();
@@ -99,7 +110,8 @@ function extractScanTitle(issueTitle) {
     isRunnableIssue: true,
     triggerType: normalizedPrefix,
     scanTitle,
-    engines
+    engines,
+    pageLoadDelay
   };
 }
 
@@ -136,7 +148,8 @@ export function parseScanIssue(issueEvent) {
     issueTitle,
     scanTitle: titleInfo.scanTitle,
     requestedUrls,
-    engines
+    engines,
+    pageLoadDelay: titleInfo.pageLoadDelay ?? 2
   };
 
   const validation = validateScanRequest(request);
@@ -148,7 +161,8 @@ export function parseScanIssue(issueEvent) {
     isTimedIssue: titleInfo.isTimedIssue,
     isRunnableIssue: titleInfo.isRunnableIssue,
     triggerType: titleInfo.triggerType,
-    engines
+    engines,
+    pageLoadDelay: titleInfo.pageLoadDelay ?? 2
   };
 }
 

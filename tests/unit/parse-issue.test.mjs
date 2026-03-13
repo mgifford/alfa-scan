@@ -321,3 +321,114 @@ test("parseScanIssue uses default when 'Engine:' line has only unknown tokens", 
   assert.equal(result.engines[0], "axe", "should fall back to default (axe + random)");
   assert.equal(result.engines.length, 2);
 });
+
+test("parseScanIssue defaults to 2 second page load delay when TIME not specified", () => {
+  const payload = {
+    issue: {
+      number: 120,
+      html_url: "https://github.com/example/repo/issues/120",
+      title: "SCAN: Homepage test",
+      created_at: "2026-02-20T20:00:00Z",
+      user: { login: "octocat" },
+      body: "# URLs\nhttps://example.com"
+    }
+  };
+
+  const result = parseScanIssue(payload);
+  assert.equal(result.ok, true);
+  assert.equal(result.pageLoadDelay, 2, "default page load delay should be 2 seconds");
+  assert.equal(result.value.pageLoadDelay, 2);
+  assert.equal(result.value.scanTitle, "Homepage test");
+});
+
+test("parseScanIssue extracts TIME:5 delay from title", () => {
+  const payload = {
+    issue: {
+      number: 121,
+      html_url: "https://github.com/example/repo/issues/121",
+      title: "SCAN: TIME:5 Government sites",
+      created_at: "2026-02-20T20:00:00Z",
+      user: { login: "octocat" },
+      body: "# URLs\nhttps://example.com"
+    }
+  };
+
+  const result = parseScanIssue(payload);
+  assert.equal(result.ok, true);
+  assert.equal(result.pageLoadDelay, 5, "TIME:5 should set 5 second delay");
+  assert.equal(result.value.pageLoadDelay, 5);
+  assert.equal(result.value.scanTitle, "Government sites");
+});
+
+test("parseScanIssue extracts TIME:0 to disable delay", () => {
+  const payload = {
+    issue: {
+      number: 122,
+      html_url: "https://github.com/example/repo/issues/122",
+      title: "SCAN: TIME:0 Fast scan",
+      created_at: "2026-02-20T20:00:00Z",
+      user: { login: "octocat" },
+      body: "# URLs\nhttps://example.com"
+    }
+  };
+
+  const result = parseScanIssue(payload);
+  assert.equal(result.ok, true);
+  assert.equal(result.pageLoadDelay, 0, "TIME:0 should disable the delay");
+  assert.equal(result.value.scanTitle, "Fast scan");
+});
+
+test("parseScanIssue clamps TIME:N above maximum to 300", () => {
+  const payload = {
+    issue: {
+      number: 123,
+      html_url: "https://github.com/example/repo/issues/123",
+      title: "SCAN: TIME:999 Slow site",
+      created_at: "2026-02-20T20:00:00Z",
+      user: { login: "octocat" },
+      body: "# URLs\nhttps://example.com"
+    }
+  };
+
+  const result = parseScanIssue(payload);
+  assert.equal(result.ok, true);
+  assert.equal(result.pageLoadDelay, 300, "TIME:999 should be clamped to 300");
+  assert.equal(result.value.scanTitle, "Slow site");
+});
+
+test("parseScanIssue supports TIME:N combined with engine keywords", () => {
+  const payload = {
+    issue: {
+      number: 124,
+      html_url: "https://github.com/example/repo/issues/124",
+      title: "SCAN: AXE TIME:10 Slow government scan",
+      created_at: "2026-02-20T20:00:00Z",
+      user: { login: "octocat" },
+      body: "# URLs\nhttps://example.com"
+    }
+  };
+
+  const result = parseScanIssue(payload);
+  assert.equal(result.ok, true);
+  assert.deepEqual(result.engines, ["axe"]);
+  assert.equal(result.pageLoadDelay, 10);
+  assert.equal(result.value.scanTitle, "Slow government scan");
+});
+
+test("parseScanIssue TIME:N is case-insensitive", () => {
+  const payload = {
+    issue: {
+      number: 125,
+      html_url: "https://github.com/example/repo/issues/125",
+      title: "SCAN: time:3 Test",
+      created_at: "2026-02-20T20:00:00Z",
+      user: { login: "octocat" },
+      body: "# URLs\nhttps://example.com"
+    }
+  };
+
+  const result = parseScanIssue(payload);
+  assert.equal(result.ok, true);
+  assert.equal(result.pageLoadDelay, 3);
+  assert.equal(result.value.scanTitle, "Test");
+});
