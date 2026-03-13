@@ -120,6 +120,23 @@ export function generateInteractiveHtml(summary) {
     }
   }
 
+  // Build filtered issue breakdown display strings (hide zero-value entries)
+  const byLevelParts = [
+    `A (${levelA})`,
+    `AA (${levelAA})`,
+    ...(levelAAA > 0 ? [`AAA (${levelAAA})`] : []),
+  ];
+  const byVersionParts = [
+    `WCAG 2.0 (${version20})`,
+    ...(version21 > 0 ? [`WCAG 2.1 (${version21})`] : []),
+    ...(version22 > 0 ? [`WCAG 2.2 (${version22})`] : []),
+  ];
+  const byCategoryParts = [
+    ...(axeStrict > 0 ? [`axe-strict (${axeStrict})`] : []),
+    ...(bestPractice > 0 ? [`Best Practice (${bestPractice})`] : []),
+    ...(otherUnique > 0 ? [`Others (${otherUnique})`] : []),
+  ];
+
   // Build priority table data (top 10 pages by total unique errors)
   const ALL_SCANNERS = ['axe', 'alfa', 'equalAccess', 'accesslint', 'qualweb'];
   const SCANNER_LABELS = { axe: 'axe', alfa: 'ALFA', equalAccess: 'Equal Access', accesslint: 'AccessLint', qualweb: 'QualWeb' };
@@ -629,7 +646,7 @@ export function generateInteractiveHtml(summary) {
     .card { border: 1px solid var(--border); padding: 1.5rem; border-radius: 6px; background: var(--container-bg); }
     .card h3 { font-size: 1rem; margin-bottom: 1rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
     .stat { font-size: 2.5rem; font-weight: 700; line-height: 1; margin-bottom: 0.5rem; }
-    .card-issues-overview { grid-column: 1 / -1; }
+    .card-issues-overview { grid-column: span 2; }
     .issues-breakdown { list-style: disc; padding-left: 1.4rem; margin: 0; font-size: 0.9rem; line-height: 2; }
     .issues-breakdown li { color: var(--text); }
     .stat-inline { font-size: 1.4rem; font-weight: 700; }
@@ -951,19 +968,19 @@ export function generateInteractiveHtml(summary) {
           <ul class="issues-breakdown" aria-label="Issues breakdown by WCAG level, version, and category">
             <li>
               <strong>By Level:</strong>
-              A (${levelA}), AA (${levelAA}), AAA (${levelAAA})
+              ${byLevelParts.join(', ')}
             </li>
             <li>
               <strong>By Version (A &amp; AA):</strong>
-              WCAG 2.0 (${version20}), WCAG 2.1 (${version21}), WCAG 2.2 (${version22})
+              ${byVersionParts.join(', ')}
             </li>
             <li>
               <strong>By Category:</strong>
-              axe-strict (${axeStrict}), Best Practice (${bestPractice}), Other unique errors (${otherUnique})
+              ${byCategoryParts.join(' &amp; ')}
             </li>
             <li>
               <strong>Total: <span class="stat-inline" aria-label="${totalIssues} total issues">${totalIssues}</span></strong>
-              across ${consolidatedFailures.length} unique rules and ${engineCount} accessibility engine${engineCount !== 1 ? 's' : ''}
+              across ${consolidatedFailures.length} unique rules &amp; ${engineCount} accessibility engine${engineCount !== 1 ? 's' : ''}
             </li>
           </ul>
         </div>

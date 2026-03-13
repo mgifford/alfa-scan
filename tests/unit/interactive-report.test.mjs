@@ -760,7 +760,7 @@ test("issues overview card shows By Level breakdown", () => {
   assert.ok(html.includes("By Level:"), "Issues card should show 'By Level:' heading");
   assert.ok(html.includes("A (2)"), "Issues card should show A count of 2");
   assert.ok(html.includes("AA (3)"), "Issues card should show AA count of 3");
-  assert.ok(html.includes("AAA (0)"), "Issues card should show AAA count of 0");
+  assert.ok(!html.includes("AAA (0)"), "Issues card should hide AAA when count is 0");
 });
 
 test("issues overview card shows By Version breakdown for A and AA issues", () => {
@@ -849,7 +849,8 @@ test("issues overview card shows By Category breakdown", () => {
   assert.ok(html.includes("By Category:"), "Issues card should show 'By Category:' heading");
   assert.ok(html.includes("axe-strict (5)"), "Issues card should show axe-strict count of 5");
   assert.ok(html.includes("Best Practice (3)"), "Issues card should show Best Practice count of 3");
-  assert.ok(html.includes("Other unique errors (2)"), "Issues card should show Other unique errors count of 2");
+  assert.ok(html.includes("Others (2)"), "Issues card should show Others count of 2");
+  assert.ok(!html.includes("Other unique errors"), "Issues card should not use old 'Other unique errors' text");
 });
 
 test("issues overview card shows total count with engine and rule counts", () => {
@@ -885,4 +886,5 @@ test("issues overview card shows total count with engine and rule counts", () =>
   assert.ok(html.includes(">7<"), "Issues card should show total count of 7");
   assert.ok(html.includes("2 unique rules"), "Issues card should mention 2 unique rules");
   assert.ok(html.includes("2 accessibility engines"), "Issues card should mention 2 accessibility engines");
+  assert.ok(html.includes("unique rules &amp;"), "Issues card should use '&amp;' not 'and' in total line");
 });
