@@ -435,6 +435,8 @@ export function generateInteractiveHtml(summary) {
       --badge-count-text: #ffffff;
       --badge-dark-bg: #24292f;
       --badge-dark-text: #e6edf3;
+      --filter-banner-bg: #dbeafe;
+      --filter-banner-border: #b6d9fb;
     }
 
     /* ── Dark mode (system preference) ── */
@@ -461,6 +463,8 @@ export function generateInteractiveHtml(summary) {
         --badge-count-text: #0d1117;
         --badge-dark-bg: #e6edf3;
         --badge-dark-text: #24292f;
+        --filter-banner-bg: #0d2340;
+        --filter-banner-border: #1e3a5f;
       }
     }
 
@@ -487,6 +491,8 @@ export function generateInteractiveHtml(summary) {
       --badge-count-text: #ffffff;
       --badge-dark-bg: #24292f;
       --badge-dark-text: #e6edf3;
+      --filter-banner-bg: #dbeafe;
+      --filter-banner-border: #b6d9fb;
     }
 
     [data-theme="dark"] {
@@ -511,6 +517,8 @@ export function generateInteractiveHtml(summary) {
       --badge-count-text: #0d1117;
       --badge-dark-bg: #e6edf3;
       --badge-dark-text: #24292f;
+      --filter-banner-bg: #0d2340;
+      --filter-banner-border: #1e3a5f;
     }
 
     /* ── Forced-colors / high contrast ── */
@@ -831,8 +839,8 @@ export function generateInteractiveHtml(summary) {
       align-items: center;
       gap: 0.75rem;
       flex-wrap: wrap;
-      background: #dbeafe;
-      border: 1px solid #b6d9fb;
+      background: var(--filter-banner-bg);
+      border: 1px solid var(--filter-banner-border);
       border-radius: 6px;
       padding: 0.6rem 1rem;
       margin-bottom: 1rem;
@@ -848,66 +856,6 @@ export function generateInteractiveHtml(summary) {
     .btn-copy { background: var(--success); color: white; border-color: var(--success); }
     .btn-copy:hover { background: #156b31; }
     .btn-copy.copied { background: var(--muted); border-color: var(--muted); }
-
-    /* Priority table */
-    .priority-section { margin-bottom: 2rem; padding: 1.5rem; border: 1px solid var(--border); border-radius: 6px; background: #f6f8fa; }
-    .priority-section h2 { font-size: 1.25rem; margin-bottom: 0.5rem; }
-    .priority-section > p { color: #57606a; font-size: 0.9rem; margin-bottom: 1rem; }
-    .table-wrapper { overflow-x: auto; }
-    .priority-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
-    .priority-table th { background: #e8ecf0; padding: 0.6rem 0.8rem; text-align: left; font-weight: 600; border-bottom: 2px solid var(--border); white-space: nowrap; }
-    .show-all-pages-wrapper { margin-top: 0.75rem; text-align: center; }
-    .btn-show-all-pages { background: #fff; color: var(--primary); border: 1px solid var(--primary); border-radius: 6px; padding: 0.4rem 1rem; font-size: 0.85rem; font-weight: 600; cursor: pointer; }
-    .btn-show-all-pages:hover { background: #eaf1fb; }
-    .btn-show-all-pages:focus { outline: 2px solid var(--primary); outline-offset: 2px; }
-    .priority-table td { padding: 0.5rem 0.8rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
-    .priority-table tr:last-child td { border-bottom: none; }
-    .priority-table tr:hover td { background: #eaf1fb; }
-    .count-cell { text-align: right; }
-    .count-zero { color: #8c959f; }
-    .count-total { text-align: right; }
-    .count-btn {
-      background: none;
-      border: 1px solid transparent;
-      border-radius: 4px;
-      padding: 0.2rem 0.6rem;
-      cursor: pointer;
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: var(--primary);
-      min-width: 2.5rem;
-      text-align: right;
-      transition: background 0.15s, border-color 0.15s;
-    }
-    .count-btn:hover { background: #dbeafe; border-color: var(--primary); }
-    .count-btn:focus { outline: 2px solid var(--primary); outline-offset: 2px; }
-    .count-btn.active-filter { background: var(--primary); color: white; border-color: var(--primary); }
-    .page-link { font-weight: 500; }
-    .page-title-text { display: block; font-size: 0.8rem; color: #57606a; max-width: 280px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-
-    /* Active filter banner */
-    .filter-banner {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      flex-wrap: wrap;
-      background: #dbeafe;
-      border: 1px solid #b6d9fb;
-      border-radius: 6px;
-      padding: 0.6rem 1rem;
-      margin-bottom: 1rem;
-      font-size: 0.9rem;
-    }
-    .filter-banner.hidden { display: none !important; }
-    .filter-banner-text { flex: 1; }
-    .filter-banner-actions { display: flex; gap: 0.5rem; }
-    .btn { display: inline-flex; align-items: center; gap: 0.3rem; padding: 0.35rem 0.75rem; border-radius: 6px; font-size: 0.85rem; font-weight: 600; cursor: pointer; border: 1px solid; }
-    .btn:focus { outline: 2px solid var(--primary); outline-offset: 2px; }
-    .btn-clear { background: var(--container-bg); color: var(--text); border-color: var(--border); }
-    .btn-clear:hover { background: var(--hover-bg); }
-    .btn-copy { background: var(--success); color: white; border-color: var(--success); }
-    .btn-copy:hover { background: #156b31; }
-    .btn-copy.copied { background: #57606a; border-color: #57606a; }
 
     .hidden { display: none !important; }
     .visually-hidden {
@@ -940,6 +888,22 @@ export function generateInteractiveHtml(summary) {
     footer a:hover {
       text-decoration: underline;
     }
+
+    /* ── Dark mode overrides for badge and button components with light-only colors ── */
+    @media (prefers-color-scheme: dark) {
+      .badge-engine { background: #0d2340; color: #79c0ff; border-color: #1e3a5f; }
+      .badge-level-a { background: #0a2818; color: #3fb950; border-color: #1c5e38; }
+      .badge-level-aa { background: #0d2340; color: #58a6ff; border-color: #1e3a5f; }
+      .badge-level-aaa { background: #1c1040; color: #d2a8ff; border-color: #403070; }
+      .badge-best-practice { background: #2d1e00; color: #e3b341; border-color: #5a3d00; }
+      .btn-copy:hover { background: #319b40; }
+    }
+    [data-theme="dark"] .badge-engine { background: #0d2340; color: #79c0ff; border-color: #1e3a5f; }
+    [data-theme="dark"] .badge-level-a { background: #0a2818; color: #3fb950; border-color: #1c5e38; }
+    [data-theme="dark"] .badge-level-aa { background: #0d2340; color: #58a6ff; border-color: #1e3a5f; }
+    [data-theme="dark"] .badge-level-aaa { background: #1c1040; color: #d2a8ff; border-color: #403070; }
+    [data-theme="dark"] .badge-best-practice { background: #2d1e00; color: #e3b341; border-color: #5a3d00; }
+    [data-theme="dark"] .btn-copy:hover { background: #319b40; }
 
     @media print {
       body::before {
