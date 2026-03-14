@@ -515,7 +515,7 @@ test("Report includes dark mode information when URLs support it", () => {
 
   // Verify dark mode information is present
   assert.ok(report.includes("🌙"), "Report should include dark mode emoji");
-  assert.ok(report.includes("Dark mode tested: 2 of 3 URLs"), 
+  assert.ok(report.includes("Dark mode:") && report.includes("2 of 3 URLs"), 
     "Report should show dark mode count");
   assert.ok(report.includes("67%") || report.includes("(67%)"), 
     "Report should show percentage of URLs with dark mode support");
@@ -602,6 +602,43 @@ test("Report shows message when no URLs support dark mode", () => {
     "Report should show that no URLs support dark mode");
   assert.ok(report.includes("prefers-color-scheme: dark"), 
     "Report should mention prefers-color-scheme: dark");
+});
+
+test("Report includes all accessibility media queries in personalization section", () => {
+  const summary = {
+    issueNumber: 6,
+    issueUrl: "https://github.com/example/repo/issues/6",
+    scanTitle: "Media Query Test",
+    submittedBy: "testuser",
+    scannedAt: "2026-03-02T00:00:00.000Z",
+    totalSubmitted: 4,
+    acceptedCount: 4,
+    scannedCount: 4,
+    darkModeUrlCount: 4,
+    reducedMotionUrlCount: 3,
+    highContrastUrlCount: 2,
+    forcedColorsUrlCount: 1,
+    reducedTransparencyUrlCount: 1,
+    rejectedCount: 0,
+    rejected: [],
+    alfaTotals: { passed: 0, failed: 0, cantTell: 0, inapplicable: 0 },
+    axeTotals: { passed: 0, failed: 0, cantTell: 0, inapplicable: 0 },
+    results: []
+  };
+
+  const report = toMarkdownReport(summary);
+
+  assert.ok(report.includes("🎨"), "Report should include personalization emoji");
+  assert.ok(report.includes("🌙") && report.includes("4 of 4 URLs"), "Dark mode count should be shown");
+  assert.ok(report.includes("prefers-color-scheme: dark"), "Dark mode query should be mentioned");
+  assert.ok(report.includes("⚡") && report.includes("3 of 4 URLs"), "Reduced motion count should be shown");
+  assert.ok(report.includes("prefers-reduced-motion: reduce"), "Reduced motion query should be mentioned");
+  assert.ok(report.includes("🔍") && report.includes("2 of 4 URLs"), "High contrast count should be shown");
+  assert.ok(report.includes("prefers-contrast: more"), "High contrast query should be mentioned");
+  assert.ok(report.includes("🖥️") && report.includes("1 of 4 URLs"), "Forced colors count should be shown");
+  assert.ok(report.includes("forced-colors: active"), "Forced colors query should be mentioned");
+  assert.ok(report.includes("🪟") && report.includes("1 of 4 URLs"), "Reduced transparency count should be shown");
+  assert.ok(report.includes("prefers-reduced-transparency: reduce"), "Reduced transparency query should be mentioned");
 });
 
 test("markdownToHtml collapses continuation rows in Detailed Results table", () => {

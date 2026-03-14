@@ -266,6 +266,46 @@ test("generateInteractiveHtml omits dark mode header info when count is zero", (
   );
 });
 
+test("generateInteractiveHtml shows reduced motion URL count in header when present", () => {
+  const html = generateInteractiveHtml(makeSummary({ reducedMotionUrlCount: 2 }));
+  assert.ok(
+    html.includes("⚡ Reduced Motion:") && html.includes("2 / 2 URLs"),
+    "Should display reduced motion URL count in the meta area"
+  );
+});
+
+test("generateInteractiveHtml omits reduced motion header info when count is zero", () => {
+  const html = generateInteractiveHtml(makeSummary({ reducedMotionUrlCount: 0 }));
+  assert.ok(
+    !html.includes("⚡ Reduced Motion:"),
+    "Should not display reduced motion line when count is 0"
+  );
+});
+
+test("generateInteractiveHtml shows high contrast URL count in header when present", () => {
+  const html = generateInteractiveHtml(makeSummary({ highContrastUrlCount: 1 }));
+  assert.ok(
+    html.includes("🔍 High Contrast:") && html.includes("1 / 2 URLs"),
+    "Should display high contrast URL count in the meta area"
+  );
+});
+
+test("generateInteractiveHtml shows forced colors URL count in header when present", () => {
+  const html = generateInteractiveHtml(makeSummary({ forcedColorsUrlCount: 2 }));
+  assert.ok(
+    html.includes("🖥️ Forced Colors:") && html.includes("2 / 2 URLs"),
+    "Should display forced colors URL count in the meta area"
+  );
+});
+
+test("generateInteractiveHtml shows reduced transparency URL count in header when present", () => {
+  const html = generateInteractiveHtml(makeSummary({ reducedTransparencyUrlCount: 1 }));
+  assert.ok(
+    html.includes("🪟 Reduced Transparency:") && html.includes("1 / 2 URLs"),
+    "Should display reduced transparency URL count in the meta area"
+  );
+});
+
 test("generateInteractiveHtml escapes HTML in example code blocks", () => {
   const summary = makeSummary();
   summary.enhanced.consolidatedFailures[0].examples[0].html = '<img src="x" onerror="alert(1)">';

@@ -79,7 +79,7 @@ function getRuleWcag(f) {
 }
 
 export function generateInteractiveHtml(summary) {
-  const { enhanced, scanTitle, issueNumber, issueUrl, scannedAt, totalElapsedMs, totalSubmitted, acceptedCount, scannedCount, darkModeUrlCount, results } = summary;
+  const { enhanced, scanTitle, issueNumber, issueUrl, scannedAt, totalElapsedMs, totalSubmitted, acceptedCount, scannedCount, darkModeUrlCount, reducedMotionUrlCount, highContrastUrlCount, forcedColorsUrlCount, reducedTransparencyUrlCount, results } = summary;
   const { consolidatedFailures, roleStats, severityStats } = enhanced;
 
   const rolesList = Object.values(ROLES);
@@ -935,7 +935,15 @@ export function generateInteractiveHtml(summary) {
           <span><strong>Date:</strong> ${new Date(scannedAt).toLocaleString()}</span>
           <span><strong>Duration:</strong> ${(totalElapsedMs / 60000).toFixed(1)}m</span>
           <span><strong>URLs:</strong> ${acceptedCount} / ${totalSubmitted}</span>
-          ${darkModeUrlCount !== undefined && scannedCount > 0 && darkModeUrlCount > 0 ? `<span><strong>🌙 Dark Mode:</strong> ${darkModeUrlCount} / ${scannedCount} URLs</span>` : ''}
+          ${scannedCount > 0 ? (() => {
+            const items = [];
+            if ((darkModeUrlCount ?? 0) > 0) items.push(`<span title="prefers-color-scheme: dark"><strong>🌙 Dark Mode:</strong> ${darkModeUrlCount} / ${scannedCount} URLs</span>`);
+            if ((reducedMotionUrlCount ?? 0) > 0) items.push(`<span title="prefers-reduced-motion: reduce"><strong>⚡ Reduced Motion:</strong> ${reducedMotionUrlCount} / ${scannedCount} URLs</span>`);
+            if ((highContrastUrlCount ?? 0) > 0) items.push(`<span title="prefers-contrast: more"><strong>🔍 High Contrast:</strong> ${highContrastUrlCount} / ${scannedCount} URLs</span>`);
+            if ((forcedColorsUrlCount ?? 0) > 0) items.push(`<span title="forced-colors: active"><strong>🖥️ Forced Colors:</strong> ${forcedColorsUrlCount} / ${scannedCount} URLs</span>`);
+            if ((reducedTransparencyUrlCount ?? 0) > 0) items.push(`<span title="prefers-reduced-transparency: reduce"><strong>🪟 Reduced Transparency:</strong> ${reducedTransparencyUrlCount} / ${scannedCount} URLs</span>`);
+            return items.join('');
+          })() : ''}
         </div>
       </div>
       <!-- Theme toggle: placed after header content for correct tab order -->
