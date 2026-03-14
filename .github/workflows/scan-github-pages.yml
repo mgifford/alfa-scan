@@ -1,0 +1,235 @@
+# This workflow scans the project's own GitHub Pages site for accessibility issues.
+# It uses:
+#   1. The project's built-in axe-core scanner (via run-scan.mjs) for detailed reports
+#   2. Optionally, the GitHub Accessibility Scanner action (github/accessibility-scanner)
+#      which requires a GH_TOKEN secret with write access — see README for setup.
+#
+# Triggers:
+#   - On push to main when GitHub Pages content files change
+#   - Monthly on the 1st of each month at 02:00 UTC
+#   - Manually via workflow_dispatch
+#
+# Reference: https://github.com/github/accessibility-scanner
+
+name: Scan GitHub Pages (axe-core)
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'index.html'
+      - 'reports.html'
+      - 'submit.js'
+  schedule:
+    # Monthly on the 1st at 02:00 UTC
+    - cron: '0 2 1 * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: scan-github-pages
+  cancel-in-progress: false
+
+jobs:
+  scan-pages:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Determine GitHub Pages URL
+        id: pages-url
+        run: |
+          OWNER="${{ github.repository_owner }}"
+          REPO_NAME="${{ github.repository }}"
+          REPO_NAME="${REPO_NAME##*/}"
+          echo "url=https://${OWNER}.github.io/${REPO_NAME}/" >> "$GITHUB_OUTPUT"
+
+      - name: Build scan request event
+        run: |
+          mkdir -p .tmp
+          PAGES_URL="${{ steps.pages-url.outputs.url }}"
+          node --input-type=module <<'NODE'
+          import { writeFileSync } from 'node:fs';
+
+          const pagesUrl = process.env.PAGES_URL;
+          const event = {
+            issue: {
+              number: 0,
+              html_url: `https://github.com/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}`,
+              title: 'SCAN: AXE GitHub Pages accessibility check',
+              created_at: new Date().toISOString(),
+              user: { login: 'github-actions[bot]' },
+              body: `Engine: axe\n\n${pagesUrl}`
+            }
+          };
+
+          writeFileSync('.tmp/issue-event.json', JSON.stringify(event), 'utf8');
+          console.error(`[INFO] Scan event written for URL: ${pagesUrl}`);
+          NODE
+        env:
+          PAGES_URL: ${{ steps.pages-url.outputs.url }}
+
+      - name: Run axe-core scan on GitHub Pages
+        id: scan
+        run: |
+          mkdir -p .scan-output
+          node scanner/run-scan.mjs .tmp/issue-event.json .scan-output > .scan-output/meta.json
+        env:
+          FETCH_TIMEOUT_MS: "30000"
+          PER_URL_TIMEOUT_MS: "90000"
+          TOTAL_SCAN_TIMEOUT_MS: "600000"
+
+      - name: Save reports
+        id: save
+        run: |
+          node --input-type=module <<'NODE'
+          import { appendFileSync, copyFileSync, mkdirSync, readFileSync } from 'node:fs';
+
+          const meta = JSON.parse(readFileSync('.scan-output/meta.json', 'utf8'));
+          if (meta.skipped) {
+            console.error('[INFO] Scan was skipped, no reports to save.');
+            process.exit(0);
+          }
+
+          const stamp = new Date().toISOString().replace(/[:.]/g, '-');
+          const reportDir = `reports/pages/${stamp}`;
+
+          mkdirSync(reportDir, { recursive: true });
+          copyFileSync('.scan-output/report.json', `${reportDir}/report.json`);
+          copyFileSync('.scan-output/report.md', `${reportDir}/report.md`);
+          copyFileSync('.scan-output/report.html', `${reportDir}/report.html`);
+          copyFileSync('.scan-output/report.csv', `${reportDir}/report.csv`);
+          copyFileSync('.scan-output/report-overlap.json', `${reportDir}/report-overlap.json`);
+          copyFileSync('.scan-output/report-overlap.md', `${reportDir}/report-overlap.md`);
+
+          appendFileSync(process.env.GITHUB_OUTPUT, `report_dir=${reportDir}\n`, 'utf8');
+          appendFileSync(process.env.GITHUB_OUTPUT, `html_path=${reportDir}/report.html\n`, 'utf8');
+          appendFileSync(process.env.GITHUB_OUTPUT, `markdown_path=${reportDir}/report.md\n`, 'utf8');
+          appendFileSync(process.env.GITHUB_OUTPUT, `scanned_count=${meta.scannedCount ?? 0}\n`, 'utf8');
+
+          console.error(`[INFO] Reports saved to ${reportDir}`);
+          NODE
+
+      - name: Regenerate reports.html
+        run: node scanner/generate-reports-html.mjs
+
+      - name: Commit and push report artifacts
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add reports/pages reports.html
+          if git diff --cached --quiet; then
+            echo "No report changes to commit."
+          else
+            git commit -m "chore(scan): axe-core scan of GitHub Pages"
+
+            PUSH_SUCCESS=false
+            for attempt in 1 2 3; do
+              echo "Push attempt $attempt..."
+              if git pull --rebase origin main; then
+                if git push origin HEAD:main; then
+                  echo "Successfully pushed on attempt $attempt"
+                  PUSH_SUCCESS=true
+                  break
+                fi
+              else
+                if git status | grep -q "rebase in progress"; then
+                  if git diff --name-only --diff-filter=U 2>/dev/null | grep -q "^reports\.html$"; then
+                    echo "Conflict in generated reports.html — resolving by regenerating..."
+                    node scanner/generate-reports-html.mjs
+                    git add reports.html
+                    if GIT_EDITOR=true git rebase --continue; then
+                      if git push origin HEAD:main; then
+                        echo "Successfully pushed on attempt $attempt (after resolving reports.html conflict)"
+                        PUSH_SUCCESS=true
+                        break
+                      fi
+                    fi
+                  fi
+                  git rebase --abort 2>/dev/null || true
+                fi
+              fi
+
+              if [ $attempt -lt 3 ]; then
+                sleep $((attempt * 2))
+              fi
+            done
+
+            if [ "$PUSH_SUCCESS" = false ]; then
+              echo "Failed to push after 3 attempts" >&2
+              exit 1
+            fi
+          fi
+
+      - name: Post summary
+        if: ${{ steps.save.outputs.report_dir != '' }}
+        run: |
+          OWNER="${{ github.repository_owner }}"
+          REPO_NAME="${{ github.repository }}"
+          REPO_NAME="${REPO_NAME##*/}"
+          REPORT_DIR="${{ steps.save.outputs.report_dir }}"
+          HTML_PATH="${{ steps.save.outputs.html_path }}"
+          MD_PATH="${{ steps.save.outputs.markdown_path }}"
+          PAGES_URL="${{ steps.pages-url.outputs.url }}"
+
+          echo "## GitHub Pages Accessibility Scan Complete" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "**Scanned:** $PAGES_URL" >> "$GITHUB_STEP_SUMMARY"
+          echo "**Engine:** axe-core" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "### Reports" >> "$GITHUB_STEP_SUMMARY"
+          echo "- [Interactive HTML report](https://${OWNER}.github.io/${REPO_NAME}/${HTML_PATH})" >> "$GITHUB_STEP_SUMMARY"
+          echo "- [Markdown report](https://${OWNER}.github.io/${REPO_NAME}/${MD_PATH})" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "> For AI-powered fix suggestions, see [github/accessibility-scanner](https://github.com/github/accessibility-scanner)" >> "$GITHUB_STEP_SUMMARY"
+
+  # Optional: GitHub Accessibility Scanner (github/accessibility-scanner)
+  # This job uses axe-core via GitHub's action and creates trackable issues.
+  # It requires a GH_TOKEN secret (fine-grained PAT) with:
+  #   - actions: write, contents: write, issues: write, pull-requests: write
+  #
+  # To enable this job:
+  #   1. Create a fine-grained PAT at https://github.com/settings/tokens
+  #   2. Add it as a repository secret named GH_TOKEN
+  #   3. Change the `if: false` condition below to `if: ${{ secrets.GH_TOKEN != '' }}`
+  #
+  # Reference: https://github.com/github/accessibility-scanner
+  github-a11y-scanner:
+    runs-on: ubuntu-latest
+    if: false # Set to `${{ secrets.GH_TOKEN != '' }}` to enable when GH_TOKEN secret is available
+    steps:
+      - name: Determine GitHub Pages URL
+        id: pages-url
+        run: |
+          OWNER="${{ github.repository_owner }}"
+          REPO_NAME="${{ github.repository }}"
+          REPO_NAME="${REPO_NAME##*/}"
+          echo "url=https://${OWNER}.github.io/${REPO_NAME}/" >> "$GITHUB_OUTPUT"
+
+      - name: Run GitHub Accessibility Scanner
+        uses: github/accessibility-scanner@v2
+        with:
+          urls: ${{ steps.pages-url.outputs.url }}
+          repository: ${{ github.repository }}
+          token: ${{ secrets.GH_TOKEN }}
+          cache_key: ${{ github.repository }}-pages
+          skip_copilot_assignment: false
