@@ -308,18 +308,15 @@ export function generateInteractiveHtml(summary) {
           </div>
           <h4>Examples</h4>
           <div class="example-list">
-            ${f.examples.map((ex, i) => `
+            ${f.examples.map((ex) => `
               <div class="example-item">
-                <div class="example-meta">
-                  <span>Example ${i + 1}</span>
-                  <a href="${ex.url}" target="_blank" style="font-size: 0.75rem;">View on Page</a>
-                </div>
-                ${ex.message ? `<div style="margin-bottom: 0.5rem; font-weight: 600;">${escapeHtml(ex.message)}</div>` : ''}
-                <div class="example-mode">
-                  <strong>Mode:</strong> <span class="badge ${ex.colorScheme === 'dark' ? 'badge-dark' : 'badge-light'}">${ex.colorScheme || 'light'}</span>
-                </div>
-                ${ex.html ? `<div class="example-code">${escapeHtml(ex.html)}</div>` : ''}
-                ${ex.xpath ? `<div class="example-xpath">XPath: ${escapeHtml(ex.xpath)}</div>` : ''}
+                <dl class="example-detail">
+                  ${ex.url ? `<dt>URL</dt><dd class="example-url"><a href="${/^https?:\/\//i.test(ex.url) ? ex.url : '#'}" target="_blank" rel="noopener">${escapeHtml(ex.url)}</a></dd>` : ''}
+                  ${ex.xpath ? `<dt>Path</dt><dd><code>${escapeHtml(ex.xpath)}</code></dd>` : ''}
+                  ${ex.html ? `<dt>HTML Snippet</dt><dd><code class="example-code">${escapeHtml(ex.html)}</code></dd>` : ''}
+                  ${ex.relatedPaths?.length ? `<dt>Related paths</dt><dd><ul>${ex.relatedPaths.map(p => `<li><code>${escapeHtml(p)}</code></li>`).join('')}</ul></dd>` : ''}
+                  ${(ex.fixSummary || ex.message) ? `<dt>How to fix</dt><dd class="example-fix">${escapeHtml(ex.fixSummary || ex.message)}</dd>` : ''}
+                </dl>
               </div>
             `).join('')}
           </div>
@@ -714,16 +711,16 @@ export function generateInteractiveHtml(summary) {
       background: var(--code-bg); 
       padding: 1rem; 
       margin-bottom: 1rem; 
-      font-family: monospace;
       font-size: 0.85rem;
-      white-space: pre-wrap;
-      word-break: break-all;
       color: var(--text);
     }
-    .example-meta { font-family: sans-serif; font-weight: 600; margin-bottom: 0.5rem; display: flex; justify-content: space-between; }
-    .example-mode { font-size: 0.75rem; color: var(--muted); margin-bottom: 0.5rem; }
+    .example-detail { display: grid; grid-template-columns: max-content 1fr; gap: 0.4rem 1rem; margin: 0; font-family: monospace; }
+    .example-detail dt { font-family: sans-serif; font-weight: 600; color: var(--muted); white-space: nowrap; }
+    .example-detail dd { margin: 0; word-break: break-all; white-space: pre-wrap; }
+    .example-detail .example-url { font-family: sans-serif; }
+    .example-detail .example-fix { font-family: sans-serif; white-space: pre-wrap; }
+    .example-detail ul { margin: 0; padding-left: 1.5rem; }
     .example-code { color: var(--code-color); }
-    .example-xpath { color: var(--xpath-color); margin-top: 0.5rem; }
 
     /* Priority table */
     .priority-section { margin-bottom: 2rem; padding: 1.5rem; border: 1px solid var(--border); border-radius: 6px; background: var(--surface); }

@@ -689,6 +689,18 @@ export async function runAxeAudit(url, pageLoadDelayMs = 2000) {
           const wcagSc = (violation.tags || []).filter((tag) => /^wcag\d+/i.test(tag));
 
           for (const node of violation.nodes || []) {
+            // Collect related node paths from axe check results
+            const relatedPaths = [];
+            for (const checks of [node.any || [], node.all || [], node.none || []]) {
+              for (const check of checks) {
+                for (const relNode of check.relatedNodes || []) {
+                  const relPath = relNode.target?.[0] || null;
+                  if (relPath && !relatedPaths.includes(relPath)) {
+                    relatedPaths.push(relPath);
+                  }
+                }
+              }
+            }
             allResults.failures.push({
               rule: violation.id,
               ruleUrl: violation.helpUrl,
@@ -696,7 +708,9 @@ export async function runAxeAudit(url, pageLoadDelayMs = 2000) {
               wcagSc,
               xpath: node.target?.[0] || null,
               html: node.html || null,
-              message: violation.help || node.failureSummary || null,
+              message: violation.help || null,
+              fixSummary: node.failureSummary || null,
+              relatedPaths: relatedPaths.length > 0 ? relatedPaths : null,
               colorScheme: mode
             });
           }
@@ -1576,6 +1590,8 @@ function buildEnhancedSummary(summary) {
             html: failure.html,
             xpath: failure.xpath,
             message: failure.message,
+            fixSummary: failure.fixSummary,
+            relatedPaths: failure.relatedPaths,
             colorScheme: failure.colorScheme
           });
         }
