@@ -589,39 +589,69 @@ async function runAlfaAudit(url) {
   };
 }
 
-async function isDarkModeSupported(page) {
+/**
+ * Detect which accessibility-related CSS media queries a page responds to.
+ * Returns an object with boolean flags for each supported query.
+ *
+ * Queries detected:
+ *  - darkMode:             prefers-color-scheme: dark
+ *  - reducedMotion:        prefers-reduced-motion: reduce
+ *  - highContrast:         prefers-contrast: more
+ *  - forcedColors:         forced-colors: active
+ *  - reducedTransparency:  prefers-reduced-transparency: reduce
+ */
+export async function detectMediaQuerySupport(page) {
+  const support = {
+    darkMode: false,
+    reducedMotion: false,
+    highContrast: false,
+    forcedColors: false,
+    reducedTransparency: false
+  };
+
   try {
-    // Check if the page has any dark mode media queries
-    const hasDarkMediaQuery = await page.evaluate(() => {
-      return Array.from(document.styleSheets).some(sheet => {
-        try {
-          return Array.from(sheet.cssRules).some(rule =>
-            rule.media && rule.media.mediaText.includes('prefers-color-scheme: dark')
-          );
-        } catch {
-          return false;
-        }
-      });
+    // Check CSS stylesheets for each media query
+    const cssMatches = await page.evaluate(() => {
+      const queries = {
+        darkMode: 'prefers-color-scheme: dark',
+        reducedMotion: 'prefers-reduced-motion: reduce',
+        highContrast: 'prefers-contrast: more',
+        forcedColors: 'forced-colors: active',
+        reducedTransparency: 'prefers-reduced-transparency: reduce'
+      };
+      const results = {};
+      const sheets = Array.from(document.styleSheets);
+      for (const [key, queryStr] of Object.entries(queries)) {
+        results[key] = sheets.some(sheet => {
+          try {
+            return Array.from(sheet.cssRules).some(rule =>
+              rule.media && rule.media.mediaText.includes(queryStr)
+            );
+          } catch {
+            return false;
+          }
+        });
+      }
+      return results;
     });
 
-    if (hasDarkMediaQuery) return true;
+    Object.assign(support, cssMatches);
 
-    // Fallback: Emulate dark mode and check if anything changed (bg color)
-    const getBg = () => window.getComputedStyle(document.body).backgroundColor;
-    const initialBg = await page.evaluate(getBg);
-
-    await page.emulateMedia({ colorScheme: 'dark' });
-    // Wait a bit for potential transitions
-    await page.waitForTimeout(500);
-    const darkBg = await page.evaluate(getBg);
-
-    // Reset to light for now
-    await page.emulateMedia({ colorScheme: 'light' });
-
-    return initialBg !== darkBg;
+    // Behavioral fallback for dark mode: emulate and check if background changes
+    if (!support.darkMode) {
+      const getBg = () => window.getComputedStyle(document.body).backgroundColor;
+      const initialBg = await page.evaluate(getBg);
+      await page.emulateMedia({ colorScheme: 'dark' });
+      await page.waitForTimeout(500);
+      const darkBg = await page.evaluate(getBg);
+      await page.emulateMedia({ colorScheme: 'light' });
+      support.darkMode = initialBg !== darkBg;
+    }
   } catch {
-    return false;
+    // Return defaults (all false) on error
   }
+
+  return support;
 }
 
 export async function runAxeAudit(url, pageLoadDelayMs = 2000) {
@@ -659,7 +689,8 @@ export async function runAxeAudit(url, pageLoadDelayMs = 2000) {
         await page.waitForTimeout(pageLoadDelayMs);
       }
 
-      const darkSupported = await isDarkModeSupported(page);
+      const mediaQuerySupport = await detectMediaQuerySupport(page);
+      const darkSupported = mediaQuerySupport.darkMode;
       const modesToRun = ["light"];
       if (darkSupported) {
         modesToRun.push("dark");
@@ -743,7 +774,8 @@ export async function runAxeAudit(url, pageLoadDelayMs = 2000) {
         passedRules: [...allResults.passedRules].sort(),
         failures: allResults.failures,
         outcomeCount: allResults.counts.passed + allResults.counts.failed + allResults.counts.cantTell + allResults.counts.inapplicable,
-        darkModeScanned: darkSupported
+        darkModeScanned: darkSupported,
+        mediaQuerySupport
       };
     } catch (error) {
       await browser.close();
@@ -1648,13 +1680,42 @@ export function toMarkdownReport(summary, axeVersion = "4.11") {
 
   lines.push(`- Rejected URLs: ${summary.rejectedCount}`);
   
-  // Add dark mode information
-  if (summary.darkModeUrlCount !== undefined && summary.scannedCount > 0) {
-    const percentage = ((summary.darkModeUrlCount / summary.scannedCount) * 100).toFixed(0);
-    if (summary.darkModeUrlCount > 0) {
-      lines.push(`- 🌙 **Dark mode tested: ${summary.darkModeUrlCount} of ${summary.scannedCount} URLs (${percentage}%) support \`prefers-color-scheme: dark\`**`);
+  // Add accessibility media query personalization section
+  if (summary.scannedCount > 0) {
+    const n = summary.scannedCount;
+    const pct = (count) => `${count} of ${n} URLs (${((count / n) * 100).toFixed(0)}%)`;
+
+    const darkCount = summary.darkModeUrlCount ?? 0;
+    const motionCount = summary.reducedMotionUrlCount ?? 0;
+    const contrastCount = summary.highContrastUrlCount ?? 0;
+    const forcedCount = summary.forcedColorsUrlCount ?? 0;
+    const transparencyCount = summary.reducedTransparencyUrlCount ?? 0;
+
+    lines.push(`- 🎨 **Accessibility personalization (CSS media queries):**`);
+    if (darkCount > 0) {
+      lines.push(`  - 🌙 **Dark mode:** ${pct(darkCount)} support \`prefers-color-scheme: dark\``);
     } else {
-      lines.push(`- 🌙 Dark mode: None of the scanned URLs support \`prefers-color-scheme: dark\``);
+      lines.push(`  - 🌙 Dark mode: None of the scanned URLs support \`prefers-color-scheme: dark\``);
+    }
+    if (motionCount > 0) {
+      lines.push(`  - ⚡ **Reduced motion:** ${pct(motionCount)} support \`prefers-reduced-motion: reduce\``);
+    } else {
+      lines.push(`  - ⚡ Reduced motion: None of the scanned URLs support \`prefers-reduced-motion: reduce\``);
+    }
+    if (contrastCount > 0) {
+      lines.push(`  - 🔍 **High contrast:** ${pct(contrastCount)} support \`prefers-contrast: more\``);
+    } else {
+      lines.push(`  - 🔍 High contrast: None of the scanned URLs support \`prefers-contrast: more\``);
+    }
+    if (forcedCount > 0) {
+      lines.push(`  - 🖥️ **Forced colors:** ${pct(forcedCount)} support \`forced-colors: active\``);
+    } else {
+      lines.push(`  - 🖥️ Forced colors: None of the scanned URLs support \`forced-colors: active\``);
+    }
+    if (transparencyCount > 0) {
+      lines.push(`  - 🪟 **Reduced transparency:** ${pct(transparencyCount)} support \`prefers-reduced-transparency: reduce\``);
+    } else {
+      lines.push(`  - 🪟 Reduced transparency: None of the scanned URLs support \`prefers-reduced-transparency: reduce\``);
     }
   }
   
@@ -2698,6 +2759,10 @@ async function main() {
 
   let duplicateFindingTotals = 0;
   let darkModeUrlCount = 0;
+  let reducedMotionUrlCount = 0;
+  let highContrastUrlCount = 0;
+  let forcedColorsUrlCount = 0;
+  let reducedTransparencyUrlCount = 0;
 
   for (const result of results) {
     alfaTotals.passed += result.alfa.counts.passed;
@@ -2713,6 +2778,19 @@ async function main() {
     // Track URLs with dark mode support
     if (result.axe.darkModeScanned) {
       darkModeUrlCount++;
+    }
+    // Track URLs supporting other accessibility media queries
+    if (result.axe.mediaQuerySupport?.reducedMotion) {
+      reducedMotionUrlCount++;
+    }
+    if (result.axe.mediaQuerySupport?.highContrast) {
+      highContrastUrlCount++;
+    }
+    if (result.axe.mediaQuerySupport?.forcedColors) {
+      forcedColorsUrlCount++;
+    }
+    if (result.axe.mediaQuerySupport?.reducedTransparency) {
+      reducedTransparencyUrlCount++;
     }
 
     equalAccessTotals.passed += result.equalAccess.counts.passed;
@@ -2769,6 +2847,10 @@ async function main() {
     qualwebTotals,
     duplicateFindingTotals,
     darkModeUrlCount,
+    reducedMotionUrlCount,
+    highContrastUrlCount,
+    forcedColorsUrlCount,
+    reducedTransparencyUrlCount,
     results,
     enhanced: enhancedData
   };
@@ -2825,6 +2907,10 @@ async function main() {
     accesslintTotals,
     duplicateFindingTotals,
     darkModeUrlCount,
+    reducedMotionUrlCount,
+    highContrastUrlCount,
+    forcedColorsUrlCount,
+    reducedTransparencyUrlCount,
     summaryPath,
     markdownPath,
     htmlPath,
