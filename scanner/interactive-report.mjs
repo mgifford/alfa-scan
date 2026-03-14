@@ -1,4 +1,4 @@
-import { ROLES, SEVERITY, wcagScUrl } from "./rule-metadata.mjs";
+import { ROLES, SEVERITY, wcagScUrl, getDisabilitiesFromScs } from "./rule-metadata.mjs";
 import { formatAlfaRule } from "./alfa-rule-metadata.mjs";
 
 /**
@@ -76,6 +76,69 @@ function getWcagVersionFromScs(scs) {
  */
 function getRuleWcag(f) {
   return f.wcag || { scs: f.metadata?.wcagCriteria || [], level: f.metadata?.conformanceLevel || null };
+}
+
+/**
+ * Disability category display metadata: label, description, colors, and inline SVG path.
+ * SVG icons use a 20×20 viewBox and fill="currentColor".
+ */
+const DISABILITY_INFO = {
+  visual: {
+    label: "Visual",
+    description: "Affects users with visual disabilities (blindness, low vision, colour blindness)",
+    /* Eye icon – two concentric shapes: outer eye outline + pupil dot */
+    svgContent: `<path d="M10 4C6.3 4 3.1 6.1 1.3 9.3c-.2.4-.2.9 0 1.4C3.1 13.9 6.3 16 10 16s6.9-2.1 8.7-5.3c.2-.4.2-.9 0-1.4C16.9 6.1 13.7 4 10 4zm0 10c-2.8 0-5-2.2-5-5s2.2-5 5-5 5 2.2 5 5-2.2 5-5 5zm0-8a3 3 0 100 6 3 3 0 000-6z"/>`,
+    color: "#1565c0",
+    bgColor: "#e3f2fd",
+    borderColor: "#90caf9",
+  },
+  hearing: {
+    label: "Hearing",
+    description: "Affects users with hearing disabilities (deafness, hard of hearing)",
+    /* Ear icon – outer ear curve + inner canal curve */
+    svgContent: `<path d="M10 2a6 6 0 00-6 6c0 1.6.6 3 1.7 4.1l.3.3V17h2v-5.1l-.7-.7A4 4 0 016 8a4 4 0 014-4 4 4 0 014 4 4 4 0 01-.8 2.4l-.5.7V14h-1a2 2 0 01-2-2H8a4 4 0 004 4h2v-5.3l.5-.7A6 6 0 0016 8a6 6 0 00-6-6z"/>`,
+    color: "#6a1b9a",
+    bgColor: "#f3e5f5",
+    borderColor: "#ce93d8",
+  },
+  motor: {
+    label: "Motor",
+    description: "Affects users with motor/physical disabilities (limited hand dexterity, paralysis, tremors)",
+    /* Hand icon – five fingers and palm */
+    svgContent: `<path d="M14.5 7.5a1 1 0 00-1-1 1 1 0 00-1 1V10a1 1 0 01-1 0V4.5a1 1 0 00-2 0V10a1 1 0 01-1 0V5.5a1 1 0 00-2 0V11a1 1 0 01-1 0V7.5a1 1 0 00-2 0V12a5 5 0 005 5 5 5 0 005-5V8.5a1 1 0 00-1-1 1 1 0 00-1 1V10a1 1 0 01-1 0V7.5z"/>`,
+    color: "#2e7d32",
+    bgColor: "#e8f5e9",
+    borderColor: "#a5d6a7",
+  },
+  cognitive: {
+    label: "Cognitive",
+    description: "Affects users with cognitive disabilities (learning disabilities, ADHD, memory impairments)",
+    /* Head-with-brain icon – head outline + three thought circles */
+    svgContent: `<path d="M10 2a7 7 0 00-7 7c0 2.3 1.1 4.3 2.8 5.6L5 18h10l-.8-3.4A7 7 0 0017 9a7 7 0 00-7-7zm0 2a5 5 0 015 5 5 5 0 01-1.9 3.9l-.6.5.6 2.6H6.9l.6-2.6-.6-.5A5 5 0 015 9a5 5 0 015-5zm-1.5 3a1 1 0 100 2 1 1 0 000-2zm3 0a1 1 0 100 2 1 1 0 000-2zm-1.5 2.5a1 1 0 100 2 1 1 0 000-2z"/>`,
+    color: "#bf360c",
+    bgColor: "#fbe9e7",
+    borderColor: "#ffab91",
+  },
+};
+
+/**
+ * Render accessible SVG disability icons for the given disability categories.
+ * Returns an HTML string with an inline SVG icon + text label for each category.
+ * @param {string[]} disabilities - Array of disability keys (e.g. ["visual", "motor"])
+ * @returns {string} HTML string, or empty string if no disabilities
+ */
+function renderDisabilityIcons(disabilities) {
+  if (!disabilities || disabilities.length === 0) return "";
+  return disabilities.map(key => {
+    const info = DISABILITY_INFO[key];
+    if (!info) return "";
+    return `<span class="disability-badge disability-${key}" title="${info.description}">
+      <svg class="disability-icon" viewBox="0 0 20 20" width="14" height="14" aria-hidden="true" focusable="false">
+        ${info.svgContent}
+      </svg>
+      <span>${info.label}</span>
+    </span>`;
+  }).join("");
 }
 
 export function generateInteractiveHtml(summary) {
@@ -261,6 +324,11 @@ export function generateInteractiveHtml(summary) {
       ? "best-practice"
       : getWcagVersionFromScs(wcag.scs);
 
+    // Compute which disability categories this rule affects
+    const disabilities = getDisabilitiesFromScs(wcag.scs || []);
+    const disabilityIconsHtml = renderDisabilityIcons(disabilities);
+    const disabilityData = JSON.stringify(disabilities);
+
     return `
       <details class="rule-card"
                id="rule-${ruleSlug}"
@@ -270,6 +338,7 @@ export function generateInteractiveHtml(summary) {
                data-page-urls='${pageUrlsData}'
                data-wcag-level="${escapeHtml(wcagLevel)}"
                data-wcag-version="${escapeHtml(wcagVersion)}"
+               data-disabilities='${disabilityData}'
                data-search="${escapeHtml((displayId + " " + displayDesc).toLowerCase())}">
         <summary>
           <div class="rule-summary-info">
@@ -277,6 +346,7 @@ export function generateInteractiveHtml(summary) {
             <span class="badge badge-severity severity-${f.metadata.severity}">${f.metadata.severity}</span>
             <span class="badge badge-engine">${f.engine}</span>
             ${wcagHtml ? `<span class="wcag-inline">${wcagHtml}</span>` : ''}
+            ${disabilityIconsHtml ? `<span class="disability-icons" aria-label="Affects: ${disabilities.map(d => DISABILITY_INFO[d].label).join(', ')}">${disabilityIconsHtml}</span>` : ''}
             <span>
               <strong>${displayId}</strong>: ${displayDesc}
               <a href="#rule-${ruleSlug}" class="anchor-link anchor-link-inline" aria-label="Link to ${displayId} rule">
@@ -296,6 +366,7 @@ export function generateInteractiveHtml(summary) {
               <p><strong>Roles:</strong> ${f.metadata.roles.join(', ')}</p>
               <p><strong>Blocking:</strong> ${f.metadata.blocking ? '⚠️ Yes (Task-Blocking)' : 'No'}</p>
               ${wcagHtml ? `<p><strong>WCAG:</strong> ${wcagHtml}</p>` : ''}
+              ${disabilities.length > 0 ? `<p><strong>Disabilities affected:</strong><br><span class="disability-icons-detail">${renderDisabilityIcons(disabilities)}</span></p>` : ''}
             </div>
             <div>
               <h4>Affected Pages</h4>
@@ -399,6 +470,16 @@ export function generateInteractiveHtml(summary) {
         <label for="filter-engine" class="filter-label">Engine:</label>
         <select id="filter-engine" aria-label="Filter by accessibility engine">
           ${engineFilterOptions}
+        </select>
+      </div>
+      <div class="filter-group">
+        <label for="filter-disability" class="filter-label">Disability:</label>
+        <select id="filter-disability" aria-label="Filter by disability category affected">
+          <option value="all">All Disabilities</option>
+          <option value="visual">Visual</option>
+          <option value="hearing">Hearing</option>
+          <option value="motor">Motor</option>
+          <option value="cognitive">Cognitive</option>
         </select>
       </div>
       <button class="btn btn-clear" id="clear-rule-filters" type="button" hidden>Clear Filters</button>
@@ -725,7 +806,39 @@ export function generateInteractiveHtml(summary) {
     .wcag-inline { display: inline-flex; align-items: center; gap: 0.25rem; }
     .wcag-sc-link { color: var(--link); font-size: 0.8rem; text-decoration: none; }
     .wcag-sc-link:hover { text-decoration: underline; }
-    
+
+    /* ── Disability category badges ── */
+    .disability-icons { display: inline-flex; align-items: center; gap: 0.3rem; flex-wrap: wrap; }
+    .disability-icons-detail { display: inline-flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.3rem; }
+    .disability-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.15rem 0.45rem;
+      border-radius: 10px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      border: 1px solid;
+      white-space: nowrap;
+    }
+    .disability-icon { flex-shrink: 0; }
+    .disability-visual  { background: #e3f2fd; color: #1565c0; border-color: #90caf9; }
+    .disability-hearing { background: #f3e5f5; color: #6a1b9a; border-color: #ce93d8; }
+    .disability-motor   { background: #e8f5e9; color: #2e7d32; border-color: #a5d6a7; }
+    .disability-cognitive { background: #fbe9e7; color: #bf360c; border-color: #ffab91; }
+
+    /* Dark mode overrides for disability badges */
+    @media (prefers-color-scheme: dark) {
+      .disability-visual  { background: #0d2340; color: #90caf9; border-color: #1e3a5f; }
+      .disability-hearing { background: #1c0a2e; color: #ce93d8; border-color: #4a1a6e; }
+      .disability-motor   { background: #0a2818; color: #a5d6a7; border-color: #1c5e38; }
+      .disability-cognitive { background: #2d0e00; color: #ffab91; border-color: #6b2100; }
+    }
+    [data-theme="dark"] .disability-visual  { background: #0d2340; color: #90caf9; border-color: #1e3a5f; }
+    [data-theme="dark"] .disability-hearing { background: #1c0a2e; color: #ce93d8; border-color: #4a1a6e; }
+    [data-theme="dark"] .disability-motor   { background: #0a2818; color: #a5d6a7; border-color: #1c5e38; }
+    [data-theme="dark"] .disability-cognitive { background: #2d0e00; color: #ffab91; border-color: #6b2100; }
+
     .rule-content { padding: 1.5rem; border-top: 1px solid var(--border); }
     .rule-details { margin-bottom: 1.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
     .example-list { margin-top: 1rem; }
@@ -1119,6 +1232,7 @@ export function generateInteractiveHtml(summary) {
     const filterLevelEl = document.getElementById('filter-level');
     const filterVersionEl = document.getElementById('filter-version');
     const filterEngineEl = document.getElementById('filter-engine');
+    const filterDisabilityEl = document.getElementById('filter-disability');
     const clearRuleFiltersBtn = document.getElementById('clear-rule-filters');
     const filterRuleCountEl = document.getElementById('filter-rule-count');
 
@@ -1127,6 +1241,7 @@ export function generateInteractiveHtml(summary) {
       const level = filterLevelEl.value;
       const version = filterVersionEl.value;
       const engine = filterEngineEl.value;
+      const disability = filterDisabilityEl.value;
 
       const allCards = document.querySelectorAll('.rule-card');
       let visibleCount = 0;
@@ -1136,6 +1251,8 @@ export function generateInteractiveHtml(summary) {
         const cardLevel = card.dataset.wcagLevel || '';
         const cardVersion = card.dataset.wcagVersion || '';
         const isBestPractice = cardLevel === 'best-practice';
+        let cardDisabilities = [];
+        try { cardDisabilities = JSON.parse(card.dataset.disabilities || '[]'); } catch (e) {}
 
         let visible = true;
 
@@ -1160,6 +1277,9 @@ export function generateInteractiveHtml(summary) {
           // '2.2' shows all
         }
 
+        // Disability filter
+        if (visible && disability !== 'all' && !cardDisabilities.includes(disability)) visible = false;
+
         card.style.display = visible ? '' : 'none';
         if (visible) visibleCount++;
       });
@@ -1173,14 +1293,14 @@ export function generateInteractiveHtml(summary) {
 
       // Update live count text
       const total = allCards.length;
-      const hasActiveFilters = type !== 'all' || level !== 'all' || version !== 'all' || engine !== 'all';
+      const hasActiveFilters = type !== 'all' || level !== 'all' || version !== 'all' || engine !== 'all' || disability !== 'all';
       filterRuleCountEl.textContent = hasActiveFilters
         ? \`Showing \${visibleCount} of \${total} rules\`
         : '';
       clearRuleFiltersBtn.hidden = !hasActiveFilters;
     }
 
-    [filterTypeEl, filterLevelEl, filterVersionEl, filterEngineEl].forEach(el => {
+    [filterTypeEl, filterLevelEl, filterVersionEl, filterEngineEl, filterDisabilityEl].forEach(el => {
       el.addEventListener('change', applyRuleFilters);
     });
 
@@ -1189,6 +1309,7 @@ export function generateInteractiveHtml(summary) {
       filterLevelEl.value = 'all';
       filterVersionEl.value = 'all';
       filterEngineEl.value = 'all';
+      filterDisabilityEl.value = 'all';
       applyRuleFilters();
     });
 

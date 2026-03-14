@@ -1000,3 +1000,141 @@ test("generateInteractiveHtml Copy failure details button has accessible aria-la
     "Copy button should have a descriptive aria-label"
   );
 });
+
+// ── Disability category icons ─────────────────────────────────────────────────
+
+test("rule card includes data-disabilities attribute with affected disability categories", () => {
+  // SC 1.4.3 (contrast) → visual
+  const html = generateInteractiveHtml(makeWcagSummary(["1.4.3"], "AA"));
+  assert.ok(
+    html.includes('data-disabilities=\'["visual"]\''),
+    'Rule card should have data-disabilities with ["visual"] for contrast SC 1.4.3'
+  );
+});
+
+test("rule card shows disability badge SVG icons for visual disability", () => {
+  const html = generateInteractiveHtml(makeWcagSummary(["1.4.3"], "AA"));
+  assert.ok(
+    html.includes('class="disability-badge disability-visual"'),
+    "Should render a disability-visual badge for a visually-affecting rule"
+  );
+  assert.ok(
+    html.includes('class="disability-icon"'),
+    "Should include a disability SVG icon"
+  );
+});
+
+test("rule card shows hearing disability badge for caption SC 1.2.2", () => {
+  const html = generateInteractiveHtml(makeWcagSummary(["1.2.2"], "A"));
+  assert.ok(
+    html.includes('class="disability-badge disability-hearing"'),
+    "Should render a disability-hearing badge for SC 1.2.2 (Captions)"
+  );
+});
+
+test("rule card shows motor disability badge for keyboard SC 2.1.1", () => {
+  const html = generateInteractiveHtml(makeWcagSummary(["2.1.1"], "A"));
+  assert.ok(
+    html.includes('class="disability-badge disability-motor"'),
+    "Should render a disability-motor badge for SC 2.1.1 (Keyboard)"
+  );
+});
+
+test("rule card shows cognitive disability badge for error identification SC 3.3.1", () => {
+  const html = generateInteractiveHtml(makeWcagSummary(["3.3.1"], "A"));
+  assert.ok(
+    html.includes('class="disability-badge disability-cognitive"'),
+    "Should render a disability-cognitive badge for SC 3.3.1"
+  );
+});
+
+test("rule card shows multiple disability badges for multi-disability SC", () => {
+  // 4.1.2 affects visual, cognitive, motor
+  const html = generateInteractiveHtml(makeWcagSummary(["4.1.2"], "A"));
+  assert.ok(
+    html.includes('class="disability-badge disability-visual"'),
+    "4.1.2 should show visual badge"
+  );
+  assert.ok(
+    html.includes('class="disability-badge disability-cognitive"'),
+    "4.1.2 should show cognitive badge"
+  );
+  assert.ok(
+    html.includes('class="disability-badge disability-motor"'),
+    "4.1.2 should show motor badge"
+  );
+});
+
+test("rule card has no disability badges for best-practice rules", () => {
+  const summary = makeSummary({
+    enhanced: {
+      consolidatedFailures: [
+        {
+          rule: "heading-order",
+          engine: "axe",
+          totalOccurrences: 3,
+          pages: new Map([["https://example.com/", 3]]),
+          wcag: { scs: [], level: "best-practice" },
+          metadata: {
+            severity: "Moderate",
+            roles: ["Content"],
+            blocking: false,
+            description: "Heading levels should only increase by one",
+          },
+          examples: [],
+        },
+      ],
+      roleStats: { Content: 3 },
+      severityStats: { Moderate: 3 },
+    },
+  });
+  const html = generateInteractiveHtml(summary);
+  assert.ok(
+    html.includes('data-disabilities=\'[]\''),
+    "Best-practice rule should have empty data-disabilities"
+  );
+  assert.ok(
+    !html.includes('class="disability-badge'),
+    "Best-practice rule should not show any disability badges"
+  );
+});
+
+test("disability filter select is present in the filter bar", () => {
+  const html = generateInteractiveHtml(makeSummary());
+  assert.ok(
+    html.includes('id="filter-disability"'),
+    "Should include a disability filter dropdown"
+  );
+  assert.ok(
+    html.includes('aria-label="Filter by disability category affected"'),
+    "Disability filter should have a descriptive aria-label"
+  );
+  assert.ok(
+    html.includes('<option value="visual">Visual</option>'),
+    "Should include a Visual option in disability filter"
+  );
+  assert.ok(
+    html.includes('<option value="hearing">Hearing</option>'),
+    "Should include a Hearing option in disability filter"
+  );
+  assert.ok(
+    html.includes('<option value="motor">Motor</option>'),
+    "Should include a Motor option in disability filter"
+  );
+  assert.ok(
+    html.includes('<option value="cognitive">Cognitive</option>'),
+    "Should include a Cognitive option in disability filter"
+  );
+});
+
+test("disability icons have aria-hidden SVGs with visible text labels", () => {
+  const html = generateInteractiveHtml(makeWcagSummary(["1.4.3"], "AA"));
+  assert.ok(
+    html.includes('aria-hidden="true" focusable="false"'),
+    "Disability SVG icons should be aria-hidden to avoid AT duplication"
+  );
+  assert.ok(
+    html.includes(">Visual<"),
+    "Disability badge should include a visible text label for the category"
+  );
+});

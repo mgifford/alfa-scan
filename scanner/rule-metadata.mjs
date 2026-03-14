@@ -161,6 +161,105 @@ export function wcagScUrl(sc) {
 }
 
 /**
+ * Mapping from WCAG 2.x Success Criterion numbers to the disability categories they affect.
+ * Categories: "visual", "hearing", "motor", "cognitive"
+ *
+ * Derived from the W3C's WCAG 2 guidance and the How People with Disabilities Use the Web document.
+ * Each SC can affect one or more disability categories.
+ */
+export const WCAG_SC_TO_DISABILITIES = {
+  // Principle 1 – Perceivable
+  "1.1.1": ["visual"],                         // Non-text Content: blind users need text alts
+  "1.2.1": ["visual", "hearing"],              // Audio-only / Video-only: needs alt for both
+  "1.2.2": ["hearing"],                        // Captions (Prerecorded): deaf users
+  "1.2.3": ["visual"],                         // Audio Description / Media Alt (Prerecorded)
+  "1.2.4": ["hearing"],                        // Captions (Live)
+  "1.2.5": ["visual"],                         // Audio Description (Prerecorded)
+  "1.3.1": ["visual", "cognitive"],            // Info and Relationships: screen readers, cognition
+  "1.3.2": ["visual", "cognitive"],            // Meaningful Sequence
+  "1.3.3": ["visual", "cognitive"],            // Sensory Characteristics (e.g. "click the red button")
+  "1.3.4": ["motor", "cognitive"],             // Orientation: locked rotation affects motor/cognitive
+  "1.3.5": ["cognitive", "motor"],             // Identify Input Purpose: autofill, cognitive load
+  "1.3.6": ["cognitive"],                      // Identify Purpose
+  "1.4.1": ["visual", "cognitive"],            // Use of Color: color blindness, cognitive
+  "1.4.2": ["hearing", "cognitive"],           // Audio Control: autoplaying audio
+  "1.4.3": ["visual"],                         // Contrast (Minimum): low vision
+  "1.4.4": ["visual"],                         // Resize Text: low vision
+  "1.4.5": ["visual"],                         // Images of Text: low vision
+  "1.4.6": ["visual"],                         // Contrast (Enhanced): low vision
+  "1.4.10": ["visual", "motor"],               // Reflow: low vision at 400%, single-column
+  "1.4.11": ["visual"],                        // Non-text Contrast: UI components, low vision
+  "1.4.12": ["visual", "cognitive"],           // Text Spacing: dyslexia, low vision
+  "1.4.13": ["visual", "motor"],               // Content on Hover or Focus: fine motor, low vision
+
+  // Principle 2 – Operable
+  "2.1.1": ["motor"],                          // Keyboard: keyboard-only, switch access
+  "2.1.2": ["motor"],                          // No Keyboard Trap
+  "2.1.3": ["motor"],                          // Keyboard (No Exception)
+  "2.1.4": ["motor", "cognitive"],             // Character Key Shortcuts
+  "2.2.1": ["cognitive", "motor"],             // Timing Adjustable
+  "2.2.2": ["cognitive"],                      // Pause, Stop, Hide
+  "2.3.1": ["visual"],                         // Three Flashes: photosensitive seizures
+  "2.3.2": ["visual"],                         // Three Flashes (No Exception)
+  "2.4.1": ["motor", "visual"],                // Bypass Blocks: skip nav, keyboard users
+  "2.4.2": ["cognitive", "visual"],            // Page Titled
+  "2.4.3": ["motor", "visual", "cognitive"],   // Focus Order
+  "2.4.4": ["visual", "cognitive"],            // Link Purpose (In Context)
+  "2.4.5": ["cognitive"],                      // Multiple Ways
+  "2.4.6": ["visual", "cognitive"],            // Headings and Labels
+  "2.4.7": ["motor", "visual"],                // Focus Visible: keyboard users
+  "2.4.11": ["motor", "visual"],               // Focus Not Obscured (Minimum)
+  "2.4.12": ["motor", "visual"],               // Focus Not Obscured (Enhanced)
+  "2.4.13": ["motor", "visual"],               // Focus Appearance
+  "2.5.1": ["motor"],                          // Pointer Gestures
+  "2.5.2": ["motor"],                          // Pointer Cancellation
+  "2.5.3": ["cognitive", "visual"],            // Label in Name: voice control, low vision
+  "2.5.4": ["motor"],                          // Motion Actuation: tremors, restricted movement
+  "2.5.5": ["motor"],                          // Target Size (Enhanced)
+  "2.5.6": ["motor"],                          // Concurrent Input Mechanisms
+  "2.5.7": ["motor"],                          // Dragging Movements
+  "2.5.8": ["motor"],                          // Target Size (Minimum)
+
+  // Principle 3 – Understandable
+  "3.1.1": ["cognitive"],                      // Language of Page: screen reader pronunciation
+  "3.1.2": ["cognitive"],                      // Language of Parts
+  "3.2.1": ["cognitive"],                      // On Focus: no unexpected context changes
+  "3.2.2": ["cognitive"],                      // On Input
+  "3.2.3": ["cognitive"],                      // Consistent Navigation
+  "3.2.4": ["cognitive"],                      // Consistent Identification
+  "3.2.6": ["cognitive"],                      // Consistent Help
+  "3.3.1": ["cognitive"],                      // Error Identification
+  "3.3.2": ["cognitive"],                      // Labels or Instructions
+  "3.3.3": ["cognitive"],                      // Error Suggestion
+  "3.3.4": ["cognitive"],                      // Error Prevention (Legal, Financial, Data)
+  "3.3.7": ["cognitive", "motor"],             // Redundant Entry
+  "3.3.8": ["cognitive"],                      // Accessible Authentication (Minimum)
+  "3.3.9": ["cognitive"],                      // Accessible Authentication (Enhanced)
+
+  // Principle 4 – Robust
+  "4.1.1": ["visual", "cognitive"],            // Parsing: affects all AT users
+  "4.1.2": ["visual", "cognitive", "motor"],   // Name, Role, Value: all AT users
+  "4.1.3": ["visual", "cognitive"],            // Status Messages
+};
+
+/**
+ * Get the set of disability categories affected by a list of WCAG success criteria.
+ * @param {string[]} scs - Array of SC numbers (e.g. ["1.4.3", "2.4.4"])
+ * @returns {string[]} Sorted, deduplicated array of disability categories
+ */
+export function getDisabilitiesFromScs(scs) {
+  if (!Array.isArray(scs) || scs.length === 0) return [];
+  const result = new Set();
+  for (const sc of scs) {
+    const cats = WCAG_SC_TO_DISABILITIES[sc];
+    if (cats) cats.forEach(c => result.add(c));
+  }
+  // Return in a stable display order
+  const ORDER = ["visual", "hearing", "motor", "cognitive"];
+  return ORDER.filter(c => result.has(c));
+}
+
+/**
  * Mapping of Rule IDs to Metadata
  * We use prefix-based keys: 'axe:', 'alfa:', 'ibm:'
  */

@@ -5,7 +5,8 @@ import {
   parseConformanceLevelFromTags,
   formatWcagFromTags,
   getRuleMetadata,
-  wcagScUrl
+  wcagScUrl,
+  getDisabilitiesFromScs
 } from "../../scanner/rule-metadata.mjs";
 import { formatAlfaRule } from "../../scanner/alfa-rule-metadata.mjs";
 
@@ -178,4 +179,55 @@ test("wcagScUrl returns Understanding page URL for known SC", () => {
 test("wcagScUrl falls back to WCAG 2.2 spec for unknown SC", () => {
   const url = wcagScUrl("9.9.9");
   assert.strictEqual(url, "https://www.w3.org/TR/WCAG22/");
+});
+
+// --- getDisabilitiesFromScs ---
+
+test("getDisabilitiesFromScs returns visual for image alt SC 1.1.1", () => {
+  const result = getDisabilitiesFromScs(["1.1.1"]);
+  assert.deepEqual(result, ["visual"]);
+});
+
+test("getDisabilitiesFromScs returns hearing for captions SC 1.2.2", () => {
+  const result = getDisabilitiesFromScs(["1.2.2"]);
+  assert.deepEqual(result, ["hearing"]);
+});
+
+test("getDisabilitiesFromScs returns motor for keyboard SC 2.1.1", () => {
+  const result = getDisabilitiesFromScs(["2.1.1"]);
+  assert.deepEqual(result, ["motor"]);
+});
+
+test("getDisabilitiesFromScs returns cognitive for error-identification SC 3.3.1", () => {
+  const result = getDisabilitiesFromScs(["3.3.1"]);
+  assert.deepEqual(result, ["cognitive"]);
+});
+
+test("getDisabilitiesFromScs deduplicates and returns stable order", () => {
+  // 1.1.1 → visual, 1.2.2 → hearing, 2.1.1 → motor, 3.3.1 → cognitive
+  const result = getDisabilitiesFromScs(["3.3.1", "2.1.1", "1.2.2", "1.1.1"]);
+  assert.deepEqual(result, ["visual", "hearing", "motor", "cognitive"]);
+});
+
+test("getDisabilitiesFromScs handles SC with multiple disability categories", () => {
+  // 1.4.1 (Use of Color) → visual + cognitive
+  const result = getDisabilitiesFromScs(["1.4.1"]);
+  assert.deepEqual(result, ["visual", "cognitive"]);
+});
+
+test("getDisabilitiesFromScs returns empty array for unknown SCs", () => {
+  const result = getDisabilitiesFromScs(["9.9.9"]);
+  assert.deepEqual(result, []);
+});
+
+test("getDisabilitiesFromScs returns empty array for empty input", () => {
+  assert.deepEqual(getDisabilitiesFromScs([]), []);
+  assert.deepEqual(getDisabilitiesFromScs(null), []);
+  assert.deepEqual(getDisabilitiesFromScs(undefined), []);
+});
+
+test("getDisabilitiesFromScs combines categories from multiple SCs", () => {
+  // 1.4.3 → visual, 2.1.1 → motor
+  const result = getDisabilitiesFromScs(["1.4.3", "2.1.1"]);
+  assert.deepEqual(result, ["visual", "motor"]);
 });
