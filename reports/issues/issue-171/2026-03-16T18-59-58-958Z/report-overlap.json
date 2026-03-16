@@ -1,0 +1,54 @@
+{
+  "generatedAt": "2026-03-16T18:59:11.584Z",
+  "issueNumber": 171,
+  "scanTitle": "commerce.maryland.gov LLM lists",
+  "scannersInUse": [
+    "axe",
+    "alfa"
+  ],
+  "scannerStats": {
+    "axe": {
+      "label": "axe",
+      "failed": 657,
+      "uniqueFailed": 657,
+      "duplicates": 0
+    },
+    "alfa": {
+      "label": "ALFA",
+      "failed": 3041,
+      "uniqueFailed": 3041,
+      "duplicates": 0
+    },
+    "equalAccess": {
+      "label": "Equal Access",
+      "failed": 0,
+      "uniqueFailed": 0,
+      "duplicates": 0
+    },
+    "accesslint": {
+      "label": "AccessLint",
+      "failed": 0,
+      "uniqueFailed": 0,
+      "duplicates": 0
+    },
+    "qualweb": {
+      "label": "QualWeb",
+      "failed": 0,
+      "uniqueFailed": 0,
+      "duplicates": 0
+    }
+  },
+  "matrix": {
+    "axe": {
+      "axe": 612,
+      "alfa": 0
+    },
+    "alfa": {
+      "axe": 0,
+      "alfa": 431
+    }
+  },
+  "duplicateFindingTotals": 2655,
+  "overlapEntryCount": 0,
+  "overlapEntries": []
+}
