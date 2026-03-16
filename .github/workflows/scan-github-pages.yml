@@ -234,12 +234,23 @@ jobs:
           else
             echo "has_token=false" >> "$GITHUB_OUTPUT"
             echo "GH_TOKEN secret is not set — skipping GitHub Accessibility Scanner." >&2
+            {
+              echo "## ⚠️ GitHub Accessibility Scanner skipped"
+              echo ""
+              echo "The \`GH_TOKEN\` secret is not set. The main axe-core scan above ran successfully, but the following optional feature was skipped:"
+              echo ""
+              echo "- **GitHub Accessibility Scanner** (\`github/accessibility-scanner\`) — provides AI-powered fix suggestions via GitHub Copilot and creates trackable issues"
+              echo ""
+              echo "To enable it, create a fine-grained PAT with \`actions: write\`, \`contents: write\`, \`issues: write\`, and \`pull-requests: write\` permissions, then add it as a repository secret named \`GH_TOKEN\`."
+            } >> "$GITHUB_STEP_SUMMARY"
           fi
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
       - name: Run GitHub Accessibility Scanner
+        id: a11y-scanner
         if: ${{ steps.setup.outputs.has_token == 'true' }}
+        continue-on-error: true
         uses: github/accessibility-scanner@v2
         with:
           urls: ${{ steps.setup.outputs.url }}
@@ -247,3 +258,18 @@ jobs:
           token: ${{ secrets.GH_TOKEN }}
           cache_key: ${{ github.repository }}-pages
           skip_copilot_assignment: false
+
+      - name: Report GitHub Accessibility Scanner failure
+        if: ${{ steps.setup.outputs.has_token == 'true' && steps.a11y-scanner.outcome == 'failure' }}
+        run: |
+          echo "GitHub Accessibility Scanner failed (token may be expired or lack required permissions)." >&2
+          {
+            echo "## ⚠️ GitHub Accessibility Scanner failed"
+            echo ""
+            echo "The \`GH_TOKEN\` secret is set but the GitHub Accessibility Scanner step failed. Possible causes:"
+            echo ""
+            echo "- The token has expired — regenerate it at [github.com/settings/tokens](https://github.com/settings/tokens)"
+            echo "- The token is missing required permissions (\`actions: write\`, \`contents: write\`, \`issues: write\`, \`pull-requests: write\`)"
+            echo ""
+            echo "The main axe-core scan completed successfully. Only the Copilot-powered fix suggestions and trackable issue creation are missing."
+          } >> "$GITHUB_STEP_SUMMARY"
