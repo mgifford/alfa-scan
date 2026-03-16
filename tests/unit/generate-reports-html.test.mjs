@@ -1,5 +1,9 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
+import { mkdirSync, writeFileSync } from 'node:fs';
+import { join } from 'node:path';
+import { mkdtempSync, rmSync } from 'node:fs';
+import { tmpdir } from 'node:os';
 import { 
   findAllReports, 
   sortReportsByTime, 
@@ -19,6 +23,79 @@ describe('generate-reports-html', () => {
         assert.ok(report.data, 'Report should have data');
         assert.ok(report.data.issueNumber, 'Report data should have issueNumber');
         assert.ok(report.data.scannedAt, 'Report data should have scannedAt');
+      }
+    });
+
+    it('should not throw when reports/pages directory does not exist', () => {
+      const tmp = mkdtempSync(join(tmpdir(), 'reports-test-'));
+      try {
+        mkdirSync(join(tmp, 'issues'));
+        assert.doesNotThrow(() => {
+          const reports = findAllReports(tmp);
+          assert.equal(reports.length, 0);
+        });
+      } finally {
+        rmSync(tmp, { recursive: true });
+      }
+    });
+
+    it('should include reports from reports/pages directory', () => {
+      const tmp = mkdtempSync(join(tmpdir(), 'reports-test-'));
+      try {
+        const stamp = '2026-03-16T14-37-54-000Z';
+        const pagesDir = join(tmp, 'pages', stamp);
+        mkdirSync(join(tmp, 'issues'));
+        mkdirSync(pagesDir, { recursive: true });
+        const reportData = {
+          issueNumber: 6,
+          issueUrl: 'https://github.com/mgifford/open-scans/actions/runs/23149256539',
+          scanTitle: 'SCAN: AXE GitHub Pages accessibility check',
+          scannedAt: '2026-03-16T14:37:54.000Z',
+          acceptedCount: 1,
+          alfaTotals: { passed: 0, failed: 0, cantTell: 0 },
+          axeTotals: { passed: 10, failed: 2, cantTell: 1 }
+        };
+        writeFileSync(join(pagesDir, 'report.json'), JSON.stringify(reportData));
+
+        const reports = findAllReports(tmp);
+        assert.equal(reports.length, 1, 'Should find the pages report');
+        assert.equal(reports[0].path, `reports/pages/${stamp}`);
+        assert.equal(reports[0].data.issueNumber, 6);
+        assert.equal(reports[0].data.scanTitle, 'SCAN: AXE GitHub Pages accessibility check');
+      } finally {
+        rmSync(tmp, { recursive: true });
+      }
+    });
+
+    it('should include both issue reports and pages reports', () => {
+      const tmp = mkdtempSync(join(tmpdir(), 'reports-test-'));
+      try {
+        const issueStamp = '2026-03-01T10-00-00-000Z';
+        const issueDir = join(tmp, 'issues', 'issue-5', issueStamp);
+        mkdirSync(issueDir, { recursive: true });
+        writeFileSync(join(issueDir, 'report.json'), JSON.stringify({
+          issueNumber: 5, issueUrl: 'https://github.com/mgifford/open-scans/issues/5',
+          scanTitle: 'Issue scan', scannedAt: '2026-03-01T10:00:00.000Z',
+          acceptedCount: 2, alfaTotals: { passed: 5, failed: 0, cantTell: 0 },
+          axeTotals: { passed: 3, failed: 0, cantTell: 0 }
+        }));
+
+        const pagesStamp = '2026-03-16T14-37-54-000Z';
+        const pagesDir = join(tmp, 'pages', pagesStamp);
+        mkdirSync(pagesDir, { recursive: true });
+        writeFileSync(join(pagesDir, 'report.json'), JSON.stringify({
+          issueNumber: 6, issueUrl: 'https://github.com/mgifford/open-scans/actions/runs/100',
+          scanTitle: 'Pages scan', scannedAt: '2026-03-16T14:37:54.000Z',
+          acceptedCount: 1, alfaTotals: { passed: 0, failed: 0, cantTell: 0 },
+          axeTotals: { passed: 10, failed: 2, cantTell: 1 }
+        }));
+
+        const reports = findAllReports(tmp);
+        assert.equal(reports.length, 2, 'Should find both issue and pages reports');
+        const titles = reports.map(r => r.data.scanTitle).sort();
+        assert.deepEqual(titles, ['Issue scan', 'Pages scan']);
+      } finally {
+        rmSync(tmp, { recursive: true });
       }
     });
   });
