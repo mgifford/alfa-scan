@@ -1,0 +1,1293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accessibility Report: GitHub Pages accessibility check</title>
+  <style>
+    /* ── Color tokens ── */
+    :root {
+      --primary: #0969da;
+      --bg: #f6f8fa;
+      --container-bg: #ffffff;
+      --text: #24292f;
+      --border: #d0d7de;
+      --critical: #cf222e;
+      --serious: #bc4c00;
+      --moderate: #9a6700;
+      --minor: #57606a;
+      --success: #1a7f37;
+      --muted: #57606a;
+      --surface: #fafafa;
+      --hover-bg: #f0f0f0;
+      --code-bg: #f8f9fa;
+      --bar-bg: #eeeeee;
+      --code-color: #0550ae;
+      --xpath-color: #663399;
+      --anchor-icon: #57606a;
+      --badge-count-text: #ffffff;
+      --badge-dark-bg: #24292f;
+      --badge-dark-text: #e6edf3;
+      --filter-banner-bg: #dbeafe;
+      --filter-banner-border: #b6d9fb;
+    }
+
+    /* ── Dark mode (system preference) ── */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --primary: #58a6ff;
+        --bg: #0d1117;
+        --container-bg: #161b22;
+        --text: #e6edf3;
+        --border: #30363d;
+        --critical: #ff7b72;
+        --serious: #ffa657;
+        --moderate: #e3b341;
+        --minor: #8b949e;
+        --success: #3fb950;
+        --muted: #8b949e;
+        --surface: #21262d;
+        --hover-bg: #30363d;
+        --code-bg: #1c2128;
+        --bar-bg: #30363d;
+        --code-color: #79c0ff;
+        --xpath-color: #d2a8ff;
+        --anchor-icon: #8b949e;
+        --badge-count-text: #0d1117;
+        --badge-dark-bg: #e6edf3;
+        --badge-dark-text: #24292f;
+        --filter-banner-bg: #0d2340;
+        --filter-banner-border: #1e3a5f;
+      }
+    }
+
+    /* ── Manual theme overrides via data-theme attribute ── */
+    [data-theme="light"] {
+      --primary: #0969da;
+      --bg: #f6f8fa;
+      --container-bg: #ffffff;
+      --text: #24292f;
+      --border: #d0d7de;
+      --critical: #cf222e;
+      --serious: #bc4c00;
+      --moderate: #9a6700;
+      --minor: #57606a;
+      --success: #1a7f37;
+      --muted: #57606a;
+      --surface: #fafafa;
+      --hover-bg: #f0f0f0;
+      --code-bg: #f8f9fa;
+      --bar-bg: #eeeeee;
+      --code-color: #0550ae;
+      --xpath-color: #663399;
+      --anchor-icon: #57606a;
+      --badge-count-text: #ffffff;
+      --badge-dark-bg: #24292f;
+      --badge-dark-text: #e6edf3;
+      --filter-banner-bg: #dbeafe;
+      --filter-banner-border: #b6d9fb;
+    }
+
+    [data-theme="dark"] {
+      --primary: #58a6ff;
+      --bg: #0d1117;
+      --container-bg: #161b22;
+      --text: #e6edf3;
+      --border: #30363d;
+      --critical: #ff7b72;
+      --serious: #ffa657;
+      --moderate: #e3b341;
+      --minor: #8b949e;
+      --success: #3fb950;
+      --muted: #8b949e;
+      --surface: #21262d;
+      --hover-bg: #30363d;
+      --code-bg: #1c2128;
+      --bar-bg: #30363d;
+      --code-color: #79c0ff;
+      --xpath-color: #d2a8ff;
+      --anchor-icon: #8b949e;
+      --badge-count-text: #0d1117;
+      --badge-dark-bg: #e6edf3;
+      --badge-dark-text: #24292f;
+      --filter-banner-bg: #0d2340;
+      --filter-banner-border: #1e3a5f;
+    }
+
+    /* ── Forced-colors / high contrast ── */
+    @media (forced-colors: active) {
+      .card { border: 1px solid CanvasText; }
+      .anchor-link:focus { outline: 2px solid Highlight; }
+      #theme-toggle { color: ButtonText; background-color: ButtonFace; border: 1px solid ButtonText; }
+      .skip-link { background: Canvas; color: CanvasText; border: 1px solid CanvasText; }
+    }
+
+    /* ── Smooth scroll (only when motion is acceptable) ── */
+    @media (prefers-reduced-motion: no-preference) {
+      html { scroll-behavior: smooth; }
+    }
+
+    /* ── Scroll offset for anchor targets ── */
+    :target { scroll-margin-top: 1rem; }
+    h1[tabindex="-1"]:focus,
+    h2[tabindex="-1"]:focus,
+    h3[tabindex="-1"]:focus { outline: none; }
+
+    /* ── Skip link ── */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 1rem;
+      padding: 0.5rem 1rem;
+      background: var(--container-bg);
+      color: var(--primary);
+      font-weight: bold;
+      text-decoration: none;
+      border: 2px solid var(--primary);
+      border-radius: 4px;
+      z-index: 9999;
+    }
+    .skip-link:focus { top: 1rem; }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      color: var(--text);
+      background-color: var(--bg);
+      padding: 2rem;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: var(--container-bg);
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+    }
+
+    header {
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    .header-content { flex: 1; min-width: 0; }
+    h1 { color: var(--primary); font-size: 2rem; margin-bottom: 0.5rem; }
+    .meta { color: var(--muted); font-size: 0.9rem; display: flex; gap: 1.5rem; flex-wrap: wrap; }
+
+    /* ── Theme toggle button ── */
+    #theme-toggle {
+      flex-shrink: 0;
+      padding: 0.5rem;
+      border: 1px solid var(--border);
+      background-color: var(--container-bg);
+      color: var(--text);
+      cursor: pointer;
+      border-radius: 4px;
+      line-height: 0;
+    }
+    #theme-toggle:hover { background-color: var(--hover-bg); }
+    #theme-toggle:focus { outline: 2px solid var(--primary); outline-offset: 2px; }
+    .theme-icon { display: block; width: 20px; height: 20px; }
+    /* Default: show moon (switch-to-dark affordance) */
+    .sun-icon { display: none; }
+    .moon-icon { display: block; }
+    @media (prefers-color-scheme: dark) {
+      .sun-icon { display: block; }
+      .moon-icon { display: none; }
+    }
+    [data-theme="dark"] .sun-icon { display: block; }
+    [data-theme="dark"] .moon-icon { display: none; }
+    [data-theme="light"] .sun-icon { display: none; }
+    [data-theme="light"] .moon-icon { display: block; }
+
+    /* ── Section headings with anchor links ── */
+    .section-heading {
+      font-size: 1.25rem;
+      color: var(--text);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    /* ── Anchor link icons ── */
+    .anchor-link {
+      opacity: 0;
+      text-decoration: none;
+      color: var(--anchor-icon);
+      font-weight: normal;
+      padding: 0 0.2rem;
+      border-radius: 3px;
+    }
+    .anchor-link-inline {
+      font-size: 0.8em;
+      margin-right: 0.3rem;
+    }
+    .section-heading:hover .anchor-link,
+    .section-heading:focus-within .anchor-link,
+    .anchor-link:focus { opacity: 1; }
+    .anchor-link:focus { outline: 2px solid var(--primary); outline-offset: 2px; }
+    /* Show inline rule anchors when parent summary is hovered/focused */
+    summary:hover .anchor-link,
+    summary:focus-within .anchor-link { opacity: 1; }
+
+    .nav { margin-bottom: 2rem; display: flex; gap: 1rem; border-bottom: 1px solid var(--border); }
+    .nav-item { 
+      padding: 0.5rem 1rem; 
+      cursor: pointer; 
+      border-bottom: 2px solid transparent;
+      font-weight: 500;
+      color: var(--text);
+      background: transparent;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      font-size: 1rem;
+      font-family: inherit;
+    }
+    .nav-item:hover { background: var(--hover-bg); }
+    .nav-item:focus { outline: 2px solid var(--primary); outline-offset: -2px; }
+    .nav-item.active { border-bottom-color: var(--primary); color: var(--primary); }
+
+    .dashboard { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+    .card { border: 1px solid var(--border); padding: 1.5rem; border-radius: 6px; background: var(--container-bg); }
+    .card h3 { font-size: 1rem; margin-bottom: 1rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+    .stat { font-size: 2.5rem; font-weight: 700; line-height: 1; margin-bottom: 0.5rem; }
+    .card-issues-overview { grid-column: span 2; }
+    .issues-breakdown { list-style: disc; padding-left: 1.4rem; margin: 0; font-size: 0.9rem; line-height: 2; }
+    .issues-breakdown li { color: var(--text); }
+    .stat-inline { font-size: 1.4rem; font-weight: 700; }
+
+    .bar-chart { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 1rem; }
+    .bar-item { display: flex; align-items: center; gap: 0.5rem; }
+    .bar-label { width: 140px; font-size: 0.85rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .bar-container { flex-grow: 1; background: var(--bar-bg); height: 12px; border-radius: 6px; overflow: hidden; }
+    .bar-fill { height: 100%; background: var(--primary); }
+
+    .severity-Critical { color: var(--critical); }
+    .severity-Serious { color: var(--serious); }
+    .severity-Moderate { color: var(--moderate); }
+    .severity-Minor { color: var(--minor); }
+
+    .filters { margin-bottom: 1.5rem; display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap; padding: 1rem; background: var(--surface); border: 1px solid var(--border); border-radius: 6px; }
+    .filter-group { display: flex; align-items: center; gap: 0.4rem; }
+    .filter-label { font-size: 0.9rem; font-weight: 600; white-space: nowrap; color: var(--text); }
+    .filter-count-text { font-size: 0.85rem; color: var(--muted); margin-left: auto; }
+    select, input {
+      padding: 0.5rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: var(--container-bg);
+      color: var(--text);
+    }
+    select:focus, input:focus { outline: 2px solid var(--primary); outline-offset: 2px; border-color: var(--primary); }
+
+    .rule-list { display: flex; flex-direction: column; gap: 1rem; }
+    details { border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
+    summary { 
+      padding: 1rem; 
+      background: var(--surface); 
+      cursor: pointer; 
+      font-weight: 600; 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center; 
+    }
+    summary:hover { background: var(--hover-bg); }
+    summary:focus { outline: 2px solid var(--primary); outline-offset: 2px; }
+    summary::-webkit-details-marker { display: none; }
+    .rule-summary-info { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+    .pages-affected { color: var(--muted); font-size: 0.8rem; }
+    .badge { padding: 0.2rem 0.6rem; border-radius: 12px; font-size: 0.75rem; font-weight: 600; }
+    .badge-severity { background: var(--bar-bg); color: var(--text); }
+    .badge-count { background: var(--primary); color: var(--badge-count-text); }
+    .badge-engine { background: #e8f4fd; color: #0969da; border: 1px solid #b6d9fb; }
+    .badge-light { background: var(--container-bg); border: 1px solid var(--border); color: var(--text); }
+    .badge-dark { background: var(--badge-dark-bg); color: var(--badge-dark-text); }
+    .badge-wcag { font-size: 0.7rem; }
+    .badge-level-a { background: #d1fae5; color: #065f46; border: 1px solid #6ee7b7; }
+    .badge-level-aa { background: #dbeafe; color: #1e40af; border: 1px solid #93c5fd; }
+    .badge-level-aaa { background: #ede9fe; color: #5b21b6; border: 1px solid #c4b5fd; }
+    .badge-best-practice { background: #fef3c7; color: #92400e; border: 1px solid #fcd34d; }
+    .wcag-inline { display: inline-flex; align-items: center; gap: 0.25rem; }
+    .wcag-sc-link { color: var(--link); font-size: 0.8rem; text-decoration: none; }
+    .wcag-sc-link:hover { text-decoration: underline; }
+
+    /* ── Disability category badges ── */
+    .disability-icons { display: inline-flex; align-items: center; gap: 0.3rem; flex-wrap: wrap; }
+    .disability-icons-detail { display: inline-flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.3rem; }
+    .disability-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.15rem 0.45rem;
+      border-radius: 10px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      border: 1px solid;
+      white-space: nowrap;
+    }
+    .disability-icon { flex-shrink: 0; }
+    .disability-visual  { background: #e3f2fd; color: #1565c0; border-color: #90caf9; }
+    .disability-hearing { background: #f3e5f5; color: #6a1b9a; border-color: #ce93d8; }
+    .disability-motor   { background: #e8f5e9; color: #2e7d32; border-color: #a5d6a7; }
+    .disability-cognitive { background: #fbe9e7; color: #bf360c; border-color: #ffab91; }
+
+    /* Dark mode overrides for disability badges */
+    @media (prefers-color-scheme: dark) {
+      .disability-visual  { background: #0d2340; color: #90caf9; border-color: #1e3a5f; }
+      .disability-hearing { background: #1c0a2e; color: #ce93d8; border-color: #4a1a6e; }
+      .disability-motor   { background: #0a2818; color: #a5d6a7; border-color: #1c5e38; }
+      .disability-cognitive { background: #2d0e00; color: #ffab91; border-color: #6b2100; }
+    }
+    [data-theme="dark"] .disability-visual  { background: #0d2340; color: #90caf9; border-color: #1e3a5f; }
+    [data-theme="dark"] .disability-hearing { background: #1c0a2e; color: #ce93d8; border-color: #4a1a6e; }
+    [data-theme="dark"] .disability-motor   { background: #0a2818; color: #a5d6a7; border-color: #1c5e38; }
+    [data-theme="dark"] .disability-cognitive { background: #2d0e00; color: #ffab91; border-color: #6b2100; }
+
+    .rule-content { padding: 1.5rem; border-top: 1px solid var(--border); }
+    .rule-details { margin-bottom: 1.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .example-list { margin-top: 1rem; }
+    .example-item { 
+      border-left: 4px solid var(--primary); 
+      background: var(--code-bg); 
+      padding: 1rem; 
+      margin-bottom: 1rem; 
+      font-size: 0.85rem;
+      color: var(--text);
+    }
+    .example-detail { display: grid; grid-template-columns: max-content 1fr; gap: 0.4rem 1rem; margin: 0; font-family: monospace; }
+    .example-detail dt { font-family: sans-serif; font-weight: 600; color: var(--muted); white-space: nowrap; }
+    .example-detail dd { margin: 0; word-break: break-all; white-space: pre-wrap; }
+    .example-detail .example-url { font-family: sans-serif; }
+    .example-detail .example-fix { font-family: sans-serif; white-space: pre-wrap; }
+    .example-detail ul { margin: 0; padding-left: 1.5rem; }
+    .example-code { color: var(--code-color); }
+
+    /* Priority table */
+    .priority-section { margin-bottom: 2rem; padding: 1.5rem; border: 1px solid var(--border); border-radius: 6px; background: var(--surface); }
+    .priority-section h2 { font-size: 1.25rem; margin-bottom: 0.5rem; }
+    .priority-section > p { color: var(--muted); font-size: 0.9rem; margin-bottom: 1rem; }
+    .table-wrapper { overflow-x: auto; }
+    .priority-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+    .priority-table th { background: var(--bar-bg); padding: 0.6rem 0.8rem; text-align: left; font-weight: 600; border-bottom: 2px solid var(--border); white-space: nowrap; }
+    .show-all-pages-wrapper { margin-top: 0.75rem; text-align: center; }
+    .btn-show-all-pages { background: var(--container-bg); color: var(--primary); border: 1px solid var(--primary); border-radius: 6px; padding: 0.4rem 1rem; font-size: 0.85rem; font-weight: 600; cursor: pointer; }
+    .btn-show-all-pages:hover { background: var(--hover-bg); }
+    .btn-show-all-pages:focus { outline: 2px solid var(--primary); outline-offset: 2px; }
+    .priority-table td { padding: 0.5rem 0.8rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
+    .priority-table tr:last-child td { border-bottom: none; }
+    .priority-table tr:hover td { background: var(--hover-bg); }
+    .count-cell { text-align: right; }
+    .count-zero { color: var(--muted); }
+    .count-total { text-align: right; }
+    .count-btn {
+      background: none;
+      border: 1px solid transparent;
+      border-radius: 4px;
+      padding: 0.2rem 0.6rem;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--primary);
+      min-width: 2.5rem;
+      text-align: right;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .count-btn:hover { background: var(--hover-bg); border-color: var(--primary); }
+    .count-btn:focus { outline: 2px solid var(--primary); outline-offset: 2px; }
+    .count-btn.active-filter { background: var(--primary); color: var(--badge-count-text); border-color: var(--primary); }
+    .page-link { font-weight: 500; }
+    .page-title-text { display: block; font-size: 0.8rem; color: var(--muted); max-width: 280px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+    /* Accordion sections for per-engine issue groups */
+    .accordion-section {
+      margin: 1.5rem 0;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .accordion-header {
+      padding: 1rem 1.25rem;
+      background: var(--surface);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      list-style: none;
+      font-weight: 600;
+    }
+    .accordion-header::-webkit-details-marker { display: none; }
+    .accordion-header::marker { content: none; }
+    .accordion-header::before {
+      content: '▶';
+      font-size: 0.7rem;
+      color: var(--muted);
+      flex-shrink: 0;
+      transition: transform 0.15s ease;
+      order: -1;
+    }
+    .accordion-section[open] > .accordion-header::before { transform: rotate(90deg); }
+    .accordion-section[open] > .accordion-header {
+      border-bottom: 1px solid var(--border);
+      border-radius: 6px 6px 0 0;
+    }
+    .accordion-header:hover { background: var(--hover-bg); }
+    .accordion-header:focus { outline: 2px solid var(--primary); outline-offset: -2px; }
+    .accordion-header h2 {
+      margin: 0;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text);
+      flex: 1;
+    }
+    .accordion-count {
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-weight: normal;
+      white-space: nowrap;
+    }
+    .accordion-content {
+      padding: 1rem 1.25rem;
+    }
+
+    /* Active filter banner */
+    .filter-banner {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      background: var(--filter-banner-bg);
+      border: 1px solid var(--filter-banner-border);
+      border-radius: 6px;
+      padding: 0.6rem 1rem;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+    }
+    .filter-banner.hidden { display: none !important; }
+    .filter-banner-text { flex: 1; }
+    .filter-banner-actions { display: flex; gap: 0.5rem; }
+    .btn { display: inline-flex; align-items: center; gap: 0.3rem; padding: 0.35rem 0.75rem; border-radius: 6px; font-size: 0.85rem; font-weight: 600; cursor: pointer; border: 1px solid; }
+    .btn:focus { outline: 2px solid var(--primary); outline-offset: 2px; }
+    .btn-clear { background: var(--container-bg); color: var(--text); border-color: var(--border); }
+    .btn-clear:hover { background: var(--hover-bg); }
+    .btn-copy { background: var(--success); color: white; border-color: var(--success); }
+    .btn-copy:hover { background: #156b31; }
+    .btn-copy.copied { background: var(--muted); border-color: var(--muted); }
+
+    .hidden { display: none !important; }
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    footer {
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.875rem;
+    }
+
+    footer a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* ── Dark mode overrides for badge and button components with light-only colors ── */
+    @media (prefers-color-scheme: dark) {
+      .badge-engine { background: #0d2340; color: #79c0ff; border-color: #1e3a5f; }
+      .badge-level-a { background: #0a2818; color: #3fb950; border-color: #1c5e38; }
+      .badge-level-aa { background: #0d2340; color: #58a6ff; border-color: #1e3a5f; }
+      .badge-level-aaa { background: #1c1040; color: #d2a8ff; border-color: #403070; }
+      .badge-best-practice { background: #2d1e00; color: #e3b341; border-color: #5a3d00; }
+      .btn-copy:hover { background: #319b40; }
+    }
+    [data-theme="dark"] .badge-engine { background: #0d2340; color: #79c0ff; border-color: #1e3a5f; }
+    [data-theme="dark"] .badge-level-a { background: #0a2818; color: #3fb950; border-color: #1c5e38; }
+    [data-theme="dark"] .badge-level-aa { background: #0d2340; color: #58a6ff; border-color: #1e3a5f; }
+    [data-theme="dark"] .badge-level-aaa { background: #1c1040; color: #d2a8ff; border-color: #403070; }
+    [data-theme="dark"] .badge-best-practice { background: #2d1e00; color: #e3b341; border-color: #5a3d00; }
+    [data-theme="dark"] .btn-copy:hover { background: #319b40; }
+
+    @media print {
+      body::before {
+        content: "Please do not print this report. Use the interactive digital version for full details.";
+        display: block;
+        background: #fff3cd;
+        padding: 1rem;
+        border: 1px solid #ffeeba;
+        margin-bottom: 2rem;
+        font-weight: bold;
+        text-align: center;
+      }
+      .nav, .filters, .nav-item, .priority-section, .filter-banner, #theme-toggle, .skip-link, .anchor-link { display: none; }
+      details { border: none; }
+      summary { background: none; padding: 0.5rem 0; border-bottom: 1px solid var(--border); }
+      .container { box-shadow: none; max-width: none; width: 100%; padding: 0; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div class="container" id="main-content" tabindex="-1">
+    <header>
+      <div class="header-content">
+        <h1>Accessibility Scan Report</h1>
+        <div class="meta">
+          <span><strong>Title:</strong> GitHub Pages accessibility check</span>
+          <span><strong>Issue:</strong> <a href="https://github.com/mgifford/open-scans/actions/runs/23163875720" target="_blank">#13</a></span>
+          <span><strong>Date:</strong> 3/16/2026, 8:15:58 PM</span>
+          <span><strong>Duration:</strong> 0.1m</span>
+          <span><strong>URLs:</strong> 1 / 1</span>
+          
+        </div>
+      </div>
+      <!-- Theme toggle: placed after header content for correct tab order -->
+      <button id="theme-toggle" aria-label="Switch to dark mode">
+        <svg aria-hidden="true" class="theme-icon sun-icon" viewBox="0 0 24 24" width="20" height="20">
+          <circle cx="12" cy="12" r="5" fill="currentColor"/>
+          <path fill="currentColor" d="M12 1v3M12 20v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M1 12h3M20 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <svg aria-hidden="true" class="theme-icon moon-icon" viewBox="0 0 24 24" width="20" height="20">
+          <path fill="currentColor" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+        </svg>
+      </button>
+    </header>
+
+    <section aria-labelledby="section-summary">
+      <h2 id="section-summary" class="section-heading" tabindex="-1">
+        Summary
+        <a href="#section-summary" class="anchor-link" aria-label="Link to Summary section">
+          <span aria-hidden="true">#</span>
+        </a>
+      </h2>
+      <div class="dashboard">
+        <div class="card card-issues-overview">
+          <h3>Issues</h3>
+          <ul class="issues-breakdown" aria-label="Issues breakdown by WCAG level, version, and category">
+            <li>
+              <strong>By Level:</strong>
+              A (0), AA (0)
+            </li>
+            <li>
+              <strong>By Version (A &amp; AA):</strong>
+              WCAG 2.0 (0)
+            </li>
+            <li>
+              <strong>By Category:</strong>
+              axe-strict (5)
+            </li>
+            <li>
+              <strong>Total: <span class="stat-inline" aria-label="5 total issues">5</span></strong>
+              across 2 unique rules &amp; 1 accessibility engine
+            </li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>By Severity</h3>
+          <div class="bar-chart" role="list" aria-label="Issues by severity">
+            
+                <div class="bar-item" role="listitem">
+                  <span class="bar-label severity-Critical">Critical</span>
+                  <div class="bar-container" role="img" aria-label="Critical: 0 issues, 0% of maximum"><div class="bar-fill" style="width: 0%; background-color: var(--critical)"></div></div>
+                  <span aria-hidden="true">0</span>
+                </div>
+              
+                <div class="bar-item" role="listitem">
+                  <span class="bar-label severity-Serious">Serious</span>
+                  <div class="bar-container" role="img" aria-label="Serious: 0 issues, 0% of maximum"><div class="bar-fill" style="width: 0%; background-color: var(--serious)"></div></div>
+                  <span aria-hidden="true">0</span>
+                </div>
+              
+                <div class="bar-item" role="listitem">
+                  <span class="bar-label severity-Moderate">Moderate</span>
+                  <div class="bar-container" role="img" aria-label="Moderate: 5 issues, 100% of maximum"><div class="bar-fill" style="width: 100%; background-color: var(--moderate)"></div></div>
+                  <span aria-hidden="true">5</span>
+                </div>
+              
+                <div class="bar-item" role="listitem">
+                  <span class="bar-label severity-Minor">Minor</span>
+                  <div class="bar-container" role="img" aria-label="Minor: 0 issues, 0% of maximum"><div class="bar-fill" style="width: 0%; background-color: var(--minor)"></div></div>
+                  <span aria-hidden="true">0</span>
+                </div>
+              
+          </div>
+        </div>
+        <div class="card">
+          <h3>By Role</h3>
+          <div class="bar-chart" role="list" aria-label="Issues by role">
+            
+                <div class="bar-item" role="listitem">
+                  <span class="bar-label">UX Designer</span>
+                  <div class="bar-container" role="img" aria-label="UX Designer: 0 issues, 0% of maximum"><div class="bar-fill" style="width: 0%"></div></div>
+                  <span aria-hidden="true">0</span>
+                </div>
+              
+                <div class="bar-item" role="listitem">
+                  <span class="bar-label">Visual Designer</span>
+                  <div class="bar-container" role="img" aria-label="Visual Designer: 0 issues, 0% of maximum"><div class="bar-fill" style="width: 0%"></div></div>
+                  <span aria-hidden="true">0</span>
+                </div>
+              
+                <div class="bar-item" role="listitem">
+                  <span class="bar-label">Content Author</span>
+                  <div class="bar-container" role="img" aria-label="Content Author: 0 issues, 0% of maximum"><div class="bar-fill" style="width: 0%"></div></div>
+                  <span aria-hidden="true">0</span>
+                </div>
+              
+                <div class="bar-item" role="listitem">
+                  <span class="bar-label">Front-End Developer</span>
+                  <div class="bar-container" role="img" aria-label="Front-End Developer: 5 issues, 100% of maximum"><div class="bar-fill" style="width: 100%"></div></div>
+                  <span aria-hidden="true">5</span>
+                </div>
+              
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="section-issues">
+      <h2 id="section-issues" class="section-heading" tabindex="-1">
+        Issues
+        <a href="#section-issues" class="anchor-link" aria-label="Link to Issues section">
+          <span aria-hidden="true">#</span>
+        </a>
+      </h2>
+
+      
+    <section class="priority-section" aria-labelledby="priority-heading">
+      <h2 id="priority-heading">🎯 Pages with Most Errors</h2>
+      <p>Focus your efforts on these pages to make the biggest impact. Click any error count to filter the rule list below.</p>
+      <div class="table-wrapper" role="region" aria-label="Pages with most errors" tabindex="0">
+        <table class="priority-table" aria-label="Pages sorted by total unique accessibility errors">
+          <thead>
+            <tr>
+              <th scope="col">Page</th>
+              <th scope="col">axe Unique</th>
+              <th scope="col">Total Unique</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>
+                  <a href="https://mgifford.github.io/open-scans/" target="_blank" rel="noopener" title="Open Scans - Free Automated Accessibility Scanning" class="page-link">
+                    View Page
+                  </a>
+                  <span class="page-title-text">Open Scans - Free Automated Accessibility Scanning</span>
+                </td>
+                <td class="count-cell">
+                    <button class="count-btn" 
+                            data-page-url="https://mgifford.github.io/open-scans/"
+                            data-engine="axe"
+                            data-engine-label="axe"
+                            aria-label="Filter: 5 axe errors on Open Scans - Free Automated Accessibility Scanning"
+                            title="Click to filter rules for this page and scanner">
+                      5
+                    </button>
+                  </td>
+                <td class="count-total"><strong>5</strong></td>
+              </tr>
+          </tbody>
+        </table>
+      </div>
+      
+    </section>
+  
+
+      
+    <div class="filters" id="rule-filters" role="search" aria-label="Filter accessibility rules">
+      <div class="filter-group">
+        <label for="filter-type" class="filter-label">Type:</label>
+        <select id="filter-type" aria-label="Filter by requirement type">
+          <option value="all">All</option>
+          <option value="wcag">WCAG Requirements</option>
+          <option value="best-practice">Best Practices</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label for="filter-level" class="filter-label">WCAG Level:</label>
+        <select id="filter-level" aria-label="Filter by WCAG conformance level">
+          <option value="all">All Levels</option>
+          <option value="A">Level A only</option>
+          <option value="A+AA">A &amp; AA</option>
+          <option value="A+AA+AAA">A, AA &amp; AAA</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label for="filter-version" class="filter-label">WCAG Version:</label>
+        <select id="filter-version" aria-label="Filter by WCAG version">
+          <option value="all">All Versions</option>
+          <option value="2.0">WCAG 2.0</option>
+          <option value="2.1">WCAG 2.1</option>
+          <option value="2.2">WCAG 2.2</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label for="filter-engine" class="filter-label">Engine:</label>
+        <select id="filter-engine" aria-label="Filter by accessibility engine">
+          <option value="all">All Engines</option><option value="axe">axe</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label for="filter-disability" class="filter-label">Disability:</label>
+        <select id="filter-disability" aria-label="Filter by disability category affected">
+          <option value="all">All Disabilities</option>
+          <option value="visual">Visual</option>
+          <option value="hearing">Hearing</option>
+          <option value="motor">Motor</option>
+          <option value="cognitive">Cognitive</option>
+        </select>
+      </div>
+      <button class="btn btn-clear" id="clear-rule-filters" type="button" hidden>Clear Filters</button>
+      <span id="filter-rule-count" class="filter-count-text" aria-live="polite" aria-atomic="true"></span>
+    </div>
+
+      
+      <details class="accordion-section" id="accordion-axe">
+        <summary class="accordion-header">
+          <h2>🔧 Most Common Issues (axe)</h2>
+          <span class="accordion-count">2 rules</span>
+        </summary>
+        <div class="accordion-content rule-list">
+          
+      <details class="rule-card"
+               id="rule-axe-region"
+               data-roles='["Front-End Developer"]'
+               data-severity="Moderate"
+               data-engine="axe"
+               data-page-urls='["https://mgifford.github.io/open-scans/"]'
+               data-wcag-level=""
+               data-wcag-version=""
+               data-disabilities='[]'
+               data-search="region ">
+        <summary>
+          <div class="rule-summary-info">
+            <span class="badge badge-count">4</span>
+            <span class="badge badge-severity severity-Moderate">Moderate</span>
+            <span class="badge badge-engine">axe</span>
+            
+            
+            <span>
+              <strong>region</strong>: 
+              <a href="#rule-axe-region" class="anchor-link anchor-link-inline" aria-label="Link to region rule">
+                <span aria-hidden="true">#</span>
+              </a>
+            </span>
+          </div>
+          <div class="pages-affected">
+            1 pages affected
+          </div>
+        </summary>
+        <div class="rule-content">
+          <div class="rule-details">
+            <div>
+              <h4>Rule Information</h4>
+              <p><strong>Engine:</strong> axe</p>
+              <p><strong>Roles:</strong> Front-End Developer</p>
+              <p><strong>Blocking:</strong> No</p>
+              
+              
+            </div>
+            <div>
+              <h4>Affected Pages</h4>
+              <ul style="max-height: 150px; overflow-y: auto; font-size: 0.85rem;">
+                
+                  <li><a href="https://mgifford.github.io/open-scans/" target="_blank">https://mgifford.github.io/open-scans/</a> (4 occurrences)</li>
+                
+              </ul>
+            </div>
+          </div>
+          <h4>Examples</h4>
+          <div class="example-list">
+            
+              <div class="example-item"
+                   data-copy-rule-id="region"
+                   data-copy-rule-url="https://dequeuniversity.com/rules/axe/4.11/region?application=playwright"
+                   data-copy-desc=""
+                   data-copy-engine="axe"
+                   data-copy-wcag-scs="[]"
+                   data-copy-page-url="https://mgifford.github.io/open-scans/"
+                   data-copy-html="&lt;h1&gt;Submit URLs for Accessibility Scanning&lt;/h1&gt;"
+                   data-copy-xpath="h1"
+                   data-copy-message="All page content should be contained by landmarks">
+                <div class="example-meta">
+                  <span>Example 1</span>
+                  <a href="https://mgifford.github.io/open-scans/" target="_blank" style="font-size: 0.75rem;">View on Page</a>
+                  <button class="btn btn-copy btn-copy-failure" type="button" aria-label="Copy failure details for example 1 to clipboard">
+                    📋 Copy failure details
+                  </button>
+                </div>
+                <div style="margin-bottom: 0.5rem; font-weight: 600;">All page content should be contained by landmarks</div>
+                <div class="example-mode">
+                  <strong>Mode:</strong> <span class="badge badge-light">light</span>
+                </div>
+                <div class="example-code">&lt;h1&gt;Submit URLs for Accessibility Scanning&lt;/h1&gt;</div>
+                <div class="example-xpath">XPath: h1</div>
+              </div>
+            
+              <div class="example-item"
+                   data-copy-rule-id="region"
+                   data-copy-rule-url="https://dequeuniversity.com/rules/axe/4.11/region?application=playwright"
+                   data-copy-desc=""
+                   data-copy-engine="axe"
+                   data-copy-wcag-scs="[]"
+                   data-copy-page-url="https://mgifford.github.io/open-scans/"
+                   data-copy-html="&lt;p class=&quot;subtitle&quot;&gt;Enter up to 500 URLs to scan for accessibility issues using multiple WCAG 2.2 checking engines&lt;/p&gt;"
+                   data-copy-xpath=".subtitle"
+                   data-copy-message="All page content should be contained by landmarks">
+                <div class="example-meta">
+                  <span>Example 2</span>
+                  <a href="https://mgifford.github.io/open-scans/" target="_blank" style="font-size: 0.75rem;">View on Page</a>
+                  <button class="btn btn-copy btn-copy-failure" type="button" aria-label="Copy failure details for example 2 to clipboard">
+                    📋 Copy failure details
+                  </button>
+                </div>
+                <div style="margin-bottom: 0.5rem; font-weight: 600;">All page content should be contained by landmarks</div>
+                <div class="example-mode">
+                  <strong>Mode:</strong> <span class="badge badge-light">light</span>
+                </div>
+                <div class="example-code">&lt;p class=&quot;subtitle&quot;&gt;Enter up to 500 URLs to scan for accessibility issues using multiple WCAG 2.2 checking engines&lt;/p&gt;</div>
+                <div class="example-xpath">XPath: .subtitle</div>
+              </div>
+            
+              <div class="example-item"
+                   data-copy-rule-id="region"
+                   data-copy-rule-url="https://dequeuniversity.com/rules/axe/4.11/region?application=playwright"
+                   data-copy-desc=""
+                   data-copy-engine="axe"
+                   data-copy-wcag-scs="[]"
+                   data-copy-page-url="https://mgifford.github.io/open-scans/"
+                   data-copy-html="&lt;div class=&quot;form-group&quot;&gt;"
+                   data-copy-xpath=".form-group:nth-child(1)"
+                   data-copy-message="All page content should be contained by landmarks">
+                <div class="example-meta">
+                  <span>Example 3</span>
+                  <a href="https://mgifford.github.io/open-scans/" target="_blank" style="font-size: 0.75rem;">View on Page</a>
+                  <button class="btn btn-copy btn-copy-failure" type="button" aria-label="Copy failure details for example 3 to clipboard">
+                    📋 Copy failure details
+                  </button>
+                </div>
+                <div style="margin-bottom: 0.5rem; font-weight: 600;">All page content should be contained by landmarks</div>
+                <div class="example-mode">
+                  <strong>Mode:</strong> <span class="badge badge-light">light</span>
+                </div>
+                <div class="example-code">&lt;div class=&quot;form-group&quot;&gt;</div>
+                <div class="example-xpath">XPath: .form-group:nth-child(1)</div>
+              </div>
+            
+              <div class="example-item"
+                   data-copy-rule-id="region"
+                   data-copy-rule-url="https://dequeuniversity.com/rules/axe/4.11/region?application=playwright"
+                   data-copy-desc=""
+                   data-copy-engine="axe"
+                   data-copy-wcag-scs="[]"
+                   data-copy-page-url="https://mgifford.github.io/open-scans/"
+                   data-copy-html="&lt;div class=&quot;form-group&quot;&gt;"
+                   data-copy-xpath=".form-group:nth-child(2)"
+                   data-copy-message="All page content should be contained by landmarks">
+                <div class="example-meta">
+                  <span>Example 4</span>
+                  <a href="https://mgifford.github.io/open-scans/" target="_blank" style="font-size: 0.75rem;">View on Page</a>
+                  <button class="btn btn-copy btn-copy-failure" type="button" aria-label="Copy failure details for example 4 to clipboard">
+                    📋 Copy failure details
+                  </button>
+                </div>
+                <div style="margin-bottom: 0.5rem; font-weight: 600;">All page content should be contained by landmarks</div>
+                <div class="example-mode">
+                  <strong>Mode:</strong> <span class="badge badge-light">light</span>
+                </div>
+                <div class="example-code">&lt;div class=&quot;form-group&quot;&gt;</div>
+                <div class="example-xpath">XPath: .form-group:nth-child(2)</div>
+              </div>
+            
+          </div>
+        </div>
+      </details>
+    
+      <details class="rule-card"
+               id="rule-axe-landmark-one-main"
+               data-roles='["Front-End Developer"]'
+               data-severity="Moderate"
+               data-engine="axe"
+               data-page-urls='["https://mgifford.github.io/open-scans/"]'
+               data-wcag-level=""
+               data-wcag-version=""
+               data-disabilities='[]'
+               data-search="landmark-one-main ">
+        <summary>
+          <div class="rule-summary-info">
+            <span class="badge badge-count">1</span>
+            <span class="badge badge-severity severity-Moderate">Moderate</span>
+            <span class="badge badge-engine">axe</span>
+            
+            
+            <span>
+              <strong>landmark-one-main</strong>: 
+              <a href="#rule-axe-landmark-one-main" class="anchor-link anchor-link-inline" aria-label="Link to landmark-one-main rule">
+                <span aria-hidden="true">#</span>
+              </a>
+            </span>
+          </div>
+          <div class="pages-affected">
+            1 pages affected
+          </div>
+        </summary>
+        <div class="rule-content">
+          <div class="rule-details">
+            <div>
+              <h4>Rule Information</h4>
+              <p><strong>Engine:</strong> axe</p>
+              <p><strong>Roles:</strong> Front-End Developer</p>
+              <p><strong>Blocking:</strong> No</p>
+              
+              
+            </div>
+            <div>
+              <h4>Affected Pages</h4>
+              <ul style="max-height: 150px; overflow-y: auto; font-size: 0.85rem;">
+                
+                  <li><a href="https://mgifford.github.io/open-scans/" target="_blank">https://mgifford.github.io/open-scans/</a> (1 occurrences)</li>
+                
+              </ul>
+            </div>
+          </div>
+          <h4>Examples</h4>
+          <div class="example-list">
+            
+              <div class="example-item"
+                   data-copy-rule-id="landmark-one-main"
+                   data-copy-rule-url="https://dequeuniversity.com/rules/axe/4.11/landmark-one-main?application=playwright"
+                   data-copy-desc=""
+                   data-copy-engine="axe"
+                   data-copy-wcag-scs="[]"
+                   data-copy-page-url="https://mgifford.github.io/open-scans/"
+                   data-copy-html="&lt;html lang=&quot;en&quot;&gt;"
+                   data-copy-xpath="html"
+                   data-copy-message="Document should have one main landmark">
+                <div class="example-meta">
+                  <span>Example 1</span>
+                  <a href="https://mgifford.github.io/open-scans/" target="_blank" style="font-size: 0.75rem;">View on Page</a>
+                  <button class="btn btn-copy btn-copy-failure" type="button" aria-label="Copy failure details for example 1 to clipboard">
+                    📋 Copy failure details
+                  </button>
+                </div>
+                <div style="margin-bottom: 0.5rem; font-weight: 600;">Document should have one main landmark</div>
+                <div class="example-mode">
+                  <strong>Mode:</strong> <span class="badge badge-light">light</span>
+                </div>
+                <div class="example-code">&lt;html lang=&quot;en&quot;&gt;</div>
+                <div class="example-xpath">XPath: html</div>
+              </div>
+            
+          </div>
+        </div>
+      </details>
+    
+        </div>
+      </details>
+      
+    </section>
+
+    <footer>
+      <p>Generated by <a href="https://github.com/mgifford/open-scans" target="_blank" rel="noopener noreferrer">open-scans</a> — an open-source accessibility scanning tool.</p>
+    </footer>
+  </div>
+
+  <script>
+    // ── Theme toggle ──
+    const themeToggle = document.getElementById('theme-toggle');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+    const savedTheme = localStorage.getItem('report-theme');
+    let currentTheme;
+    let userOverride = false;
+
+    if (savedTheme) {
+      currentTheme = savedTheme;
+      userOverride = true;
+    } else {
+      currentTheme = prefersDark.matches ? 'dark' : 'light';
+    }
+
+    function applyTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      themeToggle.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+    }
+
+    themeToggle.addEventListener('click', () => {
+      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+      currentTheme = newTheme;
+      userOverride = true;
+      localStorage.setItem('report-theme', newTheme);
+      applyTheme(newTheme);
+    });
+
+    prefersDark.addEventListener('change', (e) => {
+      if (!userOverride) {
+        currentTheme = e.matches ? 'dark' : 'light';
+        applyTheme(currentTheme);
+      }
+    });
+
+    applyTheme(currentTheme);
+
+    // ── Filters / tabs ──
+
+    // Priority table click handler: open and scroll to the relevant engine accordion
+    document.addEventListener('click', (e) => {
+      const btn = e.target.closest('.count-btn');
+      if (!btn) return;
+      const engine = btn.dataset.engine;
+      if (!engine) return;
+
+      // Toggle active state on the button
+      const wasActive = btn.classList.contains('active-filter');
+      document.querySelectorAll('.count-btn.active-filter').forEach(b => b.classList.remove('active-filter'));
+
+      if (!wasActive) {
+        btn.classList.add('active-filter');
+        const accordion = document.getElementById('accordion-' + engine);
+        if (accordion) {
+          accordion.setAttribute('open', '');
+          accordion.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+    });
+
+    // ── Show all / Show fewer pages toggle ──
+    const showAllBtn = document.getElementById('show-all-pages-btn');
+    if (showAllBtn) {
+      showAllBtn.addEventListener('click', () => {
+        const expanded = showAllBtn.getAttribute('aria-expanded') === 'true';
+        const extraRows = document.querySelectorAll('.priority-row-extra');
+        if (expanded) {
+          extraRows.forEach(row => { row.hidden = true; });
+          showAllBtn.setAttribute('aria-expanded', 'false');
+          showAllBtn.textContent = 'Show all ' + (extraRows.length + 10) + ' pages';
+        } else {
+          extraRows.forEach(row => { row.hidden = false; });
+          showAllBtn.setAttribute('aria-expanded', 'true');
+          showAllBtn.textContent = 'Show fewer pages';
+        }
+      });
+    }
+
+    // ── Rule card filtering ──
+    const filterTypeEl = document.getElementById('filter-type');
+    const filterLevelEl = document.getElementById('filter-level');
+    const filterVersionEl = document.getElementById('filter-version');
+    const filterEngineEl = document.getElementById('filter-engine');
+    const filterDisabilityEl = document.getElementById('filter-disability');
+    const clearRuleFiltersBtn = document.getElementById('clear-rule-filters');
+    const filterRuleCountEl = document.getElementById('filter-rule-count');
+
+    function applyRuleFilters() {
+      const type = filterTypeEl.value;
+      const level = filterLevelEl.value;
+      const version = filterVersionEl.value;
+      const engine = filterEngineEl.value;
+      const disability = filterDisabilityEl.value;
+
+      const allCards = document.querySelectorAll('.rule-card');
+      let visibleCount = 0;
+
+      allCards.forEach(card => {
+        const cardEngine = card.dataset.engine || '';
+        const cardLevel = card.dataset.wcagLevel || '';
+        const cardVersion = card.dataset.wcagVersion || '';
+        const isBestPractice = cardLevel === 'best-practice';
+        let cardDisabilities = [];
+        try { cardDisabilities = JSON.parse(card.dataset.disabilities || '[]'); } catch (e) {}
+
+        let visible = true;
+
+        // Engine filter
+        if (engine !== 'all' && cardEngine !== engine) visible = false;
+
+        // Type filter
+        if (visible && type === 'wcag' && isBestPractice) visible = false;
+        if (visible && type === 'best-practice' && !isBestPractice) visible = false;
+
+        // Level filter (only meaningful for WCAG requirements, not best practices)
+        if (visible && level !== 'all' && !isBestPractice) {
+          if (level === 'A' && cardLevel !== 'A') visible = false;
+          if (level === 'A+AA' && cardLevel !== 'A' && cardLevel !== 'AA') visible = false;
+          // 'A+AA+AAA' includes A, AA, and AAA — any known WCAG level passes
+        }
+
+        // Version filter (only for WCAG requirements with a known version)
+        if (visible && version !== 'all' && !isBestPractice && cardVersion !== '') {
+          if (version === '2.0' && cardVersion !== '2.0') visible = false;
+          else if (version === '2.1' && cardVersion !== '2.0' && cardVersion !== '2.1') visible = false;
+          // '2.2' shows all
+        }
+
+        // Disability filter
+        if (visible && disability !== 'all' && !cardDisabilities.includes(disability)) visible = false;
+
+        card.style.display = visible ? '' : 'none';
+        if (visible) visibleCount++;
+      });
+
+      // Hide accordion sections that have no visible rule cards
+      document.querySelectorAll('.accordion-section').forEach(section => {
+        const sectionCards = section.querySelectorAll('.rule-card');
+        const hasVisible = Array.from(sectionCards).some(c => c.style.display !== 'none');
+        section.style.display = hasVisible ? '' : 'none';
+      });
+
+      // Update live count text
+      const total = allCards.length;
+      const hasActiveFilters = type !== 'all' || level !== 'all' || version !== 'all' || engine !== 'all' || disability !== 'all';
+      filterRuleCountEl.textContent = hasActiveFilters
+        ? `Showing ${visibleCount} of ${total} rules`
+        : '';
+      clearRuleFiltersBtn.hidden = !hasActiveFilters;
+    }
+
+    [filterTypeEl, filterLevelEl, filterVersionEl, filterEngineEl, filterDisabilityEl].forEach(el => {
+      el.addEventListener('change', applyRuleFilters);
+    });
+
+    clearRuleFiltersBtn.addEventListener('click', () => {
+      filterTypeEl.value = 'all';
+      filterLevelEl.value = 'all';
+      filterVersionEl.value = 'all';
+      filterEngineEl.value = 'all';
+      filterDisabilityEl.value = 'all';
+      applyRuleFilters();
+    });
+
+    // ── Copy failure details ──
+    const SCAN_TITLE = "GitHub Pages accessibility check";
+    const ENGINE_DISPLAY_LABELS = { axe: 'axe-core', alfa: 'ALFA', equalAccess: 'Equal Access', accesslint: 'AccessLint', qualweb: 'QualWeb' };
+
+    function getEnvironment() {
+      const ua = navigator.userAgent;
+      const edgeMatch = ua.match(/Edg\/([d.]+)/);
+      const chromeMatch = ua.match(/Chrome\/([d.]+)/);
+      const firefoxMatch = ua.match(/Firefox\/([d.]+)/);
+      const safariMatch = ua.match(/Version\/([d.]+).*Safari/);
+      if (edgeMatch) return `Microsoft Edge version ${edgeMatch[1]}`;
+      if (chromeMatch) return `Chrome version ${chromeMatch[1]}`;
+      if (firefoxMatch) return `Firefox version ${firefoxMatch[1]}`;
+      if (safariMatch) return `Safari version ${safariMatch[1]}`;
+      return ua;
+    }
+
+    function buildFailureDetails(el) {
+      const ruleId = el.dataset.copyRuleId || '';
+      const ruleUrl = el.dataset.copyRuleUrl || '';
+      const desc = el.dataset.copyDesc || '';
+      const engine = el.dataset.copyEngine || '';
+      let wcagScs = [];
+      try { wcagScs = JSON.parse(el.dataset.copyWcagScs || '[]'); } catch (e) {}
+      const pageUrl = el.dataset.copyPageUrl || '';
+      const html = el.dataset.copyHtml || '';
+      const xpath = el.dataset.copyXpath || '';
+      const message = el.dataset.copyMessage || '';
+
+      // Extract element ID from xpath (first token if starts with #)
+      const xpathTrimmed = xpath.trimStart();
+      const elementId = xpathTrimmed.startsWith('#') ? xpathTrimmed.split(/\s/)[0] : '';
+      const titleSuffix = elementId ? ` (${elementId})` : '';
+
+      // Build WCAG prefix for title (first SC only)
+      const wcagPrefix = wcagScs.length > 0 ? `WCAG ${wcagScs[0]}: ` : '';
+      const title = `${wcagPrefix}${desc}${titleSuffix}`;
+      const wcagTags = wcagScs.map(sc => `WCAG ${sc}`);
+      const tags = ['Accessibility', ...wcagTags, ruleId].filter(Boolean).join(', ');
+      const issueText = ruleUrl
+        ? `${desc} (${ruleId} - ${ruleUrl} )`
+        : (ruleId ? `${desc} (${ruleId})` : desc);
+      const engineLabel = ENGINE_DISPLAY_LABELS[engine] || engine;
+
+      return [
+        `Title: ${title}`,
+        `Tags: ${tags}`,
+        '',
+        `Issue: ${issueText}`,
+        '',
+        `Target application: ${SCAN_TITLE} - ${pageUrl}`,
+        '',
+        `Element path: ${xpath}`,
+        '',
+        `Snippet: ${html}`,
+        '',
+        'Related paths: ',
+        '',
+        'How to fix: ',
+        message,
+        '',
+        `Environment: ${getEnvironment()}`,
+        '',
+        '====',
+        '',
+        `This accessibility issue was found using ${engineLabel} and https://github.com/mgifford/open-scans/`
+      ].join('\n');
+    }
+
+    document.addEventListener('click', (e) => {
+      const btn = e.target.closest('.btn-copy-failure');
+      if (!btn) return;
+      const exampleItem = btn.closest('.example-item');
+      if (!exampleItem) return;
+
+      const text = buildFailureDetails(exampleItem);
+      const originalLabel = btn.getAttribute('aria-label');
+
+      function showCopied() {
+        btn.textContent = '✅ Copied!';
+        btn.classList.add('copied');
+        btn.setAttribute('aria-label', 'Copied to clipboard');
+        setTimeout(() => {
+          btn.innerHTML = '📋 Copy failure details';
+          btn.classList.remove('copied');
+          btn.setAttribute('aria-label', originalLabel);
+        }, 2000);
+      }
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(showCopied).catch(() => {
+          fallbackCopy(text);
+          showCopied();
+        });
+      } else {
+        fallbackCopy(text);
+        showCopied();
+      }
+    });
+
+    function fallbackCopy(text) {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.cssText = 'position:fixed;opacity:0;pointer-events:none;';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); } catch (e) {}
+      document.body.removeChild(ta);
+    }
+  </script>
+</body>
+</html>

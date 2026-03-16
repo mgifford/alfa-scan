@@ -1,0 +1,369 @@
+{
+  "issueNumber": 13,
+  "issueUrl": "https://github.com/mgifford/open-scans/actions/runs/23163875720",
+  "issueTitle": "SCAN: AXE GitHub Pages accessibility check",
+  "scanTitle": "GitHub Pages accessibility check",
+  "submittedBy": "github-actions[bot]",
+  "engines": [
+    "axe"
+  ],
+  "scannedAt": "2026-03-16T20:15:58.766Z",
+  "totalElapsedMs": 4459,
+  "totalSubmitted": 1,
+  "acceptedCount": 1,
+  "scannedCount": 1,
+  "skippedDueToTimeout": 0,
+  "skippedDueToErrAborted": 0,
+  "rejectedCount": 0,
+  "rejected": [],
+  "alfaTotals": {
+    "passed": 0,
+    "failed": 0,
+    "cantTell": 0,
+    "inapplicable": 0
+  },
+  "axeTotals": {
+    "passed": 64,
+    "failed": 5,
+    "cantTell": 0,
+    "inapplicable": 60
+  },
+  "equalAccessTotals": {
+    "passed": 0,
+    "failed": 0,
+    "uniqueFailed": 0,
+    "duplicates": 0,
+    "cantTell": 0,
+    "inapplicable": 0
+  },
+  "accesslintTotals": {
+    "passed": 0,
+    "failed": 0,
+    "uniqueFailed": 0,
+    "duplicates": 0,
+    "cantTell": 0,
+    "inapplicable": 0
+  },
+  "qualwebTotals": {
+    "passed": 0,
+    "failed": 0,
+    "cantTell": 0,
+    "inapplicable": 0
+  },
+  "duplicateFindingTotals": 0,
+  "darkModeUrlCount": 0,
+  "reducedMotionUrlCount": 0,
+  "highContrastUrlCount": 0,
+  "forcedColorsUrlCount": 0,
+  "reducedTransparencyUrlCount": 0,
+  "results": [
+    {
+      "submittedUrl": "https://mgifford.github.io/open-scans/",
+      "finalUrl": "https://mgifford.github.io/open-scans/",
+      "redirected": false,
+      "statusCode": 200,
+      "ok": true,
+      "contentType": "text/html; charset=utf-8",
+      "pageTitle": "Open Scans - Free Automated Accessibility Scanning",
+      "elapsedMs": 4451,
+      "error": null,
+      "alfa": {
+        "executed": false,
+        "error": "Skipped (not requested)",
+        "counts": {
+          "passed": 0,
+          "failed": 0,
+          "cantTell": 0,
+          "inapplicable": 0
+        },
+        "failedRules": [],
+        "passedRules": [],
+        "failures": [],
+        "outcomeCount": 0,
+        "uniqueFailedCount": 0,
+        "duplicateFailedCount": 0
+      },
+      "axe": {
+        "executed": true,
+        "error": null,
+        "counts": {
+          "passed": 64,
+          "failed": 5,
+          "cantTell": 0,
+          "inapplicable": 60
+        },
+        "failedRules": [
+          "landmark-one-main",
+          "region"
+        ],
+        "passedRules": [
+          "aria-allowed-attr",
+          "aria-conditional-attr",
+          "aria-hidden-body",
+          "aria-hidden-focus",
+          "aria-prohibited-attr",
+          "aria-valid-attr",
+          "aria-valid-attr-value",
+          "button-name",
+          "bypass",
+          "color-contrast",
+          "document-title",
+          "duplicate-id-aria",
+          "empty-heading",
+          "form-field-multiple-labels",
+          "heading-order",
+          "html-has-lang",
+          "html-lang-valid",
+          "label",
+          "label-title-only",
+          "landmark-contentinfo-is-top-level",
+          "landmark-no-duplicate-contentinfo",
+          "landmark-unique",
+          "link-name",
+          "meta-viewport",
+          "meta-viewport-large",
+          "nested-interactive",
+          "page-has-heading-one",
+          "region"
+        ],
+        "failures": [
+          {
+            "rule": "landmark-one-main",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/landmark-one-main?application=playwright",
+            "impact": "moderate",
+            "wcagSc": [],
+            "xpath": "html",
+            "html": "<html lang=\"en\">",
+            "message": "Document should have one main landmark",
+            "fixSummary": "Fix all of the following:\n  Document does not have a main landmark",
+            "relatedPaths": null,
+            "colorScheme": "light",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "region",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/region?application=playwright",
+            "impact": "moderate",
+            "wcagSc": [],
+            "xpath": "h1",
+            "html": "<h1>Submit URLs for Accessibility Scanning</h1>",
+            "message": "All page content should be contained by landmarks",
+            "fixSummary": "Fix any of the following:\n  Some page content is not contained by landmarks",
+            "relatedPaths": null,
+            "colorScheme": "light",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "region",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/region?application=playwright",
+            "impact": "moderate",
+            "wcagSc": [],
+            "xpath": ".subtitle",
+            "html": "<p class=\"subtitle\">Enter up to 500 URLs to scan for accessibility issues using multiple WCAG 2.2 checking engines</p>",
+            "message": "All page content should be contained by landmarks",
+            "fixSummary": "Fix any of the following:\n  Some page content is not contained by landmarks",
+            "relatedPaths": null,
+            "colorScheme": "light",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "region",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/region?application=playwright",
+            "impact": "moderate",
+            "wcagSc": [],
+            "xpath": ".form-group:nth-child(1)",
+            "html": "<div class=\"form-group\">",
+            "message": "All page content should be contained by landmarks",
+            "fixSummary": "Fix any of the following:\n  Some page content is not contained by landmarks",
+            "relatedPaths": null,
+            "colorScheme": "light",
+            "isDuplicate": false,
+            "duplicateOf": null
+          },
+          {
+            "rule": "region",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/region?application=playwright",
+            "impact": "moderate",
+            "wcagSc": [],
+            "xpath": ".form-group:nth-child(2)",
+            "html": "<div class=\"form-group\">",
+            "message": "All page content should be contained by landmarks",
+            "fixSummary": "Fix any of the following:\n  Some page content is not contained by landmarks",
+            "relatedPaths": null,
+            "colorScheme": "light",
+            "isDuplicate": false,
+            "duplicateOf": null
+          }
+        ],
+        "outcomeCount": 129,
+        "darkModeScanned": false,
+        "mediaQuerySupport": {
+          "darkMode": false,
+          "reducedMotion": false,
+          "highContrast": false,
+          "forcedColors": false,
+          "reducedTransparency": false
+        },
+        "duplicateFailedCount": 0,
+        "uniqueFailedCount": 5
+      },
+      "equalAccess": {
+        "executed": false,
+        "error": "Skipped (not requested)",
+        "counts": {
+          "passed": 0,
+          "failed": 0,
+          "cantTell": 0,
+          "inapplicable": 0
+        },
+        "failedRules": [],
+        "passedRules": [],
+        "failures": [],
+        "outcomeCount": 0,
+        "uniqueFailedCount": 0,
+        "duplicateFailedCount": 0
+      },
+      "accesslint": {
+        "executed": false,
+        "error": "Skipped (not requested)",
+        "counts": {
+          "passed": 0,
+          "failed": 0,
+          "cantTell": 0,
+          "inapplicable": 0
+        },
+        "failedRules": [],
+        "passedRules": [],
+        "failures": [],
+        "outcomeCount": 0,
+        "uniqueFailedCount": 0,
+        "duplicateFailedCount": 0
+      },
+      "qualweb": {
+        "executed": false,
+        "error": "Skipped (not requested)",
+        "counts": {
+          "passed": 0,
+          "failed": 0,
+          "cantTell": 0,
+          "inapplicable": 0
+        },
+        "failedRules": [],
+        "passedRules": [],
+        "failures": [],
+        "outcomeCount": 0,
+        "uniqueFailedCount": 0,
+        "duplicateFailedCount": 0
+      },
+      "duplicateFindingCount": 0
+    }
+  ],
+  "enhanced": {
+    "consolidatedFailures": [
+      {
+        "rule": "region",
+        "engine": "axe",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false,
+          "wcagCriteria": [],
+          "conformanceLevel": null
+        },
+        "wcag": {
+          "scs": [],
+          "level": null
+        },
+        "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/region?application=playwright",
+        "pages": {},
+        "totalOccurrences": 4,
+        "examples": [
+          {
+            "url": "https://mgifford.github.io/open-scans/",
+            "html": "<h1>Submit URLs for Accessibility Scanning</h1>",
+            "xpath": "h1",
+            "message": "All page content should be contained by landmarks",
+            "fixSummary": "Fix any of the following:\n  Some page content is not contained by landmarks",
+            "relatedPaths": null,
+            "colorScheme": "light"
+          },
+          {
+            "url": "https://mgifford.github.io/open-scans/",
+            "html": "<p class=\"subtitle\">Enter up to 500 URLs to scan for accessibility issues using multiple WCAG 2.2 checking engines</p>",
+            "xpath": ".subtitle",
+            "message": "All page content should be contained by landmarks",
+            "fixSummary": "Fix any of the following:\n  Some page content is not contained by landmarks",
+            "relatedPaths": null,
+            "colorScheme": "light"
+          },
+          {
+            "url": "https://mgifford.github.io/open-scans/",
+            "html": "<div class=\"form-group\">",
+            "xpath": ".form-group:nth-child(1)",
+            "message": "All page content should be contained by landmarks",
+            "fixSummary": "Fix any of the following:\n  Some page content is not contained by landmarks",
+            "relatedPaths": null,
+            "colorScheme": "light"
+          },
+          {
+            "url": "https://mgifford.github.io/open-scans/",
+            "html": "<div class=\"form-group\">",
+            "xpath": ".form-group:nth-child(2)",
+            "message": "All page content should be contained by landmarks",
+            "fixSummary": "Fix any of the following:\n  Some page content is not contained by landmarks",
+            "relatedPaths": null,
+            "colorScheme": "light"
+          }
+        ]
+      },
+      {
+        "rule": "landmark-one-main",
+        "engine": "axe",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false,
+          "wcagCriteria": [],
+          "conformanceLevel": null
+        },
+        "wcag": {
+          "scs": [],
+          "level": null
+        },
+        "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/landmark-one-main?application=playwright",
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://mgifford.github.io/open-scans/",
+            "html": "<html lang=\"en\">",
+            "xpath": "html",
+            "message": "Document should have one main landmark",
+            "fixSummary": "Fix all of the following:\n  Document does not have a main landmark",
+            "relatedPaths": null,
+            "colorScheme": "light"
+          }
+        ]
+      }
+    ],
+    "roleStats": {
+      "UX Designer": 0,
+      "Visual Designer": 0,
+      "Content Author": 0,
+      "Front-End Developer": 5
+    },
+    "severityStats": {
+      "Critical": 0,
+      "Serious": 0,
+      "Moderate": 5,
+      "Minor": 0
+    }
+  }
+}
