@@ -47,6 +47,60 @@ function splitUrls(rawText) {
     .filter(Boolean);
 }
 
+/**
+ * Extract URLs from HTML anchor href attributes, e.g. <a href="https://example.com">.
+ * @param {string} text - Text potentially containing HTML anchor tags
+ * @returns {string[]} Array of URLs found in href attributes
+ */
+function extractHrefUrls(text) {
+  const urls = [];
+  const pattern = /href=["']([^"']+)["']/g;
+  let match;
+  while ((match = pattern.exec(text)) !== null) {
+    urls.push(match[1]);
+  }
+  return urls;
+}
+
+/**
+ * Extract URLs from Markdown link syntax [text](URL).
+ * @param {string} text - Text potentially containing Markdown links
+ * @returns {string[]} Array of URLs found in Markdown links
+ */
+function extractMarkdownLinkUrls(text) {
+  const urls = [];
+  const pattern = /\[[^\]]*\]\(([^)\s"]+)(?:\s+"[^"]*")?\)/g;
+  let match;
+  while ((match = pattern.exec(text)) !== null) {
+    urls.push(match[1]);
+  }
+  return urls;
+}
+
+/**
+ * Unwrap a Google search wrapper URL to extract the actual target URL.
+ * Handles: https://www.google.com/search?q=https://example.com
+ * @param {string} url - Potentially a Google wrapper URL
+ * @returns {string} The actual URL, or the original if not a Google wrapper
+ */
+function unwrapGoogleUrl(url) {
+  try {
+    const parsed = new URL(url);
+    if (
+      (parsed.hostname === "www.google.com" || parsed.hostname === "google.com") &&
+      parsed.pathname === "/search"
+    ) {
+      const q = parsed.searchParams.get("q");
+      if (q && (q.startsWith("http://") || q.startsWith("https://"))) {
+        return q;
+      }
+    }
+  } catch {
+    // Not a valid URL — return unchanged
+  }
+  return url;
+}
+
 function extractSection(body, sectionName) {
   const sectionPattern = new RegExp(`(?:^|\\n)#{1,6}\\s*${sectionName}\\s*\\n([\\s\\S]*?)(?=\\n#{1,6}\\s|$)`, "i");
   const match = body.match(sectionPattern);
@@ -129,8 +183,37 @@ export function parseScanIssue(issueEvent) {
   const issueTitle = issue.title ?? "";
   const titleInfo = extractScanTitle(issueTitle);
   const urlsSection = extractSection(body, "URLs");
-  const fallbackUrls = splitUrls(body).filter((value) => value.startsWith("http://") || value.startsWith("https://"));
-  const requestedUrls = splitUrls(urlsSection).length > 0 ? splitUrls(urlsSection) : fallbackUrls;
+  
+  // Collect candidate URLs from all text formats present in the body,
+  // then unwrap Google search wrappers and deduplicate (preserving order).
+  const isHttpUrl = (v) => v.startsWith("http://") || v.startsWith("https://");
+  const plainBodyUrls = splitUrls(body).filter(isHttpUrl);
+  const hrefBodyUrls = extractHrefUrls(body).filter(isHttpUrl);
+  const mdLinkBodyUrls = extractMarkdownLinkUrls(body).filter(isHttpUrl);
+  const seenBody = new Set();
+  const fallbackUrls = [];
+  for (const raw of [...plainBodyUrls, ...hrefBodyUrls, ...mdLinkBodyUrls]) {
+    const url = unwrapGoogleUrl(raw);
+    if (!seenBody.has(url)) {
+      seenBody.add(url);
+      fallbackUrls.push(url);
+    }
+  }
+
+  // Prefer the explicit # URLs section when it has content; otherwise use the full-body fallback.
+  const urlsSectionItems = splitUrls(urlsSection);
+  const urlsSectionCandidates = urlsSectionItems.length > 0
+    ? urlsSectionItems
+    : fallbackUrls;
+  const seen = new Set();
+  const requestedUrls = [];
+  for (const raw of urlsSectionCandidates) {
+    const url = unwrapGoogleUrl(raw);
+    if (!seen.has(url)) {
+      seen.add(url);
+      requestedUrls.push(url);
+    }
+  }
 
   // Engine selection priority: body "Engine:" line > title keywords > default (axe + random)
   const bodyEngines = extractBodyEngines(body);

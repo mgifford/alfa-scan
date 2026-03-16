@@ -491,3 +491,126 @@ test("parseScanIssue accepts issue with number: 1 (minimum valid GITHUB_RUN_NUMB
   assert.deepEqual(result.engines, ["axe"]);
   assert.equal(result.value.scanTitle, "GitHub Pages accessibility check");
 });
+
+// Tests for enhanced URL extraction (HTML anchors, Markdown links, Google wrapper unwrapping)
+
+test("parseScanIssue extracts URLs from HTML anchor href attributes", () => {
+  const payload = {
+    issue: {
+      number: 200,
+      html_url: "https://github.com/example/repo/issues/200",
+      title: "SCAN: HTML anchor URL extraction",
+      created_at: "2026-02-20T20:00:00Z",
+      user: { login: "octocat" },
+      body: '<a href="https://example.com/">https://example.com/</a>\n<a href="https://example.org/page">link text</a>'
+    }
+  };
+
+  const result = parseScanIssue(payload);
+  assert.equal(result.ok, true);
+  assert.ok(result.value.requestedUrls.includes("https://example.com/"), "should include first href URL");
+  assert.ok(result.value.requestedUrls.includes("https://example.org/page"), "should include second href URL");
+});
+
+test("parseScanIssue extracts URLs from Markdown link syntax", () => {
+  const payload = {
+    issue: {
+      number: 201,
+      html_url: "https://github.com/example/repo/issues/201",
+      title: "SCAN: Markdown link URL extraction",
+      created_at: "2026-02-20T20:00:00Z",
+      user: { login: "octocat" },
+      body: "Some text\n[Visit Example](https://example.com/)\n[Another page](https://example.org/about)"
+    }
+  };
+
+  const result = parseScanIssue(payload);
+  assert.equal(result.ok, true);
+  assert.ok(result.value.requestedUrls.includes("https://example.com/"), "should include first markdown link URL");
+  assert.ok(result.value.requestedUrls.includes("https://example.org/about"), "should include second markdown link URL");
+});
+
+test("parseScanIssue unwraps Google search wrapper URLs", () => {
+  const payload = {
+    issue: {
+      number: 202,
+      html_url: "https://github.com/example/repo/issues/202",
+      title: "SCAN: Google URL unwrapping",
+      created_at: "2026-02-20T20:00:00Z",
+      user: { login: "octocat" },
+      body: '<a href="https://www.google.com/search?q=https://example.com/target">link text</a>'
+    }
+  };
+
+  const result = parseScanIssue(payload);
+  assert.equal(result.ok, true);
+  assert.ok(result.value.requestedUrls.includes("https://example.com/target"), "should unwrap Google search wrapper");
+  assert.ok(!result.value.requestedUrls.some((u) => u.includes("google.com")), "should not include Google wrapper URL");
+});
+
+test("parseScanIssue deduplicates URLs from mixed sources", () => {
+  const payload = {
+    issue: {
+      number: 203,
+      html_url: "https://github.com/example/repo/issues/203",
+      title: "SCAN: URL deduplication",
+      created_at: "2026-02-20T20:00:00Z",
+      user: { login: "octocat" },
+      body: 'https://example.com/\n<a href="https://example.com/">same URL as anchor</a>\n<a href="https://example.org/">unique URL</a>'
+    }
+  };
+
+  const result = parseScanIssue(payload);
+  assert.equal(result.ok, true);
+  assert.equal(
+    result.value.requestedUrls.filter((u) => u === "https://example.com/").length,
+    1,
+    "duplicate URL should appear only once"
+  );
+  assert.ok(result.value.requestedUrls.includes("https://example.org/"), "unique URL should be present");
+});
+
+test("parseScanIssue handles mixed HTML, Markdown, and plain URLs (like AI-generated issue bodies)", () => {
+  // Simulates an issue body similar to issue #175 with AI-generated content.
+  // Note: the '<a href="URL">[text</a>](URL)' pattern is an actual hybrid format
+  // produced by AI tools that mix HTML anchors with Markdown link syntax.
+  // The parser must extract the URL from the href attribute in this case.
+  const body = [
+    "## Analysis",
+    "Some non-URL text here.",
+    "",
+    '<a href="https://nh.gov/">https://nh.gov/</a>',
+    '<a href="https://www.google.com/search?q=https://nh.gov/search/advanced">[https://nh.gov/search/advanced</a>](https://www.google.com/search?q=https://nh.gov/search/advanced)',
+    "",
+    "### More URLs",
+    '<a href="https://das.nh.gov/">https://das.nh.gov/</a>',
+    "https://nh.gov/contact-us",
+    '<a href="https://nh.gov/contact-us">duplicate via anchor</a>'
+  ].join("\n");
+
+  const payload = {
+    issue: {
+      number: 204,
+      html_url: "https://github.com/example/repo/issues/204",
+      title: "SCAN: AI-generated issue body",
+      created_at: "2026-02-20T20:00:00Z",
+      user: { login: "octocat" },
+      body
+    }
+  };
+
+  const result = parseScanIssue(payload);
+  assert.equal(result.ok, true, `expected ok, got errors: ${result.errors.join(", ")}`);
+  assert.ok(result.value.requestedUrls.includes("https://nh.gov/"), "should include plain URL from href");
+  assert.ok(result.value.requestedUrls.includes("https://nh.gov/search/advanced"), "should unwrap Google wrapper URL");
+  assert.ok(result.value.requestedUrls.includes("https://das.nh.gov/"), "should include plain das.nh.gov URL");
+  assert.ok(result.value.requestedUrls.includes("https://nh.gov/contact-us"), "should include plain text URL");
+  // https://nh.gov/contact-us appears both as plain text and as anchor — should be deduplicated
+  assert.equal(
+    result.value.requestedUrls.filter((u) => u === "https://nh.gov/contact-us").length,
+    1,
+    "duplicate URL should appear only once"
+  );
+  // Google wrapper itself should not be in the list
+  assert.ok(!result.value.requestedUrls.some((u) => u.includes("google.com")), "should not include google.com wrapper URLs");
+});
