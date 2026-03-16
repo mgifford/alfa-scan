@@ -432,3 +432,62 @@ test("parseScanIssue TIME:N is case-insensitive", () => {
   assert.equal(result.pageLoadDelay, 3);
   assert.equal(result.value.scanTitle, "Test");
 });
+
+// Regression tests for scan-github-pages.yml workflow run failures
+// Run #1 failed because the original workflow hardcoded `number: 0` in the issue event,
+// which fails the issueNumber >= 1 validation. These tests prevent that regression.
+
+test("parseScanIssue rejects issue with number: 0 (invalid issueNumber)", () => {
+  const payload = {
+    issue: {
+      number: 0,
+      html_url: "https://github.com/example/repo/actions/runs/123",
+      title: "SCAN: AXE GitHub Pages accessibility check",
+      created_at: "2026-02-20T20:00:00Z",
+      user: { login: "github-actions[bot]" },
+      body: "Engine: axe\n\nhttps://example.github.io/repo/"
+    }
+  };
+
+  const result = parseScanIssue(payload);
+  assert.equal(result.ok, false);
+  assert.ok(result.errors.some((e) => e.includes("issueNumber must be an integer >= 1")));
+  assert.equal(result.value, null);
+});
+
+test("parseScanIssue rejects issue with number: null (from JSON.stringify(NaN))", () => {
+  const payload = {
+    issue: {
+      number: null,
+      html_url: "https://github.com/example/repo/actions/runs/123",
+      title: "SCAN: AXE GitHub Pages accessibility check",
+      created_at: "2026-02-20T20:00:00Z",
+      user: { login: "github-actions[bot]" },
+      body: "Engine: axe\n\nhttps://example.github.io/repo/"
+    }
+  };
+
+  const result = parseScanIssue(payload);
+  assert.equal(result.ok, false);
+  assert.ok(result.errors.some((e) => e.includes("issueNumber must be an integer >= 1")));
+  assert.equal(result.value, null);
+});
+
+test("parseScanIssue accepts issue with number: 1 (minimum valid GITHUB_RUN_NUMBER)", () => {
+  const payload = {
+    issue: {
+      number: 1,
+      html_url: "https://github.com/example/repo/actions/runs/123",
+      title: "SCAN: AXE GitHub Pages accessibility check",
+      created_at: "2026-02-20T20:00:00Z",
+      user: { login: "github-actions[bot]" },
+      body: "Engine: axe\n\nhttps://example.github.io/repo/"
+    }
+  };
+
+  const result = parseScanIssue(payload);
+  assert.equal(result.ok, true);
+  assert.equal(result.value.issueNumber, 1);
+  assert.deepEqual(result.engines, ["axe"]);
+  assert.equal(result.value.scanTitle, "GitHub Pages accessibility check");
+});
