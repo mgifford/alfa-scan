@@ -5,6 +5,8 @@ import { join } from 'node:path';
 
 /**
  * Recursively find all report.json files in the reports directory
+ * Reads from both reports/issues/ (issue-triggered scans) and
+ * reports/pages/ (GitHub Pages automated scans).
  * @param {string} reportsDir - Path to the reports directory
  * @returns {Array<{path: string, data: object}>} Array of report data with paths
  */
@@ -33,7 +35,29 @@ export function findAllReports(reportsDir) {
       }
     }
   } catch (err) {
-    console.error(`Failed to read reports directory:`, err.message);
+    console.error(`Failed to read reports/issues directory:`, err.message);
+  }
+
+  try {
+    const pagesDir = join(reportsDir, 'pages');
+    const timestamps = readdirSync(pagesDir);
+
+    for (const timestamp of timestamps) {
+      const reportPath = join(pagesDir, timestamp, 'report.json');
+      try {
+        const data = JSON.parse(readFileSync(reportPath, 'utf8'));
+        reports.push({
+          path: `reports/pages/${timestamp}`,
+          data
+        });
+      } catch (err) {
+        console.error(`Failed to read ${reportPath}:`, err.message);
+      }
+    }
+  } catch (err) {
+    if (err.code !== 'ENOENT') {
+      console.error(`Failed to read reports/pages directory:`, err.message);
+    }
   }
   
   return reports;
