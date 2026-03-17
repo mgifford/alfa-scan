@@ -21,23 +21,39 @@ export function getDefaultEngines() {
 }
 
 /**
- * Parse engine names from an "Engine: ..." line at the start of an issue body.
+ * Parse engine names from an "Engine: ..." line at the start of an issue body,
+ * or from an "### Accessibility engines" section rendered by the issue form template.
  * @param {string} body - The issue body text
  * @returns {string[]|null} Array of valid engine names, or null if not found
  */
 function extractBodyEngines(body) {
   if (!body) return null;
-  const firstLine = body.split("\n")[0].trim();
-  const match = firstLine.match(/^Engine:\s*(.+)$/i);
-  if (!match) return null;
 
   const knownEngines = new Set(["axe", "alfa", "equalaccess", "accesslint", "qualweb", "all"]);
-  const engineList = match[1]
-    .split(/[\s,]+/)
-    .map((e) => e.trim().toLowerCase())
-    .filter((e) => Boolean(e) && knownEngines.has(e));
 
-  return engineList.length > 0 ? engineList : null;
+  // Check for "Engine: ..." on the first line (manually written issues)
+  const firstLine = body.split("\n")[0].trim();
+  const match = firstLine.match(/^Engine:\s*(.+)$/i);
+  if (match) {
+    const engineList = match[1]
+      .split(/[\s,]+/)
+      .map((e) => e.trim().toLowerCase())
+      .filter((e) => Boolean(e) && knownEngines.has(e));
+    if (engineList.length > 0) return engineList;
+  }
+
+  // Check for the "Accessibility engines" section rendered by the issue form template.
+  // GitHub renders the dropdown selection as the section content (e.g. "ALL" or "axe").
+  const engineSection = extractSection(body, "Accessibility engines");
+  if (engineSection) {
+    const engineList = engineSection
+      .split(/[\s,]+/)
+      .map((e) => e.trim().toLowerCase())
+      .filter((e) => Boolean(e) && knownEngines.has(e));
+    if (engineList.length > 0) return engineList;
+  }
+
+  return null;
 }
 
 function splitUrls(rawText) {
