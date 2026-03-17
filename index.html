@@ -258,6 +258,23 @@
       text-decoration: underline;
     }
 
+    .skip-link {
+      position: absolute;
+      top: -3rem;
+      left: 0;
+      background: #0969da;
+      color: white;
+      padding: 0.5rem 1rem;
+      text-decoration: none;
+      font-weight: 600;
+      z-index: 100;
+      border-radius: 0 0 4px 4px;
+    }
+
+    .skip-link:focus {
+      top: 0;
+    }
+
     .share-section {
       margin-top: 1rem;
     }
@@ -284,12 +301,14 @@
   </style>
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
   <div class="container">
     <nav class="nav">
       <a href="index.html">Submit URLs</a>
       <a href="reports.html">View Reports</a>
     </nav>
     
+    <main id="main-content">
     <h1>Submit URLs for Accessibility Scanning</h1>
     <p class="subtitle">Enter up to 500 URLs to scan for accessibility issues using multiple WCAG 2.2 checking engines</p>
     
@@ -330,6 +349,7 @@
       <div class="error-message" id="error-message"></div>
       <div class="success-message" id="success-message"></div>
     </form>
+    </main>
     
     <footer>
       <a href="https://github.com/mgifford/open-scans">Join our GitHub Community</a>
