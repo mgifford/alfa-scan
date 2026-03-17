@@ -1,0 +1,209 @@
+{
+  "issueNumber": 15,
+  "issueUrl": "https://github.com/mgifford/open-scans/actions/runs/23196658881",
+  "issueTitle": "SCAN: AXE GitHub Pages accessibility check",
+  "scanTitle": "GitHub Pages accessibility check",
+  "submittedBy": "github-actions[bot]",
+  "engines": [
+    "axe"
+  ],
+  "scannedAt": "2026-03-17T13:31:16.854Z",
+  "totalElapsedMs": 4431,
+  "totalSubmitted": 1,
+  "acceptedCount": 1,
+  "scannedCount": 1,
+  "skippedDueToTimeout": 0,
+  "skippedDueToErrAborted": 0,
+  "rejectedCount": 0,
+  "rejected": [],
+  "alfaTotals": {
+    "passed": 0,
+    "failed": 0,
+    "cantTell": 0,
+    "inapplicable": 0
+  },
+  "axeTotals": {
+    "passed": 76,
+    "failed": 0,
+    "cantTell": 0,
+    "inapplicable": 57
+  },
+  "equalAccessTotals": {
+    "passed": 0,
+    "failed": 0,
+    "uniqueFailed": 0,
+    "duplicates": 0,
+    "cantTell": 0,
+    "inapplicable": 0
+  },
+  "accesslintTotals": {
+    "passed": 0,
+    "failed": 0,
+    "uniqueFailed": 0,
+    "duplicates": 0,
+    "cantTell": 0,
+    "inapplicable": 0
+  },
+  "qualwebTotals": {
+    "passed": 0,
+    "failed": 0,
+    "cantTell": 0,
+    "inapplicable": 0
+  },
+  "duplicateFindingTotals": 0,
+  "darkModeUrlCount": 0,
+  "reducedMotionUrlCount": 0,
+  "highContrastUrlCount": 0,
+  "forcedColorsUrlCount": 0,
+  "reducedTransparencyUrlCount": 0,
+  "results": [
+    {
+      "submittedUrl": "https://mgifford.github.io/open-scans/",
+      "finalUrl": "https://mgifford.github.io/open-scans/",
+      "redirected": false,
+      "statusCode": 200,
+      "ok": true,
+      "contentType": "text/html; charset=utf-8",
+      "pageTitle": "Open Scans - Free Automated Accessibility Scanning",
+      "elapsedMs": 4423,
+      "error": null,
+      "alfa": {
+        "executed": false,
+        "error": "Skipped (not requested)",
+        "counts": {
+          "passed": 0,
+          "failed": 0,
+          "cantTell": 0,
+          "inapplicable": 0
+        },
+        "failedRules": [],
+        "passedRules": [],
+        "failures": [],
+        "outcomeCount": 0,
+        "uniqueFailedCount": 0,
+        "duplicateFailedCount": 0
+      },
+      "axe": {
+        "executed": true,
+        "error": null,
+        "counts": {
+          "passed": 76,
+          "failed": 0,
+          "cantTell": 0,
+          "inapplicable": 57
+        },
+        "failedRules": [],
+        "passedRules": [
+          "aria-allowed-attr",
+          "aria-conditional-attr",
+          "aria-hidden-body",
+          "aria-hidden-focus",
+          "aria-prohibited-attr",
+          "aria-valid-attr",
+          "aria-valid-attr-value",
+          "button-name",
+          "bypass",
+          "color-contrast",
+          "document-title",
+          "duplicate-id-aria",
+          "empty-heading",
+          "form-field-multiple-labels",
+          "heading-order",
+          "html-has-lang",
+          "html-lang-valid",
+          "label",
+          "label-title-only",
+          "landmark-contentinfo-is-top-level",
+          "landmark-main-is-top-level",
+          "landmark-no-duplicate-contentinfo",
+          "landmark-no-duplicate-main",
+          "landmark-one-main",
+          "landmark-unique",
+          "link-name",
+          "meta-viewport",
+          "meta-viewport-large",
+          "nested-interactive",
+          "page-has-heading-one",
+          "region",
+          "skip-link"
+        ],
+        "failures": [],
+        "outcomeCount": 133,
+        "darkModeScanned": false,
+        "mediaQuerySupport": {
+          "darkMode": false,
+          "reducedMotion": false,
+          "highContrast": false,
+          "forcedColors": false,
+          "reducedTransparency": false
+        },
+        "duplicateFailedCount": 0,
+        "uniqueFailedCount": 0
+      },
+      "equalAccess": {
+        "executed": false,
+        "error": "Skipped (not requested)",
+        "counts": {
+          "passed": 0,
+          "failed": 0,
+          "cantTell": 0,
+          "inapplicable": 0
+        },
+        "failedRules": [],
+        "passedRules": [],
+        "failures": [],
+        "outcomeCount": 0,
+        "uniqueFailedCount": 0,
+        "duplicateFailedCount": 0
+      },
+      "accesslint": {
+        "executed": false,
+        "error": "Skipped (not requested)",
+        "counts": {
+          "passed": 0,
+          "failed": 0,
+          "cantTell": 0,
+          "inapplicable": 0
+        },
+        "failedRules": [],
+        "passedRules": [],
+        "failures": [],
+        "outcomeCount": 0,
+        "uniqueFailedCount": 0,
+        "duplicateFailedCount": 0
+      },
+      "qualweb": {
+        "executed": false,
+        "error": "Skipped (not requested)",
+        "counts": {
+          "passed": 0,
+          "failed": 0,
+          "cantTell": 0,
+          "inapplicable": 0
+        },
+        "failedRules": [],
+        "passedRules": [],
+        "failures": [],
+        "outcomeCount": 0,
+        "uniqueFailedCount": 0,
+        "duplicateFailedCount": 0
+      },
+      "duplicateFindingCount": 0
+    }
+  ],
+  "enhanced": {
+    "consolidatedFailures": [],
+    "roleStats": {
+      "UX Designer": 0,
+      "Visual Designer": 0,
+      "Content Author": 0,
+      "Front-End Developer": 0
+    },
+    "severityStats": {
+      "Critical": 0,
+      "Serious": 0,
+      "Moderate": 0,
+      "Minor": 0
+    }
+  }
+}
