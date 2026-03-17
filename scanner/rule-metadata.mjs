@@ -519,6 +519,34 @@ export const ruleMapping = {
     wcagCriteria: [],
     conformanceLevel: "best-practice"
   },
+  "alfa:sia-r61": { // Documents start with heading
+    roles: [ROLES.CONTENT, ROLES.UX],
+    severity: SEVERITY.MODERATE,
+    blocking: false,
+    wcagCriteria: [],
+    conformanceLevel: "best-practice"
+  },
+  "alfa:sia-r64": { // Heading has accessible name
+    roles: [ROLES.CONTENT, ROLES.DEV],
+    severity: SEVERITY.MODERATE,
+    blocking: false,
+    wcagCriteria: [],
+    conformanceLevel: "best-practice"
+  },
+  "alfa:sia-r71": { // Text is not justified
+    roles: [ROLES.VISUAL, ROLES.CONTENT],
+    severity: SEVERITY.MODERATE,
+    blocking: false,
+    wcagCriteria: [],
+    conformanceLevel: "best-practice"
+  },
+  "alfa:sia-r85": { // Text is not all italics
+    roles: [ROLES.VISUAL, ROLES.CONTENT],
+    severity: SEVERITY.MODERATE,
+    blocking: false,
+    wcagCriteria: [],
+    conformanceLevel: "best-practice"
+  },
   "alfa:sia-r62": { // Links are distinguishable
     roles: [ROLES.VISUAL, ROLES.UX],
     severity: SEVERITY.SERIOUS,

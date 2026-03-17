@@ -94,3 +94,41 @@ test("formatAlfaRule handles common rules correctly", () => {
     assert.ok(formatted.description !== null, `Description should exist for ${rule.url}`);
   }
 });
+
+test("formatAlfaRule handles best-practice rules that were previously missing", () => {
+  const rules = [
+    {
+      url: "https://alfa.siteimprove.com/rules/sia-r61",
+      expectedId: "SIA-R61",
+      expectedName: "Document starts with heading",
+      expectedDescription: "Documents start with a level 1 heading"
+    },
+    {
+      url: "https://alfa.siteimprove.com/rules/sia-r64",
+      expectedId: "SIA-R64",
+      expectedName: "Heading has accessible name",
+      expectedDescription: "Heading has non-empty accessible name"
+    },
+    {
+      url: "https://alfa.siteimprove.com/rules/sia-r71",
+      expectedId: "SIA-R71",
+      expectedName: "Text is not justified",
+      expectedDescription: "Paragraphs of text are not justified"
+    },
+    {
+      url: "https://alfa.siteimprove.com/rules/sia-r85",
+      expectedId: "SIA-R85",
+      expectedName: "Text is not all italics",
+      expectedDescription: "Paragraphs of text are not all italics"
+    }
+  ];
+
+  for (const rule of rules) {
+    const formatted = formatAlfaRule(rule.url);
+    assert.strictEqual(formatted.id, rule.expectedId, `ID should match for ${rule.url}`);
+    assert.strictEqual(formatted.name, rule.expectedName, `Name should match for ${rule.url}`);
+    assert.strictEqual(formatted.description, rule.expectedDescription, `Description should match for ${rule.url}`);
+    assert.strictEqual(formatted.conformanceLevel, "best-practice", `Conformance level should be best-practice for ${rule.url}`);
+    assert.deepStrictEqual(formatted.wcagCriteria, [], `WCAG criteria should be empty for ${rule.url}`);
+  }
+});

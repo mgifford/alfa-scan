@@ -108,6 +108,30 @@ export const alfaRuleMetadata = {
     wcagCriteria: [],
     conformanceLevel: "best-practice"
   },
+  "https://alfa.siteimprove.com/rules/sia-r61": {
+    name: "Document starts with heading",
+    description: "Documents start with a level 1 heading",
+    wcagCriteria: [],
+    conformanceLevel: "best-practice"
+  },
+  "https://alfa.siteimprove.com/rules/sia-r64": {
+    name: "Heading has accessible name",
+    description: "Heading has non-empty accessible name",
+    wcagCriteria: [],
+    conformanceLevel: "best-practice"
+  },
+  "https://alfa.siteimprove.com/rules/sia-r71": {
+    name: "Text is not justified",
+    description: "Paragraphs of text are not justified",
+    wcagCriteria: [],
+    conformanceLevel: "best-practice"
+  },
+  "https://alfa.siteimprove.com/rules/sia-r85": {
+    name: "Text is not all italics",
+    description: "Paragraphs of text are not all italics",
+    wcagCriteria: [],
+    conformanceLevel: "best-practice"
+  },
   "https://alfa.siteimprove.com/rules/sia-r62": {
     name: "Links are distinguishable",
     description: "Links are visually distinguishable from surrounding text",
