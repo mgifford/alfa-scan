@@ -1,0 +1,54 @@
+{
+  "generatedAt": "2026-03-17T16:18:20.882Z",
+  "issueNumber": 189,
+  "scanTitle": "CivicActions.com",
+  "scannersInUse": [
+    "axe",
+    "equalAccess"
+  ],
+  "scannerStats": {
+    "axe": {
+      "label": "axe",
+      "failed": 12,
+      "uniqueFailed": 12,
+      "duplicates": 0
+    },
+    "alfa": {
+      "label": "ALFA",
+      "failed": 0,
+      "uniqueFailed": 0,
+      "duplicates": 0
+    },
+    "equalAccess": {
+      "label": "Equal Access",
+      "failed": 1756,
+      "uniqueFailed": 925,
+      "duplicates": 831
+    },
+    "accesslint": {
+      "label": "AccessLint",
+      "failed": 0,
+      "uniqueFailed": 0,
+      "duplicates": 0
+    },
+    "qualweb": {
+      "label": "QualWeb",
+      "failed": 0,
+      "uniqueFailed": 0,
+      "duplicates": 0
+    }
+  },
+  "matrix": {
+    "axe": {
+      "axe": 12,
+      "equalAccess": 0
+    },
+    "equalAccess": {
+      "axe": 0,
+      "equalAccess": 925
+    }
+  },
+  "duplicateFindingTotals": 831,
+  "overlapEntryCount": 0,
+  "overlapEntries": []
+}
