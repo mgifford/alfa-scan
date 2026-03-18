@@ -1,0 +1,56 @@
+name: Scan Request
+description: Submit one or more URLs for an accessibility scan.
+title: "SCAN: "
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Accessibility Scan Request
+
+        Complete the fields below to queue an accessibility scan. The issue title **must** begin with `SCAN:` — add a short description after it (e.g. `SCAN: GSA.gov homepage`).
+
+        > **Tip:** You can also use the [web form](https://mgifford.github.io/open-scans/) to pre-fill this template automatically.
+
+  - type: textarea
+    id: urls
+    attributes:
+      label: URLs
+      description: >
+        Enter one URL per line. Only public `https://` or `http://` URLs are accepted
+        (no localhost, private IPs, or non-web documents). Maximum 500 URLs.
+      placeholder: |
+        https://www.example.gov/
+        https://www.example.gov/about
+        https://www.example.gov/contact
+    validations:
+      required: true
+
+  - type: dropdown
+    id: engines
+    attributes:
+      label: Accessibility engines
+      description: >
+        Choose which scanning engines to run.
+        You can also specify engines in the issue **title** by including a keyword
+        (e.g. `SCAN: AXE my site`) or add `Engine: axe, alfa` as the first line of
+        the body after submitting.
+      options:
+        - Default (axe + one random engine)
+        - ALL
+        - axe
+        - alfa
+        - equalaccess
+        - accesslint
+        - qualweb
+      default: 0
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        **Supported engines:** axe-core · Siteimprove ALFA · IBM Equal Access Checker · AccessLint · QualWeb
+
+        Once this issue is saved the scan starts automatically. Results will be posted as a comment on this issue and published to [GitHub Pages](https://mgifford.github.io/open-scans/reports.html).

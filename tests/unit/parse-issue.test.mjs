@@ -322,6 +322,65 @@ test("parseScanIssue uses default when 'Engine:' line has only unknown tokens", 
   assert.equal(result.engines.length, 2);
 });
 
+test("parseScanIssue reads engines from 'Accessibility engines' section (issue form template)", () => {
+  // Simulate body rendered by the GitHub issue form template when a user selects "ALL"
+  const body = "### URLs\n\nhttps://example.com\n\n### Accessibility engines\n\nALL\n";
+  const payload = {
+    issue: {
+      number: 113,
+      html_url: "https://github.com/example/repo/issues/113",
+      title: "SCAN: Form template test",
+      created_at: "2026-02-20T20:00:00Z",
+      user: { login: "octocat" },
+      body
+    }
+  };
+
+  const result = parseScanIssue(payload);
+  assert.equal(result.ok, true);
+  assert.deepEqual(result.engines, ["all"]);
+  assert.deepEqual(result.value.requestedUrls, ["https://example.com"]);
+});
+
+test("parseScanIssue reads specific engine from 'Accessibility engines' section (issue form template)", () => {
+  // Simulate body rendered by the GitHub issue form template when a user selects "axe"
+  const body = "### URLs\n\nhttps://example.com\n\n### Accessibility engines\n\naxe\n";
+  const payload = {
+    issue: {
+      number: 114,
+      html_url: "https://github.com/example/repo/issues/114",
+      title: "SCAN: Form template test",
+      created_at: "2026-02-20T20:00:00Z",
+      user: { login: "octocat" },
+      body
+    }
+  };
+
+  const result = parseScanIssue(payload);
+  assert.equal(result.ok, true);
+  assert.deepEqual(result.engines, ["axe"]);
+});
+
+test("parseScanIssue uses default when 'Accessibility engines' section has 'Default' option", () => {
+  // The default dropdown option should not override engine selection — fall back to default engines
+  const body = "### URLs\n\nhttps://example.com\n\n### Accessibility engines\n\nDefault (axe + one random engine)\n";
+  const payload = {
+    issue: {
+      number: 115,
+      html_url: "https://github.com/example/repo/issues/115",
+      title: "SCAN: Form template test",
+      created_at: "2026-02-20T20:00:00Z",
+      user: { login: "octocat" },
+      body
+    }
+  };
+
+  const result = parseScanIssue(payload);
+  assert.equal(result.ok, true);
+  assert.equal(result.engines[0], "axe", "should use default engines when form shows default option");
+  assert.equal(result.engines.length, 2, "default should be axe + one random engine");
+});
+
 test("parseScanIssue defaults to 2 second page load delay when TIME not specified", () => {
   const payload = {
     issue: {
