@@ -233,6 +233,36 @@ describe('generate-reports-html', () => {
       assert.ok(html.includes('Join our GitHub Community'), 'Should include footer');
     });
 
+    it('should include a main landmark for accessibility (landmark-one-main)', () => {
+      const reports = [
+        {
+          path: 'reports/issues/issue-1/2026-02-21T16-37-55-764Z',
+          data: {
+            issueNumber: 1,
+            issueUrl: 'https://github.com/mgifford/open-scans/issues/1',
+            scanTitle: 'GSA.gov',
+            scannedAt: '2026-02-21T16:37:55.764Z',
+            acceptedCount: 13,
+            alfaTotals: { passed: 23694, failed: 1698, cantTell: 125 },
+            axeTotals: { passed: 0, failed: 0, cantTell: 0 }
+          }
+        }
+      ];
+
+      const html = generateReportsHtml(reports);
+
+      assert.ok(html.includes('<main'), 'Should include a main element');
+      assert.ok(html.includes('id="main-content"'), 'main element should have id="main-content"');
+      assert.ok(html.includes('href="#main-content"'), 'Should include skip link pointing to main-content');
+    });
+
+    it('should include a main landmark even when no reports available', () => {
+      const html = generateReportsHtml([]);
+
+      assert.ok(html.includes('<main'), 'Should include a main element even with no reports');
+      assert.ok(html.includes('id="main-content"'), 'main element should have id="main-content"');
+    });
+
     it('should show message when no reports available', () => {
       const html = generateReportsHtml([]);
       
