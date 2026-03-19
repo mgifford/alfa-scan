@@ -396,7 +396,8 @@ test("priority table is included in interactive HTML report", () => {
 
   assert.ok(html.includes("🎯 Pages with Most Errors"), "Pages with Most Errors table heading should be present");
   assert.ok(html.includes("priority-table"), "Priority table CSS class should be present");
-  assert.ok(html.includes("View Page"), "Priority table should have page links");
+  assert.ok(html.includes('class="page-link"'), "Priority table should have page links");
+  assert.ok(!html.includes(">View Page<"), "Priority table should not use 'View Page' as link text");
 });
 
 test("priority table contains correct error counts", () => {
@@ -451,16 +452,16 @@ test("rule cards include engine badge", () => {
   assert.ok(html.includes('badge-engine'), "Engine badge class should be present on rule cards");
 });
 
-test("pages sorted by total errors descending in priority table", () => {
+test("pages sorted by axe errors descending by default in priority table", () => {
   const html = generateInteractiveHtml(buildPrioritySummary());
 
-  // Page 1 has total=81, Page 2 has total=8
+  // Page 1 has axe=6, Page 2 has axe=2 — Page 1 should appear first
   const page1Pos = html.indexOf("Page One");
   const page2Pos = html.indexOf("Page Two");
 
   assert.ok(page1Pos !== -1, "Page One should be in the report");
   assert.ok(page2Pos !== -1, "Page Two should be in the report");
-  assert.ok(page1Pos < page2Pos, "Page 1 (more errors) should appear before Page 2 in priority table");
+  assert.ok(page1Pos < page2Pos, "Page 1 (more axe errors) should appear before Page 2 by default");
 });
 
 test("zero error counts are shown without filter button", () => {
@@ -475,6 +476,37 @@ test("page title is shown in priority table", () => {
 
   assert.ok(html.includes("Page One"), "Page title should appear in priority table");
   assert.ok(html.includes("Page Two"), "Page title should appear in priority table");
+});
+
+test("priority table headers have sort buttons", () => {
+  const html = generateInteractiveHtml(buildPrioritySummary());
+
+  assert.ok(html.includes('class="priority-sort-btn"'), "Table headers should have sort buttons");
+  assert.ok(html.includes('data-sort-col="page"'), "Page column should have sort button");
+  assert.ok(html.includes('data-sort-col="total"'), "Total column should have sort button");
+  assert.ok(html.includes('data-sort-col="axe"'), "axe column should have sort button");
+});
+
+test("priority table rows carry sort data attributes", () => {
+  const html = generateInteractiveHtml(buildPrioritySummary());
+
+  assert.ok(html.includes('data-sort-page="Page One"'), "Row should have sort-page data attribute");
+  assert.ok(html.includes('data-sort-axe="6"'), "Row should have sort-axe data attribute for Page One");
+  assert.ok(html.includes('data-sort-total="'), "Row should have sort-total data attribute");
+});
+
+test("axe column sort button shows descending arrow by default", () => {
+  const html = generateInteractiveHtml(buildPrioritySummary());
+
+  // The axe sort button should have the descending icon (↓) in its sort-icon span
+  assert.ok(html.includes('data-sort-col="axe"'), "axe column should have a sort button");
+  // The axe <th> should have aria-sort="descending" as the default active sort
+  assert.ok(html.includes('aria-sort="descending"'), "axe column th should have aria-sort=descending");
+  // The ↓ icon should appear somewhere in the axe header button area
+  const axeThPos = html.indexOf('data-sort-col="axe"');
+  const axeThEnd = html.indexOf('</th>', axeThPos);
+  const axeThHtml = html.substring(axeThPos, axeThEnd);
+  assert.ok(axeThHtml.includes('↓'), "axe column sort button should show the descending arrow icon");
 });
 
 test("interactive HTML includes JavaScript for priority table navigation", () => {
