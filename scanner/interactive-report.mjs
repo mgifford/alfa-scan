@@ -1430,6 +1430,38 @@ export function generateInteractiveHtml(summary) {
       try { document.execCommand('copy'); } catch (e) {}
       document.body.removeChild(ta);
     }
+
+    // ── Open details elements when navigating to an anchor ──
+    function openDetailsByHash(hash) {
+      if (!hash) return;
+      const id = hash.replace(/^#/, '');
+      const target = document.getElementById(id);
+      if (!target) return;
+      // Open the target itself if it is a <details> element
+      if (target.tagName === 'DETAILS') {
+        target.setAttribute('open', '');
+      }
+      // Open every ancestor <details> element (e.g. accordion sections)
+      let el = target.parentElement;
+      while (el) {
+        if (el.tagName === 'DETAILS') {
+          el.setAttribute('open', '');
+        }
+        el = el.parentElement;
+      }
+      // Scroll into view after a brief layout tick
+      setTimeout(() => {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 50);
+    }
+
+    // Handle the hash present when the page first loads
+    openDetailsByHash(window.location.hash);
+
+    // Handle hash changes after page load (e.g. clicking an anchor link)
+    window.addEventListener('hashchange', () => {
+      openDetailsByHash(window.location.hash);
+    });
   </script>
 </body>
 </html>`;

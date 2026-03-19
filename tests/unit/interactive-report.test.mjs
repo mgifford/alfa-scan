@@ -1178,3 +1178,36 @@ test("disability icons have aria-hidden SVGs with visible text labels", () => {
     "Disability badge should include a visible text label for the category"
   );
 });
+
+test("generateInteractiveHtml includes openDetailsByHash function for anchor navigation", () => {
+  const html = generateInteractiveHtml(makeSummary());
+  assert.ok(
+    html.includes("openDetailsByHash"),
+    "Should include openDetailsByHash function in script"
+  );
+  assert.ok(
+    html.includes("window.location.hash"),
+    "Should read window.location.hash on page load"
+  );
+  assert.ok(
+    html.includes("hashchange"),
+    "Should listen for hashchange events"
+  );
+});
+
+test("openDetailsByHash opens the target details element and its ancestors", () => {
+  const html = generateInteractiveHtml(makeSummary());
+  // Verify the function opens the element itself and ancestors
+  assert.ok(
+    html.includes("target.setAttribute('open', '')"),
+    "Should open the target <details> element"
+  );
+  assert.ok(
+    html.includes("el.setAttribute('open', '')"),
+    "Should open ancestor <details> elements"
+  );
+  assert.ok(
+    html.includes("scrollIntoView"),
+    "Should scroll the target into view"
+  );
+});
