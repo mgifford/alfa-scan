@@ -254,8 +254,7 @@ export function parseScanIssue(issueEvent) {
   // and no valid HTTP/HTTPS URLs were found in the issue body.
   // In crawl mode, the scanner will discover URLs via sitemap.xml or page crawl before scanning.
   const scanTitleIsUrl = validateUriLike(titleInfo.scanTitle);
-  const isValidBodyUrl = (v) => v.startsWith("http://") || v.startsWith("https://");
-  const hasValidBodyUrls = requestedUrls.some(isValidBodyUrl);
+  const hasValidBodyUrls = requestedUrls.some((v) => validateUriLike(v));
   const needsCrawl = scanTitleIsUrl && !hasValidBodyUrls;
 
   let crawlBaseUrl = null;

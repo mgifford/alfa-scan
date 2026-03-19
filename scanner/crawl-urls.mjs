@@ -64,8 +64,9 @@ export function filterSameOriginUrls(urls, baseUrl) {
 }
 
 /**
- * Randomly sample up to maxCount items from an array, preserving order
- * determinism across identical inputs (uses simple shuffle).
+ * Randomly sample up to maxCount items from an array using a Fisher-Yates shuffle.
+ * Each call produces a non-deterministic result; a different random subset is
+ * returned each time even for identical inputs.
  * @param {string[]} items
  * @param {number} maxCount
  * @returns {string[]}
@@ -188,7 +189,9 @@ export async function crawlPageLinks(url, timeout = DEFAULT_CRAWL_TIMEOUT) {
 
     const html = await response.text();
 
-    // Extract href values from anchor tags
+    // Extract href values from anchor tags.
+    // The leading [^"'#] intentionally excludes pure fragment anchors (href="#section")
+    // which would resolve to the current page URL and add noise to the URL list.
     const hrefPattern = /href=["']([^"'#][^"']*?)["']/gi;
     const seen = new Set();
     let match;
