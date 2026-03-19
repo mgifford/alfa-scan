@@ -1283,6 +1283,9 @@ test("QualWeb rule card shows only rule ID when ruleTitle is absent", () => {
   assert.ok(
     html.includes("QW-ACT-R2"),
     "Rule ID should be present even without a ruleTitle"
+  );
+});
+
 test("generateInteractiveHtml includes openDetailsByHash function for anchor navigation", () => {
   const html = generateInteractiveHtml(makeSummary());
   assert.ok(
