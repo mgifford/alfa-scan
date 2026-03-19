@@ -60,7 +60,7 @@ function extractBodyEngines(body) {
 function splitUrls(rawText) {
   return rawText
     .split(/[\n,]/g)
-    .map((value) => value.trim())
+    .map((value) => value.trim().replace(/^[-*+]\s+/, ""))
     .filter(Boolean);
 }
 

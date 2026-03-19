@@ -801,3 +801,63 @@ test("extractPageCount clamps to valid range (1-500)", () => {
   assert.equal(extractPageCount("Page: 500"), 500); // at maximum
   assert.equal(extractPageCount("Page: 1"), 1); // at minimum
 });
+
+test("parseScanIssue extracts URLs from Markdown bullet-point lists (- URL format)", () => {
+  // Simulates an issue body like #169 where URLs are under Markdown headings
+  // with bullet-point (`- URL`) formatting.
+  const body = [
+    "### Category A: Core Pages",
+    "",
+    "- https://example.com/",
+    "- https://example.com/about",
+    "- https://example.com/contact",
+    "",
+    "### Category B: Services",
+    "",
+    "- https://example.com/services",
+    "- https://example.com/faq"
+  ].join("\n");
+
+  const payload = {
+    issue: {
+      number: 205,
+      html_url: "https://github.com/example/repo/issues/205",
+      title: "SCAN: Example Site - AXE ALFA",
+      created_at: "2026-03-19T00:00:00Z",
+      user: { login: "octocat" },
+      body
+    }
+  };
+
+  const result = parseScanIssue(payload);
+  assert.equal(result.ok, true, `should succeed but got errors: ${result.errors}`);
+  assert.equal(result.value.requestedUrls.length, 5, "should extract all 5 bullet-point URLs");
+  assert.ok(result.value.requestedUrls.includes("https://example.com/"), "should include first URL");
+  assert.ok(result.value.requestedUrls.includes("https://example.com/faq"), "should include last URL");
+});
+
+test("parseScanIssue extracts URLs from Markdown bullet lists with asterisk and plus syntax", () => {
+  const body = [
+    "* https://example.com/asterisk",
+    "+ https://example.com/plus",
+    "- https://example.com/dash"
+  ].join("\n");
+
+  const payload = {
+    issue: {
+      number: 206,
+      html_url: "https://github.com/example/repo/issues/206",
+      title: "SCAN: Bullet styles",
+      created_at: "2026-03-19T00:00:00Z",
+      user: { login: "octocat" },
+      body
+    }
+  };
+
+  const result = parseScanIssue(payload);
+  assert.equal(result.ok, true, `should succeed but got errors: ${result.errors}`);
+  assert.equal(result.value.requestedUrls.length, 3, "should extract all 3 bullet-style URLs");
+  assert.ok(result.value.requestedUrls.includes("https://example.com/asterisk"), "should include asterisk-prefixed URL");
+  assert.ok(result.value.requestedUrls.includes("https://example.com/plus"), "should include plus-prefixed URL");
+  assert.ok(result.value.requestedUrls.includes("https://example.com/dash"), "should include dash-prefixed URL");
+});
