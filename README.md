@@ -224,6 +224,39 @@ The `puppeteerArgs` configuration is critical for running in GitHub Actions wher
 - **[TIMEOUT-CONFIG.md](./TIMEOUT-CONFIG.md)** - Timeout configuration and tuning guide for scan optimization
 - **[.kittify/AGENTS.md](.kittify/AGENTS.md)** - Spec Kitty project management rules
 
+## AI Disclosure
+
+This section documents how AI tools have been used to build and run this project.
+
+### How AI was used to build the project
+
+Development of `open-scans` has used AI coding assistants for:
+
+- Writing and refining scanner modules (`scanner/*.mjs`)
+- Drafting and editing documentation (README, AGENTS.md, ACCESSIBILITY.md, SUSTAINABILITY.md)
+- Generating and reviewing GitHub Actions workflow configuration
+- Code review, debugging, and iterative improvements via PR feedback
+
+### Is any AI used when running the program?
+
+**No.** The scanner is a deterministic Node.js tool that runs established open-source accessibility engines (axe-core, Siteimprove ALFA, IBM Equal Access Checker, AccessLint, QualWeb). No LLM or generative AI is invoked at scan time.
+
+The frontend (GitHub Pages) is a static site. No AI inference runs server-side or client-side during normal use.
+
+### Is browser-based AI enabled?
+
+**No.** Browser-built-in AI features (e.g., the Chrome AI APIs) are not activated by this application. Any future AI features would require explicit user opt-in, per the project's [sustainability policy](./SUSTAINABILITY.md).
+
+### Models and tools used
+
+| Model / tool | Purpose | When used |
+| :--- | :--- | :--- |
+| GitHub Copilot (GPT-4-class via OpenAI Codex) | Code generation, CI workflow authoring, documentation drafting | Throughout development |
+| GitHub Copilot Chat (GPT-4-class) | Code review, debugging, policy drafting, iterative PR feedback | Throughout development |
+| GitHub Copilot Coding Agent (Claude Sonnet 4.5) | Automated PR implementation — AI disclosure instruction in AGENTS.md, AI Disclosure section in README.md | Development – March 2026 |
+
+> **For AI agents**: If you contribute to this project, add a row for your model/tool above. See the [AI Disclosure Requirement](./AGENTS.md) in AGENTS.md for instructions.
+
 ## Next workflow steps
 
 1. ✅ ~~Review WP01~~

@@ -53,6 +53,16 @@ npm run run:scan
 - Secrets or credentials
 - Agent-specific directories (`.claude/`, `.cursor/`, `.gemini/`, etc.)
 
+### AI Disclosure Requirement
+
+When you contribute to this project, you **must** update the **AI Disclosure** section of `README.md` to record your involvement. Add or update the row for your model/tool in the table, specifying:
+
+- **Model / tool**: the name and version (if known) of the LLM or AI assistant
+- **Purpose**: what you were used for (e.g., code generation, documentation, policy drafting)
+- **When used**: the date or phase (e.g., "Development – March 2026")
+
+Do not add rows for tools that were not actually used. Each AI tool or model should disclose only its own use. This keeps the disclosure honest and traceable.
+
 ## Accessibility Standards
 
 **IMPORTANT**: All AI agents must read and follow accessibility requirements.
