@@ -5,7 +5,8 @@
 #      which requires a GH_TOKEN secret with write access — see README for setup.
 #
 # Triggers:
-#   - On push to main when GitHub Pages content files or this workflow change
+#   - After "Deploy Reports to GitHub Pages" completes successfully (ensures the site
+#     is live before scanning, and avoids duplicating the push trigger of deploy-pages.yml)
 #   - Monthly on the 1st of each month at 02:00 UTC
 #   - Manually via workflow_dispatch
 #
@@ -14,14 +15,10 @@
 name: Scan GitHub Pages (axe-core)
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - 'index.html'
-      - 'reports.html'
-      - 'submit.js'
-      - '.github/workflows/scan-github-pages.yml'
+  workflow_run:
+    workflows: ["Deploy Reports to GitHub Pages"]
+    types: [completed]
+    branches: [main]
   schedule:
     # Monthly on the 1st at 02:00 UTC
     - cron: '0 2 1 * *'
@@ -38,6 +35,13 @@ concurrency:
 jobs:
   scan-pages:
     runs-on: ubuntu-latest
+    # For workflow_run events, only proceed when the deployment succeeded.
+    # Other conclusions (failure, cancelled, skipped, timed_out) are intentionally
+    # excluded — there is no value in scanning a site whose deployment did not finish.
+    # Schedule and manual dispatch always run unconditionally.
+    if: >
+      github.event_name != 'workflow_run' ||
+      github.event.workflow_run.conclusion == 'success'
 
     steps:
       - name: Checkout repository
@@ -221,6 +225,13 @@ jobs:
   # Reference: https://github.com/github/accessibility-scanner
   github-a11y-scanner:
     runs-on: ubuntu-latest
+    # For workflow_run events, only proceed when the deployment succeeded.
+    # Other conclusions (failure, cancelled, skipped, timed_out) are intentionally
+    # excluded — there is no value in scanning a site whose deployment did not finish.
+    # Schedule and manual dispatch always run unconditionally.
+    if: >
+      github.event_name != 'workflow_run' ||
+      github.event.workflow_run.conclusion == 'success'
     steps:
       - name: Determine GitHub Pages URL and check token
         id: setup
