@@ -1,5 +1,9 @@
 name: Deploy Reports to GitHub Pages
 
+# NOTE: scan-github-pages.yml uses a workflow_run trigger referencing this workflow
+# by name ("Deploy Reports to GitHub Pages"). If this name is changed, update the
+# workflow_run trigger in scan-github-pages.yml to match.
+
 on:
   push:
     branches:
