@@ -1,4 +1,4 @@
-import { ROLES, SEVERITY, wcagScUrl, getDisabilitiesFromScs } from "./rule-metadata.mjs";
+import { ROLES, SEVERITY, wcagScUrl, getDisabilitiesFromScs, getFpsData } from "./rule-metadata.mjs";
 import { formatAlfaRule } from "./alfa-rule-metadata.mjs";
 
 /**
@@ -329,6 +329,21 @@ export function generateInteractiveHtml(summary) {
     const disabilityIconsHtml = renderDisabilityIcons(disabilities);
     const disabilityData = JSON.stringify(disabilities);
 
+    // Compute Functional Performance Specifications affected
+    const fpsData = getFpsData(disabilities, wcag.scs || []);
+    const fpsHtml = fpsData.length > 0
+      ? `<section class="fps-section" aria-labelledby="fps-heading-${ruleSlug}">
+          <h4 id="fps-heading-${ruleSlug}">Who Is Affected</h4>
+          <ul class="fps-list" aria-label="Functional Performance Specifications affected by this issue">
+            ${fpsData.map(fp => `
+              <li class="fps-item">
+                <span class="fps-item-label">${escapeHtml(fp.label)}</span>
+                <span class="fps-item-pop">${escapeHtml(fp.population_pct)} &mdash; ${escapeHtml(fp.population_count)}</span>
+              </li>`).join('')}
+          </ul>
+        </section>`
+      : '';
+
     return `
       <details class="rule-card"
                id="rule-${ruleSlug}"
@@ -348,8 +363,8 @@ export function generateInteractiveHtml(summary) {
             ${wcagHtml ? `<span class="wcag-inline">${wcagHtml}</span>` : ''}
             ${disabilityIconsHtml ? `<span class="disability-icons" aria-label="Affects: ${disabilities.map(d => DISABILITY_INFO[d].label).join(', ')}">${disabilityIconsHtml}</span>` : ''}
             <span>
-              <strong>${displayId}</strong>: ${displayDesc}
-              <a href="#rule-${ruleSlug}" class="anchor-link anchor-link-inline" aria-label="Link to ${displayId} rule">
+              <strong>${escapeHtml(displayId)}</strong>${displayDesc ? `: ${escapeHtml(displayDesc)}` : ''}
+              <a href="#rule-${ruleSlug}" class="anchor-link anchor-link-inline" aria-label="Link to ${escapeHtml(displayId)} rule">
                 <span aria-hidden="true">#</span>
               </a>
             </span>
@@ -377,6 +392,7 @@ export function generateInteractiveHtml(summary) {
               </ul>
             </div>
           </div>
+          ${fpsHtml}
           <h4>Examples</h4>
           <div class="example-list">
             ${f.examples.map((ex, i) => `
@@ -841,6 +857,15 @@ export function generateInteractiveHtml(summary) {
 
     .rule-content { padding: 1.5rem; border-top: 1px solid var(--border); }
     .rule-details { margin-bottom: 1.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+
+    /* Functional Performance Specifications section */
+    .fps-section { margin-bottom: 1.5rem; }
+    .fps-section h4 { margin-bottom: 0.75rem; }
+    .fps-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.4rem; }
+    .fps-item { display: flex; align-items: baseline; gap: 0.75rem; font-size: 0.85rem; padding: 0.4rem 0.6rem; border-radius: 4px; background: var(--surface); border: 1px solid var(--border); }
+    .fps-item-label { font-weight: 600; flex: 1; min-width: 0; }
+    .fps-item-pop { color: var(--muted); white-space: nowrap; font-size: 0.8rem; }
+    .fps-item-desc { color: var(--muted); font-size: 0.8rem; flex-basis: 100%; }
     .example-list { margin-top: 1rem; }
     .example-item { 
       border-left: 4px solid var(--primary); 
