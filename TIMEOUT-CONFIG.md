@@ -23,6 +23,7 @@ All timeouts are configured in milliseconds:
 | `ALFA_COMMAND_TIMEOUT_MS` | 180000 (3min) | ALFA command execution timeout |
 | `PLAYWRIGHT_NAV_TIMEOUT_MS` | 30000 (30s) | Playwright page navigation timeout |
 | `PLAYWRIGHT_LAUNCH_TIMEOUT_MS` | 30000 (30s) | Playwright browser launch timeout |
+| `NETWORK_IDLE_TIMEOUT_MS` | 10000 (10s) | Maximum time to wait for network idle after page load (best-effort; scan proceeds on timeout) |
 
 ## Why These Defaults?
 
@@ -50,6 +51,7 @@ Edit `.github/workflows/scan-request.yml` or `.github/workflows/scan-issue-queue
     ALFA_COMMAND_TIMEOUT_MS: "120000"   # 2min ALFA command execution
     PLAYWRIGHT_NAV_TIMEOUT_MS: "20000"  # 20s Playwright navigation
     PLAYWRIGHT_LAUNCH_TIMEOUT_MS: "20000" # 20s Playwright browser launch
+    NETWORK_IDLE_TIMEOUT_MS: "5000"     # 5s network idle wait (best-effort)
 ```
 
 ### Option 2: System Environment Variables
@@ -93,8 +95,9 @@ Timeouts cascade from most specific to most general:
 2. ALFA page timeout (30s) → aborts ALFA page load
 3. ALFA command timeout (3min) → kills ALFA process
 4. Playwright navigation timeout (30s) → aborts page navigation
-5. Per-URL timeout (2min) → aborts entire URL scan
-6. Total scan timeout (50min) → stops scanning additional URLs
+5. Network idle timeout (10s) → best-effort wait for JS-rendered content (never blocks scan)
+6. Per-URL timeout (2min) → aborts entire URL scan
+7. Total scan timeout (50min) → stops scanning additional URLs
 
 ## Recommendations
 

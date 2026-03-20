@@ -69,7 +69,12 @@ const TIMEOUTS = {
   BROWSER_NAV_TIMEOUT: parseInt(process.env.BROWSER_NAV_TIMEOUT_MS || process.env.PLAYWRIGHT_NAV_TIMEOUT_MS || "30000", 10),
 
   // Playwright browser launch timeout (default: 30s)
-  PLAYWRIGHT_LAUNCH_TIMEOUT: parseInt(process.env.PLAYWRIGHT_LAUNCH_TIMEOUT_MS || "30000", 10)
+  PLAYWRIGHT_LAUNCH_TIMEOUT: parseInt(process.env.PLAYWRIGHT_LAUNCH_TIMEOUT_MS || "30000", 10),
+
+  // Maximum time to wait for network to become idle after page load (default: 10s)
+  // This is a best-effort wait: if the page never reaches network idle (e.g. due to
+  // analytics polling or WebSockets), the scan proceeds after this timeout.
+  NETWORK_IDLE_TIMEOUT: parseInt(process.env.NETWORK_IDLE_TIMEOUT_MS || "10000", 10)
 };
 
 // Lazy-load Playwright and axe-core to avoid errors when not installed
@@ -678,11 +683,19 @@ export async function runAxeAudit(url, pageLoadDelayMs = 2000) {
       const context = await browser.newContext();
       const page = await context.newPage();
 
-      // Navigate to URL with timeout
+      // Navigate to URL with timeout.
+      // "load" waits for the window.onload event (all scripts and sub-resources have loaded),
+      // which is more thorough than "domcontentloaded" for JS-rendered pages.
       await page.goto(url, {
-        waitUntil: "domcontentloaded",
+        waitUntil: "load",
         timeout: TIMEOUTS.BROWSER_NAV_TIMEOUT
       });
+
+      // Best-effort wait for network to become fully idle after the load event.
+      // This handles JS-heavy pages that continue modifying the DOM via async requests.
+      // We do not throw on timeout — some pages (analytics, WebSockets) never fully idle.
+      await page.waitForLoadState("networkidle", { timeout: TIMEOUTS.NETWORK_IDLE_TIMEOUT })
+        .catch((err) => console.error(`[axe] Network did not reach idle for ${url}: ${err.message}, proceeding`));
 
       // Wait for the page to fully settle after initial load
       // This helps with slow/dynamic sites that continue rendering after domcontentloaded
@@ -810,10 +823,16 @@ async function runAccessLintAudit(url, pageLoadDelayMs = 2000) {
     try {
       const context = await browser.newContext();
       const page = await context.newPage();
+      // "load" waits for window.onload (all scripts and sub-resources loaded),
+      // more thorough than "domcontentloaded" for JS-rendered pages.
       await page.goto(url, {
-        waitUntil: "domcontentloaded",
+        waitUntil: "load",
         timeout: TIMEOUTS.BROWSER_NAV_TIMEOUT
       });
+
+      // Best-effort wait for network idle after load; do not fail on timeout.
+      await page.waitForLoadState("networkidle", { timeout: TIMEOUTS.NETWORK_IDLE_TIMEOUT })
+        .catch((err) => console.error(`[accesslint] Network did not reach idle for ${url}: ${err.message}, proceeding`));
 
       // Wait for the page to fully settle after initial load
       if (pageLoadDelayMs > 0) {
