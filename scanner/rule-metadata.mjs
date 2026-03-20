@@ -260,6 +260,120 @@ export function getDisabilitiesFromScs(scs) {
 }
 
 /**
+ * Functional Performance Specifications (FPS) categories from U.S. Section 508 ICT Standards.
+ * These connect accessibility failures to real people and population statistics.
+ * Source: U.S. Access Board Section 508 Standards and related U.S. population data.
+ */
+export const FPS_CATEGORIES = {
+  without_vision: {
+    label: "Without Vision",
+    description: "People who are blind or have no functional vision",
+    population_pct: "1.0%",
+    population_count: "~3,400,000 Americans"
+  },
+  limited_vision: {
+    label: "Limited Vision",
+    description: "People with low vision who need magnification or high contrast",
+    population_pct: "2.4%",
+    population_count: "~8,100,000 Americans"
+  },
+  without_color_perception: {
+    label: "Without Perception of Color",
+    description: "People who cannot distinguish certain colors (color blindness)",
+    population_pct: "4.3%",
+    population_count: "~14,500,000 Americans"
+  },
+  without_hearing: {
+    label: "Without Hearing",
+    description: "People who are deaf and cannot hear audio content",
+    population_pct: "0.3%",
+    population_count: "~1,100,000 Americans"
+  },
+  limited_hearing: {
+    label: "Limited Hearing",
+    description: "People with hearing loss who may struggle with audio without accommodations",
+    population_pct: "3.5%",
+    population_count: "~11,900,000 Americans"
+  },
+  without_speech: {
+    label: "Without Speech",
+    description: "People who cannot use speech or voice-based input effectively",
+    population_pct: "0.5%",
+    population_count: "~1,700,000 Americans"
+  },
+  limited_manipulation: {
+    label: "Limited Manipulation",
+    description: "People with limited hand, finger, or fine motor dexterity",
+    population_pct: "2.2%",
+    population_count: "~7,600,000 Americans"
+  },
+  limited_reach_and_strength: {
+    label: "Limited Reach and Strength",
+    description: "People with limited reach, strength, or stamina",
+    population_pct: "5.8%",
+    population_count: "~19,600,000 Americans"
+  },
+  limited_cognitive: {
+    label: "Limited Language, Cognitive, and Learning Abilities",
+    description: "People with cognitive, learning, or language differences",
+    population_pct: "4.7%",
+    population_count: "~15,900,000 Americans"
+  }
+};
+
+/**
+ * Maps disability categories (from WCAG_SC_TO_DISABILITIES) to their corresponding
+ * Functional Performance Specifications (FPS) categories.
+ * "visual" maps to both vision categories. Color-specific SC (e.g. 1.4.1) may additionally
+ * include without_color_perception (handled in getFpsData via COLOR_SCS).
+ */
+export const DISABILITY_TO_FPS = {
+  visual: ["without_vision", "limited_vision"],
+  hearing: ["without_hearing", "limited_hearing"],
+  motor: ["limited_manipulation", "limited_reach_and_strength"],
+  cognitive: ["limited_cognitive"]
+};
+
+/**
+ * WCAG success criteria that specifically affect color perception (color blindness).
+ * 1.4.1 Use of Color, 1.4.3 Contrast (Minimum), 1.4.6 Contrast (Enhanced),
+ * 1.4.11 Non-text Contrast.
+ * When one of these SCs is present, without_color_perception is added to FPS results.
+ */
+const COLOR_SCS = new Set(["1.4.1", "1.4.3", "1.4.6", "1.4.11"]);
+
+/**
+ * Get the Functional Performance Specification (FPS) categories applicable
+ * to a given list of disability categories and optional WCAG success criteria.
+ * @param {string[] | null | undefined} disabilities - Array of disability category keys (e.g. ["visual", "motor"])
+ * @param {string[] | null | undefined} [wcagScs] - Optional WCAG SC numbers to detect color-specific rules
+ * @returns {{ key: string, label: string, description: string, population_pct: string, population_count: string }[]}
+ */
+export function getFpsData(disabilities, wcagScs = []) {
+  if (!disabilities || !Array.isArray(disabilities) || disabilities.length === 0) return [];
+  const seen = new Set();
+  const result = [];
+  for (const disability of disabilities) {
+    const fpsList = DISABILITY_TO_FPS[disability] || [];
+    for (const fpsKey of fpsList) {
+      if (!seen.has(fpsKey)) {
+        seen.add(fpsKey);
+        result.push({ key: fpsKey, ...FPS_CATEGORIES[fpsKey] });
+      }
+    }
+  }
+  // Add color perception category for color-related WCAG SCs
+  if (
+    !seen.has("without_color_perception") &&
+    Array.isArray(wcagScs) &&
+    wcagScs.some(sc => COLOR_SCS.has(sc))
+  ) {
+    result.push({ key: "without_color_perception", ...FPS_CATEGORIES.without_color_perception });
+  }
+  return result;
+}
+
+/**
  * Mapping of Rule IDs to Metadata
  * We use prefix-based keys: 'axe:', 'alfa:', 'ibm:'
  */
@@ -270,196 +384,280 @@ export const ruleMapping = {
     severity: SEVERITY.MINOR,
     blocking: false,
     wcagCriteria: ["4.1.1"],
-    conformanceLevel: "A"
+    conformanceLevel: "A",
+    description: "Ensures every accesskey attribute value is unique. Duplicate accesskeys cause unpredictable keyboard navigation behavior."
   },
   "axe:area-alt": {
     roles: [ROLES.CONTENT, ROLES.UX],
     severity: SEVERITY.CRITICAL,
     blocking: true,
     wcagCriteria: ["1.1.1", "2.4.4"],
-    conformanceLevel: "A"
+    conformanceLevel: "A",
+    description: "Ensures <area> elements of image maps have descriptive alternative text so screen reader users understand the link destination."
   },
   "axe:aria-allowed-attr": {
     roles: [ROLES.DEV],
     severity: SEVERITY.SERIOUS,
     blocking: false,
     wcagCriteria: ["4.1.2"],
-    conformanceLevel: "A"
+    conformanceLevel: "A",
+    description: "Ensures ARIA attributes are only used on elements where they are permitted by the ARIA specification."
   },
   "axe:aria-hidden-focus": {
     roles: [ROLES.DEV],
     severity: SEVERITY.SERIOUS,
     blocking: true,
     wcagCriteria: ["4.1.2"],
-    conformanceLevel: "A"
+    conformanceLevel: "A",
+    description: "Ensures aria-hidden elements do not contain focusable elements. Hidden elements that receive focus confuse screen reader users."
   },
   "axe:aria-input-field-name": {
     roles: [ROLES.DEV, ROLES.CONTENT],
     severity: SEVERITY.SERIOUS,
     blocking: true,
     wcagCriteria: ["4.1.2"],
-    conformanceLevel: "A"
+    conformanceLevel: "A",
+    description: "Ensures every ARIA input field has an accessible name so screen reader users know what information to enter."
   },
   "axe:aria-roles": {
     roles: [ROLES.DEV],
     severity: SEVERITY.SERIOUS,
     blocking: false,
     wcagCriteria: ["4.1.2"],
-    conformanceLevel: "A"
+    conformanceLevel: "A",
+    description: "Ensures all elements with ARIA roles use valid, non-abstract role values from the ARIA specification."
   },
   "axe:aria-valid-attr-value": {
     roles: [ROLES.DEV],
     severity: SEVERITY.SERIOUS,
     blocking: false,
     wcagCriteria: ["4.1.2"],
-    conformanceLevel: "A"
+    conformanceLevel: "A",
+    description: "Ensures all ARIA attributes have valid values as required by the specification. Invalid values break assistive technology behavior."
   },
   "axe:aria-valid-attr": {
     roles: [ROLES.DEV],
     severity: SEVERITY.SERIOUS,
     blocking: false,
     wcagCriteria: ["4.1.2"],
-    conformanceLevel: "A"
+    conformanceLevel: "A",
+    description: "Ensures attributes beginning with 'aria-' are valid ARIA attributes. Typos or custom names are ignored by assistive technologies."
   },
   "axe:button-name": {
     roles: [ROLES.DEV, ROLES.CONTENT],
     severity: SEVERITY.CRITICAL,
     blocking: true,
     wcagCriteria: ["4.1.2"],
-    conformanceLevel: "A"
+    conformanceLevel: "A",
+    description: "Ensures buttons have discernible text so screen reader users know what action the button performs."
   },
   "axe:color-contrast": {
     roles: [ROLES.VISUAL],
     severity: SEVERITY.SERIOUS,
     blocking: false,
     wcagCriteria: ["1.4.3"],
-    conformanceLevel: "AA"
+    conformanceLevel: "AA",
+    description: "Ensures text and interactive elements have sufficient contrast ratio (4.5:1 for normal text, 3:1 for large text) against their background."
   },
   "axe:document-title": {
     roles: [ROLES.CONTENT, ROLES.UX],
     severity: SEVERITY.SERIOUS,
     blocking: false,
     wcagCriteria: ["2.4.2"],
-    conformanceLevel: "A"
+    conformanceLevel: "A",
+    description: "Ensures every page has a descriptive <title> element. Screen reader users hear the page title first when navigating between pages."
   },
   "axe:duplicate-id-active": {
     roles: [ROLES.DEV],
     severity: SEVERITY.SERIOUS,
     blocking: true,
     wcagCriteria: ["4.1.1"],
-    conformanceLevel: "A"
+    conformanceLevel: "A",
+    description: "Ensures IDs on active, focusable elements are unique. Duplicate IDs on interactive elements cause broken keyboard navigation."
   },
   "axe:duplicate-id": {
     roles: [ROLES.DEV],
     severity: SEVERITY.MINOR,
     blocking: false,
     wcagCriteria: ["4.1.1"],
-    conformanceLevel: "A"
+    conformanceLevel: "A",
+    description: "Ensures every ID attribute is unique in the document. Duplicate IDs can cause assistive technologies to read incorrect or incomplete content."
   },
   "axe:form-field-multiple-labels": {
     roles: [ROLES.DEV, ROLES.UX],
     severity: SEVERITY.MODERATE,
     blocking: false,
     wcagCriteria: ["3.3.2"],
-    conformanceLevel: "A"
+    conformanceLevel: "A",
+    description: "Ensures form fields do not have multiple <label> elements. Multiple labels can cause screen readers to announce confusing or duplicated instructions."
   },
   "axe:frame-title": {
     roles: [ROLES.DEV, ROLES.CONTENT],
     severity: SEVERITY.SERIOUS,
     blocking: false,
     wcagCriteria: ["2.4.1", "4.1.2"],
-    conformanceLevel: "A"
+    conformanceLevel: "A",
+    description: "Ensures <iframe> and <frame> elements have a descriptive title attribute so screen reader users understand what the embedded content contains."
   },
   "axe:heading-order": {
     roles: [ROLES.CONTENT, ROLES.UX],
     severity: SEVERITY.MODERATE,
     blocking: false,
     wcagCriteria: [],
-    conformanceLevel: "best-practice"
+    conformanceLevel: "best-practice",
+    description: "Ensures heading levels are not skipped (e.g. h1→h3). Inconsistent heading hierarchy makes page structure difficult to navigate for screen reader users."
   },
   "axe:html-has-lang": {
     roles: [ROLES.DEV],
     severity: SEVERITY.SERIOUS,
     blocking: false,
     wcagCriteria: ["3.1.1"],
-    conformanceLevel: "A"
+    conformanceLevel: "A",
+    description: "Ensures the <html> element has a lang attribute. Screen readers use the language attribute to select the correct pronunciation engine."
   },
   "axe:image-alt": {
     roles: [ROLES.CONTENT],
     severity: SEVERITY.CRITICAL,
     blocking: true,
     wcagCriteria: ["1.1.1"],
-    conformanceLevel: "A"
+    conformanceLevel: "A",
+    description: "Ensures every <img> element has alternative text. Without alt text, blind users receive no information about the image's meaning or purpose."
   },
   "axe:input-image-alt": {
     roles: [ROLES.CONTENT, ROLES.DEV],
     severity: SEVERITY.CRITICAL,
     blocking: true,
     wcagCriteria: ["1.1.1"],
-    conformanceLevel: "A"
+    conformanceLevel: "A",
+    description: "Ensures <input type=\"image\"> elements have alternative text describing the button's action, since the image is the only visible label."
   },
   "axe:label": {
     roles: [ROLES.DEV, ROLES.UX],
     severity: SEVERITY.CRITICAL,
     blocking: true,
     wcagCriteria: ["1.3.1", "4.1.2"],
-    conformanceLevel: "A"
+    conformanceLevel: "A",
+    description: "Ensures every form input has an associated label. Without labels, screen reader users cannot understand what information a form field requires."
+  },
+  "axe:landmark-complementary-is-top-level": {
+    roles: [ROLES.DEV, ROLES.UX],
+    severity: SEVERITY.MODERATE,
+    blocking: false,
+    wcagCriteria: [],
+    conformanceLevel: "best-practice",
+    description: "Ensures the complementary landmark (<aside>) is a top-level landmark. Nested aside elements cannot be found by screen reader landmark navigation."
+  },
+  "axe:landmark-main-is-top-level": {
+    roles: [ROLES.DEV, ROLES.UX],
+    severity: SEVERITY.MODERATE,
+    blocking: false,
+    wcagCriteria: [],
+    conformanceLevel: "best-practice",
+    description: "Ensures the main landmark (<main>) is not nested inside another landmark. Screen reader users skip navigation by jumping directly to the main landmark — nesting prevents this."
+  },
+  "axe:landmark-no-duplicate-banner": {
+    roles: [ROLES.DEV, ROLES.UX],
+    severity: SEVERITY.MODERATE,
+    blocking: false,
+    wcagCriteria: [],
+    conformanceLevel: "best-practice",
+    description: "Ensures the page has only one banner landmark (<header> at top level). Multiple banners confuse screen reader users navigating by landmarks."
+  },
+  "axe:landmark-no-duplicate-contentinfo": {
+    roles: [ROLES.DEV, ROLES.UX],
+    severity: SEVERITY.MODERATE,
+    blocking: false,
+    wcagCriteria: [],
+    conformanceLevel: "best-practice",
+    description: "Ensures the page has only one contentinfo landmark (<footer> at top level). Duplicate contentinfo landmarks make landmark navigation unpredictable."
+  },
+  "axe:landmark-no-duplicate-main": {
+    roles: [ROLES.DEV, ROLES.UX],
+    severity: SEVERITY.MODERATE,
+    blocking: false,
+    wcagCriteria: [],
+    conformanceLevel: "best-practice",
+    description: "Ensures the page has only one main landmark. Multiple main landmarks make it impossible for screen reader users to reliably skip to primary content."
+  },
+  "axe:landmark-one-main": {
+    roles: [ROLES.DEV, ROLES.UX],
+    severity: SEVERITY.MODERATE,
+    blocking: false,
+    wcagCriteria: [],
+    conformanceLevel: "best-practice",
+    description: "Ensures the page has exactly one main landmark. Screen reader users rely on the main landmark to skip navigation and jump directly to page content."
   },
   "axe:link-name": {
     roles: [ROLES.CONTENT, ROLES.UX],
     severity: SEVERITY.SERIOUS,
     blocking: true,
     wcagCriteria: ["2.4.4", "4.1.2"],
-    conformanceLevel: "A"
+    conformanceLevel: "A",
+    description: "Ensures links have discernible text. Screen reader users often navigate pages by listing all links — links without text or with only 'click here' provide no context."
   },
   "axe:list": {
     roles: [ROLES.CONTENT, ROLES.DEV],
     severity: SEVERITY.SERIOUS,
     blocking: false,
     wcagCriteria: ["1.3.1"],
-    conformanceLevel: "A"
+    conformanceLevel: "A",
+    description: "Ensures <ul> and <ol> contain only <li> elements. Invalid list structure prevents screen readers from announcing list item counts and navigation shortcuts."
   },
   "axe:listitem": {
     roles: [ROLES.CONTENT, ROLES.DEV],
     severity: SEVERITY.SERIOUS,
     blocking: false,
     wcagCriteria: ["1.3.1"],
-    conformanceLevel: "A"
+    conformanceLevel: "A",
+    description: "Ensures <li> elements are contained within a <ul> or <ol>. List items outside lists lose their structural meaning for screen reader users."
   },
   "axe:meta-viewport": {
     roles: [ROLES.DEV, ROLES.UX],
     severity: SEVERITY.CRITICAL,
     blocking: true,
     wcagCriteria: ["1.4.4"],
-    conformanceLevel: "AA"
+    conformanceLevel: "AA",
+    description: "Ensures viewport meta does not disable text scaling. Disabling user-scaling prevents people with low vision from enlarging text to a readable size."
+  },
+  "axe:region": {
+    roles: [ROLES.DEV, ROLES.UX],
+    severity: SEVERITY.MODERATE,
+    blocking: false,
+    wcagCriteria: [],
+    conformanceLevel: "best-practice",
+    description: "Ensures all page content is contained within landmark regions. Content outside landmarks cannot be found by screen reader users navigating by landmarks."
   },
   "axe:tabindex": {
     roles: [ROLES.DEV],
     severity: SEVERITY.SERIOUS,
     blocking: true,
     wcagCriteria: [],
-    conformanceLevel: "best-practice"
+    conformanceLevel: "best-practice",
+    description: "Ensures tabindex attribute values greater than 0 are not used. Positive tabindex values create an unnatural tab order that disorients keyboard users."
   },
   "axe:td-headers-attr": {
     roles: [ROLES.DEV],
     severity: SEVERITY.SERIOUS,
     blocking: false,
     wcagCriteria: ["1.3.1"],
-    conformanceLevel: "A"
+    conformanceLevel: "A",
+    description: "Ensures table cells using headers attribute only reference cells in the same table. Invalid header references cause screen readers to read incorrect column/row context."
   },
   "axe:valid-lang": {
     roles: [ROLES.CONTENT, ROLES.DEV],
     severity: SEVERITY.SERIOUS,
     blocking: false,
     wcagCriteria: ["3.1.2"],
-    conformanceLevel: "AA"
+    conformanceLevel: "AA",
+    description: "Ensures lang attributes have valid BCP 47 language tag values. Invalid language tags prevent screen readers from switching to the correct pronunciation."
   },
   "axe:video-caption": {
     roles: [ROLES.CONTENT],
     severity: SEVERITY.CRITICAL,
     blocking: true,
     wcagCriteria: ["1.2.2"],
-    conformanceLevel: "A"
+    conformanceLevel: "A",
+    description: "Ensures <video> elements have captions. Without captions, deaf and hard-of-hearing users cannot access audio content in videos."
   },
 
   // --- ALFA (SIA) rules ---
