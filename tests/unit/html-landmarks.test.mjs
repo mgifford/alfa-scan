@@ -33,3 +33,25 @@ test('index.html nav has an accessible label', () => {
   const html = readFileSync(join(rootDir, 'index.html'), 'utf8');
   assert.ok(/<nav[^>]+aria-label=/.test(html), 'index.html nav must have an aria-label attribute');
 });
+
+test('reports.html has a main landmark (landmark-one-main)', () => {
+  const html = readFileSync(join(rootDir, 'reports.html'), 'utf8');
+  assert.ok(/<main[\s>]/.test(html), 'reports.html must have a <main> element');
+  assert.ok(html.includes('id="main-content"'), 'reports.html <main> must have id="main-content"');
+});
+
+test('reports.html has a skip link pointing to main content', () => {
+  const html = readFileSync(join(rootDir, 'reports.html'), 'utf8');
+  assert.ok(html.includes('href="#main-content"'), 'reports.html must have a skip link to #main-content');
+  assert.ok(html.includes('skip-link'), 'reports.html must have a skip-link class');
+});
+
+test('reports.html has a header landmark', () => {
+  const html = readFileSync(join(rootDir, 'reports.html'), 'utf8');
+  assert.ok(/<header[\s>]/.test(html), 'reports.html must have a <header> element');
+});
+
+test('reports.html nav has an accessible label', () => {
+  const html = readFileSync(join(rootDir, 'reports.html'), 'utf8');
+  assert.ok(/<nav[^>]+aria-label=/.test(html), 'reports.html nav must have an aria-label attribute');
+});
