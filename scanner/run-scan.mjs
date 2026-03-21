@@ -1,4 +1,5 @@
-import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync, writeFileSync, existsSync } from "node:fs";
+import { createHash } from "node:crypto";
 import { spawn } from "node:child_process";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -429,9 +430,28 @@ function normalizeFindingLocator(value) {
   return text ? text.replace(/\s+/g, " ").toLowerCase() : "(no-locator)";
 }
 
+/** Matches WCAG SC number tags (3+ digits) such as wcag143, wcag1411. Excludes level tags like wcag2aa. */
+const WCAG_SC_TAG_RE = /^wcag\d{3,}$/;
+
+/**
+ * Format a date string as a human-readable date in YYYY-MM-DD (ISO 8601 calendar) format.
+ * Uses 'en-CA' locale for consistent YYYY-MM-DD output across platforms.
+ * @param {string} isoDate - ISO 8601 date string
+ * @returns {string}
+ */
+export function formatFirstSeenDate(isoDate) {
+  return new Date(isoDate).toLocaleDateString("en-CA");
+}
+
 function normalizeRuleKey(failure) {
+  // Only keep WCAG SC number tags (e.g. wcag143, wcag1411) — strip level tags like wcag2a, wcag21aa.
+  // SC tags have 3+ digits after "wcag"; level tags end with letters.
   const wcagSc = Array.isArray(failure.wcagSc)
-    ? failure.wcagSc.filter(Boolean).map((entry) => String(entry).trim().toLowerCase()).sort().join("+")
+    ? failure.wcagSc
+        .filter(tag => Boolean(tag) && WCAG_SC_TAG_RE.test(String(tag)))
+        .map(entry => String(entry).trim().toLowerCase())
+        .sort()
+        .join("+")
     : String(failure.wcagSc ?? "").trim().toLowerCase();
 
   const actRule = String(failure.actRuleId ?? "").trim().toLowerCase();
@@ -487,6 +507,135 @@ function addDuplicateMetadata(result) {
   }
 
   result.duplicateFindingCount = duplicateCount;
+}
+
+/**
+ * Compute a stable fingerprint for a single finding.
+ * The fingerprint is a 12-character hex prefix of SHA-256(url|locator|ruleKey).
+ * This enables cross-scan "first identified" tracking.
+ *
+ * @param {string} url       - Final URL of the scanned page
+ * @param {string} locator   - Normalized XPath / CSS selector / HTML snippet
+ * @param {string} ruleKey   - Normalized rule key from normalizeRuleKey()
+ * @returns {string}
+ */
+export function computeFindingFingerprint(url, locator, ruleKey) {
+  return createHash("sha256").update(`${url}|${locator}|${ruleKey}`).digest("hex").slice(0, 12);
+}
+
+/**
+ * Compute per-page WCAG-SC-level cross-engine overlap.
+ *
+ * For each non-axe engine, counts how many of its unique failures share at
+ * least one WCAG SC with any unique axe failure on the same page.  This is
+ * stored as `crossEngineOverlapCount` on each non-axe scanner result so the
+ * priority table can show "N (+M shared with axe)".
+ *
+ * The check is intentionally coarser than the exact-locator deduplication in
+ * addDuplicateMetadata: it operates at the WCAG-criterion level so that
+ * findings caught by different engines in slightly different HTML representations
+ * are still recognized as covering the same accessibility issue.
+ *
+ * @param {object} result - Single per-URL scan result
+ */
+function computeCrossEngineWcagOverlap(result) {
+  // Collect all SC-number WCAG tags from unique axe findings on this page.
+  const axeWcagScs = new Set();
+  for (const failure of result.axe?.failures ?? []) {
+    if (failure.isDuplicate) continue;
+    if (!Array.isArray(failure.wcagSc)) continue;
+    for (const tag of failure.wcagSc) {
+      if (WCAG_SC_TAG_RE.test(String(tag))) {
+        axeWcagScs.add(String(tag).toLowerCase());
+      }
+    }
+  }
+
+  // For each other engine, count unique failures whose WCAG SCs overlap with axe.
+  for (const engine of ["alfa", "equalAccess", "accesslint", "qualweb"]) {
+    const engineResult = result[engine];
+    if (!engineResult) continue;
+
+    let sharedWithAxe = 0;
+
+    for (const failure of engineResult.failures ?? []) {
+      if (failure.isDuplicate) continue;
+      if (!Array.isArray(failure.wcagSc)) continue;
+
+      const hasOverlap = failure.wcagSc.some(
+        tag => axeWcagScs.has(String(tag).toLowerCase())
+      );
+      if (hasOverlap) sharedWithAxe++;
+    }
+
+    engineResult.crossEngineOverlapCount = sharedWithAxe;
+  }
+}
+
+/**
+ * Load a fingerprint store from a JSON file.
+ * Returns an empty object if the file does not exist or cannot be parsed.
+ *
+ * @param {string} storePath - Absolute path to the JSON fingerprint file
+ * @returns {object} Map of fingerprint hex → { firstSeenAt, lastSeenAt, issueNumber, scanTitle, url }
+ */
+export function loadFingerprintStore(storePath) {
+  if (!existsSync(storePath)) return {};
+  try {
+    return JSON.parse(readFileSync(storePath, "utf8"));
+  } catch {
+    return {};
+  }
+}
+
+/**
+ * Annotate scan results with fingerprint data and update the store in-place.
+ *
+ * For every non-duplicate failure in every scanner result:
+ *  - Compute a fingerprint from (finalUrl, locator, ruleKey).
+ *  - If the fingerprint is new, record it with `firstSeenAt = scannedAt`.
+ *  - Always update `lastSeenAt` on existing entries.
+ *  - Attach `fingerprint` and `firstSeenAt` onto the failure object so they
+ *    can be surfaced in reports.
+ *
+ * @param {object}   store    - Fingerprint store object (mutated in place)
+ * @param {object[]} results  - Array of per-URL scan result objects
+ * @param {object}   scanMeta - { scannedAt, issueNumber, scanTitle }
+ */
+export function annotateWithFingerprints(store, results, scanMeta) {
+  const now = scanMeta.scannedAt || new Date().toISOString();
+
+  for (const result of results) {
+    for (const scannerName of SCANNER_ORDER) {
+      const scanner = result[scannerName];
+      if (!scanner?.failures) continue;
+
+      for (const failure of scanner.failures) {
+        if (failure.isDuplicate) continue;
+
+        const locator = normalizeFindingLocator(
+          failure.xpath || failure.selector || failure.html
+        );
+        const ruleKey = normalizeRuleKey(failure);
+        const fp = computeFindingFingerprint(result.finalUrl, locator, ruleKey);
+
+        if (!store[fp]) {
+          store[fp] = {
+            firstSeenAt: now,
+            lastSeenAt: now,
+            issueNumber: scanMeta.issueNumber ?? null,
+            scanTitle: scanMeta.scanTitle ?? null,
+            url: result.finalUrl
+          };
+        } else {
+          store[fp].lastSeenAt = now;
+        }
+
+        failure.fingerprint = fp;
+        failure.firstSeenAt = store[fp].firstSeenAt;
+      }
+    }
+  }
 }
 
 async function runAlfaAudit(url) {
@@ -859,8 +1008,13 @@ async function runAccessLintAudit(url, pageLoadDelayMs = 2000) {
       for (const violation of violations) {
         const rule = String(violation?.ruleId ?? "unknown-rule");
         failedRules.add(rule);
+        // Enrich with WCAG SC tags from rule metadata so cross-engine deduplication works.
+        // AccessLint uses the same rule IDs as axe-core, so the axe lookup is correct.
+        const ruleInfo = getRuleMetadata("axe", rule);
+        const wcagSc = ruleInfo.wcagCriteria.map(sc => `wcag${sc.replace(/\./g, "")}`);
         failures.push({
           rule,
+          wcagSc: wcagSc.length > 0 ? wcagSc : undefined,
           xpath: violation?.selector ?? null,
           selector: violation?.selector ?? null,
           html: violation?.html ?? null,
@@ -1222,6 +1376,7 @@ async function scanOneUrl(target, engines = ["all"], pageLoadDelayMs = 2000) {
       };
 
       addDuplicateMetadata(result);
+      computeCrossEngineWcagOverlap(result);
       return result;
     } catch (error) {
       // Handle errors from fetch or audits
@@ -1646,7 +1801,9 @@ function buildEnhancedSummary(summary) {
             message: failure.message,
             fixSummary: failure.fixSummary,
             relatedPaths: failure.relatedPaths,
-            colorScheme: failure.colorScheme
+            colorScheme: failure.colorScheme,
+            fingerprint: failure.fingerprint ?? null,
+            firstSeenAt: failure.firstSeenAt ?? null
           });
         }
       }
@@ -1770,11 +1927,36 @@ export function toMarkdownReport(summary, axeVersion = "4.11") {
     : [...new Set([...enginesSpec.map(e => e.toLowerCase()), "axe"])]; // axe always included
 
   const PRIORITY_COLUMNS = [
-    { key: "axe", label: "axe Unique", getValue: r => r.axe?.uniqueFailedCount ?? r.axe?.counts?.failed ?? 0 },
-    { key: "alfa", label: "ALFA Unique", getValue: r => r.alfa?.uniqueFailedCount ?? r.alfa?.counts?.failed ?? 0 },
-    { key: "equalaccess", label: "Equal Access Unique", getValue: r => r.equalAccess?.uniqueFailedCount ?? r.equalAccess?.counts?.failed ?? 0 },
-    { key: "accesslint", label: "AccessLint Unique", getValue: r => r.accesslint?.uniqueFailedCount ?? r.accesslint?.counts?.failed ?? 0 },
-    { key: "qualweb", label: "QualWeb", getValue: r => r.qualweb?.counts?.failed ?? 0 },
+    {
+      key: "axe",
+      label: "axe Unique",
+      getValue: r => r.axe?.uniqueFailedCount ?? r.axe?.counts?.failed ?? 0,
+      getOverlap: () => 0
+    },
+    {
+      key: "alfa",
+      label: "ALFA Unique",
+      getValue: r => r.alfa?.uniqueFailedCount ?? r.alfa?.counts?.failed ?? 0,
+      getOverlap: r => r.alfa?.crossEngineOverlapCount ?? 0
+    },
+    {
+      key: "equalaccess",
+      label: "Equal Access Unique",
+      getValue: r => r.equalAccess?.uniqueFailedCount ?? r.equalAccess?.counts?.failed ?? 0,
+      getOverlap: r => r.equalAccess?.crossEngineOverlapCount ?? 0
+    },
+    {
+      key: "accesslint",
+      label: "AccessLint Unique",
+      getValue: r => r.accesslint?.uniqueFailedCount ?? r.accesslint?.counts?.failed ?? 0,
+      getOverlap: r => r.accesslint?.crossEngineOverlapCount ?? 0
+    },
+    {
+      key: "qualweb",
+      label: "QualWeb",
+      getValue: r => r.qualweb?.counts?.failed ?? 0,
+      getOverlap: r => r.qualweb?.crossEngineOverlapCount ?? 0
+    },
   ];
   const activeColumns = PRIORITY_COLUMNS.filter(col => activeEngineKeys.includes(col.key));
 
@@ -1791,9 +1973,16 @@ export function toMarkdownReport(summary, axeVersion = "4.11") {
     lines.push(`| Page | ${activeColumns.map(c => c.label).join(" | ")} | Total Unique | Page Title |`);
     lines.push(`|---|${activeColumns.map(() => "---:").join("|")}|---:|---|`);
     for (const result of pagesByErrorCount) {
-      const colValues = activeColumns.map(c => c.getValue(result));
-      const totalFailed = colValues.reduce((sum, v) => sum + v, 0);
-      lines.push(`| [View Page](${escapeMarkdown(result.finalUrl)}) | ${colValues.join(" | ")} | **${totalFailed}** | ${escapeMarkdown(result.pageTitle || result.finalUrl)} |`);
+      const colCells = activeColumns.map(c => {
+        const count = c.getValue(result);
+        const overlap = c.getOverlap(result);
+        if (overlap > 0 && count > 0) {
+          return `${count} (+${overlap})`;
+        }
+        return String(count);
+      });
+      const totalFailed = activeColumns.reduce((sum, c) => sum + c.getValue(result), 0);
+      lines.push(`| [View Page](${escapeMarkdown(result.finalUrl)}) | ${colCells.join(" | ")} | **${totalFailed}** | ${escapeMarkdown(result.pageTitle || result.finalUrl)} |`);
     }
   } else {
     lines.push("✅ No pages with accessibility errors detected!");
@@ -2094,6 +2283,10 @@ export function toMarkdownReport(summary, axeVersion = "4.11") {
       for (let i = 0; i < failures.length && i < MAX_FAILURES_PER_RULE; i++) {
         const failure = failures[i];
         lines.push(`**Failure ${i + 1}:**`);
+        if (failure.firstSeenAt) {
+          const dateStr = formatFirstSeenDate(failure.firstSeenAt);
+          lines.push(`- First identified: ${dateStr}`);
+        }
         if (failure.message) {
           lines.push(`- Message: ${escapeMarkdown(failure.message)}`);
         }
@@ -2155,6 +2348,10 @@ export function toMarkdownReport(summary, axeVersion = "4.11") {
       for (let i = 0; i < failures.length && i < MAX_FAILURES_PER_RULE; i++) {
         const failure = failures[i];
         lines.push(`**Failure ${i + 1}:**`);
+        if (failure.firstSeenAt) {
+          const dateStr = formatFirstSeenDate(failure.firstSeenAt);
+          lines.push(`- First identified: ${dateStr}`);
+        }
         if (failure.message) {
           lines.push(`- Message: ${escapeMarkdown(failure.message)}`);
         }
@@ -2925,6 +3122,23 @@ async function main() {
   const overlapJsonPath = join(outputDir, "report-overlap.json");
   const overlapMarkdownPath = join(outputDir, "report-overlap.md");
 
+  // ── Fingerprint tracking ──────────────────────────────────────────────────
+  // Load the shared fingerprint store (one file per GitHub issue) so we can
+  // show "First identified: …" dates for recurring findings.
+  const fingerprintStorePath = join(outputDir, "..", "fingerprints.json");
+  const fingerprintStore = loadFingerprintStore(fingerprintStorePath);
+  annotateWithFingerprints(fingerprintStore, results, {
+    scannedAt,
+    issueNumber: summary.issueNumber,
+    scanTitle: summary.scanTitle
+  });
+  try {
+    writeFileSync(fingerprintStorePath, JSON.stringify(fingerprintStore, null, 2) + "\n", "utf8");
+  } catch (err) {
+    console.error(`Warning: could not save fingerprint store: ${err.message}`);
+  }
+  // ─────────────────────────────────────────────────────────────────────────
+
   const markdownContent = toMarkdownReport(summary, axeCoreVersion || "4.11");
   const overlapReport = buildOverlapReport(summary);
   const overlapMarkdownContent = toOverlapMarkdown(overlapReport);
@@ -2962,7 +3176,8 @@ async function main() {
     htmlPath,
     csvPath,
     overlapJsonPath,
-    overlapMarkdownPath
+    overlapMarkdownPath,
+    fingerprintStorePath
   }, null, 2));
 
   // Clean up Equal Access Checker browser pool to prevent "No usable sandbox" errors

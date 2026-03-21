@@ -29,6 +29,11 @@ function slugify(text) {
     .replace(/^-|-$/g, "");
 }
 
+/** Format an ISO date string as YYYY-MM-DD for consistent display. */
+function formatFirstSeenDate(isoDate) {
+  return new Date(isoDate).toLocaleDateString("en-CA");
+}
+
 /**
  * WCAG Success Criteria introduced in WCAG 2.1 (not in 2.0).
  * @type {Set<string>}
@@ -227,6 +232,15 @@ export function generateInteractiveHtml(summary) {
     return 0;
   }
 
+  function getOverlap(result, engine) {
+    if (engine === 'axe') return 0; // axe is the baseline, no overlap shown
+    if (engine === 'alfa') return result.alfa?.crossEngineOverlapCount ?? 0;
+    if (engine === 'equalAccess') return result.equalAccess?.crossEngineOverlapCount ?? 0;
+    if (engine === 'accesslint') return result.accesslint?.crossEngineOverlapCount ?? 0;
+    if (engine === 'qualweb') return result.qualweb?.crossEngineOverlapCount ?? 0;
+    return 0;
+  }
+
   const PRIORITY_TABLE_DEFAULT_ROWS = 10;
 
   const pagesByErrorCount = [...(results || [])]
@@ -248,7 +262,8 @@ export function generateInteractiveHtml(summary) {
   const priorityTableHtml = pagesByErrorCount.length > 0 ? `
     <section class="priority-section" aria-labelledby="priority-heading">
       <h2 id="priority-heading">🎯 Pages with Most Errors</h2>
-      <p>Focus your efforts on these pages to make the biggest impact. Click any error count to filter the rule list below.</p>
+      <p>Focus your efforts on these pages to make the biggest impact. Click any error count to filter the rule list below.
+         Numbers in parentheses (+N) indicate findings that cover WCAG criteria already reported by axe.</p>
       <div class="table-wrapper" role="region" aria-label="Pages with most errors" tabindex="0">
         <table class="priority-table" aria-label="Pages sorted by total unique accessibility errors">
           <thead>
@@ -274,7 +289,11 @@ export function generateInteractiveHtml(summary) {
                 </td>
                 ${SCANNERS.map(eng => {
       const count = counts[eng];
+      const overlap = getOverlap(r, eng);
       if (count === 0) return `<td class="count-cell count-zero">0</td>`;
+      const overlapHtml = overlap > 0
+        ? ` <span class="overlap-badge" title="${overlap} finding(s) cover WCAG criteria also reported by axe">(+${overlap})</span>`
+        : '';
       return `<td class="count-cell">
                     <button class="count-btn" 
                             data-page-url="${escapeHtml(filterUrl)}"
@@ -283,7 +302,7 @@ export function generateInteractiveHtml(summary) {
                             aria-label="Filter: ${count} ${SCANNER_LABELS[eng]} errors on ${escapeHtml(pageTitle)}"
                             title="Click to filter rules for this page and scanner">
                       ${count}
-                    </button>
+                    </button>${overlapHtml}
                   </td>`;
     }).join('')}
                 <td class="count-total"><strong>${total}</strong></td>
@@ -418,6 +437,7 @@ export function generateInteractiveHtml(summary) {
                 ${ex.message ? `<div style="margin-bottom: 0.5rem; font-weight: 600;">${escapeHtml(ex.message)}</div>` : ''}
                 <div class="example-mode">
                   <strong>Mode:</strong> <span class="badge ${ex.colorScheme === 'dark' ? 'badge-dark' : 'badge-light'}">${ex.colorScheme || 'light'}</span>
+                  ${ex.firstSeenAt ? `<span class="first-seen" title="Finding fingerprint: ${escapeHtml(ex.fingerprint || '')}">🕑 First identified: ${escapeHtml(formatFirstSeenDate(ex.firstSeenAt))}</span>` : ''}
                 </div>
                 ${ex.html ? `<div class="example-code">${escapeHtml(ex.html)}</div>` : ''}
                 ${ex.xpath ? `<div class="example-xpath">XPath: ${escapeHtml(ex.xpath)}</div>` : ''}
@@ -884,6 +904,8 @@ export function generateInteractiveHtml(summary) {
     .example-detail .example-fix { font-family: sans-serif; white-space: pre-wrap; }
     .example-detail ul { margin: 0; padding-left: 1.5rem; }
     .example-code { color: var(--code-color); }
+    .example-mode { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.5rem; }
+    .first-seen { font-size: 0.8em; color: var(--muted); font-style: italic; }
 
     /* Priority table */
     .priority-section { margin-bottom: 2rem; padding: 1.5rem; border: 1px solid var(--border); border-radius: 6px; background: var(--surface); }
@@ -902,6 +924,13 @@ export function generateInteractiveHtml(summary) {
     .count-cell { text-align: right; }
     .count-zero { color: var(--muted); }
     .count-total { text-align: right; }
+    .overlap-badge {
+      font-size: 0.8em;
+      color: var(--muted);
+      font-weight: 500;
+      white-space: nowrap;
+      cursor: help;
+    }
     .count-btn {
       background: none;
       border: 1px solid transparent;
