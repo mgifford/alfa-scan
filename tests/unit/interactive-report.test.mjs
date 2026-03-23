@@ -1354,3 +1354,15 @@ test("openDetailsByHash opens the target details element and its ancestors", () 
     "Should scroll the target into view"
   );
 });
+
+test("openDetailsByHash handles pageshow event for bfcache restoration", () => {
+  const html = generateInteractiveHtml(makeSummary());
+  assert.ok(
+    html.includes("pageshow"),
+    "Should listen for pageshow events to handle bfcache restoration"
+  );
+  assert.ok(
+    html.includes("e.persisted"),
+    "Should check persisted flag to detect bfcache page restoration"
+  );
+});
