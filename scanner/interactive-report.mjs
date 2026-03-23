@@ -1600,6 +1600,15 @@ export function generateInteractiveHtml(summary) {
     window.addEventListener('hashchange', () => {
       openDetailsByHash(window.location.hash);
     });
+
+    // Handle page restoration from back/forward cache (bfcache):
+    // when the browser restores a cached page, the inline script does not
+    // re-run, so we re-apply hash navigation here.
+    window.addEventListener('pageshow', (e) => {
+      if (e.persisted) {
+        openDetailsByHash(window.location.hash);
+      }
+    });
   </script>
 </body>
 </html>`;
