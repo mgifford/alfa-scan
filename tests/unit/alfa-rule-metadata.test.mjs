@@ -132,3 +132,20 @@ test("formatAlfaRule handles best-practice rules that were previously missing", 
     assert.deepStrictEqual(formatted.wcagCriteria, [], `WCAG criteria should be empty for ${rule.url}`);
   }
 });
+
+test("formatAlfaRule handles SIA-R7, SIA-R42, and SIA-R59 rules from problem report", () => {
+  const r7 = formatAlfaRule("https://alfa.siteimprove.com/rules/sia-r7");
+  assert.strictEqual(r7.id, "SIA-R7");
+  assert.strictEqual(r7.name, "lang attribute has valid primary language subtag");
+  assert.ok(r7.description !== null);
+
+  const r42 = formatAlfaRule("https://alfa.siteimprove.com/rules/sia-r42");
+  assert.strictEqual(r42.id, "SIA-R42");
+  assert.strictEqual(r42.name, "Elements with a role have required parent");
+  assert.ok(r42.description !== null);
+
+  const r59 = formatAlfaRule("https://alfa.siteimprove.com/rules/sia-r59");
+  assert.strictEqual(r59.id, "SIA-R59");
+  assert.strictEqual(r59.name, "Documents have headings");
+  assert.ok(r59.description !== null);
+});

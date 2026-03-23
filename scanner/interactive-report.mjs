@@ -1,5 +1,6 @@
 import { ROLES, SEVERITY, wcagScUrl, getDisabilitiesFromScs, getFpsData } from "./rule-metadata.mjs";
 import { formatAlfaRule } from "./alfa-rule-metadata.mjs";
+import { getEqualAccessRuleName } from "./equalaccess-rule-metadata.mjs";
 
 /**
  * Format WCAG criteria for display in HTML reports.
@@ -329,7 +330,15 @@ export function generateInteractiveHtml(summary) {
   };
 
   function makeRuleCard(f) {
-    const ruleInfo = f.engine === 'alfa' ? formatAlfaRule(f.rule) : { id: f.rule, description: f.ruleTitle || f.metadata.description };
+    let ruleInfo;
+    if (f.engine === 'alfa') {
+      ruleInfo = formatAlfaRule(f.rule);
+    } else if (f.engine === 'equalAccess') {
+      const equalAccessName = getEqualAccessRuleName(f.rule);
+      ruleInfo = { id: f.rule, description: equalAccessName || f.ruleTitle || f.metadata.description };
+    } else {
+      ruleInfo = { id: f.rule, description: f.ruleTitle || f.metadata.description };
+    }
     const displayId = ruleInfo.id;
     const displayDesc = ruleInfo.description || "";
     const rolesData = JSON.stringify(f.metadata.roles);

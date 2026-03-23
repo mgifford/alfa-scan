@@ -675,6 +675,13 @@ export const ruleMapping = {
     wcagCriteria: ["3.1.1"],
     conformanceLevel: "A"
   },
+  "alfa:sia-r7": { // lang attribute has valid primary language subtag
+    roles: [ROLES.DEV, ROLES.CONTENT],
+    severity: SEVERITY.SERIOUS,
+    blocking: false,
+    wcagCriteria: ["3.1.1"],
+    conformanceLevel: "A"
+  },
   "alfa:sia-r4": { // Page title
     roles: [ROLES.CONTENT, ROLES.UX],
     severity: SEVERITY.SERIOUS,
@@ -710,12 +717,26 @@ export const ruleMapping = {
     wcagCriteria: ["1.1.1"],
     conformanceLevel: "A"
   },
+  "alfa:sia-r42": { // Elements with a role have required parent
+    roles: [ROLES.DEV],
+    severity: SEVERITY.SERIOUS,
+    blocking: false,
+    wcagCriteria: ["1.3.1"],
+    conformanceLevel: "A"
+  },
   "alfa:sia-r53": { // Heading hierarchy
     roles: [ROLES.CONTENT, ROLES.UX],
     severity: SEVERITY.MODERATE,
     blocking: false,
     wcagCriteria: [],
     conformanceLevel: "best-practice"
+  },
+  "alfa:sia-r59": { // Documents have headings
+    roles: [ROLES.CONTENT, ROLES.UX],
+    severity: SEVERITY.MODERATE,
+    blocking: false,
+    wcagCriteria: ["2.4.6"],
+    conformanceLevel: "AA"
   },
   "alfa:sia-r61": { // Documents start with heading
     roles: [ROLES.CONTENT, ROLES.UX],

@@ -78,6 +78,12 @@ export const alfaRuleMetadata = {
     wcagCriteria: ["3.1.1"],
     conformanceLevel: "A"
   },
+  "https://alfa.siteimprove.com/rules/sia-r7": {
+    name: "lang attribute has valid primary language subtag",
+    description: "lang attributes within the html element have a valid primary language subtag",
+    wcagCriteria: ["3.1.1"],
+    conformanceLevel: "A"
+  },
   "https://alfa.siteimprove.com/rules/sia-r8": {
     name: "Form elements labeled",
     description: "Form elements have accessible labels",
@@ -102,11 +108,23 @@ export const alfaRuleMetadata = {
     wcagCriteria: ["1.1.1"],
     conformanceLevel: "A"
   },
+  "https://alfa.siteimprove.com/rules/sia-r42": {
+    name: "Elements with a role have required parent",
+    description: "Elements with an explicit ARIA role have the required parent element",
+    wcagCriteria: ["1.3.1"],
+    conformanceLevel: "A"
+  },
   "https://alfa.siteimprove.com/rules/sia-r53": {
     name: "Heading hierarchy",
     description: "Headings follow a logical hierarchy",
     wcagCriteria: [],
     conformanceLevel: "best-practice"
+  },
+  "https://alfa.siteimprove.com/rules/sia-r59": {
+    name: "Documents have headings",
+    description: "Document has at least one heading to identify its main content",
+    wcagCriteria: ["2.4.6"],
+    conformanceLevel: "AA"
   },
   "https://alfa.siteimprove.com/rules/sia-r61": {
     name: "Document starts with heading",
