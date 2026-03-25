@@ -1,0 +1,272 @@
+{
+  "issueNumber": 220,
+  "issueUrl": "https://github.com/mgifford/open-scans/issues/220",
+  "issueTitle": "SCAN: Drupal",
+  "scanTitle": "Drupal",
+  "submittedBy": "mgifford",
+  "engines": [
+    "axe",
+    "alfa"
+  ],
+  "scannedAt": "2026-03-25T20:37:31.828Z",
+  "totalElapsedMs": 16227,
+  "totalSubmitted": 1,
+  "acceptedCount": 1,
+  "scannedCount": 1,
+  "skippedDueToTimeout": 0,
+  "skippedDueToErrAborted": 0,
+  "rejectedCount": 0,
+  "rejected": [],
+  "alfaTotals": {
+    "passed": 54,
+    "failed": 5,
+    "cantTell": 1,
+    "inapplicable": 68
+  },
+  "axeTotals": {
+    "passed": 0,
+    "failed": 0,
+    "cantTell": 0,
+    "inapplicable": 0
+  },
+  "equalAccessTotals": {
+    "passed": 0,
+    "failed": 0,
+    "uniqueFailed": 0,
+    "duplicates": 0,
+    "cantTell": 0,
+    "inapplicable": 0
+  },
+  "accesslintTotals": {
+    "passed": 0,
+    "failed": 0,
+    "uniqueFailed": 0,
+    "duplicates": 0,
+    "cantTell": 0,
+    "inapplicable": 0
+  },
+  "qualwebTotals": {
+    "passed": 0,
+    "failed": 0,
+    "cantTell": 0,
+    "inapplicable": 0
+  },
+  "duplicateFindingTotals": 4,
+  "darkModeUrlCount": 0,
+  "reducedMotionUrlCount": 0,
+  "highContrastUrlCount": 0,
+  "forcedColorsUrlCount": 0,
+  "reducedTransparencyUrlCount": 0,
+  "results": [
+    {
+      "submittedUrl": "https://www.drupal.org",
+      "finalUrl": "https://www.drupal.org/",
+      "redirected": false,
+      "statusCode": 403,
+      "ok": false,
+      "contentType": "text/html",
+      "pageTitle": "Access to this page has been denied.",
+      "elapsedMs": 16009,
+      "error": null,
+      "alfa": {
+        "executed": true,
+        "error": null,
+        "counts": {
+          "passed": 54,
+          "failed": 5,
+          "cantTell": 1,
+          "inapplicable": 68
+        },
+        "failedRules": [
+          "https://alfa.siteimprove.com/rules/sia-r73"
+        ],
+        "passedRules": [
+          "https://alfa.siteimprove.com/rules/sia-r1",
+          "https://alfa.siteimprove.com/rules/sia-r11",
+          "https://alfa.siteimprove.com/rules/sia-r2",
+          "https://alfa.siteimprove.com/rules/sia-r3",
+          "https://alfa.siteimprove.com/rules/sia-r4",
+          "https://alfa.siteimprove.com/rules/sia-r42",
+          "https://alfa.siteimprove.com/rules/sia-r5",
+          "https://alfa.siteimprove.com/rules/sia-r59",
+          "https://alfa.siteimprove.com/rules/sia-r61",
+          "https://alfa.siteimprove.com/rules/sia-r64",
+          "https://alfa.siteimprove.com/rules/sia-r65",
+          "https://alfa.siteimprove.com/rules/sia-r66",
+          "https://alfa.siteimprove.com/rules/sia-r68",
+          "https://alfa.siteimprove.com/rules/sia-r69",
+          "https://alfa.siteimprove.com/rules/sia-r70",
+          "https://alfa.siteimprove.com/rules/sia-r71",
+          "https://alfa.siteimprove.com/rules/sia-r72",
+          "https://alfa.siteimprove.com/rules/sia-r75",
+          "https://alfa.siteimprove.com/rules/sia-r78",
+          "https://alfa.siteimprove.com/rules/sia-r85",
+          "https://alfa.siteimprove.com/rules/sia-r90"
+        ],
+        "failures": [
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r73",
+            "xpath": "/p",
+            "html": "<p> You have been blocked because we believe you are ...</p>",
+            "message": "The line height of the paragraph is `normal` which will result in a line height of less than 1.5",
+            "isDuplicate": false,
+            "duplicateOf": null,
+            "fingerprint": "5e34299fbdbb",
+            "firstSeenAt": "2026-03-25T20:37:31.828Z"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r73",
+            "xpath": "/p",
+            "html": "<p> This may happen as a result of the following: </p>",
+            "message": "The line height of the paragraph is `normal` which will result in a line height of less than 1.5",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r73",
+            "xpath": "/p",
+            "html": "<p>  If you think you have been blocked by mistake, p...</p>",
+            "message": "The line height of the paragraph is `normal` which will result in a line height of less than 1.5",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r73",
+            "xpath": "/p",
+            "html": "<p> Reference ID: #7223b986-288a-11f1-bdce-a1af25ad17...</p>",
+            "message": "The line height of the paragraph is `normal` which will result in a line height of less than 1.5",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          },
+          {
+            "rule": "https://alfa.siteimprove.com/rules/sia-r73",
+            "xpath": "/p",
+            "html": "<p>...</p>",
+            "message": "The line height of the paragraph is `normal` which will result in a line height of less than 1.5",
+            "isDuplicate": true,
+            "duplicateOf": "alfa"
+          }
+        ],
+        "outcomeCount": 128,
+        "duplicateFailedCount": 4,
+        "uniqueFailedCount": 1,
+        "crossEngineOverlapCount": 0
+      },
+      "axe": {
+        "executed": false,
+        "error": "frame.evaluate: TypeError: Cannot read properties of undefined (reading 'toLowerCase')\n    at flattenTree (eval at evaluate (:290:30), <anonymous>:18422:37)\n    at eval (eval at evaluate (:290:30), <anonymous>:18410:21)\n    at Array.forEach (<anonymous>)\n    at createChildren (eval at evaluate (:290:30), <anonymous>:18409:18)\n    at flattenTree (eval at evaluate (:290:30), <anonymous>:18451:26)\n    at eval (eval at evaluate (:290:30), <anonymous>:18410:21)\n    at Array.forEach (<anonymous>)\n    at createChildren (eval at evaluate (:290:30), <anonymous>:18409:18)\n    at flattenTree (eval at evaluate (:290:30), <anonymous>:18451:26)\n    at eval (eval at evaluate (:290:30), <anonymous>:18410:21)",
+        "counts": {
+          "passed": 0,
+          "failed": 0,
+          "cantTell": 0,
+          "inapplicable": 0
+        },
+        "failedRules": [],
+        "passedRules": [],
+        "failures": [],
+        "outcomeCount": 0,
+        "uniqueFailedCount": 0,
+        "duplicateFailedCount": 0
+      },
+      "equalAccess": {
+        "executed": false,
+        "error": "Skipped (not requested)",
+        "counts": {
+          "passed": 0,
+          "failed": 0,
+          "cantTell": 0,
+          "inapplicable": 0
+        },
+        "failedRules": [],
+        "passedRules": [],
+        "failures": [],
+        "outcomeCount": 0,
+        "uniqueFailedCount": 0,
+        "duplicateFailedCount": 0,
+        "crossEngineOverlapCount": 0
+      },
+      "accesslint": {
+        "executed": false,
+        "error": "Skipped (not requested)",
+        "counts": {
+          "passed": 0,
+          "failed": 0,
+          "cantTell": 0,
+          "inapplicable": 0
+        },
+        "failedRules": [],
+        "passedRules": [],
+        "failures": [],
+        "outcomeCount": 0,
+        "uniqueFailedCount": 0,
+        "duplicateFailedCount": 0,
+        "crossEngineOverlapCount": 0
+      },
+      "qualweb": {
+        "executed": false,
+        "error": "Skipped (not requested)",
+        "counts": {
+          "passed": 0,
+          "failed": 0,
+          "cantTell": 0,
+          "inapplicable": 0
+        },
+        "failedRules": [],
+        "passedRules": [],
+        "failures": [],
+        "outcomeCount": 0,
+        "uniqueFailedCount": 0,
+        "duplicateFailedCount": 0,
+        "crossEngineOverlapCount": 0
+      },
+      "duplicateFindingCount": 4
+    }
+  ],
+  "enhanced": {
+    "consolidatedFailures": [
+      {
+        "rule": "https://alfa.siteimprove.com/rules/sia-r73",
+        "engine": "alfa",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false,
+          "wcagCriteria": [],
+          "conformanceLevel": null
+        },
+        "wcag": {
+          "scs": [],
+          "level": null
+        },
+        "ruleUrl": null,
+        "ruleTitle": null,
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://www.drupal.org",
+            "html": "<p> You have been blocked because we believe you are ...</p>",
+            "xpath": "/p",
+            "message": "The line height of the paragraph is `normal` which will result in a line height of less than 1.5",
+            "fingerprint": null,
+            "firstSeenAt": null
+          }
+        ]
+      }
+    ],
+    "roleStats": {
+      "UX Designer": 0,
+      "Visual Designer": 0,
+      "Content Author": 0,
+      "Front-End Developer": 1
+    },
+    "severityStats": {
+      "Critical": 0,
+      "Serious": 0,
+      "Moderate": 1,
+      "Minor": 0
+    }
+  }
+}

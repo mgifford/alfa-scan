@@ -1,0 +1,12 @@
+issue_number,scan_title,submitted_url,final_url,http_status,fetch_ok,redirected,elapsed_ms,alfa_executed,alfa_passed,alfa_failed,alfa_cant_tell,alfa_inapplicable,alfa_failed_rules,alfa_error,axe_executed,axe_passed,axe_failed,axe_cant_tell,axe_inapplicable,axe_failed_rules,axe_error,equal_access_executed,equal_access_passed,equal_access_failed,equal_access_failed_unique,equal_access_failed_duplicates,equal_access_cant_tell,equal_access_inapplicable,equal_access_failed_rules,equal_access_error,accesslint_executed,accesslint_passed,accesslint_failed,accesslint_failed_unique,accesslint_failed_duplicates,accesslint_cant_tell,accesslint_inapplicable,accesslint_failed_rules,accesslint_error,qualweb_executed,qualweb_passed,qualweb_failed,qualweb_cant_tell,qualweb_inapplicable,qualweb_failed_rules,qualweb_error,duplicate_findings,fetch_error,page_title
+220,Drupal,https://www.drupal.org,https://www.drupal.org/,403,false,false,16009,true,54,5,1,68,https://alfa.siteimprove.com/rules/sia-r73,,false,0,0,0,0,,"frame.evaluate: TypeError: Cannot read properties of undefined (reading 'toLowerCase')
+    at flattenTree (eval at evaluate (:290:30), <anonymous>:18422:37)
+    at eval (eval at evaluate (:290:30), <anonymous>:18410:21)
+    at Array.forEach (<anonymous>)
+    at createChildren (eval at evaluate (:290:30), <anonymous>:18409:18)
+    at flattenTree (eval at evaluate (:290:30), <anonymous>:18451:26)
+    at eval (eval at evaluate (:290:30), <anonymous>:18410:21)
+    at Array.forEach (<anonymous>)
+    at createChildren (eval at evaluate (:290:30), <anonymous>:18409:18)
+    at flattenTree (eval at evaluate (:290:30), <anonymous>:18451:26)
+    at eval (eval at evaluate (:290:30), <anonymous>:18410:21)",false,0,0,0,0,0,0,,Skipped (not requested),false,0,0,0,0,0,0,,Skipped (not requested),false,0,0,0,0,,Skipped (not requested),4,,Access to this page has been denied.
