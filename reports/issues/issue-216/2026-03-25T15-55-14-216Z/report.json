@@ -1,0 +1,1708 @@
+{
+  "issueNumber": 216,
+  "issueUrl": "https://github.com/mgifford/open-scans/issues/216",
+  "issueTitle": "SCAN: Bixal Accessibility Scan",
+  "scanTitle": "Bixal Accessibility Scan",
+  "submittedBy": "bi-zz-xal",
+  "engines": [
+    "axe",
+    "equalaccess"
+  ],
+  "scannedAt": "2026-03-25T15:54:25.037Z",
+  "totalElapsedMs": 10906,
+  "totalSubmitted": 1,
+  "acceptedCount": 1,
+  "scannedCount": 1,
+  "skippedDueToTimeout": 0,
+  "skippedDueToErrAborted": 0,
+  "rejectedCount": 0,
+  "rejected": [],
+  "alfaTotals": {
+    "passed": 0,
+    "failed": 0,
+    "cantTell": 0,
+    "inapplicable": 0
+  },
+  "axeTotals": {
+    "passed": 683,
+    "failed": 20,
+    "cantTell": 23,
+    "inapplicable": 37
+  },
+  "equalAccessTotals": {
+    "passed": 1671,
+    "failed": 38,
+    "uniqueFailed": 31,
+    "duplicates": 7,
+    "cantTell": 25,
+    "inapplicable": 0
+  },
+  "accesslintTotals": {
+    "passed": 0,
+    "failed": 0,
+    "uniqueFailed": 0,
+    "duplicates": 0,
+    "cantTell": 0,
+    "inapplicable": 0
+  },
+  "qualwebTotals": {
+    "passed": 0,
+    "failed": 0,
+    "cantTell": 0,
+    "inapplicable": 0
+  },
+  "duplicateFindingTotals": 9,
+  "darkModeUrlCount": 0,
+  "reducedMotionUrlCount": 1,
+  "highContrastUrlCount": 0,
+  "forcedColorsUrlCount": 1,
+  "reducedTransparencyUrlCount": 0,
+  "results": [
+    {
+      "submittedUrl": "https://www.bixal.com",
+      "finalUrl": "https://www.bixal.com/",
+      "redirected": false,
+      "statusCode": 200,
+      "ok": true,
+      "contentType": "text/html; charset=UTF-8",
+      "pageTitle": "We are Bixal",
+      "elapsedMs": 10895,
+      "error": null,
+      "alfa": {
+        "executed": false,
+        "error": "Skipped (not requested)",
+        "counts": {
+          "passed": 0,
+          "failed": 0,
+          "cantTell": 0,
+          "inapplicable": 0
+        },
+        "failedRules": [],
+        "passedRules": [],
+        "failures": [],
+        "outcomeCount": 0,
+        "uniqueFailedCount": 0,
+        "duplicateFailedCount": 0,
+        "crossEngineOverlapCount": 0
+      },
+      "axe": {
+        "executed": true,
+        "error": null,
+        "counts": {
+          "passed": 683,
+          "failed": 20,
+          "cantTell": 23,
+          "inapplicable": 37
+        },
+        "failedRules": [
+          "definition-list",
+          "landmark-no-duplicate-banner",
+          "landmark-unique",
+          "region"
+        ],
+        "passedRules": [
+          "aria-allowed-attr",
+          "aria-allowed-role",
+          "aria-conditional-attr",
+          "aria-deprecated-role",
+          "aria-hidden-body",
+          "aria-hidden-focus",
+          "aria-prohibited-attr",
+          "aria-required-attr",
+          "aria-roles",
+          "aria-toggle-field-name",
+          "aria-valid-attr",
+          "aria-valid-attr-value",
+          "avoid-inline-spacing",
+          "button-name",
+          "bypass",
+          "color-contrast",
+          "definition-list",
+          "dlitem",
+          "document-title",
+          "duplicate-id-aria",
+          "empty-heading",
+          "form-field-multiple-labels",
+          "frame-tested",
+          "frame-title",
+          "frame-title-unique",
+          "heading-order",
+          "html-has-lang",
+          "html-lang-valid",
+          "image-alt",
+          "image-redundant-alt",
+          "input-button-name",
+          "label",
+          "label-title-only",
+          "landmark-banner-is-top-level",
+          "landmark-contentinfo-is-top-level",
+          "landmark-main-is-top-level",
+          "landmark-no-duplicate-contentinfo",
+          "landmark-no-duplicate-main",
+          "landmark-one-main",
+          "landmark-unique",
+          "link-name",
+          "list",
+          "listitem",
+          "meta-viewport",
+          "meta-viewport-large",
+          "nested-interactive",
+          "page-has-heading-one",
+          "presentation-role-conflict",
+          "region",
+          "skip-link",
+          "tabindex"
+        ],
+        "failures": [
+          {
+            "rule": "definition-list",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/definition-list?application=playwright",
+            "impact": "serious",
+            "wcagSc": [
+              "wcag2a",
+              "wcag131"
+            ],
+            "xpath": ".bix-graphic-list__item:nth-child(1) > .bix-graphic-list__body > .bix-description-list-collection.component--type--description-list-collection.component > .component--type--description-list.component.component--view-mode--default > dl",
+            "html": "<dl class=\"bix-description-list\">",
+            "message": "<dl> elements must only directly contain properly-ordered <dt> and <dd> groups, <script>, <template> or <div> elements",
+            "fixSummary": "Fix all of the following:\n  When not empty, element does not have at least one <dt> element followed by at least one <dd> element",
+            "relatedPaths": null,
+            "colorScheme": "light",
+            "isDuplicate": false,
+            "duplicateOf": null,
+            "fingerprint": "351e0702dc52",
+            "firstSeenAt": "2026-03-25T15:54:25.037Z"
+          },
+          {
+            "rule": "definition-list",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/definition-list?application=playwright",
+            "impact": "serious",
+            "wcagSc": [
+              "wcag2a",
+              "wcag131"
+            ],
+            "xpath": ".bix-graphic-list__item:nth-child(2) > .bix-graphic-list__body > .bix-description-list-collection.component--type--description-list-collection.component > .component--type--description-list.component.component--view-mode--default > dl",
+            "html": "<dl class=\"bix-description-list\">",
+            "message": "<dl> elements must only directly contain properly-ordered <dt> and <dd> groups, <script>, <template> or <div> elements",
+            "fixSummary": "Fix all of the following:\n  When not empty, element does not have at least one <dt> element followed by at least one <dd> element",
+            "relatedPaths": null,
+            "colorScheme": "light",
+            "isDuplicate": false,
+            "duplicateOf": null,
+            "fingerprint": "c48cf9ceb3f8",
+            "firstSeenAt": "2026-03-25T15:54:25.037Z"
+          },
+          {
+            "rule": "definition-list",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/definition-list?application=playwright",
+            "impact": "serious",
+            "wcagSc": [
+              "wcag2a",
+              "wcag131"
+            ],
+            "xpath": ".bix-graphic-list__item:nth-child(3) > .bix-graphic-list__body > .bix-description-list-collection.component--type--description-list-collection.component > .component--type--description-list.component.component--view-mode--default > dl",
+            "html": "<dl class=\"bix-description-list\">",
+            "message": "<dl> elements must only directly contain properly-ordered <dt> and <dd> groups, <script>, <template> or <div> elements",
+            "fixSummary": "Fix all of the following:\n  When not empty, element does not have at least one <dt> element followed by at least one <dd> element",
+            "relatedPaths": null,
+            "colorScheme": "light",
+            "isDuplicate": false,
+            "duplicateOf": null,
+            "fingerprint": "fe00d0eaa88b",
+            "firstSeenAt": "2026-03-25T15:54:25.037Z"
+          },
+          {
+            "rule": "definition-list",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/definition-list?application=playwright",
+            "impact": "serious",
+            "wcagSc": [
+              "wcag2a",
+              "wcag131"
+            ],
+            "xpath": ".bix-graphic-list__item:nth-child(4) > .bix-graphic-list__body > .bix-description-list-collection.component--type--description-list-collection.component > .component--type--description-list.component.component--view-mode--default > dl",
+            "html": "<dl class=\"bix-description-list\">",
+            "message": "<dl> elements must only directly contain properly-ordered <dt> and <dd> groups, <script>, <template> or <div> elements",
+            "fixSummary": "Fix all of the following:\n  When not empty, element does not have at least one <dt> element followed by at least one <dd> element",
+            "relatedPaths": null,
+            "colorScheme": "light",
+            "isDuplicate": false,
+            "duplicateOf": null,
+            "fingerprint": "d7c952682554",
+            "firstSeenAt": "2026-03-25T15:54:25.037Z"
+          },
+          {
+            "rule": "definition-list",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/definition-list?application=playwright",
+            "impact": "serious",
+            "wcagSc": [
+              "wcag2a",
+              "wcag131"
+            ],
+            "xpath": ".bix-graphic-list__item:nth-child(5) > .bix-graphic-list__body > .bix-description-list-collection.component--type--description-list-collection.component > .component--type--description-list.component.component--view-mode--default > dl",
+            "html": "<dl class=\"bix-description-list\">",
+            "message": "<dl> elements must only directly contain properly-ordered <dt> and <dd> groups, <script>, <template> or <div> elements",
+            "fixSummary": "Fix all of the following:\n  When not empty, element does not have at least one <dt> element followed by at least one <dd> element",
+            "relatedPaths": null,
+            "colorScheme": "light",
+            "isDuplicate": false,
+            "duplicateOf": null,
+            "fingerprint": "2ee934ad9da3",
+            "firstSeenAt": "2026-03-25T15:54:25.037Z"
+          },
+          {
+            "rule": "definition-list",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/definition-list?application=playwright",
+            "impact": "serious",
+            "wcagSc": [
+              "wcag2a",
+              "wcag131"
+            ],
+            "xpath": ".bix-graphic-list__item:nth-child(6) > .bix-graphic-list__body > .bix-description-list-collection.component--type--description-list-collection.component > .component--type--description-list.component.component--view-mode--default > dl",
+            "html": "<dl class=\"bix-description-list\">",
+            "message": "<dl> elements must only directly contain properly-ordered <dt> and <dd> groups, <script>, <template> or <div> elements",
+            "fixSummary": "Fix all of the following:\n  When not empty, element does not have at least one <dt> element followed by at least one <dd> element",
+            "relatedPaths": null,
+            "colorScheme": "light",
+            "isDuplicate": false,
+            "duplicateOf": null,
+            "fingerprint": "4373b19a56c3",
+            "firstSeenAt": "2026-03-25T15:54:25.037Z"
+          },
+          {
+            "rule": "landmark-no-duplicate-banner",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/landmark-no-duplicate-banner?application=playwright",
+            "impact": "moderate",
+            "wcagSc": [],
+            "xpath": "div[data-sitewide-alert=\"\"]",
+            "html": "<div data-sitewide-alert=\"\" role=\"banner\"></div>",
+            "message": "Document should not have more than one banner landmark",
+            "fixSummary": "Fix any of the following:\n  Document has more than one banner landmark",
+            "relatedPaths": [
+              "header"
+            ],
+            "colorScheme": "light",
+            "isDuplicate": false,
+            "duplicateOf": null,
+            "fingerprint": "3ae6f9ab1134",
+            "firstSeenAt": "2026-03-25T15:54:25.037Z"
+          },
+          {
+            "rule": "landmark-unique",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/landmark-unique?application=playwright",
+            "impact": "moderate",
+            "wcagSc": [],
+            "xpath": "div[data-sitewide-alert=\"\"]",
+            "html": "<div data-sitewide-alert=\"\" role=\"banner\"></div>",
+            "message": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination",
+            "fixSummary": "Fix any of the following:\n  The landmark must have a unique aria-label, aria-labelledby, or title to make landmarks distinguishable",
+            "relatedPaths": [
+              "header"
+            ],
+            "colorScheme": "light",
+            "isDuplicate": false,
+            "duplicateOf": null,
+            "fingerprint": "0529bb2d6bfe",
+            "firstSeenAt": "2026-03-25T15:54:25.037Z"
+          },
+          {
+            "rule": "region",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/region?application=playwright",
+            "impact": "moderate",
+            "wcagSc": [],
+            "xpath": "#contact > .bix-container > .bix-title-prefix",
+            "html": "<div class=\"bix-title-prefix\">Contact</div>",
+            "message": "All page content should be contained by landmarks",
+            "fixSummary": "Fix any of the following:\n  Some page content is not contained by landmarks",
+            "relatedPaths": null,
+            "colorScheme": "light",
+            "isDuplicate": false,
+            "duplicateOf": null,
+            "fingerprint": "98801a6035ce",
+            "firstSeenAt": "2026-03-25T15:54:25.037Z"
+          },
+          {
+            "rule": "region",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/region?application=playwright",
+            "impact": "moderate",
+            "wcagSc": [],
+            "xpath": "#contact > .bix-container > h2",
+            "html": "<h2 class=\"bix-section__title\">\n      How can we help?<br>\n      We'd love to hear from you.\n    </h2>",
+            "message": "All page content should be contained by landmarks",
+            "fixSummary": "Fix any of the following:\n  Some page content is not contained by landmarks",
+            "relatedPaths": null,
+            "colorScheme": "light",
+            "isDuplicate": false,
+            "duplicateOf": null,
+            "fingerprint": "09b0ac9381d6",
+            "firstSeenAt": "2026-03-25T15:54:25.037Z"
+          },
+          {
+            "rule": "region",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/region?application=playwright",
+            "impact": "moderate",
+            "wcagSc": [],
+            "xpath": "#contact-message-site-wide-form > p",
+            "html": "<p>Required fields are marked with an asterisk&nbsp;(<abbr title=\"required\" class=\"bix-hint bix-hint--required\">*</abbr>).</p>",
+            "message": "All page content should be contained by landmarks",
+            "fixSummary": "Fix any of the following:\n  Some page content is not contained by landmarks",
+            "relatedPaths": null,
+            "colorScheme": "light",
+            "isDuplicate": false,
+            "duplicateOf": null,
+            "fingerprint": "8abbfad23178",
+            "firstSeenAt": "2026-03-25T15:54:25.037Z"
+          },
+          {
+            "rule": "region",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/region?application=playwright",
+            "impact": "moderate",
+            "wcagSc": [],
+            "xpath": ".bix-grid__item--full.bix-grid__item:nth-child(1)",
+            "html": "<div class=\"bix-grid__item bix-grid__item--full\">",
+            "message": "All page content should be contained by landmarks",
+            "fixSummary": "Fix any of the following:\n  Some page content is not contained by landmarks",
+            "relatedPaths": null,
+            "colorScheme": "light",
+            "isDuplicate": false,
+            "duplicateOf": null,
+            "fingerprint": "8fb3ff71141b",
+            "firstSeenAt": "2026-03-25T15:54:25.037Z"
+          },
+          {
+            "rule": "region",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/region?application=playwright",
+            "impact": "moderate",
+            "wcagSc": [],
+            "xpath": ".bix-grid__item:nth-child(2)",
+            "html": "<div class=\"bix-grid__item\">",
+            "message": "All page content should be contained by landmarks",
+            "fixSummary": "Fix any of the following:\n  Some page content is not contained by landmarks",
+            "relatedPaths": null,
+            "colorScheme": "light",
+            "isDuplicate": false,
+            "duplicateOf": null,
+            "fingerprint": "076f18a2a531",
+            "firstSeenAt": "2026-03-25T15:54:25.037Z"
+          },
+          {
+            "rule": "region",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/region?application=playwright",
+            "impact": "moderate",
+            "wcagSc": [],
+            "xpath": ".bix-grid__item:nth-child(3)",
+            "html": "<div class=\"bix-grid__item\">",
+            "message": "All page content should be contained by landmarks",
+            "fixSummary": "Fix any of the following:\n  Some page content is not contained by landmarks",
+            "relatedPaths": null,
+            "colorScheme": "light",
+            "isDuplicate": false,
+            "duplicateOf": null,
+            "fingerprint": "7c1141bd07ca",
+            "firstSeenAt": "2026-03-25T15:54:25.037Z"
+          },
+          {
+            "rule": "region",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/region?application=playwright",
+            "impact": "moderate",
+            "wcagSc": [],
+            "xpath": ".bix-grid__item--full.bix-grid__item:nth-child(4)",
+            "html": "<div class=\"bix-grid__item bix-grid__item--full\">",
+            "message": "All page content should be contained by landmarks",
+            "fixSummary": "Fix any of the following:\n  Some page content is not contained by landmarks",
+            "relatedPaths": null,
+            "colorScheme": "light",
+            "isDuplicate": false,
+            "duplicateOf": null,
+            "fingerprint": "d31f3de7c5ba",
+            "firstSeenAt": "2026-03-25T15:54:25.037Z"
+          },
+          {
+            "rule": "region",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/region?application=playwright",
+            "impact": "moderate",
+            "wcagSc": [],
+            "xpath": "iframe[title=\"reCAPTCHA\"]",
+            "html": "<div class=\"rc-inline-block\">",
+            "message": "All page content should be contained by landmarks",
+            "fixSummary": "Fix any of the following:\n  Some page content is not contained by landmarks",
+            "relatedPaths": null,
+            "colorScheme": "light",
+            "isDuplicate": false,
+            "duplicateOf": null,
+            "fingerprint": "928f42c72aa4",
+            "firstSeenAt": "2026-03-25T15:54:25.037Z"
+          },
+          {
+            "rule": "region",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/region?application=playwright",
+            "impact": "moderate",
+            "wcagSc": [],
+            "xpath": "iframe[title=\"reCAPTCHA\"]",
+            "html": "<a href=\"https://www.google.com/intl/en/policies/privacy/\" target=\"_blank\">Privacy</a>",
+            "message": "All page content should be contained by landmarks",
+            "fixSummary": "Fix any of the following:\n  Some page content is not contained by landmarks",
+            "relatedPaths": null,
+            "colorScheme": "light",
+            "isDuplicate": true,
+            "duplicateOf": "axe"
+          },
+          {
+            "rule": "region",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/region?application=playwright",
+            "impact": "moderate",
+            "wcagSc": [],
+            "xpath": "iframe[title=\"reCAPTCHA\"]",
+            "html": "<a href=\"https://www.google.com/intl/en/policies/terms/\" target=\"_blank\">Terms</a>",
+            "message": "All page content should be contained by landmarks",
+            "fixSummary": "Fix any of the following:\n  Some page content is not contained by landmarks",
+            "relatedPaths": null,
+            "colorScheme": "light",
+            "isDuplicate": true,
+            "duplicateOf": "axe"
+          },
+          {
+            "rule": "region",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/region?application=playwright",
+            "impact": "moderate",
+            "wcagSc": [],
+            "xpath": ".captcha > p",
+            "html": "<p>This question is for testing whether or not you are a human visitor and to prevent automated spam submissions.</p>",
+            "message": "All page content should be contained by landmarks",
+            "fixSummary": "Fix any of the following:\n  Some page content is not contained by landmarks",
+            "relatedPaths": null,
+            "colorScheme": "light",
+            "isDuplicate": false,
+            "duplicateOf": null,
+            "fingerprint": "2eb084a81692",
+            "firstSeenAt": "2026-03-25T15:54:25.037Z"
+          },
+          {
+            "rule": "region",
+            "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/region?application=playwright",
+            "impact": "moderate",
+            "wcagSc": [],
+            "xpath": ".cookiesjsr-banner--info",
+            "html": "<div class=\"cookiesjsr-banner--info\">",
+            "message": "All page content should be contained by landmarks",
+            "fixSummary": "Fix any of the following:\n  Some page content is not contained by landmarks",
+            "relatedPaths": null,
+            "colorScheme": "light",
+            "isDuplicate": false,
+            "duplicateOf": null,
+            "fingerprint": "7e015f4d3760",
+            "firstSeenAt": "2026-03-25T15:54:25.037Z"
+          }
+        ],
+        "outcomeCount": 763,
+        "darkModeScanned": false,
+        "mediaQuerySupport": {
+          "darkMode": false,
+          "reducedMotion": true,
+          "highContrast": false,
+          "forcedColors": true,
+          "reducedTransparency": false
+        },
+        "duplicateFailedCount": 2,
+        "uniqueFailedCount": 18
+      },
+      "equalAccess": {
+        "executed": true,
+        "error": null,
+        "counts": {
+          "passed": 1671,
+          "failed": 38,
+          "cantTell": 25,
+          "inapplicable": 0
+        },
+        "failedRules": [
+          "aria_banner_label_unique",
+          "aria_content_in_landmark",
+          "aria_landmark_name_unique",
+          "aria_role_valid",
+          "element_attribute_deprecated",
+          "frame_src_valid",
+          "heading_markup_misuse",
+          "input_label_visible",
+          "style_color_misuse",
+          "style_focus_visible",
+          "style_highcontrast_visible",
+          "text_block_heading",
+          "text_sensory_misuse"
+        ],
+        "passedRules": [],
+        "failures": [
+          {
+            "rule": "element_attribute_deprecated",
+            "xpath": null,
+            "html": "<meta content=\"A7vZI3v+Gz7JfuRolKNM4Aff6zaGuT7X0mf3wtoZTnKv6497cVMnhy03KDqX7kBz/q/iidW7srW31oQbBt4VhgoAAACUeyJvcmlnaW4iOiJodHRwczovL3d3dy5nb29nbGUuY29tOjQ0MyIsImZlYXR1cmUiOiJEaXNhYmxlVGhpcmRQYXJ0eVN0b3JhZ2VQYXJ0aXRpb25pbmczIiwiZXhwaXJ5IjoxNzU3OTgwODAwLCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ==\" http-equiv=\"origin-trial\">",
+            "message": "The HTML attribute(s) \"http-equiv\" is deprecated for the <meta> element in HTML 5",
+            "isDuplicate": false,
+            "duplicateOf": null,
+            "fingerprint": "e21c8b0b5788",
+            "firstSeenAt": "2026-03-25T15:54:25.037Z"
+          },
+          {
+            "rule": "style_color_misuse",
+            "xpath": null,
+            "html": "<link href=\"/sites/default/files/css/css_BeUtjMQF0sP4PdKA9FEO-HyAmUzaICLhMIzZg7TELJ0.css?delta=0&language=en&theme=bixal_uswds&include=eJxVyUEOwjAMRNELhfpI1SQZgYvVVLarBk4PCzasvvR-1Qlbz7h6yN1GhZWGI9sDUhEsbYynMuTXLXyJfBnje5zS_TxgCzbMP0jOhBM3Z-ibJTR5aecKo6forvkBYyIvfw\" media=\"all\" rel=\"stylesheet\">",
+            "message": "Verify color is not used as the only visual means of conveying information",
+            "isDuplicate": false,
+            "duplicateOf": null,
+            "fingerprint": "32368b138334",
+            "firstSeenAt": "2026-03-25T15:54:25.037Z"
+          },
+          {
+            "rule": "style_highcontrast_visible",
+            "xpath": null,
+            "html": "<link href=\"/sites/default/files/css/css_BeUtjMQF0sP4PdKA9FEO-HyAmUzaICLhMIzZg7TELJ0.css?delta=0&language=en&theme=bixal_uswds&include=eJxVyUEOwjAMRNELhfpI1SQZgYvVVLarBk4PCzasvvR-1Qlbz7h6yN1GhZWGI9sDUhEsbYynMuTXLXyJfBnje5zS_TxgCzbMP0jOhBM3Z-ibJTR5aecKo6forvkBYyIvfw\" media=\"all\" rel=\"stylesheet\">",
+            "message": "Confirm Windows high contrast mode is supported when using CSS to include, position or alter non-decorative content",
+            "isDuplicate": false,
+            "duplicateOf": null,
+            "fingerprint": "88448acfde45",
+            "firstSeenAt": "2026-03-25T15:54:25.037Z"
+          },
+          {
+            "rule": "aria_content_in_landmark",
+            "xpath": null,
+            "html": "<a class=\"usa-skipnav skip-link visually-hidden focusable\" href=\"#main-content\">",
+            "message": "Content is not within a landmark element",
+            "isDuplicate": false,
+            "duplicateOf": null,
+            "fingerprint": "95d50b885825",
+            "firstSeenAt": "2026-03-25T15:54:25.037Z"
+          },
+          {
+            "rule": "aria_banner_label_unique",
+            "xpath": null,
+            "html": "<div role=\"banner\" data-sitewide-alert=\"\">",
+            "message": "Multiple elements with \"banner\" role do not have unique labels",
+            "isDuplicate": false,
+            "duplicateOf": null,
+            "fingerprint": "c561b880f9c3",
+            "firstSeenAt": "2026-03-25T15:54:25.037Z"
+          },
+          {
+            "rule": "aria_landmark_name_unique",
+            "xpath": null,
+            "html": "<div role=\"banner\" data-sitewide-alert=\"\">",
+            "message": "Multiple elements with \"banner\" landmarks within the same parent region are not distinguished from one another because they have the same \"\" label",
+            "isDuplicate": false,
+            "duplicateOf": null,
+            "fingerprint": "0c6ea947200d",
+            "firstSeenAt": "2026-03-25T15:54:25.037Z"
+          },
+          {
+            "rule": "aria_banner_label_unique",
+            "xpath": null,
+            "html": "<header class=\"bix-site-header\">",
+            "message": "Multiple elements with \"banner\" role do not have unique labels",
+            "isDuplicate": false,
+            "duplicateOf": null,
+            "fingerprint": "c562a168f4cc",
+            "firstSeenAt": "2026-03-25T15:54:25.037Z"
+          },
+          {
+            "rule": "aria_landmark_name_unique",
+            "xpath": null,
+            "html": "<header class=\"bix-site-header\">",
+            "message": "Multiple elements with \"banner\" landmarks within the same parent region are not distinguished from one another because they have the same \"\" label",
+            "isDuplicate": false,
+            "duplicateOf": null,
+            "fingerprint": "34712d0dfbbc",
+            "firstSeenAt": "2026-03-25T15:54:25.037Z"
+          },
+          {
+            "rule": "style_focus_visible",
+            "xpath": null,
+            "html": "<button class=\"bix-site-nav__toggle\" aria-controls=\"site-nav\" data-menu-toggle=\"\" type=\"button\">",
+            "message": "Check the keyboard focus indicator is visible when using CSS declaration for 'border' or 'outline'",
+            "isDuplicate": false,
+            "duplicateOf": null,
+            "fingerprint": "ae9df6958c44",
+            "firstSeenAt": "2026-03-25T15:54:25.037Z"
+          },
+          {
+            "rule": "text_block_heading",
+            "xpath": null,
+            "html": "<p>",
+            "message": "Confirm this text 'Transforming Government Services with Digital and Human-Centered Solutions' is used as a heading and if so, modify to use a heading element or role",
+            "isDuplicate": false,
+            "duplicateOf": null,
+            "fingerprint": "6e12654420ab",
+            "firstSeenAt": "2026-03-25T15:54:25.037Z"
+          },
+          {
+            "rule": "heading_markup_misuse",
+            "xpath": null,
+            "html": "<h2 class=\"bix-section__title\">",
+            "message": "Verify that the heading element is a genuine heading",
+            "isDuplicate": false,
+            "duplicateOf": null,
+            "fingerprint": "21601719e0fa",
+            "firstSeenAt": "2026-03-25T15:54:25.037Z"
+          },
+          {
+            "rule": "style_focus_visible",
+            "xpath": null,
+            "html": "<a href=\"/about\" class=\"bix-button\">",
+            "message": "Check the keyboard focus indicator is visible when using CSS declaration for 'border' or 'outline'",
+            "isDuplicate": false,
+            "duplicateOf": null,
+            "fingerprint": "f6a365509a65",
+            "firstSeenAt": "2026-03-25T15:54:25.037Z"
+          },
+          {
+            "rule": "element_attribute_deprecated",
+            "xpath": null,
+            "html": "<svg viewBox=\"0 0 24 12\" aria-hidden=\"true\" y=\"0px\" x=\"0px\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"currentColor\" version=\"1.1\" width=\"20px\" class=\"bix-icon bix-icon--arrow-right\">",
+            "message": "The HTML attribute(s) \"version\" is deprecated in HTML 5",
+            "isDuplicate": false,
+            "duplicateOf": null,
+            "fingerprint": "de723ee14eca",
+            "firstSeenAt": "2026-03-25T15:54:25.037Z"
+          },
+          {
+            "rule": "text_sensory_misuse",
+            "xpath": null,
+            "html": "<div class=\"bix-section__body\">",
+            "message": "Confirm the word(s) 'right' of the user instruction is used to indicate a logical rather than visual position",
+            "isDuplicate": false,
+            "duplicateOf": null,
+            "fingerprint": "94b5aa07587a",
+            "firstSeenAt": "2026-03-25T15:54:25.037Z"
+          },
+          {
+            "rule": "heading_markup_misuse",
+            "xpath": null,
+            "html": "<h2 class=\"bix-section__title\">",
+            "message": "Verify that the heading element is a genuine heading",
+            "isDuplicate": true,
+            "duplicateOf": "equalAccess"
+          },
+          {
+            "rule": "style_focus_visible",
+            "xpath": null,
+            "html": "<a href=\"/contract-vehicles\" class=\"bix-button\">",
+            "message": "Check the keyboard focus indicator is visible when using CSS declaration for 'border' or 'outline'",
+            "isDuplicate": false,
+            "duplicateOf": null,
+            "fingerprint": "c85be5cc91e7",
+            "firstSeenAt": "2026-03-25T15:54:25.037Z"
+          },
+          {
+            "rule": "element_attribute_deprecated",
+            "xpath": null,
+            "html": "<svg viewBox=\"0 0 24 12\" aria-hidden=\"true\" y=\"0px\" x=\"0px\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"currentColor\" version=\"1.1\" width=\"20px\" class=\"bix-icon bix-icon--arrow-right\">",
+            "message": "The HTML attribute(s) \"version\" is deprecated in HTML 5",
+            "isDuplicate": true,
+            "duplicateOf": "equalAccess"
+          },
+          {
+            "rule": "text_block_heading",
+            "xpath": null,
+            "html": "<div class=\"bix-title-prefix\">",
+            "message": "Confirm this text 'OUR CLIENTS AND PARTNERS' is used as a heading and if so, modify to use a heading element or role",
+            "isDuplicate": false,
+            "duplicateOf": null,
+            "fingerprint": "2d8d7703995c",
+            "firstSeenAt": "2026-03-25T15:54:25.037Z"
+          },
+          {
+            "rule": "text_sensory_misuse",
+            "xpath": null,
+            "html": "<dd>",
+            "message": "Confirm the user instruction is still understandable without the word(s) 'Small'",
+            "isDuplicate": false,
+            "duplicateOf": null,
+            "fingerprint": "64016cf6ec61",
+            "firstSeenAt": "2026-03-25T15:54:25.037Z"
+          },
+          {
+            "rule": "text_block_heading",
+            "xpath": null,
+            "html": "<div class=\"bix-title-prefix\">",
+            "message": "Confirm this text 'WORK WITH US' is used as a heading and if so, modify to use a heading element or role",
+            "isDuplicate": true,
+            "duplicateOf": "equalAccess"
+          },
+          {
+            "rule": "heading_markup_misuse",
+            "xpath": null,
+            "html": "<h2 class=\"bix-section__title\">",
+            "message": "Verify that the heading element is a genuine heading",
+            "isDuplicate": true,
+            "duplicateOf": "equalAccess"
+          },
+          {
+            "rule": "style_focus_visible",
+            "xpath": null,
+            "html": "<a href=\"https://careers.bixal.com\" class=\"bix-button\">",
+            "message": "Check the keyboard focus indicator is visible when using CSS declaration for 'border' or 'outline'",
+            "isDuplicate": false,
+            "duplicateOf": null,
+            "fingerprint": "b83f54bc4a1d",
+            "firstSeenAt": "2026-03-25T15:54:25.037Z"
+          },
+          {
+            "rule": "element_attribute_deprecated",
+            "xpath": null,
+            "html": "<svg viewBox=\"0 0 24 12\" aria-hidden=\"true\" y=\"0px\" x=\"0px\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"currentColor\" version=\"1.1\" width=\"20px\" class=\"bix-icon bix-icon--arrow-right\">",
+            "message": "The HTML attribute(s) \"version\" is deprecated in HTML 5",
+            "isDuplicate": true,
+            "duplicateOf": "equalAccess"
+          },
+          {
+            "rule": "text_block_heading",
+            "xpath": null,
+            "html": "<div class=\"bix-title-prefix\">",
+            "message": "Confirm this text 'Contact' is used as a heading and if so, modify to use a heading element or role",
+            "isDuplicate": true,
+            "duplicateOf": "equalAccess"
+          },
+          {
+            "rule": "aria_content_in_landmark",
+            "xpath": null,
+            "html": "<h2 class=\"bix-section__title\">",
+            "message": "Content is not within a landmark element",
+            "isDuplicate": false,
+            "duplicateOf": null,
+            "fingerprint": "f4066b17933b",
+            "firstSeenAt": "2026-03-25T15:54:25.037Z"
+          },
+          {
+            "rule": "input_label_visible",
+            "xpath": null,
+            "html": "<textarea required=\"required\" placeholder=\"Want to find out more or interested in doing business with us? type message here…\" cols=\"60\" rows=\"12\" name=\"message[0][value]\" id=\"edit-message-0-value\" data-drupal-selector=\"edit-message-0-value\" class=\"js-text-full text-full form-textarea required resize-vertical bix-input bix-input--textarea usa-textarea\">",
+            "message": "The ‘placeholder’ is the only visible label",
+            "isDuplicate": false,
+            "duplicateOf": null,
+            "fingerprint": "fc434c75e593",
+            "firstSeenAt": "2026-03-25T15:54:25.037Z"
+          },
+          {
+            "rule": "element_attribute_deprecated",
+            "xpath": null,
+            "html": "<iframe src=\"https://www.google.com/recaptcha/api2/anchor?ar=1&k=6LfH1LIqAAAAACvGsKyYIZj3f4yHu3DH7jyN2dBX&co=aHR0cHM6Ly93d3cuYml4YWwuY29tOjQ0Mw..&hl=en&type=image&v=qm3PSRIx10pekcnS9DjGnjPW&theme=light&size=normal&anchor-ms=20000&execute-ms=30000&cb=gh4aitod48yq\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox allow-storage-access-by-user-activation\" scrolling=\"no\" frameborder=\"0\" name=\"a-kxuotqt4rw6g\" role=\"presentation\" height=\"78\" width=\"304\" title=\"reCAPTCHA\">",
+            "message": "The HTML attribute(s) \"frameborder, scrolling\" is deprecated for the <iframe> element in HTML 5",
+            "isDuplicate": false,
+            "duplicateOf": null,
+            "fingerprint": "1dcb1d472e80",
+            "firstSeenAt": "2026-03-25T15:54:25.037Z"
+          },
+          {
+            "rule": "frame_src_valid",
+            "xpath": null,
+            "html": "<iframe src=\"https://www.google.com/recaptcha/api2/anchor?ar=1&k=6LfH1LIqAAAAACvGsKyYIZj3f4yHu3DH7jyN2dBX&co=aHR0cHM6Ly93d3cuYml4YWwuY29tOjQ0Mw..&hl=en&type=image&v=qm3PSRIx10pekcnS9DjGnjPW&theme=light&size=normal&anchor-ms=20000&execute-ms=30000&cb=gh4aitod48yq\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox allow-storage-access-by-user-activation\" scrolling=\"no\" frameborder=\"0\" name=\"a-kxuotqt4rw6g\" role=\"presentation\" height=\"78\" width=\"304\" title=\"reCAPTCHA\">",
+            "message": "Verify <frame> content is accessible",
+            "isDuplicate": false,
+            "duplicateOf": null,
+            "fingerprint": "8b9973f87a3f",
+            "firstSeenAt": "2026-03-25T15:54:25.037Z"
+          },
+          {
+            "rule": "style_focus_visible",
+            "xpath": null,
+            "html": "<input aria-describedby=\"edit-submit\" value=\"Submit\" name=\"op\" id=\"edit-submit\" type=\"submit\" data-drupal-selector=\"edit-submit\" class=\"bix-button bix-button--inverse button button--primary js-form-submit form-submit\">",
+            "message": "Check the keyboard focus indicator is visible when using CSS declaration for 'border' or 'outline'",
+            "isDuplicate": false,
+            "duplicateOf": null,
+            "fingerprint": "e3b4a230bd8f",
+            "firstSeenAt": "2026-03-25T15:54:25.037Z"
+          },
+          {
+            "rule": "input_label_visible",
+            "xpath": null,
+            "html": "<input aria-describedby=\"edit-submit\" value=\"Submit\" name=\"op\" id=\"edit-submit\" type=\"submit\" data-drupal-selector=\"edit-submit\" class=\"bix-button bix-button--inverse button button--primary js-form-submit form-submit\">",
+            "message": "The input element does not have an associated visible label",
+            "isDuplicate": false,
+            "duplicateOf": null,
+            "fingerprint": "f4a5b1416d62",
+            "firstSeenAt": "2026-03-25T15:54:25.037Z"
+          },
+          {
+            "rule": "aria_role_valid",
+            "xpath": null,
+            "html": "<img alt=\"Bixal Logo letter B silhouette around a photo of a smiling child.\" src=\"/static/img-b-footer.png\" loading=\"lazy\" decoding=\"async\" aria-hidden=\"true\" role=\"presentation\">",
+            "message": "The ARIA role 'presentation' is not valid for the element <img> and may be ignored by the browser since the element is focusable",
+            "isDuplicate": false,
+            "duplicateOf": null,
+            "fingerprint": "e6926cebdd9c",
+            "firstSeenAt": "2026-03-25T15:54:25.037Z"
+          },
+          {
+            "rule": "style_focus_visible",
+            "xpath": null,
+            "html": "<a href=\"/careers\" class=\"bix-button bix-button--inverse\">",
+            "message": "Check the keyboard focus indicator is visible when using CSS declaration for 'border' or 'outline'",
+            "isDuplicate": false,
+            "duplicateOf": null,
+            "fingerprint": "684edc33ee66",
+            "firstSeenAt": "2026-03-25T15:54:25.037Z"
+          },
+          {
+            "rule": "element_attribute_deprecated",
+            "xpath": null,
+            "html": "<svg viewBox=\"0 0 24 12\" aria-hidden=\"true\" y=\"0px\" x=\"0px\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"currentColor\" version=\"1.1\" width=\"20px\" class=\"bix-icon bix-icon--arrow-right\">",
+            "message": "The HTML attribute(s) \"version\" is deprecated in HTML 5",
+            "isDuplicate": true,
+            "duplicateOf": "equalAccess"
+          },
+          {
+            "rule": "aria_content_in_landmark",
+            "xpath": null,
+            "html": "<ul class=\"cookiesjsr-links cookiesjsr-banner--links links--row\">",
+            "message": "Content is not within a landmark element",
+            "isDuplicate": false,
+            "duplicateOf": null,
+            "fingerprint": "088a283691c4",
+            "firstSeenAt": "2026-03-25T15:54:25.037Z"
+          },
+          {
+            "rule": "aria_content_in_landmark",
+            "xpath": null,
+            "html": "<button class=\"cookiesjsr-btn cookiesjsr-settings\">",
+            "message": "Content is not within a landmark element",
+            "isDuplicate": false,
+            "duplicateOf": null,
+            "fingerprint": "fa3367f126ff",
+            "firstSeenAt": "2026-03-25T15:54:25.037Z"
+          },
+          {
+            "rule": "style_focus_visible",
+            "xpath": null,
+            "html": "<button class=\"cookiesjsr-btn cookiesjsr-settings\">",
+            "message": "Check the keyboard focus indicator is visible when using CSS declaration for 'border' or 'outline'",
+            "isDuplicate": false,
+            "duplicateOf": null,
+            "fingerprint": "b548e8c7ccbf",
+            "firstSeenAt": "2026-03-25T15:54:25.037Z"
+          },
+          {
+            "rule": "style_focus_visible",
+            "xpath": null,
+            "html": "<button class=\"cookiesjsr-btn important denyAll\">",
+            "message": "Check the keyboard focus indicator is visible when using CSS declaration for 'border' or 'outline'",
+            "isDuplicate": false,
+            "duplicateOf": null,
+            "fingerprint": "063a60ee8c9b",
+            "firstSeenAt": "2026-03-25T15:54:25.037Z"
+          },
+          {
+            "rule": "style_focus_visible",
+            "xpath": null,
+            "html": "<button class=\"cookiesjsr-btn important allowAll\">",
+            "message": "Check the keyboard focus indicator is visible when using CSS declaration for 'border' or 'outline'",
+            "isDuplicate": false,
+            "duplicateOf": null,
+            "fingerprint": "1709e7c67a2d",
+            "firstSeenAt": "2026-03-25T15:54:25.037Z"
+          }
+        ],
+        "outcomeCount": 1731,
+        "uniqueFailedCount": 31,
+        "duplicateFailedCount": 7,
+        "crossEngineOverlapCount": 0
+      },
+      "accesslint": {
+        "executed": false,
+        "error": "Skipped (not requested)",
+        "counts": {
+          "passed": 0,
+          "failed": 0,
+          "cantTell": 0,
+          "inapplicable": 0
+        },
+        "failedRules": [],
+        "passedRules": [],
+        "failures": [],
+        "outcomeCount": 0,
+        "uniqueFailedCount": 0,
+        "duplicateFailedCount": 0,
+        "crossEngineOverlapCount": 0
+      },
+      "qualweb": {
+        "executed": false,
+        "error": "Skipped (not requested)",
+        "counts": {
+          "passed": 0,
+          "failed": 0,
+          "cantTell": 0,
+          "inapplicable": 0
+        },
+        "failedRules": [],
+        "passedRules": [],
+        "failures": [],
+        "outcomeCount": 0,
+        "uniqueFailedCount": 0,
+        "duplicateFailedCount": 0,
+        "crossEngineOverlapCount": 0
+      },
+      "duplicateFindingCount": 9
+    }
+  ],
+  "enhanced": {
+    "consolidatedFailures": [
+      {
+        "rule": "region",
+        "engine": "axe",
+        "metadata": {
+          "roles": [
+            "Front-End Developer",
+            "UX Designer"
+          ],
+          "severity": "Moderate",
+          "blocking": false,
+          "wcagCriteria": [],
+          "conformanceLevel": "best-practice",
+          "description": "Ensures all page content is contained within landmark regions. Content outside landmarks cannot be found by screen reader users navigating by landmarks."
+        },
+        "wcag": {
+          "scs": [],
+          "level": null
+        },
+        "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/region?application=playwright",
+        "ruleTitle": null,
+        "pages": {},
+        "totalOccurrences": 10,
+        "examples": [
+          {
+            "url": "https://www.bixal.com",
+            "html": "<div class=\"bix-title-prefix\">Contact</div>",
+            "xpath": "#contact > .bix-container > .bix-title-prefix",
+            "message": "All page content should be contained by landmarks",
+            "fixSummary": "Fix any of the following:\n  Some page content is not contained by landmarks",
+            "relatedPaths": null,
+            "colorScheme": "light",
+            "fingerprint": null,
+            "firstSeenAt": null
+          },
+          {
+            "url": "https://www.bixal.com",
+            "html": "<h2 class=\"bix-section__title\">\n      How can we help?<br>\n      We'd love to hear from you.\n    </h2>",
+            "xpath": "#contact > .bix-container > h2",
+            "message": "All page content should be contained by landmarks",
+            "fixSummary": "Fix any of the following:\n  Some page content is not contained by landmarks",
+            "relatedPaths": null,
+            "colorScheme": "light",
+            "fingerprint": null,
+            "firstSeenAt": null
+          },
+          {
+            "url": "https://www.bixal.com",
+            "html": "<p>Required fields are marked with an asterisk&nbsp;(<abbr title=\"required\" class=\"bix-hint bix-hint--required\">*</abbr>).</p>",
+            "xpath": "#contact-message-site-wide-form > p",
+            "message": "All page content should be contained by landmarks",
+            "fixSummary": "Fix any of the following:\n  Some page content is not contained by landmarks",
+            "relatedPaths": null,
+            "colorScheme": "light",
+            "fingerprint": null,
+            "firstSeenAt": null
+          },
+          {
+            "url": "https://www.bixal.com",
+            "html": "<div class=\"bix-grid__item bix-grid__item--full\">",
+            "xpath": ".bix-grid__item--full.bix-grid__item:nth-child(1)",
+            "message": "All page content should be contained by landmarks",
+            "fixSummary": "Fix any of the following:\n  Some page content is not contained by landmarks",
+            "relatedPaths": null,
+            "colorScheme": "light",
+            "fingerprint": null,
+            "firstSeenAt": null
+          },
+          {
+            "url": "https://www.bixal.com",
+            "html": "<div class=\"bix-grid__item\">",
+            "xpath": ".bix-grid__item:nth-child(2)",
+            "message": "All page content should be contained by landmarks",
+            "fixSummary": "Fix any of the following:\n  Some page content is not contained by landmarks",
+            "relatedPaths": null,
+            "colorScheme": "light",
+            "fingerprint": null,
+            "firstSeenAt": null
+          }
+        ]
+      },
+      {
+        "rule": "style_focus_visible",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false,
+          "wcagCriteria": [],
+          "conformanceLevel": null
+        },
+        "wcag": {
+          "scs": [],
+          "level": null
+        },
+        "ruleUrl": null,
+        "ruleTitle": null,
+        "pages": {},
+        "totalOccurrences": 9,
+        "examples": [
+          {
+            "url": "https://www.bixal.com",
+            "html": "<button class=\"bix-site-nav__toggle\" aria-controls=\"site-nav\" data-menu-toggle=\"\" type=\"button\">",
+            "xpath": null,
+            "message": "Check the keyboard focus indicator is visible when using CSS declaration for 'border' or 'outline'",
+            "fingerprint": null,
+            "firstSeenAt": null
+          },
+          {
+            "url": "https://www.bixal.com",
+            "html": "<a href=\"/about\" class=\"bix-button\">",
+            "xpath": null,
+            "message": "Check the keyboard focus indicator is visible when using CSS declaration for 'border' or 'outline'",
+            "fingerprint": null,
+            "firstSeenAt": null
+          },
+          {
+            "url": "https://www.bixal.com",
+            "html": "<a href=\"/contract-vehicles\" class=\"bix-button\">",
+            "xpath": null,
+            "message": "Check the keyboard focus indicator is visible when using CSS declaration for 'border' or 'outline'",
+            "fingerprint": null,
+            "firstSeenAt": null
+          },
+          {
+            "url": "https://www.bixal.com",
+            "html": "<a href=\"https://careers.bixal.com\" class=\"bix-button\">",
+            "xpath": null,
+            "message": "Check the keyboard focus indicator is visible when using CSS declaration for 'border' or 'outline'",
+            "fingerprint": null,
+            "firstSeenAt": null
+          },
+          {
+            "url": "https://www.bixal.com",
+            "html": "<input aria-describedby=\"edit-submit\" value=\"Submit\" name=\"op\" id=\"edit-submit\" type=\"submit\" data-drupal-selector=\"edit-submit\" class=\"bix-button bix-button--inverse button button--primary js-form-submit form-submit\">",
+            "xpath": null,
+            "message": "Check the keyboard focus indicator is visible when using CSS declaration for 'border' or 'outline'",
+            "fingerprint": null,
+            "firstSeenAt": null
+          }
+        ]
+      },
+      {
+        "rule": "definition-list",
+        "engine": "axe",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false,
+          "wcagCriteria": [],
+          "conformanceLevel": null
+        },
+        "wcag": {
+          "scs": [
+            "1.3.1"
+          ],
+          "level": "A"
+        },
+        "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/definition-list?application=playwright",
+        "ruleTitle": null,
+        "pages": {},
+        "totalOccurrences": 6,
+        "examples": [
+          {
+            "url": "https://www.bixal.com",
+            "html": "<dl class=\"bix-description-list\">",
+            "xpath": ".bix-graphic-list__item:nth-child(1) > .bix-graphic-list__body > .bix-description-list-collection.component--type--description-list-collection.component > .component--type--description-list.component.component--view-mode--default > dl",
+            "message": "<dl> elements must only directly contain properly-ordered <dt> and <dd> groups, <script>, <template> or <div> elements",
+            "fixSummary": "Fix all of the following:\n  When not empty, element does not have at least one <dt> element followed by at least one <dd> element",
+            "relatedPaths": null,
+            "colorScheme": "light",
+            "fingerprint": null,
+            "firstSeenAt": null
+          },
+          {
+            "url": "https://www.bixal.com",
+            "html": "<dl class=\"bix-description-list\">",
+            "xpath": ".bix-graphic-list__item:nth-child(2) > .bix-graphic-list__body > .bix-description-list-collection.component--type--description-list-collection.component > .component--type--description-list.component.component--view-mode--default > dl",
+            "message": "<dl> elements must only directly contain properly-ordered <dt> and <dd> groups, <script>, <template> or <div> elements",
+            "fixSummary": "Fix all of the following:\n  When not empty, element does not have at least one <dt> element followed by at least one <dd> element",
+            "relatedPaths": null,
+            "colorScheme": "light",
+            "fingerprint": null,
+            "firstSeenAt": null
+          },
+          {
+            "url": "https://www.bixal.com",
+            "html": "<dl class=\"bix-description-list\">",
+            "xpath": ".bix-graphic-list__item:nth-child(3) > .bix-graphic-list__body > .bix-description-list-collection.component--type--description-list-collection.component > .component--type--description-list.component.component--view-mode--default > dl",
+            "message": "<dl> elements must only directly contain properly-ordered <dt> and <dd> groups, <script>, <template> or <div> elements",
+            "fixSummary": "Fix all of the following:\n  When not empty, element does not have at least one <dt> element followed by at least one <dd> element",
+            "relatedPaths": null,
+            "colorScheme": "light",
+            "fingerprint": null,
+            "firstSeenAt": null
+          },
+          {
+            "url": "https://www.bixal.com",
+            "html": "<dl class=\"bix-description-list\">",
+            "xpath": ".bix-graphic-list__item:nth-child(4) > .bix-graphic-list__body > .bix-description-list-collection.component--type--description-list-collection.component > .component--type--description-list.component.component--view-mode--default > dl",
+            "message": "<dl> elements must only directly contain properly-ordered <dt> and <dd> groups, <script>, <template> or <div> elements",
+            "fixSummary": "Fix all of the following:\n  When not empty, element does not have at least one <dt> element followed by at least one <dd> element",
+            "relatedPaths": null,
+            "colorScheme": "light",
+            "fingerprint": null,
+            "firstSeenAt": null
+          },
+          {
+            "url": "https://www.bixal.com",
+            "html": "<dl class=\"bix-description-list\">",
+            "xpath": ".bix-graphic-list__item:nth-child(5) > .bix-graphic-list__body > .bix-description-list-collection.component--type--description-list-collection.component > .component--type--description-list.component.component--view-mode--default > dl",
+            "message": "<dl> elements must only directly contain properly-ordered <dt> and <dd> groups, <script>, <template> or <div> elements",
+            "fixSummary": "Fix all of the following:\n  When not empty, element does not have at least one <dt> element followed by at least one <dd> element",
+            "relatedPaths": null,
+            "colorScheme": "light",
+            "fingerprint": null,
+            "firstSeenAt": null
+          }
+        ]
+      },
+      {
+        "rule": "aria_content_in_landmark",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false,
+          "wcagCriteria": [],
+          "conformanceLevel": null
+        },
+        "wcag": {
+          "scs": [],
+          "level": null
+        },
+        "ruleUrl": null,
+        "ruleTitle": null,
+        "pages": {},
+        "totalOccurrences": 4,
+        "examples": [
+          {
+            "url": "https://www.bixal.com",
+            "html": "<a class=\"usa-skipnav skip-link visually-hidden focusable\" href=\"#main-content\">",
+            "xpath": null,
+            "message": "Content is not within a landmark element",
+            "fingerprint": null,
+            "firstSeenAt": null
+          },
+          {
+            "url": "https://www.bixal.com",
+            "html": "<h2 class=\"bix-section__title\">",
+            "xpath": null,
+            "message": "Content is not within a landmark element",
+            "fingerprint": null,
+            "firstSeenAt": null
+          },
+          {
+            "url": "https://www.bixal.com",
+            "html": "<ul class=\"cookiesjsr-links cookiesjsr-banner--links links--row\">",
+            "xpath": null,
+            "message": "Content is not within a landmark element",
+            "fingerprint": null,
+            "firstSeenAt": null
+          },
+          {
+            "url": "https://www.bixal.com",
+            "html": "<button class=\"cookiesjsr-btn cookiesjsr-settings\">",
+            "xpath": null,
+            "message": "Content is not within a landmark element",
+            "fingerprint": null,
+            "firstSeenAt": null
+          }
+        ]
+      },
+      {
+        "rule": "element_attribute_deprecated",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false,
+          "wcagCriteria": [],
+          "conformanceLevel": null
+        },
+        "wcag": {
+          "scs": [],
+          "level": null
+        },
+        "ruleUrl": null,
+        "ruleTitle": null,
+        "pages": {},
+        "totalOccurrences": 3,
+        "examples": [
+          {
+            "url": "https://www.bixal.com",
+            "html": "<meta content=\"A7vZI3v+Gz7JfuRolKNM4Aff6zaGuT7X0mf3wtoZTnKv6497cVMnhy03KDqX7kBz/q/iidW7srW31oQbBt4VhgoAAACUeyJvcmlnaW4iOiJodHRwczovL3d3dy5nb29nbGUuY29tOjQ0MyIsImZlYXR1cmUiOiJEaXNhYmxlVGhpcmRQYXJ0eVN0b3JhZ2VQYXJ0aXRpb25pbmczIiwiZXhwaXJ5IjoxNzU3OTgwODAwLCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ==\" http-equiv=\"origin-trial\">",
+            "xpath": null,
+            "message": "The HTML attribute(s) \"http-equiv\" is deprecated for the <meta> element in HTML 5",
+            "fingerprint": null,
+            "firstSeenAt": null
+          },
+          {
+            "url": "https://www.bixal.com",
+            "html": "<svg viewBox=\"0 0 24 12\" aria-hidden=\"true\" y=\"0px\" x=\"0px\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"currentColor\" version=\"1.1\" width=\"20px\" class=\"bix-icon bix-icon--arrow-right\">",
+            "xpath": null,
+            "message": "The HTML attribute(s) \"version\" is deprecated in HTML 5",
+            "fingerprint": null,
+            "firstSeenAt": null
+          },
+          {
+            "url": "https://www.bixal.com",
+            "html": "<iframe src=\"https://www.google.com/recaptcha/api2/anchor?ar=1&k=6LfH1LIqAAAAACvGsKyYIZj3f4yHu3DH7jyN2dBX&co=aHR0cHM6Ly93d3cuYml4YWwuY29tOjQ0Mw..&hl=en&type=image&v=qm3PSRIx10pekcnS9DjGnjPW&theme=light&size=normal&anchor-ms=20000&execute-ms=30000&cb=gh4aitod48yq\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox allow-storage-access-by-user-activation\" scrolling=\"no\" frameborder=\"0\" name=\"a-kxuotqt4rw6g\" role=\"presentation\" height=\"78\" width=\"304\" title=\"reCAPTCHA\">",
+            "xpath": null,
+            "message": "The HTML attribute(s) \"frameborder, scrolling\" is deprecated for the <iframe> element in HTML 5",
+            "fingerprint": null,
+            "firstSeenAt": null
+          }
+        ]
+      },
+      {
+        "rule": "aria_banner_label_unique",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false,
+          "wcagCriteria": [],
+          "conformanceLevel": null
+        },
+        "wcag": {
+          "scs": [],
+          "level": null
+        },
+        "ruleUrl": null,
+        "ruleTitle": null,
+        "pages": {},
+        "totalOccurrences": 2,
+        "examples": [
+          {
+            "url": "https://www.bixal.com",
+            "html": "<div role=\"banner\" data-sitewide-alert=\"\">",
+            "xpath": null,
+            "message": "Multiple elements with \"banner\" role do not have unique labels",
+            "fingerprint": null,
+            "firstSeenAt": null
+          },
+          {
+            "url": "https://www.bixal.com",
+            "html": "<header class=\"bix-site-header\">",
+            "xpath": null,
+            "message": "Multiple elements with \"banner\" role do not have unique labels",
+            "fingerprint": null,
+            "firstSeenAt": null
+          }
+        ]
+      },
+      {
+        "rule": "aria_landmark_name_unique",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false,
+          "wcagCriteria": [],
+          "conformanceLevel": null
+        },
+        "wcag": {
+          "scs": [],
+          "level": null
+        },
+        "ruleUrl": null,
+        "ruleTitle": null,
+        "pages": {},
+        "totalOccurrences": 2,
+        "examples": [
+          {
+            "url": "https://www.bixal.com",
+            "html": "<div role=\"banner\" data-sitewide-alert=\"\">",
+            "xpath": null,
+            "message": "Multiple elements with \"banner\" landmarks within the same parent region are not distinguished from one another because they have the same \"\" label",
+            "fingerprint": null,
+            "firstSeenAt": null
+          },
+          {
+            "url": "https://www.bixal.com",
+            "html": "<header class=\"bix-site-header\">",
+            "xpath": null,
+            "message": "Multiple elements with \"banner\" landmarks within the same parent region are not distinguished from one another because they have the same \"\" label",
+            "fingerprint": null,
+            "firstSeenAt": null
+          }
+        ]
+      },
+      {
+        "rule": "text_block_heading",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false,
+          "wcagCriteria": [],
+          "conformanceLevel": null
+        },
+        "wcag": {
+          "scs": [],
+          "level": null
+        },
+        "ruleUrl": null,
+        "ruleTitle": null,
+        "pages": {},
+        "totalOccurrences": 2,
+        "examples": [
+          {
+            "url": "https://www.bixal.com",
+            "html": "<p>",
+            "xpath": null,
+            "message": "Confirm this text 'Transforming Government Services with Digital and Human-Centered Solutions' is used as a heading and if so, modify to use a heading element or role",
+            "fingerprint": null,
+            "firstSeenAt": null
+          },
+          {
+            "url": "https://www.bixal.com",
+            "html": "<div class=\"bix-title-prefix\">",
+            "xpath": null,
+            "message": "Confirm this text 'OUR CLIENTS AND PARTNERS' is used as a heading and if so, modify to use a heading element or role",
+            "fingerprint": null,
+            "firstSeenAt": null
+          }
+        ]
+      },
+      {
+        "rule": "text_sensory_misuse",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false,
+          "wcagCriteria": [],
+          "conformanceLevel": null
+        },
+        "wcag": {
+          "scs": [],
+          "level": null
+        },
+        "ruleUrl": null,
+        "ruleTitle": null,
+        "pages": {},
+        "totalOccurrences": 2,
+        "examples": [
+          {
+            "url": "https://www.bixal.com",
+            "html": "<div class=\"bix-section__body\">",
+            "xpath": null,
+            "message": "Confirm the word(s) 'right' of the user instruction is used to indicate a logical rather than visual position",
+            "fingerprint": null,
+            "firstSeenAt": null
+          },
+          {
+            "url": "https://www.bixal.com",
+            "html": "<dd>",
+            "xpath": null,
+            "message": "Confirm the user instruction is still understandable without the word(s) 'Small'",
+            "fingerprint": null,
+            "firstSeenAt": null
+          }
+        ]
+      },
+      {
+        "rule": "input_label_visible",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false,
+          "wcagCriteria": [],
+          "conformanceLevel": null
+        },
+        "wcag": {
+          "scs": [],
+          "level": null
+        },
+        "ruleUrl": null,
+        "ruleTitle": null,
+        "pages": {},
+        "totalOccurrences": 2,
+        "examples": [
+          {
+            "url": "https://www.bixal.com",
+            "html": "<textarea required=\"required\" placeholder=\"Want to find out more or interested in doing business with us? type message here…\" cols=\"60\" rows=\"12\" name=\"message[0][value]\" id=\"edit-message-0-value\" data-drupal-selector=\"edit-message-0-value\" class=\"js-text-full text-full form-textarea required resize-vertical bix-input bix-input--textarea usa-textarea\">",
+            "xpath": null,
+            "message": "The ‘placeholder’ is the only visible label",
+            "fingerprint": null,
+            "firstSeenAt": null
+          },
+          {
+            "url": "https://www.bixal.com",
+            "html": "<input aria-describedby=\"edit-submit\" value=\"Submit\" name=\"op\" id=\"edit-submit\" type=\"submit\" data-drupal-selector=\"edit-submit\" class=\"bix-button bix-button--inverse button button--primary js-form-submit form-submit\">",
+            "xpath": null,
+            "message": "The input element does not have an associated visible label",
+            "fingerprint": null,
+            "firstSeenAt": null
+          }
+        ]
+      },
+      {
+        "rule": "landmark-no-duplicate-banner",
+        "engine": "axe",
+        "metadata": {
+          "roles": [
+            "Front-End Developer",
+            "UX Designer"
+          ],
+          "severity": "Moderate",
+          "blocking": false,
+          "wcagCriteria": [],
+          "conformanceLevel": "best-practice",
+          "description": "Ensures the page has only one banner landmark (<header> at top level). Multiple banners confuse screen reader users navigating by landmarks."
+        },
+        "wcag": {
+          "scs": [],
+          "level": null
+        },
+        "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/landmark-no-duplicate-banner?application=playwright",
+        "ruleTitle": null,
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://www.bixal.com",
+            "html": "<div data-sitewide-alert=\"\" role=\"banner\"></div>",
+            "xpath": "div[data-sitewide-alert=\"\"]",
+            "message": "Document should not have more than one banner landmark",
+            "fixSummary": "Fix any of the following:\n  Document has more than one banner landmark",
+            "relatedPaths": [
+              "header"
+            ],
+            "colorScheme": "light",
+            "fingerprint": null,
+            "firstSeenAt": null
+          }
+        ]
+      },
+      {
+        "rule": "landmark-unique",
+        "engine": "axe",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false,
+          "wcagCriteria": [],
+          "conformanceLevel": null
+        },
+        "wcag": {
+          "scs": [],
+          "level": null
+        },
+        "ruleUrl": "https://dequeuniversity.com/rules/axe/4.11/landmark-unique?application=playwright",
+        "ruleTitle": null,
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://www.bixal.com",
+            "html": "<div data-sitewide-alert=\"\" role=\"banner\"></div>",
+            "xpath": "div[data-sitewide-alert=\"\"]",
+            "message": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination",
+            "fixSummary": "Fix any of the following:\n  The landmark must have a unique aria-label, aria-labelledby, or title to make landmarks distinguishable",
+            "relatedPaths": [
+              "header"
+            ],
+            "colorScheme": "light",
+            "fingerprint": null,
+            "firstSeenAt": null
+          }
+        ]
+      },
+      {
+        "rule": "style_color_misuse",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false,
+          "wcagCriteria": [],
+          "conformanceLevel": null
+        },
+        "wcag": {
+          "scs": [],
+          "level": null
+        },
+        "ruleUrl": null,
+        "ruleTitle": null,
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://www.bixal.com",
+            "html": "<link href=\"/sites/default/files/css/css_BeUtjMQF0sP4PdKA9FEO-HyAmUzaICLhMIzZg7TELJ0.css?delta=0&language=en&theme=bixal_uswds&include=eJxVyUEOwjAMRNELhfpI1SQZgYvVVLarBk4PCzasvvR-1Qlbz7h6yN1GhZWGI9sDUhEsbYynMuTXLXyJfBnje5zS_TxgCzbMP0jOhBM3Z-ibJTR5aecKo6forvkBYyIvfw\" media=\"all\" rel=\"stylesheet\">",
+            "xpath": null,
+            "message": "Verify color is not used as the only visual means of conveying information",
+            "fingerprint": null,
+            "firstSeenAt": null
+          }
+        ]
+      },
+      {
+        "rule": "style_highcontrast_visible",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false,
+          "wcagCriteria": [],
+          "conformanceLevel": null
+        },
+        "wcag": {
+          "scs": [],
+          "level": null
+        },
+        "ruleUrl": null,
+        "ruleTitle": null,
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://www.bixal.com",
+            "html": "<link href=\"/sites/default/files/css/css_BeUtjMQF0sP4PdKA9FEO-HyAmUzaICLhMIzZg7TELJ0.css?delta=0&language=en&theme=bixal_uswds&include=eJxVyUEOwjAMRNELhfpI1SQZgYvVVLarBk4PCzasvvR-1Qlbz7h6yN1GhZWGI9sDUhEsbYynMuTXLXyJfBnje5zS_TxgCzbMP0jOhBM3Z-ibJTR5aecKo6forvkBYyIvfw\" media=\"all\" rel=\"stylesheet\">",
+            "xpath": null,
+            "message": "Confirm Windows high contrast mode is supported when using CSS to include, position or alter non-decorative content",
+            "fingerprint": null,
+            "firstSeenAt": null
+          }
+        ]
+      },
+      {
+        "rule": "heading_markup_misuse",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false,
+          "wcagCriteria": [],
+          "conformanceLevel": null
+        },
+        "wcag": {
+          "scs": [],
+          "level": null
+        },
+        "ruleUrl": null,
+        "ruleTitle": null,
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://www.bixal.com",
+            "html": "<h2 class=\"bix-section__title\">",
+            "xpath": null,
+            "message": "Verify that the heading element is a genuine heading",
+            "fingerprint": null,
+            "firstSeenAt": null
+          }
+        ]
+      },
+      {
+        "rule": "frame_src_valid",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false,
+          "wcagCriteria": [],
+          "conformanceLevel": null
+        },
+        "wcag": {
+          "scs": [],
+          "level": null
+        },
+        "ruleUrl": null,
+        "ruleTitle": null,
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://www.bixal.com",
+            "html": "<iframe src=\"https://www.google.com/recaptcha/api2/anchor?ar=1&k=6LfH1LIqAAAAACvGsKyYIZj3f4yHu3DH7jyN2dBX&co=aHR0cHM6Ly93d3cuYml4YWwuY29tOjQ0Mw..&hl=en&type=image&v=qm3PSRIx10pekcnS9DjGnjPW&theme=light&size=normal&anchor-ms=20000&execute-ms=30000&cb=gh4aitod48yq\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox allow-storage-access-by-user-activation\" scrolling=\"no\" frameborder=\"0\" name=\"a-kxuotqt4rw6g\" role=\"presentation\" height=\"78\" width=\"304\" title=\"reCAPTCHA\">",
+            "xpath": null,
+            "message": "Verify <frame> content is accessible",
+            "fingerprint": null,
+            "firstSeenAt": null
+          }
+        ]
+      },
+      {
+        "rule": "aria_role_valid",
+        "engine": "equalAccess",
+        "metadata": {
+          "roles": [
+            "Front-End Developer"
+          ],
+          "severity": "Moderate",
+          "blocking": false,
+          "wcagCriteria": [],
+          "conformanceLevel": null
+        },
+        "wcag": {
+          "scs": [],
+          "level": null
+        },
+        "ruleUrl": null,
+        "ruleTitle": null,
+        "pages": {},
+        "totalOccurrences": 1,
+        "examples": [
+          {
+            "url": "https://www.bixal.com",
+            "html": "<img alt=\"Bixal Logo letter B silhouette around a photo of a smiling child.\" src=\"/static/img-b-footer.png\" loading=\"lazy\" decoding=\"async\" aria-hidden=\"true\" role=\"presentation\">",
+            "xpath": null,
+            "message": "The ARIA role 'presentation' is not valid for the element <img> and may be ignored by the browser since the element is focusable",
+            "fingerprint": null,
+            "firstSeenAt": null
+          }
+        ]
+      }
+    ],
+    "roleStats": {
+      "UX Designer": 11,
+      "Visual Designer": 0,
+      "Content Author": 0,
+      "Front-End Developer": 49
+    },
+    "severityStats": {
+      "Critical": 0,
+      "Serious": 0,
+      "Moderate": 49,
+      "Minor": 0
+    }
+  }
+}
