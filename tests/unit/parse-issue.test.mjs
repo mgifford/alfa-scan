@@ -715,7 +715,9 @@ test("parseScanIssue does NOT trigger crawl mode when body has valid URLs", () =
   assert.ok(result.value.requestedUrls.includes("https://www.example.com/page1"));
 });
 
-test("parseScanIssue does NOT trigger crawl mode for normal title with body URLs", () => {
+test("parseScanIssue triggers crawl mode for normal title with a single body URL", () => {
+  // Mirrors real-world issues like #214 and #216 where the user supplies 1 URL in the body.
+  // Crawl mode should expand a single URL to many via sitemap/link crawl.
   const payload = {
     issue: {
       number: 197,
@@ -729,8 +731,48 @@ test("parseScanIssue does NOT trigger crawl mode for normal title with body URLs
 
   const result = parseScanIssue(payload);
   assert.equal(result.ok, true);
-  assert.equal(result.needsCrawl, false);
+  assert.equal(result.needsCrawl, true, "single body URL should trigger crawl mode");
+  assert.equal(result.crawlBaseUrl, "https://example.com");
+  assert.deepEqual(result.value.requestedUrls, ["https://example.com"]);
+});
+
+test("parseScanIssue does NOT trigger crawl mode for normal title with multiple body URLs", () => {
+  const payload = {
+    issue: {
+      number: 200,
+      html_url: "https://github.com/example/repo/issues/200",
+      title: "SCAN: Example site scan",
+      created_at: "2026-03-01T00:00:00Z",
+      user: { login: "octocat" },
+      body: "# URLs\nhttps://example.com/page1\nhttps://example.com/page2"
+    }
+  };
+
+  const result = parseScanIssue(payload);
+  assert.equal(result.ok, true);
+  assert.equal(result.needsCrawl, false, "multiple body URLs should not trigger crawl mode");
   assert.equal(result.crawlBaseUrl, null);
+  assert.ok(result.value.requestedUrls.includes("https://example.com/page1"));
+});
+
+test("parseScanIssue triggers crawl mode when title is URL and body also has same single URL", () => {
+  // Mirrors real-world issues like #217 and #218 where users provide a URL in both title and body.
+  const payload = {
+    issue: {
+      number: 217,
+      html_url: "https://github.com/mgifford/open-scans/issues/217",
+      title: "SCAN: https://www.maryland.gov/",
+      created_at: "2026-03-25T18:08:57Z",
+      user: { login: "raybell-md" },
+      body: "# URLs\n\nhttps://www.maryland.gov/\n"
+    }
+  };
+
+  const result = parseScanIssue(payload);
+  assert.equal(result.ok, true);
+  assert.equal(result.needsCrawl, true, "single body URL with URL title should trigger crawl mode");
+  assert.equal(result.crawlBaseUrl, "https://www.maryland.gov/", "title URL preferred as crawl base");
+  assert.deepEqual(result.value.requestedUrls, ["https://www.maryland.gov/"]);
 });
 
 test("parseScanIssue crawl mode uses default page count when Page: not specified", () => {
