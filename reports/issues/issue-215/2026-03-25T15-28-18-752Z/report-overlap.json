@@ -1,0 +1,84 @@
+{
+  "generatedAt": "2026-03-25T15:27:32.016Z",
+  "issueNumber": 215,
+  "scanTitle": "https://www.adapt-offshore.org/",
+  "scannersInUse": [
+    "axe",
+    "alfa",
+    "equalAccess",
+    "accesslint",
+    "qualweb"
+  ],
+  "scannerStats": {
+    "axe": {
+      "label": "axe",
+      "failed": 157,
+      "uniqueFailed": 157,
+      "duplicates": 0
+    },
+    "alfa": {
+      "label": "ALFA",
+      "failed": 228,
+      "uniqueFailed": 228,
+      "duplicates": 0
+    },
+    "equalAccess": {
+      "label": "Equal Access",
+      "failed": 129,
+      "uniqueFailed": 112,
+      "duplicates": 17
+    },
+    "accesslint": {
+      "label": "AccessLint",
+      "failed": 12,
+      "uniqueFailed": 12,
+      "duplicates": 0
+    },
+    "qualweb": {
+      "label": "QualWeb",
+      "failed": 7,
+      "uniqueFailed": 7,
+      "duplicates": 0
+    }
+  },
+  "matrix": {
+    "axe": {
+      "axe": 157,
+      "alfa": 0,
+      "equalAccess": 0,
+      "accesslint": 0,
+      "qualweb": 0
+    },
+    "alfa": {
+      "axe": 0,
+      "alfa": 80,
+      "equalAccess": 0,
+      "accesslint": 0,
+      "qualweb": 0
+    },
+    "equalAccess": {
+      "axe": 0,
+      "alfa": 0,
+      "equalAccess": 112,
+      "accesslint": 0,
+      "qualweb": 0
+    },
+    "accesslint": {
+      "axe": 0,
+      "alfa": 0,
+      "equalAccess": 0,
+      "accesslint": 12,
+      "qualweb": 0
+    },
+    "qualweb": {
+      "axe": 0,
+      "alfa": 0,
+      "equalAccess": 0,
+      "accesslint": 0,
+      "qualweb": 1
+    }
+  },
+  "duplicateFindingTotals": 171,
+  "overlapEntryCount": 0,
+  "overlapEntries": []
+}
