@@ -4,6 +4,18 @@ const DEFAULT_CRAWL_TIMEOUT = 30000; // 30 seconds
 const DEFAULT_MAX_URLS = 20;
 const MAX_SITEMAP_URLS = 500;
 
+// Use a Googlebot-style user-agent so sites that block generic bots still allow crawling.
+// Many CDNs and WAFs whitelist well-known crawlers; the project URL in the comment token
+// ensures transparency about the tool's identity.
+const CRAWL_USER_AGENT =
+  "Mozilla/5.0 (compatible; open-scans/1.0; +https://github.com/mgifford/open-scans)";
+
+const CRAWL_HEADERS = {
+  "User-Agent": CRAWL_USER_AGENT,
+  Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+  "Accept-Language": "en-US,en;q=0.5"
+};
+
 /**
  * Creates an AbortController-based timeout signal.
  * @param {number} ms - Timeout in milliseconds
@@ -93,7 +105,7 @@ export function randomSample(items, maxCount) {
 async function fetchOneSitemap(sitemapUrl, timeout) {
   try {
     const response = await fetch(sitemapUrl, {
-      headers: { "user-agent": "open-scans-bot/0.1" },
+      headers: CRAWL_HEADERS,
       signal: createTimeoutSignal(timeout)
     });
     if (!response.ok) return [];
@@ -126,7 +138,7 @@ export async function fetchSitemapUrls(baseUrl, timeout = DEFAULT_CRAWL_TIMEOUT)
 
   try {
     const response = await fetch(sitemapUrl, {
-      headers: { "user-agent": "open-scans-bot/0.1" },
+      headers: CRAWL_HEADERS,
       signal: createTimeoutSignal(timeout)
     });
 
@@ -160,6 +172,59 @@ export async function fetchSitemapUrls(baseUrl, timeout = DEFAULT_CRAWL_TIMEOUT)
 }
 
 /**
+ * Parse sitemap URLs from a robots.txt body.
+ * Extracts all "Sitemap: <url>" directives (case-insensitive).
+ * @param {string} robotsTxt - The robots.txt content
+ * @returns {string[]} Array of sitemap URLs found
+ */
+export function parseRobotsForSitemaps(robotsTxt) {
+  const urls = [];
+  const pattern = /^sitemap:\s*(https?:\/\/\S+)/gim;
+  let match;
+  while ((match = pattern.exec(robotsTxt)) !== null) {
+    urls.push(match[1]);
+  }
+  return urls;
+}
+
+/**
+ * Fetch and parse robots.txt to discover sitemap URLs.
+ * Returns an empty array if robots.txt is not found or has no sitemap directives.
+ *
+ * @param {string} baseUrl - The base URL of the site
+ * @param {number} timeout - Request timeout in milliseconds
+ * @returns {Promise<string[]>} Sitemap URLs found in robots.txt
+ */
+export async function fetchRobotsSitemaps(baseUrl, timeout = DEFAULT_CRAWL_TIMEOUT) {
+  let origin;
+  try {
+    origin = new URL(baseUrl).origin;
+  } catch {
+    return [];
+  }
+  const robotsUrl = `${origin}/robots.txt`;
+  console.error(`[crawl] Checking robots.txt for sitemaps: ${robotsUrl}`);
+
+  try {
+    const response = await fetch(robotsUrl, {
+      headers: CRAWL_HEADERS,
+      signal: createTimeoutSignal(timeout)
+    });
+    if (!response.ok) {
+      console.error(`[crawl] robots.txt not found (${response.status})`);
+      return [];
+    }
+    const text = await response.text();
+    const sitemapUrls = parseRobotsForSitemaps(text);
+    console.error(`[crawl] Found ${sitemapUrls.length} sitemap(s) in robots.txt`);
+    return sitemapUrls;
+  } catch (err) {
+    console.error(`[crawl] Error fetching robots.txt: ${err.message}`);
+    return [];
+  }
+}
+
+/**
  * Fetch a page's HTML and extract same-origin anchor links.
  * Returns an empty array on any error.
  *
@@ -178,7 +243,7 @@ export async function crawlPageLinks(url, timeout = DEFAULT_CRAWL_TIMEOUT) {
 
   try {
     const response = await fetch(url, {
-      headers: { "user-agent": "open-scans-bot/0.1" },
+      headers: CRAWL_HEADERS,
       signal: createTimeoutSignal(timeout)
     });
 
@@ -226,7 +291,8 @@ export async function crawlPageLinks(url, timeout = DEFAULT_CRAWL_TIMEOUT) {
  * Crawl a site for URLs to scan.
  * Strategy:
  *   1. Try fetching {origin}/sitemap.xml — use a random sample if found.
- *   2. Fall back to extracting anchor links from the homepage.
+ *   2. Try sitemaps listed in {origin}/robots.txt — use the first one that yields URLs.
+ *   3. Fall back to extracting anchor links from the homepage.
  * Always includes the base URL itself as the first entry.
  *
  * @param {string} baseUrl - The base URL of the site to crawl
@@ -253,7 +319,25 @@ export async function crawlSiteForUrls(baseUrl, maxUrls = DEFAULT_MAX_URLS, time
     }
   }
 
-  // Step 2: Fall back to crawling the homepage for links
+  // Step 2: Try sitemaps listed in robots.txt
+  console.error(`[crawl] Trying robots.txt for sitemap discovery`);
+  const robotsSitemaps = await fetchRobotsSitemaps(baseUrl, timeout);
+  for (const robotsSitemapUrl of robotsSitemaps) {
+    const urls = await fetchOneSitemap(robotsSitemapUrl, timeout);
+    if (urls.length > 0) {
+      const filtered = filterSameOriginUrls(urls, baseUrl);
+      console.error(`[crawl] robots.txt sitemap ${robotsSitemapUrl}: ${filtered.length} same-origin URLs`);
+      if (filtered.length > 0) {
+        const others = filtered.filter((u) => u !== baseUrl);
+        const sampled = randomSample(others, maxUrls - 1);
+        const result = [baseUrl, ...sampled].slice(0, maxUrls);
+        console.error(`[crawl] Selected ${result.length} URLs from robots.txt sitemap`);
+        return result;
+      }
+    }
+  }
+
+  // Step 3: Fall back to crawling the homepage for links
   console.error(`[crawl] Falling back to page crawl`);
   const pageUrls = await crawlPageLinks(baseUrl, timeout);
 

@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { parseSitemapXml, filterSameOriginUrls, randomSample } from "../../scanner/crawl-urls.mjs";
+import { parseSitemapXml, filterSameOriginUrls, randomSample, parseRobotsForSitemaps } from "../../scanner/crawl-urls.mjs";
 
 // --- parseSitemapXml ---
 
@@ -130,4 +130,53 @@ test("randomSample returns a copy and does not modify original", () => {
 test("randomSample returns empty array for empty input", () => {
   const result = randomSample([], 5);
   assert.deepEqual(result, []);
+});
+
+// --- parseRobotsForSitemaps ---
+
+test("parseRobotsForSitemaps extracts sitemap URLs from robots.txt", () => {
+  const robots = [
+    "User-agent: *",
+    "Disallow: /private/",
+    "",
+    "Sitemap: https://example.com/sitemap.xml",
+    "Sitemap: https://example.com/sitemap-news.xml"
+  ].join("\n");
+  const result = parseRobotsForSitemaps(robots);
+  assert.deepEqual(result, [
+    "https://example.com/sitemap.xml",
+    "https://example.com/sitemap-news.xml"
+  ]);
+});
+
+test("parseRobotsForSitemaps is case-insensitive for the Sitemap: directive", () => {
+  const robots = [
+    "SITEMAP: https://example.com/sitemap.xml",
+    "sitemap: https://example.com/other.xml"
+  ].join("\n");
+  const result = parseRobotsForSitemaps(robots);
+  assert.deepEqual(result, [
+    "https://example.com/sitemap.xml",
+    "https://example.com/other.xml"
+  ]);
+});
+
+test("parseRobotsForSitemaps returns empty array when no sitemaps are listed", () => {
+  const robots = "User-agent: *\nDisallow: /admin/\n";
+  const result = parseRobotsForSitemaps(robots);
+  assert.deepEqual(result, []);
+});
+
+test("parseRobotsForSitemaps returns empty array for empty input", () => {
+  assert.deepEqual(parseRobotsForSitemaps(""), []);
+});
+
+test("parseRobotsForSitemaps ignores non-http sitemap entries", () => {
+  const robots = [
+    "Sitemap: https://example.com/sitemap.xml",
+    "Sitemap: ftp://example.com/other.xml"
+  ].join("\n");
+  const result = parseRobotsForSitemaps(robots);
+  // Only the https URL should be returned
+  assert.deepEqual(result, ["https://example.com/sitemap.xml"]);
 });
