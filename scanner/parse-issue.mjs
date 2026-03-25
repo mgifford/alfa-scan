@@ -250,19 +250,25 @@ export function parseScanIssue(issueEvent) {
   }
 
   // Determine if crawl mode is needed.
-  // This occurs when the scan title is itself a valid URL (e.g. "SCAN: https://example.com/")
-  // and no valid HTTP/HTTPS URLs were found in the issue body.
-  // In crawl mode, the scanner will discover URLs via sitemap.xml or page crawl before scanning.
+  // Crawl mode triggers when only a single URL is available to scan, so the scanner
+  // can discover more URLs via sitemap.xml or page crawl before running accessibility checks.
+  // This covers two cases:
+  //   1. The scan title is itself a URL and the body has no URLs (original behavior).
+  //   2. Exactly one valid URL is provided in the body (new: expand single-URL submissions).
+  // When multiple URLs are provided in the body, the user has explicitly chosen the URL list
+  // and crawl mode does not apply.
   const scanTitleIsUrl = validateUriLike(titleInfo.scanTitle);
-  const hasValidBodyUrls = requestedUrls.some((v) => validateUriLike(v));
-  const needsCrawl = scanTitleIsUrl && !hasValidBodyUrls;
+  const validBodyUrls = requestedUrls.filter((v) => validateUriLike(v));
+  const needsCrawl = validBodyUrls.length <= 1 && (scanTitleIsUrl || validBodyUrls.length === 1);
 
   let crawlBaseUrl = null;
   let crawlPageCount = null;
   let finalRequestedUrls = requestedUrls;
 
   if (needsCrawl) {
-    crawlBaseUrl = titleInfo.scanTitle;
+    // Prefer the title URL as the crawl base when the title is a URL (it represents the
+    // site root); otherwise fall back to the single body URL.
+    crawlBaseUrl = scanTitleIsUrl ? titleInfo.scanTitle : validBodyUrls[0];
     crawlPageCount = extractPageCount(urlsSection);
     // Use the base URL as the sole requested URL so schema validation passes.
     // run-scan.mjs will replace this list with the crawled URLs before scanning.
