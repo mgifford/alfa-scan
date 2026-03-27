@@ -58,17 +58,16 @@ jobs:
           mkdir -p .scan-output
           node scanner/run-scan.mjs .tmp/issue-event.json .scan-output > .scan-output/meta.json
         # GITHUB_TOKEN is provided so that the REMEDIATE keyword can call GitHub Models API.
-        # Timeout environment variables can be uncommented and adjusted as needed:
+        # Additional timeout environment variables can be added inside the env block below:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        # env:
-        #   FETCH_TIMEOUT_MS: "30000"           # 30s for initial HTTP fetch
-        #   PER_URL_TIMEOUT_MS: "60000"         # 60s per URL total
-        #   TOTAL_SCAN_TIMEOUT_MS: "3000000"    # 50min total scan time
-        #   ALFA_PAGE_TIMEOUT_MS: "30000"       # 30s ALFA page load
-        #   ALFA_COMMAND_TIMEOUT_MS: "180000"   # 3min ALFA command execution
-        #   PLAYWRIGHT_NAV_TIMEOUT_MS: "30000"  # 30s Playwright navigation
-        #   PLAYWRIGHT_LAUNCH_TIMEOUT_MS: "30000" # 30s Playwright browser launch
+          # FETCH_TIMEOUT_MS: "30000"           # 30s for initial HTTP fetch
+          # PER_URL_TIMEOUT_MS: "60000"         # 60s per URL total
+          # TOTAL_SCAN_TIMEOUT_MS: "3000000"    # 50min total scan time
+          # ALFA_PAGE_TIMEOUT_MS: "30000"       # 30s ALFA page load
+          # ALFA_COMMAND_TIMEOUT_MS: "180000"   # 3min ALFA command execution
+          # PLAYWRIGHT_NAV_TIMEOUT_MS: "30000"  # 30s Playwright navigation
+          # PLAYWRIGHT_LAUNCH_TIMEOUT_MS: "30000" # 30s Playwright browser launch
 
       - name: Read scan metadata
         id: meta
