@@ -76,6 +76,19 @@ This document defines:
 - Testing requirements and quality gates
 - Trusted accessibility resources
 
+## Prompt Files for Common Tasks
+
+The `.github/prompts/` directory contains task-specific prompt files that give AI agents deep accessibility context for the most common development tasks in this project. Reference the appropriate file when starting a new task:
+
+| Prompt file | When to use |
+|---|---|
+| [`new-scanner-rule.prompt.md`](.github/prompts/new-scanner-rule.prompt.md) | Adding a new rule entry to `rule-metadata.mjs` for any of the five engines |
+| [`report-template.prompt.md`](.github/prompts/report-template.prompt.md) | Creating or modifying HTML report templates in `interactive-report.mjs` or `generate-reports-html.mjs` |
+| [`fix-accessibility-violation.prompt.md`](.github/prompts/fix-accessibility-violation.prompt.md) | Fixing a specific WCAG violation found in a scan report |
+| [`write-scan-test.prompt.md`](.github/prompts/write-scan-test.prompt.md) | Writing unit tests for scanner modules in `tests/unit/` |
+
+These prompt files encode accessibility expertise — WCAG criteria, ARIA patterns, colour contrast rules, and project-specific conventions — so that AI agents generate correct, accessible output on the first attempt.
+
 ## Tool-Specific Instructions
 
 ### GitHub Copilot
