@@ -1,0 +1,54 @@
+{
+  "generatedAt": "2026-03-27T09:15:16.434Z",
+  "issueNumber": 216,
+  "scanTitle": "Bixal Accessibility Scan",
+  "scannersInUse": [
+    "axe",
+    "alfa"
+  ],
+  "scannerStats": {
+    "axe": {
+      "label": "axe",
+      "failed": 287,
+      "uniqueFailed": 287,
+      "duplicates": 0
+    },
+    "alfa": {
+      "label": "ALFA",
+      "failed": 729,
+      "uniqueFailed": 729,
+      "duplicates": 0
+    },
+    "equalAccess": {
+      "label": "Equal Access",
+      "failed": 0,
+      "uniqueFailed": 0,
+      "duplicates": 0
+    },
+    "accesslint": {
+      "label": "AccessLint",
+      "failed": 0,
+      "uniqueFailed": 0,
+      "duplicates": 0
+    },
+    "qualweb": {
+      "label": "QualWeb",
+      "failed": 0,
+      "uniqueFailed": 0,
+      "duplicates": 0
+    }
+  },
+  "matrix": {
+    "axe": {
+      "axe": 247,
+      "alfa": 0
+    },
+    "alfa": {
+      "axe": 0,
+      "alfa": 137
+    }
+  },
+  "duplicateFindingTotals": 632,
+  "overlapEntryCount": 0,
+  "overlapEntries": []
+}
