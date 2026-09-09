@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-09-09T05:18:30.129Z",
+  "issueNumber": 62,
+  "scanTitle": "Barcelona.cat",
+  "scannersInUse": [
+    "axe",
+    "qualweb"
+  ],
+  "scannerStats": {
+    "axe": {
+      "label": "axe",
+      "failed": 2740,
+      "uniqueFailed": 2740,
+      "duplicates": 0
+    },
+    "alfa": {
+      "label": "ALFA",
+      "failed": 0,
+      "uniqueFailed": 0,
+      "duplicates": 0
+    },
+    "equalAccess": {
+      "label": "Equal Access",
+      "failed": 0,
+      "uniqueFailed": 0,
+      "duplicates": 0
+    },
+    "accesslint": {
+      "label": "AccessLint",
+      "failed": 0,
+      "uniqueFailed": 0,
+      "duplicates": 0
+    },
+    "qualweb": {
+      "label": "QualWeb",
+      "failed": 4445,
+      "uniqueFailed": 4445,
+      "duplicates": 0
+    }
+  },
+  "matrix": {
+    "axe": {
+      "axe": 2625,
+      "qualweb": 0
+    },
+    "qualweb": {
+      "axe": 0,
+      "qualweb": 243
+    }
+  },
+  "duplicateFindingTotals": 4280,
+  "overlapEntryCount": 0,
+  "overlapEntries": [],
+  "actConsensusEntryCount": 0,
+  "actConsensusEntries": []
+}

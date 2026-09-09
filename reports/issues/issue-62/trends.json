@@ -3,43 +3,6 @@
   "diffs": [
     {
       "from": {
-        "scannedAt": "2026-08-05T01:28:09.587Z",
-        "totals": {
-          "alfa": 0,
-          "axe": 2786,
-          "equalAccess": 0,
-          "qualweb": 4558,
-          "accesslint": 0,
-          "combined": 7344,
-          "scannedAt": "2026-08-05T01:28:09.587Z",
-          "scannedCount": 100
-        }
-      },
-      "to": {
-        "scannedAt": "2026-08-12T03:23:50.030Z",
-        "totals": {
-          "alfa": 0,
-          "axe": 2785,
-          "equalAccess": 18142,
-          "qualweb": 0,
-          "accesslint": 0,
-          "combined": 20927,
-          "scannedAt": "2026-08-12T03:23:50.030Z",
-          "scannedCount": 100
-        }
-      },
-      "change": 13583,
-      "trend": "worsening",
-      "perScanner": {
-        "alfa": 0,
-        "axe": -1,
-        "equalAccess": 18142,
-        "qualweb": -4558,
-        "accesslint": 0
-      }
-    },
-    {
-      "from": {
         "scannedAt": "2026-08-12T03:23:50.030Z",
         "totals": {
           "alfa": 0,
@@ -148,23 +111,47 @@
         "qualweb": 4465,
         "accesslint": -1610
       }
+    },
+    {
+      "from": {
+        "scannedAt": "2026-09-02T05:10:48.014Z",
+        "totals": {
+          "alfa": 0,
+          "axe": 2742,
+          "equalAccess": 0,
+          "qualweb": 4465,
+          "accesslint": 0,
+          "combined": 7207,
+          "scannedAt": "2026-09-02T05:10:48.014Z",
+          "scannedCount": 100
+        }
+      },
+      "to": {
+        "scannedAt": "2026-09-09T05:18:29.820Z",
+        "totals": {
+          "alfa": 0,
+          "axe": 2740,
+          "equalAccess": 0,
+          "qualweb": 4445,
+          "accesslint": 0,
+          "combined": 7185,
+          "scannedAt": "2026-09-09T05:18:29.820Z",
+          "scannedCount": 100
+        }
+      },
+      "change": -22,
+      "trend": "improving",
+      "perScanner": {
+        "alfa": 0,
+        "axe": -2,
+        "equalAccess": 0,
+        "qualweb": -20,
+        "accesslint": 0
+      }
     }
   ],
   "latestDiff": {
     "from": {
-      "scannedAt": "2026-08-26T02:43:04.097Z",
-      "totals": {
-        "alfa": 0,
-        "axe": 2296,
-        "equalAccess": 0,
-        "qualweb": 0,
-        "accesslint": 1610,
-        "combined": 3906,
-        "scannedAt": "2026-08-26T02:43:04.097Z",
-        "scannedCount": 83
-      }
-    },
-    "to": {
       "scannedAt": "2026-09-02T05:10:48.014Z",
       "totals": {
         "alfa": 0,
@@ -177,37 +164,50 @@
         "scannedCount": 100
       }
     },
-    "change": 3301,
-    "trend": "worsening",
+    "to": {
+      "scannedAt": "2026-09-09T05:18:29.820Z",
+      "totals": {
+        "alfa": 0,
+        "axe": 2740,
+        "equalAccess": 0,
+        "qualweb": 4445,
+        "accesslint": 0,
+        "combined": 7185,
+        "scannedAt": "2026-09-09T05:18:29.820Z",
+        "scannedCount": 100
+      }
+    },
+    "change": -22,
+    "trend": "improving",
     "perScanner": {
       "alfa": 0,
-      "axe": 446,
+      "axe": -2,
       "equalAccess": 0,
-      "qualweb": 4465,
-      "accesslint": -1610
+      "qualweb": -20,
+      "accesslint": 0
     }
   },
-  "overallTrend": "worsening",
-  "improvingCount": 1,
-  "worseningCount": 3,
+  "overallTrend": "improving",
+  "improvingCount": 2,
+  "worseningCount": 2,
   "latestTotals": {
     "alfa": 0,
-    "axe": 2742,
+    "axe": 2740,
     "equalAccess": 0,
-    "qualweb": 4465,
+    "qualweb": 4445,
     "accesslint": 0,
-    "combined": 7207,
-    "scannedAt": "2026-09-02T05:10:48.014Z",
+    "combined": 7185,
+    "scannedAt": "2026-09-09T05:18:29.820Z",
     "scannedCount": 100
   },
   "baselineTotals": {
     "alfa": 0,
-    "axe": 2786,
-    "equalAccess": 0,
-    "qualweb": 4558,
+    "axe": 2785,
+    "equalAccess": 18142,
+    "qualweb": 0,
     "accesslint": 0,
-    "combined": 7344,
-    "scannedAt": "2026-08-05T01:28:09.587Z",
+    "combined": 20927,
+    "scannedAt": "2026-08-12T03:23:50.030Z",
     "scannedCount": 100
   },
   "latestSystemicPatterns": [
@@ -261,7 +261,7 @@
     },
     {
       "ruleId": "axe:image-alt",
-      "pageCount": 88,
+      "pageCount": 86,
       "pages": [
         "https://www.barcelona.cat/ca",
         "https://www.barcelona.cat/en/living-in-bcn/accessibility",
